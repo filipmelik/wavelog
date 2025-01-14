@@ -831,7 +831,16 @@ function showActivatorsMap(call, count, grids) {
               var grid = "No";
             <?php } ?>
             
-            <?php printf("var dashboard_qso_count = '%d';", Dashboard::LAST_QSOS_COUNT) ?>
+            <?php
+              // TODO duplicated BLOCK no 4
+              $last_qso_count_opt=$this->user_options_model->get_options('dashboard', array('option_name'=>'last_qso_count','option_key'=>'count'), $this->uri->segment(3))->result();
+              if (count($last_qso_count_opt)>0) {
+                  $last_qso_count = $last_qso_count_opt[0]->option_value;
+              } else {
+                  $last_qso_count = 10; // TODO this should be constant and also used on dasboard page in case user is upgrading from previous version!
+              }
+            ?>
+            <?php printf("var dashboard_qso_count = '%d';", $last_qso_count) ?>
             initmap(grid,'map',{'dataPost':{'nb_qso': dashboard_qso_count}});
 
             <?php if ($is_first_login ?? false) : ?>

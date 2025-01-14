@@ -254,7 +254,16 @@ function getDistance($distance) {
 		</table>
 	</div>
 	<small class="mb-3 me-2" style="float: right;">
-		<?= sprintf(__("Max. %d previous contacts are shown"), Dashboard::LAST_QSOS_COUNT) ?>
+		<?php
+			// TODO duplicated BLOCK no 2
+			$last_qso_count_opt=$this->user_options_model->get_options('dashboard', array('option_name'=>'last_qso_count','option_key'=>'count'), $this->uri->segment(3))->result();
+			if (count($last_qso_count_opt)>0) {
+				$last_qso_count = $last_qso_count_opt[0]->option_value;
+			} else {
+				$last_qso_count = 10; // TODO this should be "DEFAULT_QSO_COUNT" constant
+			}
+		?>
+		<?= sprintf(__("Max. %d previous contacts are shown"), $last_qso_count) ?>
 	</small>
   </div>
 

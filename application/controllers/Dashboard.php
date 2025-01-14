@@ -3,6 +3,8 @@
 class Dashboard extends CI_Controller {
 
 	const LAST_QSOS_COUNT = 18; // max number of most recent qsos to be displayed on a dashboard
+	const DEFAULT_QSOS_COUNT = 20; // TODO DO I NEED THIS? SHOULD IT COME FROM GLOBAL SETTTINGS OR SIMILAR?
+	const MAX_QSOS_COUNT_LIMIT = 50; 
 
 	public function index()
 	{
@@ -116,10 +118,14 @@ class Dashboard extends CI_Controller {
 		$data['qrz_sent_today'] = $QSLStatsBreakdownArray['QRZ_Sent_today'];
 		$data['qrz_rcvd_today'] = $QSLStatsBreakdownArray['QRZ_Received_today'];
 
-		$data['last_qsos_list'] = $this->logbook_model->get_last_qsos(
-			Dashboard::LAST_QSOS_COUNT, 
-			$logbooks_locations_array,
-		);
+		// TODO duplicated BLOCK no 1
+		$last_qso_count_opt=$this->user_options_model->get_options('dashboard', array('option_name'=>'last_qso_count','option_key'=>'count'), $this->uri->segment(3))->result();
+		if (count($last_qso_count_opt)>0) {
+			$last_qso_count = $last_qso_count_opt[0]->option_value;
+		} else {
+			$last_qso_count = 10; // TODO this should be "DEFAULT_QSO_COUNT" constant
+		}
+		$data['last_qsos_list'] = $this->logbook_model->get_last_qsos($last_qso_count, $logbooks_locations_array);
 
 		$data['vucc'] = $this->vucc->fetchVuccSummary();
 		$data['vuccSAT'] = $this->vucc->fetchVuccSummary('SAT');

@@ -342,9 +342,16 @@ class User extends CI_Controller {
 		// Get timezones
 		$data['timezones'] = $this->user_model->timezones();
 
+		// TODO the commented code on line below triggers 
+		//  Exception: Class "Dashboard" not found /srv/app/application/controllers/User.php 347
+		//  hence the question: where should I put this constant to be available among all relevant places?
+		$dashboard_last_qso_count_limit = 50; // \Dashboard::MAX_QSOS_COUNT_LIMIT;
+		$data['dashboard_last_qso_count_limit'] = $dashboard_last_qso_count_limit; 
+
 		if ($this->form_validation->run() == FALSE)
 		{
-			$data['page_title'] = __("Edit User");
+			// Prepare data and render the user options view
+			$data['page_title'] = __("Edit User"); // TODO this line will be pulled out as it is duplicated in both branches of if statement
 
 			$q = $query->row();
 
@@ -721,10 +728,23 @@ class User extends CI_Controller {
 			$data['user_locations_quickswitch'] = ($this->user_options_model->get_options('header_menu', array('option_name'=>'locations_quickswitch'), $this->uri->segment(3))->row()->option_value ?? 'false');
 			$data['user_utc_headermenu'] = ($this->user_options_model->get_options('header_menu', array('option_name'=>'utc_headermenu'), $this->uri->segment(3))->row()->option_value ?? 'false');
 
+			if($this->input->post('user_dashboard_last_qso_count', true)) {
+				$data['user_dashboard_last_qso_count'] = $this->input->post('user_dashboard_last_qso_count', true);
+			} else {
+				// TODO duplicated BLOCK no 3
+				$last_qso_count_opt=$this->user_options_model->get_options('dashboard', array('option_name'=>'last_qso_count','option_key'=>'count'), $this->uri->segment(3))->result();
+				if (count($last_qso_count_opt)>0) {
+					$data['user_dashboard_last_qso_count'] = $last_qso_count_opt[0]->option_value;
+				} else {
+					$data['user_dashboard_last_qso_count'] = 10; // TODO this should be "DEFAULT_QSO_COUNT" constant and also used on main dasboard page for case when user is upgrading from previous version, since this setting does not exist yet in DB
+				}
+			}
+
 			$this->load->view('interface_assets/header', $data);
 			$this->load->view('user/edit', $data);
 			$this->load->view('interface_assets/footer', $footerData);
 		} else {
+			// Data was submitted for saving - save updated options in DB  
 			unset($data);
 			switch($this->user_model->edit($this->input->post())) {
 				// Check for errors
@@ -778,6 +798,8 @@ class User extends CI_Controller {
 					return;
 			}
 			$data['page_title'] = __("Edit User");
+
+			// TODO hardlimit to predefined constant here and save afterwards
 
 			$this->load->view('interface_assets/header', $data);
 			$data['user_name'] = $this->input->post('user_name', true);
