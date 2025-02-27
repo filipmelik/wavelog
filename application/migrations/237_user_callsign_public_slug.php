@@ -51,6 +51,7 @@ class Migration_user_callsign_public_slug extends CI_Migration {
     {
         if ($this->db->field_exists('slug', 'users')) {
             $this->dbforge->drop_column('users', 'slug');
+            $this->db->query("ALTER TABLE `users` DROP INDEX `user_slug_unique`");
         }
     }
 }
