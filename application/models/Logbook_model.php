@@ -3335,6 +3335,50 @@ class Logbook_model extends CI_Model {
 		return $query;
 	}
 
+	function get_grids_worked_in_logbook($StationLocationsArray = null, $band = null, $cnfm = null) {
+
+		if ($StationLocationsArray == null) {
+			$this->load->model('logbooks_model');
+			$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
+		} else {
+			$logbooks_locations_array = $StationLocationsArray;
+		}
+
+		switch ($cnfm) {
+			case 'qsl':
+				$this->db->select('COL_QSL_RCVD as gridorcnfm');
+				$this->db->group_by('COL_QSL_RCVD');
+				break;
+			case 'lotw':
+				$this->db->select('COL_LOTW_QSL_RCVD as gridorcnfm');
+				$this->db->group_by('COL_LOTW_QSL_RCVD');
+				break;
+			case 'eqsl':
+				$this->db->select('COL_EQSL_QSL_RCVD as gridorcnfm');
+				$this->db->group_by('COL_EQSL_QSL_RCVD');
+				break;
+			default:
+				$this->db->select('SUBSTR(COL_GRIDSQUARE,1 ,4) as gridorcnfm');
+				$this->db->group_by('gridorcnfm');
+				break;
+		}
+		$this->db->order_by('gridorcnfm');
+		$this->db->where_in('station_id', $logbooks_locations_array);
+
+		$band = ($band == 'All') ? null : $band;
+		if ($band != null && $band != 'SAT') {
+			$this->db->where('COL_BAND', $band);
+		} else if ($band == 'SAT') {
+			$this->db->where('COL_SAT_NAME !=', '');
+		}
+		$this->db->having('gridorcnfm !=', '');
+		$this->db->having('gridorcnfm is not null');
+
+		$query = $this->db->get($this->config->item('table_name'));
+
+		return $query;
+	}
+
 	/* Get all QSOs with a valid grid for use in the KML export */
 	function kml_get_all_qsos($band, $mode, $dxcc, $cqz, $propagation, $fromdate, $todate) {
 		$this->load->model('logbooks_model');
