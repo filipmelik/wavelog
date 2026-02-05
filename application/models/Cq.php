@@ -15,30 +15,37 @@ class CQ extends CI_Model{
 
 		$qsl = $this->genfunctions->gen_qsl_from_postdata($postdata);
 
+		// Initialize all bands to dash
 		foreach ($bands as $band) {
 			for ($i = 1; $i <= 40; $i++) {
 				$bandCq[$i][$band] = '-';                  // Sets all to dash to indicate no result
 			}
+		}
 
-			if ($postdata['worked'] != NULL) {
-				$cqBand = $this->getCQWorked($location_list, $band, $postdata);
-				foreach ($cqBand as $line) {
-					$bandCq[$line->col_cqz][$band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $line->col_cqz) . '","' . $band . '","All", "All","'. $postdata['mode'] . '","CQZone","")\'>W</a></div>';
-					$cqZ[$line->col_cqz]['count']++;
-				}
+		// Get all worked zones for all bands in ONE query
+		if ($postdata['worked'] != NULL) {
+			$cqBand = $this->getCQWorkedAllBands($location_list, $bands, $postdata);
+			foreach ($cqBand as $line) {
+				$band = $line->col_band;
+				$bandCq[$line->col_cqz][$band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $line->col_cqz) . '","' . $band . '","All", "All","'. $postdata['mode'] . '","CQZone","")\'>W</a></div>';
+				$cqZ[$line->col_cqz]['count']++;
 			}
-			if ($postdata['confirmed'] != NULL) {
-				$cqBand = $this->getCQConfirmed($location_list, $band, $postdata);
-				foreach ($cqBand as $line) {
-					$bandCq[$line->col_cqz][$band] = '<div class="bg-success awardsBgSuccess"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $line->col_cqz) . '","' . $band . '","All", "All","'. $postdata['mode'] . '","CQZone","'.$qsl.'")\'>C</a></div>';
-					$cqZ[$line->col_cqz]['count']++;
-				}
+		}
+
+		// Get all confirmed zones for all bands in ONE query
+		if ($postdata['confirmed'] != NULL) {
+			$cqBand = $this->getCQConfirmedAllBands($location_list, $bands, $postdata);
+			foreach ($cqBand as $line) {
+				$band = $line->col_band;
+				$bandCq[$line->col_cqz][$band] = '<div class="bg-success awardsBgSuccess"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $line->col_cqz) . '","' . $band . '","All", "All","'. $postdata['mode'] . '","CQZone","'.$qsl.'")\'>C</a></div>';
+				$cqZ[$line->col_cqz]['count']++;
 			}
 		}
 
 		// We want to remove the worked zones in the list, since we do not want to display them
 		if ($postdata['worked'] == NULL) {
-			$cqBand = $this->getCQWorked($location_list, $postdata['band'], $postdata);
+			// Use optimized query for all bands at once
+			$cqBand = $this->getCQWorkedAllBands($location_list, $bands, $postdata);
 			foreach ($cqBand as $line) {
 				unset($bandCq[$line->col_cqz]);
 			}
@@ -46,7 +53,8 @@ class CQ extends CI_Model{
 
 		// We want to remove the confirmed zones in the list, since we do not want to display them
 		if ($postdata['confirmed'] == NULL) {
-			$cqBand = $this->getCQConfirmed($location_list, $postdata['band'], $postdata);
+			// Use optimized query for all bands at once
+			$cqBand = $this->getCQConfirmedAllBands($location_list, $bands, $postdata);
 			foreach ($cqBand as $line) {
 				unset($bandCq[$line->col_cqz]);
 			}
@@ -161,18 +169,130 @@ class CQ extends CI_Model{
 
 
 	/*
-	 * Function gets worked and confirmed summary on each band on the active stationprofile
+	 * Function returns all worked (but not confirmed) states for ALL bands in one query
+	 * Returns both col_cqz and col_band to avoid N+1 queries
 	 */
-	function get_cq_summary($bands, $postdata, $location_list) {
-		foreach ($bands as $band) {
-			$worked = $this->getSummaryByBand($band, $postdata, $location_list);
-			$confirmed = $this->getSummaryByBandConfirmed($band, $postdata, $location_list);
-			$cqSummary['worked'][$band] = $worked[0]->count;
-			$cqSummary['confirmed'][$band] = $confirmed[0]->count;
+	function getCQWorkedAllBands($location_list, $bands, $postdata) {
+		$bindings=[];
+		$sql = "SELECT DISTINCT col_cqz, col_band FROM " . $this->config->item('table_name') . " thcv
+			WHERE station_id IN (" . $location_list . ")
+			AND col_cqz <= 40 AND col_cqz <> ''
+			AND col_band IN ('" . implode("','", $bands) . "')";
+
+		if ($postdata['mode'] != 'All') {
+			$sql .= " AND (col_mode = ? OR col_submode = ?)";
+			$bindings[]=$postdata['mode'];
+			$bindings[]=$postdata['mode'];
 		}
 
-		$workedTotal = $this->getSummaryByBand($postdata['band'], $postdata, $location_list);
-		$confirmedTotal = $this->getSummaryByBandConfirmed($postdata['band'], $postdata, $location_list);
+		if ($postdata['datefrom'] != NULL) {
+			$sql .= " AND col_time_on >= ?";
+			$bindings[]=$postdata['datefrom'] . ' 00:00:00';
+		}
+
+		if ($postdata['dateto'] != NULL) {
+			$sql .= " AND col_time_on <= ?";
+			$bindings[]=$postdata['dateto'] . ' 23:59:59';
+		}
+
+		$sql .= " AND col_prop_mode != 'SAT'";
+
+		// Optimized NOT IN subquery instead of NOT EXISTS
+		/*$sql .= " AND col_cqz NOT IN (
+			SELECT col_cqz FROM " . $this->config->item('table_name') . "
+			WHERE station_id IN (" . $location_list . ")
+			AND col_cqz <> ''
+			AND col_band IN ('" . implode("','", $bands) . "')
+			AND col_prop_mode != 'SAT'";
+
+		if ($postdata['mode'] != 'All') {
+			$sql .= " AND (col_mode = ? OR col_submode = ?)";
+			$bindings[]=$postdata['mode'];
+			$bindings[]=$postdata['mode'];
+		}
+
+		if ($postdata['datefrom'] != NULL) {
+			$sql .= " AND col_time_on >= ?";
+			$bindings[]=$postdata['datefrom'] . ' 00:00:00';
+		}
+
+		if ($postdata['dateto'] != NULL) {
+			$sql .= " AND col_time_on <= ?";
+			$bindings[]=$postdata['dateto'] . ' 23:59:59';
+		}
+
+		$sql .= $this->genfunctions->addQslToQuery($postdata);
+
+		$sql .= ")";*/
+
+		$query = $this->db->query($sql,$bindings);
+
+		return $query->result();
+	}
+
+	/*
+	 * Function returns all confirmed states for ALL bands in one query
+	 * Returns both col_cqz and col_band to avoid N+1 queries
+	 */
+	function getCQConfirmedAllBands($location_list, $bands, $postdata) {
+		$bindings=[];
+		$sql = "SELECT DISTINCT col_cqz, col_band FROM " . $this->config->item('table_name') . " thcv
+			WHERE station_id IN (" . $location_list . ")
+			AND col_cqz <= 40 AND col_cqz <> ''
+			AND col_band IN ('" . implode("','", $bands) . "')";
+
+		if ($postdata['mode'] != 'All') {
+			$sql .= " AND (col_mode = ? OR col_submode = ?)";
+			$bindings[]=$postdata['mode'];
+			$bindings[]=$postdata['mode'];
+		}
+
+		if ($postdata['datefrom'] != NULL) {
+			$sql .= " AND col_time_on >= ?";
+			$bindings[]=$postdata['datefrom'] . ' 00:00:00';
+		}
+
+		if ($postdata['dateto'] != NULL) {
+			$sql .= " AND col_time_on <= ?";
+			$bindings[]=$postdata['dateto'] . ' 23:59:59';
+		}
+
+		$sql .= " AND col_prop_mode != 'SAT'";
+
+		$sql .= $this->genfunctions->addQslToQuery($postdata);
+
+		$query = $this->db->query($sql,$bindings);
+
+		return $query->result();
+	}
+
+	/*
+	 * Function gets worked and confirmed summary on each band on the active stationprofile
+	 * Optimized to use just 2 queries instead of N queries per band
+	 */
+	function get_cq_summary($bands, $postdata, $location_list) {
+		$bandslots = $this->bands->get_worked_bands('cq');
+
+		foreach ($bandslots as $band) {
+			$cqSummary['worked'][$band] = '-';
+			$cqSummary['confirmed'][$band] = '-';
+		}
+
+		// Get all worked counts in ONE query
+		$workedAll = $this->getSummaryByBandAllBands($bands, $postdata, $location_list, $bandslots);
+		foreach ($workedAll as $row) {
+			$cqSummary['worked'][$row->col_band] = $row->count;
+		}
+
+		// Get all confirmed counts in ONE query
+		$confirmedAll = $this->getSummaryByBandConfirmedAllBands($bands, $postdata, $location_list, $bandslots);
+		foreach ($confirmedAll as $row) {
+			$cqSummary['confirmed'][$row->col_band] = $row->count;
+		}
+
+
+		$workedTotal = $this->getSummaryByBand($postdata['band'], $postdata, $location_list, $bandslots);
+		$confirmedTotal = $this->getSummaryByBandConfirmed($postdata['band'], $postdata, $location_list, $bandslots);
 
 		$cqSummary['worked']['Total'] = $workedTotal[0]->count;
 		$cqSummary['confirmed']['Total'] = $confirmedTotal[0]->count;
@@ -180,7 +300,7 @@ class CQ extends CI_Model{
 		return $cqSummary;
 	}
 
-	function getSummaryByBand($band, $postdata, $location_list) {
+	function getSummaryByBand($band, $postdata, $location_list, $bandslots) {
 		$bindings=[];
 		$sql = "SELECT count(distinct thcv.col_cqz) as count FROM " . $this->config->item('table_name') . " thcv";
 
@@ -192,7 +312,7 @@ class CQ extends CI_Model{
 		} else if ($band == 'All') {
 			$this->load->model('bands');
 
-			$bandslots = $this->bands->get_worked_bands('cq');
+			// $bandslots = $this->bands->get_worked_bands('cq');
 
 			$bandslots_list = "'".implode("','",$bandslots)."'";
 
@@ -225,7 +345,7 @@ class CQ extends CI_Model{
 		return $query->result();
 	}
 
-	function getSummaryByBandConfirmed($band, $postdata, $location_list){
+	function getSummaryByBandConfirmed($band, $postdata, $location_list, $bandslots){
 		$bindings=[];
 		$sql = "SELECT count(distinct thcv.col_cqz) as count FROM " . $this->config->item('table_name') . " thcv";
 
@@ -237,7 +357,7 @@ class CQ extends CI_Model{
 		} else if ($band == 'All') {
 			$this->load->model('bands');
 
-			$bandslots = $this->bands->get_worked_bands('cq');
+			// $bandslots = $this->bands->get_worked_bands('cq');
 
 			$bandslots_list = "'".implode("','",$bandslots)."'";
 
@@ -266,6 +386,78 @@ class CQ extends CI_Model{
 		}
 
 		$sql .= $this->genfunctions->addQslToQuery($postdata);
+
+		$query = $this->db->query($sql,$bindings);
+
+		return $query->result();
+	}
+
+	/*
+	 * Gets worked CQ zone counts for ALL bands in one query using GROUP BY
+	 * Returns col_band and count for each band
+	 */
+	function getSummaryByBandAllBands($bands, $postdata, $location_list, $bandslots) {
+		$bindings=[];
+		$sql = "SELECT col_band, COUNT(DISTINCT thcv.col_cqz) as count FROM " . $this->config->item('table_name') . " thcv";
+
+		$sql .= " WHERE station_id IN (" . $location_list . ') AND col_cqz <= 40 AND col_cqz > 0';
+		$sql .= " AND col_band IN ('" . implode("','", $bands) . "')";
+		$sql .= " AND col_prop_mode != 'SAT'";
+
+		if ($postdata['mode'] != 'All') {
+			$sql .= " AND (col_mode = ? OR col_submode = ?)";
+			$bindings[]=$postdata['mode'];
+			$bindings[]=$postdata['mode'];
+		}
+
+		if ($postdata['datefrom'] != NULL) {
+			$sql .= " AND col_time_on >= ?";
+			$bindings[]=$postdata['datefrom'] . ' 00:00:00';
+		}
+
+		if ($postdata['dateto'] != NULL) {
+			$sql .= " AND col_time_on <= ?";
+			$bindings[]=$postdata['dateto'] . ' 23:59:59';
+		}
+
+		$sql .= " GROUP BY col_band";
+
+		$query = $this->db->query($sql,$bindings);
+
+		return $query->result();
+	}
+
+	/*
+	 * Gets confirmed CQ zone counts for ALL bands in one query using GROUP BY
+	 * Returns col_band and count for each band
+	 */
+	function getSummaryByBandConfirmedAllBands($bands, $postdata, $location_list, $bandslots) {
+		$bindings=[];
+		$sql = "SELECT col_band, COUNT(DISTINCT thcv.col_cqz) as count FROM " . $this->config->item('table_name') . " thcv";
+
+		$sql .= " WHERE station_id IN (" . $location_list . ') AND col_cqz <= 40 AND col_cqz > 0';
+		$sql .= " AND col_band IN ('" . implode("','", $bands) . "')";
+		$sql .= " AND col_prop_mode != 'SAT'";
+
+		if ($postdata['mode'] != 'All') {
+			$sql .= " AND (col_mode = ? OR col_submode = ?)";
+			$bindings[]=$postdata['mode'];
+			$bindings[]=$postdata['mode'];
+		}
+
+		if ($postdata['datefrom'] != NULL) {
+			$sql .= " AND col_time_on >= ?";
+			$bindings[]=$postdata['datefrom'] . ' 00:00:00';
+		}
+
+		if ($postdata['dateto'] != NULL) {
+			$sql .= " AND col_time_on <= ?";
+			$bindings[]=$postdata['dateto'] . ' 23:59:59';
+		}
+
+		$sql .= $this->genfunctions->addQslToQuery($postdata);
+
+		$sql .= " GROUP BY col_band";
 
 		$query = $this->db->query($sql,$bindings);
 
