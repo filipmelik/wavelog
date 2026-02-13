@@ -1953,11 +1953,13 @@ msgid "Advanced logbook"
 msgstr "ログブックの詳細"
 
 #: application/controllers/Logbookadvanced.php:925
+#: application/controllers/Logbookadvanced.php:932
 #, php-format
 msgid "DXCC updated for %d QSO(s)."
 msgstr "DXCCが %d QSO 更新されました。"
 
 #: application/controllers/Logbookadvanced.php:941
+#: application/controllers/Logbookadvanced.php:948
 #, php-format
 msgid "Map for DXCC %s and gridsquare %s."
 msgstr "DXCC %s およびグリッドスクエア %s のマップ。"
@@ -2665,6 +2667,7 @@ msgstr "ステーションの場所を編集: "
 #: application/views/view_log/qso.php:9 application/views/webadif/export.php:75
 #: application/views/webadif/export.php:115
 #: application/views/zonechecker/index.php:5
+#: application/views/logbookadvanced/dbtoolsdialog.php:16
 msgid "Station Location"
 msgstr "ステーションの場所"
 
@@ -3360,8 +3363,8 @@ msgid ""
 "No CAT interfaced radios found. You need to have at least one radio "
 "interface configured."
 msgstr ""
-"CATインターフェースの無線機が見つかりません。少なくとも1つの無線"
-"インターフェースを設定する必要があります。"
+"CATインターフェースの無線機が見つかりません。少なくとも1つの無線インター"
+"フェースを設定する必要があります。"
 
 #: application/controllers/Widgets.php:423
 msgid "User not found by slug"
@@ -3658,6 +3661,7 @@ msgid "Bearing"
 msgstr "方位"
 
 #: application/models/Logbookadvanced_model.php:1709
+#: application/models/Logbookadvanced_model.php:1723
 msgid "VuccGrids table is empty. Please import the VUCC grids data first."
 msgstr ""
 "VuccGridsテーブルが空です。まずVUCCグリッドデータをインポートしてください。"
@@ -4465,6 +4469,7 @@ msgstr "何も見つかりません!"
 #: application/views/user/index.php:153 application/views/user/profile.php:29
 #: application/views/view_log/qso.php:83 application/views/view_log/qso.php:672
 #: application/views/zonechecker/result.php:50
+#: application/views/logbookadvanced/dbtoolsdialog.php:22
 msgid "Callsign"
 msgstr "コールサイン"
 
@@ -6759,6 +6764,7 @@ msgstr "バンドカテゴリー"
 #: application/views/awards/pl_polska/index.php:372
 #: application/views/logbookadvanced/dbtoolsdialog.php:56
 #: application/views/logbookadvanced/index.php:819
+#: application/views/logbookadvanced/dbtoolsdialog.php:77
 msgid "Fix State"
 msgstr "状態を修正"
 
@@ -12982,10 +12988,12 @@ msgstr ""
 "のみ使用してください。"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:12
+#: application/views/logbookadvanced/dbtoolsdialog.php:33
 msgid "Check all QSOs in the logbook for incorrect CQ Zones"
 msgstr "ログブックのすべてのQSOで間違ったCQゾーンがないか確認する"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:13
+#: application/views/logbookadvanced/dbtoolsdialog.php:34
 msgid "Use Wavelog to determine CQ Zone for all QSOs."
 msgstr "Wavelog を使用して、すべての QSO の CQ ゾーンを決定します。"
 
@@ -12998,71 +13006,96 @@ msgstr "Wavelog を使用して、すべての QSO の CQ ゾーンを決定し�
 #: application/views/logbookadvanced/dbtoolsdialog.php:83
 #: application/views/logbookadvanced/dbtoolsdialog.php:96
 #: application/views/logbookadvanced/dbtoolsdialog.php:108
+#: application/views/logbookadvanced/dbtoolsdialog.php:38
+#: application/views/logbookadvanced/dbtoolsdialog.php:49
+#: application/views/logbookadvanced/dbtoolsdialog.php:60
+#: application/views/logbookadvanced/dbtoolsdialog.php:71
+#: application/views/logbookadvanced/dbtoolsdialog.php:82
+#: application/views/logbookadvanced/dbtoolsdialog.php:93
+#: application/views/logbookadvanced/dbtoolsdialog.php:104
+#: application/views/logbookadvanced/dbtoolsdialog.php:117
+#: application/views/logbookadvanced/dbtoolsdialog.php:129
 msgid "Check"
 msgstr "チェック"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:23
+#: application/views/logbookadvanced/dbtoolsdialog.php:44
 msgid "Check all QSOs in the logbook for incorrect ITU Zones"
 msgstr "ログブックのすべてのQSOでITUゾーンの誤りがないか確認する"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:24
+#: application/views/logbookadvanced/dbtoolsdialog.php:45
 msgid "Use Wavelog to determine ITU Zone for all QSOs."
 msgstr "Wavelog を使用して、すべての QSO の ITU ゾーンを決定します。"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:34
+#: application/views/logbookadvanced/dbtoolsdialog.php:55
 msgid "Check Gridsquares"
 msgstr "グリッドスクエアをチェック"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:35
+#: application/views/logbookadvanced/dbtoolsdialog.php:56
 msgid "Check gridsquares that does not match the DXCC"
 msgstr "DXCCと一致しないグリッドスクエアをチェックする"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:45
+#: application/views/logbookadvanced/dbtoolsdialog.php:66
 msgid "Fix Continent"
 msgstr "大陸を修正"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:46
+#: application/views/logbookadvanced/dbtoolsdialog.php:67
 msgid "Update missing or incorrect continent information"
 msgstr "不足または誤った大陸情報を更新します"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:57
+#: application/views/logbookadvanced/dbtoolsdialog.php:78
 msgid "Update missing state/province information"
 msgstr "不足している州/省の情報を更新する"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:67
 #: application/views/logbookadvanced/index.php:68
+#: application/views/logbookadvanced/dbtoolsdialog.php:88
 msgid "Update Distances"
 msgstr "距離を更新する"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:68
+#: application/views/logbookadvanced/dbtoolsdialog.php:89
 msgid "Calculate and update distance information for QSOs"
 msgstr "QSOの距離情報を計算して更新する"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:78
+#: application/views/logbookadvanced/dbtoolsdialog.php:99
 msgid "Check all QSOs in the logbook for incorrect DXCC"
 msgstr "ログブックのすべてのQSOでDXCCの誤りがないか確認する"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:79
+#: application/views/logbookadvanced/dbtoolsdialog.php:100
 msgid "Use Wavelog to determine DXCC for all QSOs."
 msgstr "Wavelog を使用して、すべての QSO の DXCC を決定します。"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:90
+#: application/views/logbookadvanced/dbtoolsdialog.php:111
 msgid "Lookup QSOs with missing grid in callbook"
 msgstr "コールブックのグリッドが欠落しているQSOを検索する"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:91
+#: application/views/logbookadvanced/dbtoolsdialog.php:112
 msgid "Use callbook lookup to set gridsquare"
 msgstr "コールブック検索を使用してグリッドスクエアを設定する"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:92
+#: application/views/logbookadvanced/dbtoolsdialog.php:113
 msgid "This is limited to 150 callsigns for each run!"
 msgstr "実行ごとに 150 のコールサインに制限されます！"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:103
+#: application/views/logbookadvanced/dbtoolsdialog.php:124
 msgid "Check IOTA against DXCC"
 msgstr "IOTAとDXCCを比較する"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:104
+#: application/views/logbookadvanced/dbtoolsdialog.php:125
 msgid "Use Wavelog to check IOTA against DXCC"
 msgstr "Wavelogを使用してIOTAとDXCCをチェックする"
 
@@ -19210,6 +19243,10 @@ msgstr "CQz"
 msgid "CQz geojson"
 msgstr "CQz geojson"
 
+#: application/views/logbookadvanced/dbtoolsdialog.php:19
+msgid "All Station Locations"
+msgstr ""
+
 #~ msgid "Incorrectly logged CQ zones"
 #~ msgstr "誤って記録されたCQゾーン"
 
@@ -19327,9 +19364,9 @@ msgstr "CQz geojson"
 #~ "processed. %s Please make sure you export the LoTW certificate from tqsl "
 #~ "application without password! %s"
 #~ msgstr ""
-#~ "ファイル %s 内の証明書にはパスワードが含まれており、処理できませ"
-#~ "ん。%stqsl アプリケーションから LoTW 証明書をエクスポートする際は、パス"
-#~ "ワードなしで実行してください！%s"
+#~ "ファイル %s 内の証明書にはパスワードが含まれており、処理できません。"
+#~ "%stqsl アプリケーションから LoTW 証明書をエクスポートする際は、パスワード"
+#~ "なしで実行してください！%s"
 
 #~ msgid "Column"
 #~ msgstr "カラム"
@@ -19663,8 +19700,8 @@ msgstr "CQz geojson"
 #~ "Your active Station Location isn't linked to your Logbook. Click %shere%s "
 #~ "to do it."
 #~ msgstr ""
-#~ "現在のステーション位置がログブックとリンクされていません。リンクするに"
-#~ "は、%shere%s をクリックしてください。"
+#~ "現在のステーション位置がログブックとリンクされていません。リンクするには、"
+#~ "%shere%s をクリックしてください。"
 
 #, php-format
 #~ msgctxt "Dashboard Warning"
