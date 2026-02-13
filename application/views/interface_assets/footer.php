@@ -3240,7 +3240,7 @@ function viewEqsl(picture, callsign) {
 <?php
 if (isset($scripts) && is_array($scripts)){
 	foreach($scripts as $script){
-		?><script type="text/javascript" src="<?php echo base_url() . $script ;?>"></script>
+		?><script type="text/javascript" src="<?php echo $this->paths->cache_buster('/'.$script); ?>"></script>
 		<?php
 	}
 }
