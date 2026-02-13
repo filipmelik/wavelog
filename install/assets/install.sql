@@ -1,6 +1,6 @@
 -- ------------------------------------------------------
 -- Wavelog Installation Main Structure and Bootstrap SQL
--- Created 5th February 2026 by HB9HIl
+-- Created February 2026 by HB9HIl
 
 --
 -- Table structure for table `TABLE_HRD_CONTACTS_V01` (the main QSO Table)
@@ -3390,15 +3390,14 @@ LOCK TABLES `options` WRITE;
 /*!40000 ALTER TABLE `options` DISABLE KEYS */;
 set autocommit=0;
 INSERT INTO `options` VALUES
-(1,'version2_trigger','true','yes'),
-(2,'theme','darkly_wide','yes'),
-(3,'map_tile_server','https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png','yes'),
-(4,'map_tile_server_copyright','Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a>','yes'),
-(5,'language','english','yes'),
-(6,'global_search','false','yes'),
-(7,'cat_timeout_interval','1800','yes'),
-(8,'version','0.0.1','yes'),
-(9,'groupedSearchShowStationName','on',NULL);
+(1,'theme','darkly_wide','yes'),
+(2,'map_tile_server','https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png','yes'),
+(3,'map_tile_server_copyright','Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a>','yes'),
+(4,'language','english','yes'),
+(5,'global_search','false','yes'),
+(6,'cat_timeout_interval','1800','yes'),
+(7,'version','0.0.1','yes'),
+(8,'groupedSearchShowStationName','on',NULL);
 UNLOCK TABLES;
 commit;
 
@@ -3767,7 +3766,7 @@ INSERT INTO `timezones` VALUES
 (144,10.0,'(GMT+10:00)-Hobart'),
 (146,11.0,'(GMT+11:00)-Magadan, Solomon Is., New Caledonia'),
 (147,12.0,'(GMT+12:00)-Auckland, Wellington'),
-(149,13.0,'(GMT+13:00)-Nuku\'alofa '),
+(149,13.0,'(GMT+13:00)-Nukuʻalofa'),
 (150,-4.5,'(GMT-04:30)-Caracas');
 UNLOCK TABLES;
 commit;
@@ -3813,10 +3812,10 @@ CREATE TABLE `users` (
   `user_password` varchar(64) NOT NULL COMMENT 'Password',
   `user_email` varchar(64) NOT NULL COMMENT 'E-mail address',
   `user_type` varchar(8) NOT NULL COMMENT 'User type',
-  `user_callsign` varchar(32) NOT NULL COMMENT 'User''s callsign',
-  `user_locator` varchar(16) NOT NULL COMMENT 'User''s locator',
-  `user_firstname` varchar(32) NOT NULL COMMENT 'User''s first name',
-  `user_lastname` varchar(32) NOT NULL COMMENT 'User''s last name',
+  `user_callsign` varchar(32) NOT NULL COMMENT 'User callsign',
+  `user_locator` varchar(16) NOT NULL COMMENT 'User locator',
+  `user_firstname` varchar(32) NOT NULL COMMENT 'User first name',
+  `user_lastname` varchar(32) NOT NULL COMMENT 'User last name',
   `user_timezone` int(3) NOT NULL DEFAULT 0,
   `user_lotw_name` varchar(32) DEFAULT NULL,
   `user_lotw_password` varchar(64) DEFAULT NULL,
@@ -3830,7 +3829,7 @@ CREATE TABLE `users` (
   `user_clublog_callsign` varchar(255) DEFAULT NULL,
   `user_measurement_base` varchar(1) DEFAULT 'K',
   `user_date_format` varchar(15) DEFAULT 'd/m/y',
-  `user_stylesheet` varchar(255) DEFAULT 'darky',
+  `user_stylesheet` varchar(255) DEFAULT 'darkly',
   `user_sota_lookup` int(11) DEFAULT 0,
   `user_wwff_lookup` int(11) DEFAULT 0,
   `user_pota_lookup` int(11) DEFAULT 0,
@@ -3915,3 +3914,4 @@ CREATE TABLE `webadif` (
   PRIMARY KEY (`id`),
   KEY `qso_id_upload_date` (`qso_id`,`upload_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
