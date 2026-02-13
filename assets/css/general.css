@@ -293,7 +293,6 @@ thead > tr > td {
 
 .newGrid {
 	border-color: red;
-	border-width: 2px;
 }
 
 #country {
@@ -312,6 +311,11 @@ TD.eqsl {
 
 .eqsl-red {
 	color: #f00 !important;
+	font-size: 1.1em;
+}
+
+.eqsl-yellow {
+	color: #d39e00 !important;
 	font-size: 1.1em;
 }
 
@@ -361,6 +365,31 @@ TD.clublog {
 }
 
 .clublog-red {
+	color: #f00 !important;
+	font-size: 1.1em;
+}
+
+.clublog-grey {
+	color: #dddddd !important;
+	font-size: 1.1em;
+}
+
+TD.dcl {
+	width: 33px;
+	white-space: nowrap;
+}
+
+.dcl-green {
+	color: #00a000 !important;
+	font-size: 1.1em;
+}
+
+.dcl-yellow {
+	color: #d39e00 !important;
+	font-size: 1.1em;
+}
+
+.dcl-red {
 	color: #f00 !important;
 	font-size: 1.1em;
 }
@@ -493,6 +522,16 @@ TD.lotw {
 	color: #ffffff;
 }
 
+/* Round bottom corners of callsign notes header when collapsed */
+.callsign-notes .card-header {
+	border-radius: 0.25rem;
+}
+
+.callsign-notes .card-header[aria-expanded="true"] {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
 #myTab .nav-link {
 	padding: 8px !important;
 }
@@ -503,6 +542,13 @@ TD.lotw {
 
 #qsomap {
 	z-index: 1;
+	border-radius: 0.25rem;
+	overflow: hidden;
+}
+
+.qso-map {
+	border-radius: 0.25rem;
+	overflow: hidden;
 }
 
 #create_station_profile .row {
@@ -601,12 +647,16 @@ div#station_logbooks_linked_table_paginate {
 .callsign-image-content {
 	display: block;
 	max-height: 300px;
+	max-width: 75%;
 	text-align: center;
 }
 
 .callsign-image-pic {
 	max-height: 250px;
 	max-width: 100%;
+	border: 1px solid var(--bs-card-cap-bg);
+	border-radius: 0.375rem;
+	display: block;
 }
 
 #mapactivators {
@@ -756,6 +806,7 @@ div#station_logbooks_linked_table_paginate {
 #gridsquare,
 #sota,
 #wwff,
+#dok,
 #pota {
 	text-transform: uppercase;
 }
@@ -1054,6 +1105,62 @@ label {
 	border-style: solid;
 }
 
+.lba-label {
+    background-color: rgb(52, 55, 56) !important;
+    color: rgb(255, 255, 255) !important;
+    border: 1px solid #fff; /* White border */
+    padding: 5px 8px;
+    border-radius: 5px;
+}
+
+/* Modify the tooltip's arrow (triangle) */
+.lba-label::before {
+    border-bottom-color: rgb(52, 55, 56) !important; /* Triangle color (matches background) */
+    border-width: 6px; /* Keep same size */
+}
+
+/* Create a white border effect around the triangle */
+.lba-label::after {
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-width: 0 8px 8px 8px; /* triangle pointing down */
+    border-color: transparent transparent white transparent; /* white bottom border */
+    top: -8px; /* place above the tooltip */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1; /* optional: to place it behind */
+}
+
+
+.satellite-label {
+    background-color: rgb(52, 55, 56) !important;
+    color: rgb(255, 255, 255) !important;
+    border: 1px solid #fff; /* White border */
+    padding: 5px 8px;
+    border-radius: 5px;
+}
+
+/* Modify the tooltip's arrow (triangle) */
+.satellite-label::before {
+    border-top-color: rgb(52, 55, 56) !important; /* Triangle color (matches background) */
+    border-width: 6px; /* Keep same size */
+}
+
+/* Create a white border effect around the triangle */
+.satellite-label::after {
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-width: 8px; /* Slightly larger than ::before */
+    border-color: white transparent transparent transparent; /* White top border */
+    bottom: -16px; /* Match ::before position */
+    left: 50%;
+    transform: translateX(-50%);
+	z-index: -1;
+}
+
+
 .blank-row {
 	height: 20px !important;
 }
@@ -1207,3 +1314,113 @@ svg text.month { fill: #AAA; }
     align-items: center; /* Vertically aligns the flag and callsign */
     gap: 0.5em; /* Adds space between the flag and callsign */
 }
+
+.htmx-indicator {
+   opacity: 0;
+   animation: blinker 2s linear infinite;
+}
+
+.htmx-request.htmx-indicator {
+   opacity: 1;
+}
+
+@keyframes blinker {
+   50% {
+      opacity: 0;
+   }
+}
+
+.spacingcell {
+   background-color: transparent !important;
+   border-top-style: none !important;
+   border-bottom-style: none !important;
+   border-right-style: none !important;
+   --dt-row-hover: transparent !important;
+   --dt-row-stripe: transparent !important;
+}
+
+/* Target the bootstrap-multiselect button */
+.btn.dropdown-toggle.multiselect {
+  position: relative;
+  padding-right: 30px; /* room for arrow */
+}
+
+.qsl-gallery .waterfall-grid {
+		column-count: 4;
+		column-gap: 20px;
+	}
+
+	.qsl-gallery .waterfall-item {
+		break-inside: avoid;
+		margin-bottom: 20px;
+		display: inline-block;
+		width: 100%;
+	}
+
+	@media (max-width: 767px) {
+		.qsl-gallery .waterfall-grid {
+			column-count: 1;
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 991px) {
+		.qsl-gallery .waterfall-grid {
+			column-count: 2;
+		}
+	}
+
+	@media (min-width: 992px) and (max-width: 1199px) {
+		.qsl-gallery .waterfall-grid {
+			column-count: 3;
+		}
+	}
+
+	.qsl-gallery .card-img-container {
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: #f8f9fa;
+	}
+
+	.qsl-gallery .qsl-card-img {
+		object-fit: contain;
+		width: 100%;
+		cursor: pointer;
+		transition: transform 0.2s ease;
+	}
+
+	.qsl-gallery .qsl-card-img:hover {
+		transform: scale(1.03);
+	}
+
+	.qsl-gallery .card:hover {
+		box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+	}
+
+	.qsl-gallery .card {
+		display: flex;
+		flex-direction: column;
+		transition: box-shadow 0.3s ease;
+	}
+
+	.qsl-gallery .card-body {
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.legendClose {
+		float: right;
+	}
+
+
+/* Ensure tooltip appears above everything */
+.tooltip {
+    z-index: 9999 !important;
+}
+
+.qso_icons {
+	user-select: none;
+}
+

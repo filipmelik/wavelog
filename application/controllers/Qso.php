@@ -13,10 +13,11 @@ class QSO extends CI_Controller {
 
 	public function index() {
 		$this->load->model('cat');
+		$this->load->library('qra');
 		$this->load->model('stations');
 		$this->load->model('logbook_model');
 		$this->load->model('user_model');
-		$this->load->model('modes');
+		$this->load->model('usermodes');
 		$this->load->model('bands');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
@@ -30,7 +31,11 @@ class QSO extends CI_Controller {
 			show_404();
 		}
 
-		$data['active_station_profile'] = $this->stations->find_active();
+		if ($this->stations->check_station_is_accessible($this->session->userdata('station_profile_id') ?? 0)) {	// Last Station from session accessible? Take it!
+			$data['active_station_profile'] = $this->session->userdata('station_profile_id');
+		} else {
+			$data['active_station_profile'] =$this->stations->find_active();
+		}
 
 		$data['notice'] = false;
 		$data['stations'] = $this->stations->all_of_user();
@@ -39,8 +44,9 @@ class QSO extends CI_Controller {
 		$data['query'] = $this->logbook_model->last_custom($this->session->userdata('qso_page_last_qso_count'));
 		$data['dxcc'] = $this->logbook_model->fetchDxcc();
 		$data['iota'] = $this->logbook_model->fetchIota();
-		$data['modes'] = $this->modes->active();
+		$data['modes'] = $this->usermodes->active();
 		$data['bands'] = $this->bands->get_user_bands_for_qso_entry();
+		[$data['lat'], $data['lng']] = $this->qra->qra2latlong($this->stations->gridsquare_from_station($this->stations->find_active()));
 		$data['user_default_band'] = $this->session->userdata('user_default_band');
 		$data['sat_active'] = array_search("SAT", $this->bands->get_user_bands(), true);
 
@@ -86,6 +92,27 @@ class QSO extends CI_Controller {
 			$data['user_dok_to_qso_tab'] = 0;
 		}
 
+		$qkey_opt=$this->user_options_model->get_options('qso_tab',array('option_name'=>'station','option_key'=>'show'))->result();
+		if (count($qkey_opt)>0) {
+			$data['user_station_to_qso_tab'] = $qkey_opt[0]->option_value;
+		} else {
+			$data['user_station_to_qso_tab'] = 0;
+		}
+
+		// Get status of DX Waterfall enable option
+		$qkey_opt=$this->user_options_model->get_options('dxwaterfall',array('option_name'=>'enable','option_key'=>'boolean'))->result();
+		if (count($qkey_opt)>0) {
+			$data['user_dxwaterfall_enable'] = $qkey_opt[0]->option_value;
+			$data['dxcluster_default_decont'] = $this->optionslib->get_option('dxcluster_decont') ?? 'EU';
+			$data['dxcluster_default_maxage'] = $this->optionslib->get_option('dxcluster_maxage') ?? 60;
+		} else {
+			$data['user_dxwaterfall_enable'] = 0;
+
+			// default but not used, prevent unset variable, without the need of a db call
+			$data['dxcluster_default_decont'] = 'EU';
+			$data['dxcluster_default_maxage'] = 60;
+		}
+
 		$data['qso_count'] = $this->session->userdata('qso_page_last_qso_count');
 
 		$this->load->library('form_validation');
@@ -101,6 +128,11 @@ class QSO extends CI_Controller {
 		$options_object = $this->user_options_model->get_options('eqsl_default_qslmsg',array('option_name'=>'key_station_id','option_key'=>$data['active_station_profile']))->result();
 		$data['qslmsg'] = (isset($options_object[0]->option_value))?$options_object[0]->option_value:'';
 
+		$footerData = [];
+		$footerData['scripts'] = [
+			'assets/js/leaflet/geocoding.js',
+		];
+
 		if ($this->form_validation->run() == FALSE) {
 			$data['page_title'] = __("Add QSO");
 			if (validation_errors() != '') {	// we're coming from a failed ajax-call
@@ -108,7 +140,7 @@ class QSO extends CI_Controller {
 			} else {	// we're not coming from a POST
 				$this->load->view('interface_assets/header', $data);
 				$this->load->view('qso/index');
-				$this->load->view('interface_assets/footer');
+				$this->load->view('interface_assets/footer', $footerData);
 			}
 		} else {
 			// Store Basic QSO Info for reuse
@@ -149,7 +181,11 @@ class QSO extends CI_Controller {
 			// Add QSO
 			// $this->logbook_model->add();
 			//change to create_qso function as add and create_qso duplicate functionality
-			$this->logbook_model->create_qso();
+			$saveresult = json_decode($this->saveqso(), true);
+
+			// Clear POST data to prevent re-submission on page reload
+			$_POST = [];
+			$this->form_validation->reset_validation();
 
 			$returner=[];
 			$actstation=$this->stations->find_active() ?? '';
@@ -159,17 +195,89 @@ class QSO extends CI_Controller {
 			$returner['activeStationOP'] = xss_clean($this->session->userdata('operator_callsign'));
 			$returner['message']='success';
 
-			// Get last 5 qsos
+			// Include ADIF for WebSocket transmission
+			if (isset($saveresult['adif'])) {
+				$returner['adif'] = $saveresult['adif'];
+			}
+
+			header('Content-Type: application/json; charset=utf-8');
 			echo json_encode($returner);
 		}
 	}
 
 	/*
 	 * This is used for contest-logging and the ajax-call
+	 * Returns JSON
 	 */
 	public function saveqso() {
 		$this->load->model('logbook_model');
-		$this->logbook_model->create_qso();
+
+		$qso_data = [
+			'manual' => $this->input->get('manual', TRUE),
+			'start_date' => $this->input->post('start_date', TRUE),
+			'start_time' => $this->input->post('start_time', TRUE),
+			'end_time' => $this->input->post('end_time', TRUE),
+			'callsign' => $this->input->post('callsign', TRUE),
+			'prop_mode' => $this->input->post('prop_mode', TRUE) ?? NULL,
+			'email' => $this->input->post('email', TRUE) ?? NULL,
+			'region' => $this->input->post('region', TRUE) ?? NULL,
+			'sat_name' => $this->input->post('sat_name', TRUE) ?? NULL,
+			'exchangetype' => $this->input->post('exchangetype', TRUE) ?? NULL,
+			'exch_rcvd' => $this->input->post('exch_rcvd', TRUE) ?? NULL,
+			'exch_sent' => $this->input->post('exch_sent', TRUE) ?? NULL,
+			'exch_serial_r' => $this->input->post('exch_serial_r', TRUE) ?? NULL,
+			'exch_serial_s' => $this->input->post('exch_serial_s', TRUE) ?? NULL,
+			'contestname' => $this->input->post('contestname', TRUE) ?? NULL,
+			'transmit_power' => $this->input->post('transmit_power', TRUE) ?? NULL,
+			'radio' => $this->input->post('radio', TRUE) ?? 0,
+			'radio_ws_name' => $this->input->post('radio_ws_name', TRUE) ?? '',
+			'country' => $this->input->post('country', TRUE) ?? NULL,
+			'cqz' => $this->input->post('cqz', TRUE) ?? NULL,
+			'dxcc_id' => $this->input->post('dxcc_id', TRUE) ?? NULL,
+			'continent' => $this->input->post('continent', TRUE) ?? NULL,
+			'mode' => $this->input->post('mode', TRUE) ?? NULL,
+			'county' => $this->input->post('county', TRUE) ?? NULL,
+			'input_state' => $this->input->post('input_state', TRUE) ?? NULL,
+			'ant_az' => $this->input->post('ant_az', TRUE) ?? NULL,
+			'ant_el' => $this->input->post('ant_el', TRUE) ?? NULL,
+			'ant_path' => $this->input->post('ant_path', TRUE) ?? NULL,
+			'darc_dok' => $this->input->post('darc_dok', TRUE) ?? NULL,
+			'locator' => $this->input->post('locator', TRUE) ?? NULL,
+			'qth' => $this->input->post('qth', TRUE) ?? NULL,
+			'name' => $this->input->post('name', TRUE) ?? NULL,
+			'copyexchangeto' => $this->input->post('copyexchangeto', TRUE) ?? NULL,
+			'qsl_sent' => $this->input->post('qsl_sent', TRUE) ?? 'N',
+			'qsl_rcvd' => $this->input->post('qsl_rcvd', TRUE) ?? 'N',
+			'band' => $this->input->post('band', TRUE) ?? NULL,
+			'band_rx' => $this->input->post('band_rx', TRUE) ?? NULL,
+			'freq_display' => $this->input->post('freq_display', TRUE) ?? NULL,
+			'rst_rcvd' => $this->input->post('rst_rcvd', TRUE) ?? NULL,
+			'rst_sent' => $this->input->post('rst_sent', TRUE) ?? NULL,
+			'comment' => $this->input->post('comment', TRUE) ?? NULL,
+			'sat_name' => $this->input->post('sat_name', TRUE) ?? NULL,
+			'sat_mode' => $this->input->post('sat_mode', TRUE) ?? NULL,
+			'qsl_sent_method' => $this->input->post('qsl_sent_method', TRUE) ?? NULL,
+			'qsl_rcvd_method' => $this->input->post('qsl_rcvd_method', TRUE) ?? NULL,
+			'qsl_via' => $this->input->post('qsl_via', TRUE) ?? NULL,
+			'qslmsg' => $this->input->post('qslmsg', TRUE) ?? NULL,
+			'operator_callsign' => $this->input->post('operator_callsign', TRUE) ?? NULL,
+			'iota_ref' => $this->input->post('iota_ref', TRUE) ?? NULL,
+			'freq_display_rx' => $this->input->post('freq_display_rx', TRUE) ?? NULL,
+			'ituz' => $this->input->post('ituz', TRUE) ?? NULL,
+			'sota_ref' => $this->input->post('sota_ref', TRUE) ?? NULL,
+			'wwff_ref' => $this->input->post('wwff_ref', TRUE) ?? NULL,
+			'pota_ref' => $this->input->post('pota_ref', TRUE) ?? NULL,
+			'sig' => $this->input->post('sig', TRUE) ?? NULL,
+			'sig_info' => $this->input->post('sig_info', TRUE) ?? NULL,
+			'notes' => $this->input->post('notes', TRUE) ?? NULL,
+			'station_profile' => $this->input->post('station_profile', TRUE) ?? NULL,
+			'isSFLE' => $this->input->post('isSFLE', TRUE) ?? NULL,
+			'distance' => $this->input->post('distance', TRUE) ?? TRUE
+		];
+
+		$result = $this->logbook_model->create_qso($qso_data);
+
+		return json_encode($result, JSON_PRETTY_PRINT);
 	}
 
 	function edit() {
@@ -205,65 +313,96 @@ class QSO extends CI_Controller {
 	}
 
 	function winkeysettings() {
+		$this->load->model('user_options_model');
 
-		// Load model Winkey
-		$this->load->model('winkey');
+		$cwmacros = [];
+		for ($i = 1; $i <= 10; $i++) {
+			$row = $this->user_options_model
+				->get_options('cwmacros', ['option_name' => "macro{$i}"])
+				->row();
 
-		// call settings from model winkey
-		$data['result'] = $this->winkey->settings($this->session->userdata('user_id'), $this->stations->find_active());
+			$decoded = json_decode($row->option_value ?? '');
 
-		$this->load->view('qso/components/winkeysettings', $data);
+			$name  = isset($decoded->name) ? $decoded->name : '';
+			$macro = isset($decoded->macro) ? $decoded->macro : '';
+
+			$cwmacros["macro{$i}"] = [
+				'name'  => $name,
+				'macro' => $macro,
+			];
+		}
+
+		// Check if all are empty
+		$allEmpty = true;
+		foreach ($cwmacros as $macro) {
+			if (!empty($macro['name']) || !empty($macro['macro'])) {
+				$allEmpty = false;
+				break;
+			}
+		}
+
+		// Apply defaults to first 5 if all are empty
+		if ($allEmpty) {
+			$cwmacros['macro1'] = ['name' => 'CQ',   'macro' => 'CQ CQ CQ DE [MYCALL] [MYCALL] K'];
+			$cwmacros['macro2'] = ['name' => 'REPT', 'macro' => '[CALL] DE [MYCALL] [RSTS] [RSTS] K'];
+			$cwmacros['macro3'] = ['name' => 'TU',   'macro' => '[CALL] TU 73 DE [MYCALL] K'];
+			$cwmacros['macro4'] = ['name' => 'QRZ',  'macro' => 'QRZ DE [MYCALL] K'];
+			$cwmacros['macro5'] = ['name' => 'TEST', 'macro' => 'TEST DE [MYCALL] K'];
+		}
+
+		$this->load->view('qso/components/winkeysettings', $cwmacros);
 	}
 
+
 	function cwmacrosave(){
-		// Get the data from the form
-		$function1_name = $this->input->post('function1_name', TRUE);
-		$function1_macro = $this->input->post('function1_macro', TRUE);
+		$this->load->model('user_options_model');
+		for ($i = 1; $i <= 10; $i++) {
+			$data = [
+				'name'  => $this->input->post("function{$i}_name", TRUE),
+				'macro' => $this->input->post("function{$i}_macro", TRUE),
+			];
 
-		$function2_name = $this->input->post('function2_name', TRUE);
-		$function2_macro = $this->input->post('function2_macro', TRUE);
-
-		$function3_name = $this->input->post('function3_name', TRUE);
-		$function3_macro = $this->input->post('function3_macro', TRUE);
-
-		$function4_name = $this->input->post('function4_name', TRUE);
-		$function4_macro = $this->input->post('function4_macro', TRUE);
-
-		$function5_name = $this->input->post('function5_name', TRUE);
-		$function5_macro = $this->input->post('function5_macro', TRUE);
-
-		$data = [
-			'user_id' => $this->session->userdata('user_id'),
-			'station_location_id' => $this->stations->find_active(),
-			'function1_name'  => $function1_name,
-			'function1_macro' => $function1_macro,
-			'function2_name'  => $function2_name,
-			'function2_macro' => $function2_macro,
-			'function3_name'  => $function3_name,
-			'function3_macro' => $function3_macro,
-			'function4_name'  => $function4_name,
-			'function4_macro' => $function4_macro,
-			'function5_name'  => $function5_name,
-			'function5_macro' => $function5_macro,
-		];
-
-		// Load model Winkey
-		$this->load->model('winkey');
-
-		// save the data
-		$this->winkey->save($data);
+			$this->user_options_model->set_option('cwmacros', "macro{$i}", array("macro{$i}" => json_encode($data)));
+		}
 
 		echo "Macros Saved, Press Close and lets get sending!";
 	}
 
 	function cwmacros_json() {
-		// Load model Winkey
-		$this->load->model('winkey');
+		$this->load->model('user_options_model');
 
+		$cwmacros = [];
+		for ($i = 1; $i <= 10; $i++) {
+			$row = $this->user_options_model
+				->get_options('cwmacros', ['option_name' => "macro{$i}"])
+				->row();
+
+			// Decode JSON stored in option_value
+			$decoded = json_decode($row->option_value ?? '');
+
+			// Make sure it's an object (in case it's null)
+			$name  = isset($decoded->name) ? $decoded->name : '';
+			$macro = isset($decoded->macro) ? $decoded->macro : '';
+
+			$cwmacros["macro{$i}"] = [
+				'name'  => $name,
+				'macro' => $macro,
+			];
+		}
+
+		// Build the JSON result structure
+		$result = [];
+		$i = 1;
+		foreach ($cwmacros as $macro) {
+			$result["function{$i}_name"]  = $macro['name'];
+			$result["function{$i}_macro"] = $macro['macro'];
+			$i++;
+		}
+
+		// Output as JSON
 		header('Content-Type: application/json; charset=utf-8');
+		echo json_encode($result, JSON_PRETTY_PRINT);
 
-		// Call settings_json from model winkey
-		echo $this->winkey->settings_json($this->session->userdata('user_id'), $this->stations->find_active());
 	}
 
 	function edit_ajax() {
@@ -607,8 +746,12 @@ class QSO extends CI_Controller {
 
 	public function get_station_power() {
 		$this->load->model('stations');
+		$this->load->library('qra');
 		$stationProfile = $this->input->post('stationProfile', TRUE);
-		$data = array('station_power' => $this->stations->get_station_power($stationProfile));
+		$result = $this->stations->get_station_power($stationProfile);
+		$data['station_power'] = $result['station_power'];
+		$data['station_callsign'] = $result['station_callsign'];
+		[$data['lat'], $data['lng']] = $this->qra->qra2latlong($this->stations->gridsquare_from_station($stationProfile));
 
 		header('Content-Type: application/json');
 		echo json_encode($data);
@@ -668,7 +811,7 @@ class QSO extends CI_Controller {
 
 	/**
 	 * Open the API url which causes the browser to open the QSO live logging and populate the callsign with the data from the API
-	 * 
+	 *
 	 * Usage example:
 	 * 			https://<URL to Wavelog>/index.php/qso/log_qso?callsign=4W7EST
 	 */
@@ -697,7 +840,7 @@ class QSO extends CI_Controller {
 	}
 
 	/**
-	 * Easy modal Loader 
+	 * Easy modal Loader
 	 * Used for Share Modal in QSO Details view
 	 */
 	function getShareModal() {
@@ -710,5 +853,9 @@ class QSO extends CI_Controller {
 		}
 
 		$this->load->view('qso/components/share_modal', $data, false);
+	}
+
+	function getAwardTabs() {
+		$this->load->view('qso/award_tabs');
 	}
 }

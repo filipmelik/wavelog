@@ -1,5 +1,11 @@
 /application/config/database.php
 /application/config/config.php
+/application/config/redis.php
+/application/config/memcached.php
+/application/config/**/config.php
+/application/config/**/database.php
+/application/config/**/redis.php
+/application/config/**/memcached.php
 /application/logs/*
 /application/cache/*
 /backup/*.adi
@@ -15,9 +21,11 @@
 /assets/qslcard/*
 /assets/js/sections/custom.js
 /userdata/*
+/tmp/*
 .idea/*
 .DS_Store
 sync.sh
+docker-compose.yml
 *.p12
 *.swp
 .debug

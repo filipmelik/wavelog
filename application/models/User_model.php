@@ -19,7 +19,7 @@ class User_Model extends CI_Model {
 		// Clean ID
 		$clean_username = $this->security->xss_clean($username);
 
-		$this->db->where('user_name', $clean_username);
+		$this->db->where('upper(user_name)', strtoupper($clean_username));
 		$r = $this->db->get($this->config->item('auth_table'));
 		return $r;
 	}
@@ -55,13 +55,21 @@ class User_Model extends CI_Model {
 		return $r;
 	}
 
+	// FUNCTION: object get_all_dcl_users
+	// Returns all users with dcl details
+	function get_all_dcl_users() {
+		$sql="SELECT distinct user_id from user_options where option_name='dcl_key' and option_key='key' and option_value is not null";
+		$resu=$this->db->query($sql);
+		return $resu->result();
+	}
+
 	// FUNCTION: object get_by_email($email)
 	// Retrieve a user by email address
 	function get_by_email($email) {
 
 		$clean_email = $this->security->xss_clean($email);
 
-		$this->db->where('user_email', $clean_email);
+		$this->db->where('upper(user_email)', strtoupper($clean_email));
 		$r = $this->db->get($this->config->item('auth_table'));
 		return $r;
 	}
@@ -112,7 +120,8 @@ class User_Model extends CI_Model {
 	function hasQrzKey($user_id) {
 		$this->db->where('station_profile.qrzapikey is not null');
 		$this->db->where('station_profile.qrzapikey != ""');
-		$this->db->join('station_profile', 'station_profile.user_id = '.$user_id);
+		$this->db->where('station_profile.user_id',$user_id);
+		$this->db->join('station_profile', 'station_profile.user_id = '.$this->config->item('auth_table').'.user_id');
 		$query = $this->db->get($this->config->item('auth_table'));
 
 		$ret = $query->row();
@@ -179,7 +188,7 @@ class User_Model extends CI_Model {
 		// if there is a space it's probably a firstname + lastname search
 		if (strpos($query, ' ') !== false) {
 			$parts = explode(' ', $query, 2);
-	
+
 			$this->db->group_start();
 			$this->db->like('user_firstname', $parts[0]);
 			$this->db->or_like('user_lastname', $parts[0]);
@@ -204,18 +213,19 @@ class User_Model extends CI_Model {
 	// FUNCTION: bool add($username, $password, $email, $type)
 	// Add a user
 	// !!!!!!!!!!!!!!!!
-	// !! IMPORTANT NOTICE: Please inform DJ7NT and/or DF2ET when adding/removing/changing parameters here. 
+	// !! IMPORTANT NOTICE: Please inform DJ7NT and/or DF2ET when adding/removing/changing parameters here.
 	// !!!!!!!!!!!!!!!!
 	function add($username, $password, $email, $type, $firstname, $lastname, $callsign, $locator, $timezone,
 		$measurement, $dashboard_map, $user_date_format, $user_stylesheet, $user_qth_lookup, $user_sota_lookup, $user_wwff_lookup,
 		$user_pota_lookup, $user_show_notes, $user_column1, $user_column2, $user_column3, $user_column4, $user_column5,
 		$user_show_profile_image, $user_previous_qsl_type, $user_amsat_status_upload, $user_mastodon_url,
-		$user_default_band, $user_default_confirmation, $user_qso_end_times, $user_quicklog, $user_quicklog_enter,
+		$user_default_band, $user_default_confirmation, $user_qso_end_times, $user_qso_db_search_priority,$user_quicklog, $user_quicklog_enter,
 		$user_language, $user_hamsat_key, $user_hamsat_workable_only, $user_iota_to_qso_tab, $user_sota_to_qso_tab,
-		$user_wwff_to_qso_tab, $user_pota_to_qso_tab, $user_sig_to_qso_tab, $user_dok_to_qso_tab,
+		$user_wwff_to_qso_tab, $user_pota_to_qso_tab, $user_sig_to_qso_tab, $user_dok_to_qso_tab, $user_station_to_qso_tab,
 		$user_lotw_name, $user_lotw_password, $user_eqsl_name, $user_eqsl_password, $user_clublog_name, $user_clublog_password,
 		$user_winkey, $on_air_widget_enabled, $on_air_widget_display_last_seen, $on_air_widget_show_only_most_recent_radio,
-		$clubstation = 0) {
+		$qso_widget_display_qso_time, $dashboard_banner, $dashboard_solar, $global_oqrs_text, $oqrs_grouped_search,
+		$oqrs_grouped_search_show_station_name, $oqrs_auto_matching, $oqrs_direct_auto_matching,$user_dxwaterfall_enable, $clubstation = 0) {
 		// Check that the user isn't already used
 		if(!$this->exists($username)) {
 			$data = array(
@@ -225,7 +235,7 @@ class User_Model extends CI_Model {
 				'user_type' => xss_clean($type),
 				'user_firstname' => xss_clean($firstname) ?? '',
 				'user_lastname' => xss_clean($lastname) ?? '',
-				'user_callsign' => strtoupper(xss_clean($callsign)),
+				'user_callsign' => str_replace('Ø', "0",strtoupper(xss_clean($callsign))),
 				'user_locator' => strtoupper(xss_clean($locator)),
 				'user_timezone' => xss_clean($timezone),
 				'user_measurement_base' => xss_clean($measurement),
@@ -297,11 +307,16 @@ class User_Model extends CI_Model {
 			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'qso_tab','pota','show',".(xss_clean($user_pota_to_qso_tab ?? 'off') == "on" ? 1 : 0).");");
 			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'qso_tab','sig','show',".(xss_clean($user_sig_to_qso_tab ?? 'off') == "on" ? 1 : 0).");");
 			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'qso_tab','dok','show',".(xss_clean($user_dok_to_qso_tab ?? 'off') == "on" ? 1 : 0).");");
+			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'qso_tab','station','show',".(xss_clean($user_station_to_qso_tab ?? 'off') == "on" ? 1 : 0).");");
 			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'dashboard','show_map','boolean','".xss_clean($dashboard_map ?? 'Y')."');");
+			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'dashboard','show_dashboard_banner','boolean','".xss_clean($dashboard_banner ?? 'Y')."');");
+			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'dashboard','show_dashboard_solar','boolean','".xss_clean($dashboard_solar ?? 'Y')."');");
 			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'widget','on_air','enabled','".(xss_clean($on_air_widget_enabled ?? 'false'))."');");
 			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'widget','on_air','display_last_seen','".(xss_clean($on_air_widget_display_last_seen ?? 'false'))."');");
 			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'widget','on_air','display_only_most_recent_radio','".(xss_clean($on_air_widget_show_only_most_recent_radio ?? 'true'))."');");
-
+			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'widget','qso','display_qso_time','".(xss_clean($qso_widget_display_qso_time ?? 'false'))."');");
+			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'qso_db_search_priority','enable','boolean','".(xss_clean($user_qso_db_search_priority ?? 'Y'))."');");
+			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'dxwaterfall','enable','boolean','".xss_clean($user_dxwaterfall_enable ?? 'N')."');");
 			return OK;
 		} else {
 			return EUSERNAMEEXISTS;
@@ -318,7 +333,7 @@ class User_Model extends CI_Model {
 				$data = array(
 					'user_name' => xss_clean($fields['user_name']),
 					'user_email' => xss_clean($fields['user_email']),
-					'user_callsign' => strtoupper(xss_clean($fields['user_callsign'])),
+					'user_callsign' => str_replace('Ø', "0", strtoupper(xss_clean($fields['user_callsign']))),
 					'user_locator' => strtoupper(xss_clean($fields['user_locator'])),
 					'user_firstname' => xss_clean($fields['user_firstname']),
 					'user_lastname' => xss_clean($fields['user_lastname']),
@@ -344,7 +359,7 @@ class User_Model extends CI_Model {
 					'user_amsat_status_upload' => xss_clean($fields['user_amsat_status_upload']),
 					'user_mastodon_url' => xss_clean($fields['user_mastodon_url']),
 					'user_default_band' => xss_clean($fields['user_default_band']),
-					'user_default_confirmation' => (isset($fields['user_default_confirmation_qsl']) ? 'Q' : '').(isset($fields['user_default_confirmation_lotw']) ? 'L' : '').(isset($fields['user_default_confirmation_eqsl']) ? 'E' : '').(isset($fields['user_default_confirmation_qrz']) ? 'Z' : '').(isset($fields['user_default_confirmation_clublog']) ? 'C' : ''),
+					'user_default_confirmation' => (isset($fields['user_default_confirmation_qsl']) ? 'Q' : '').(isset($fields['user_default_confirmation_lotw']) ? 'L' : '').(isset($fields['user_default_confirmation_eqsl']) ? 'E' : '').(isset($fields['user_default_confirmation_qrz']) ? 'Z' : '').(isset($fields['user_default_confirmation_clublog']) ? 'C' : '').(isset($fields['user_default_confirmation_dcl']) ? 'D' : ''),
 					'user_qso_end_times' => xss_clean($fields['user_qso_end_times']),
 					'user_quicklog' => xss_clean($fields['user_quicklog']),
 					'user_quicklog_enter' => xss_clean($fields['user_quicklog_enter']),
@@ -366,15 +381,24 @@ class User_Model extends CI_Model {
 				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'qso_tab','pota','show',".(xss_clean($fields['user_pota_to_qso_tab'] ?? 'off') == "on" ? 1 : 0).");");
 				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'qso_tab','sig','show',".(xss_clean($fields['user_sig_to_qso_tab'] ?? 'off') == "on" ? 1 : 0).");");
 				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'qso_tab','dok','show',".(xss_clean($fields['user_dok_to_qso_tab'] ?? 'off') == "on" ? 1 : 0).");");
+				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'qso_tab','station','show',".(xss_clean($fields['user_station_to_qso_tab'] ?? 'off') == "on" ? 1 : 0).");");
 				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'widget','on_air','enabled','".(xss_clean($fields['on_air_widget_enabled'] ?? 'false'))."');");
 				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'widget','on_air','display_last_seen','".(xss_clean($fields['on_air_widget_display_last_seen'] ?? 'false'))."');");
 				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'widget','on_air','display_only_most_recent_radio','".(xss_clean($fields['on_air_widget_show_only_most_recent_radio'] ?? 'true'))."');");
+				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'widget','qso','display_qso_time','".(xss_clean($fields['qso_widget_display_qso_time'] ?? 'false'))."');");
 				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'dashboard','last_qso_count','count','".$dashboard_last_qso_count."');");
 				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'qso_tab','last_qso_count','count','".$qso_page_last_qso_count."');");
 				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'dashboard','show_map','boolean','".xss_clean($fields['user_dashboard_map'] ?? 'Y')."');");
+				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'dashboard','show_dashboard_banner','boolean','".xss_clean($fields['user_dashboard_banner'] ?? 'Y')."');");
+				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'dashboard','show_dashboard_solar','boolean','".xss_clean($fields['user_dashboard_solar'] ?? 'N')."');");
+				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'qso_db_search_priority','enable','boolean','".xss_clean($fields['user_qso_db_search_priority'] ?? 'Y')."');");
+				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'dxwaterfall','enable','boolean','".xss_clean($fields['user_dxwaterfall_enable'] ?? 'N')."');");
 				$this->session->set_userdata('dashboard_last_qso_count', $dashboard_last_qso_count);
-				$this->session->set_userdata('qso_page_last_qso_count', $qso_page_last_qso_count);				
+				$this->session->set_userdata('qso_page_last_qso_count', $qso_page_last_qso_count);
 				$this->session->set_userdata('user_dashboard_map',xss_clean($fields['user_dashboard_map'] ?? 'Y'));
+				$this->session->set_userdata('user_dashboard_banner',xss_clean($fields['user_dashboard_banner'] ?? 'Y'));
+				$this->session->set_userdata('user_dashboard_solar',xss_clean($fields['user_dashboard_solar'] ?? 'N'));
+				$this->session->set_userdata('user_dxwaterfall_enable',xss_clean($fields['user_dxwaterfall_enable'] ?? 'N'));
 
 				// Check to see if the user is allowed to change user levels
 				if($this->session->userdata('user_type') == 99) {
@@ -508,16 +532,22 @@ class User_Model extends CI_Model {
 
 	// FUNCTION: void update_session()
 	// Updates a user's login session after they've logged in
-	// TODO: This should return bool TRUE/FALSE or 0/1
 	function update_session($id, $u = null, $impersonate = false, $custom_data = null) {
 
-		if ($u == null) {
-			$u = $this->get_by_id($id);
+		$u = $u ?: $this->get_by_id($id);
+		if (!$u) {
+			return false;
+		}
+
+		$token = $this->session->userdata('session_token') ?: NULL;
+		if (!$token) {
+			$token = bin2hex(random_bytes(32));
 		}
 
 		$userdata = array(
 			'user_id'		 => $u->row()->user_id,
 			'user_name'		 => $u->row()->user_name,
+			'user_email'		 => $u->row()->user_email,
 			'user_type'		 => $u->row()->user_type,
 			'user_callsign'		 => $u->row()->user_callsign,
 			'operator_callsign'	 => ((($this->session->userdata('operator_callsign') ?? '') == '') ? $u->row()->user_callsign : $this->session->userdata('operator_callsign')),
@@ -526,11 +556,16 @@ class User_Model extends CI_Model {
 			'user_clublog_name'	 => $u->row()->user_clublog_name ?? '',
 			'user_eqsl_name'	 => $u->row()->user_eqsl_name,
 			'user_eqsl_qth_nickname' => $u->row()->user_eqsl_qth_nickname,
-			'user_hash'		 => $this->_hash($u->row()->user_id."-".$u->row()->user_type),
+			'user_hash'		     => $this->_session_hash($u->row()->user_id . $u->row()->user_type . $token),
+			'session_token'		 => $token,
 			'radio' => ((($this->session->userdata('radio') ?? '') == '') ? $this->user_options_model->get_options('cat', array('option_name' => 'default_radio'))->row()->option_value ?? '' : $this->session->userdata('radio')),
 			'station_profile_id' => $this->session->userdata('station_profile_id') ?? '',
 			'user_measurement_base' => $u->row()->user_measurement_base,
 			'user_dashboard_map' => ((($this->session->userdata('user_dashboard_map') ?? 'Y') == 'Y') ? $this->user_options_model->get_options('dashboard', array('option_name' => 'show_map', 'option_key' => 'boolean'))->row()->option_value ?? 'Y' : $this->session->userdata('user_dashboard_map')),
+			'user_dashboard_banner' => ((($this->session->userdata('user_dashboard_banner') ?? 'Y') == 'Y') ? $this->user_options_model->get_options('dashboard', array('option_name' => 'show_dashboard_banner', 'option_key' => 'boolean'))->row()->option_value ?? 'Y' : $this->session->userdata('user_dashboard_banner')),
+			'user_dashboard_solar' => ((($this->session->userdata('user_dashboard_solar') ?? 'N') == 'Y') ? $this->session->userdata('user_dashboard_solar') : $this->user_options_model->get_options('dashboard', array('option_name' => 'show_dashboard_solar', 'option_key' => 'boolean'))->row()->option_value ?? 'N'),
+			'user_qso_db_search_priority' => ((($this->session->userdata('user_qso_db_search_priority') ?? 'Y') == 'Y') ? $this->session->userdata('user_qso_db_search_priority') : $this->user_options_model->get_options('qso_db_search_priority', array('option_name' => 'enable', 'option_key' => 'boolean'))->row()->option_value ?? 'Y'),
+			'user_dxwaterfall_enable' => ((($this->session->userdata('user_dxwaterfall_enable') ?? 'N') == 'Y') ? $this->session->userdata('user_dxwaterfall_enable') : $this->user_options_model->get_options('dxwaterfall', array('option_name' => 'enable', 'option_key' => 'boolean'))->row()->option_value ?? 'N'),
 			'user_date_format' => $u->row()->user_date_format,
 			'user_stylesheet' => $u->row()->user_stylesheet,
 			'user_qth_lookup' => isset($u->row()->user_qth_lookup) ? $u->row()->user_qth_lookup : 0,
@@ -599,6 +634,8 @@ class User_Model extends CI_Model {
 		}
 
 		$this->session->set_userdata($userdata);
+
+		return true;
 	}
 
 	// FUNCTION: bool validate_session()
@@ -615,7 +652,8 @@ class User_Model extends CI_Model {
 			$impersonate = $this->session->userdata('impersonate');
 
 			if(ENVIRONMENT != 'maintenance') {
-				if($this->_auth($user_id."-".$user_type, $user_hash)) {
+				$session_token = $this->session->userdata('session_token');
+				if($session_token && $this->_auth($user_id . $user_type . $session_token, $user_hash)) {
 					// Freshen the session
 					$this->update_session($user_id, $u);
 					return 1;
@@ -625,7 +663,8 @@ class User_Model extends CI_Model {
 				}
 			} else {  // handle the maintenance mode and kick out user on page reload if not an admin
 				if($user_type == '99' || $src_user_type === '99') {
-					if($this->_auth($user_id."-".$user_type, $user_hash)) {
+					$session_token = $this->session->userdata('session_token');
+					if($session_token && $this->_auth($user_id . $user_type . $session_token, $user_hash)) {
 						// Freshen the session
 						$this->update_session($user_id, $u);
 						return 1;
@@ -649,7 +688,7 @@ class User_Model extends CI_Model {
 		$u = $this->get($username);
 		if($u->num_rows() != 0) {
 			// direct login to clubstations are not allowed
-			if ($u->row()->clubstation == 1) {
+			if ($u->row()->clubstation == 1 && !($this->config->item('club_direct') ?? false)) {
 				$uid = $u->row()->user_id;
 				log_message('debug', "User ID: [$uid] Login rejected because of a external clubstation login attempt.");
 				return 2;
@@ -699,6 +738,14 @@ class User_Model extends CI_Model {
 	function authorize($level) {
 		$u = $this->get_by_id($this->session->userdata('user_id'));
 		$l = $this->config->item('auth_mode');
+
+		// Run the cache garbage collector here, probability check is already built in
+		// We run this only for file cache as other adapters have their own GC methods
+		if ($this->config->item('cache_adapter') == 'file') {
+			$this->load->library('GarbageCollector');
+			$this->garbagecollector->run();
+		}
+
 		// Check to see if the minimum level of access is higher than
 		// the user's own level. If it is, use that.
 		if($this->config->item('auth_mode') > $level) {
@@ -730,9 +777,9 @@ class User_Model extends CI_Model {
 		$qsocount_join = "";
 		if (!($this->config->item('disable_user_stats') ?? false)) {
 			$qsocount_select = ", COALESCE(lc.qsocount, 0) AS qsocount, lc.lastqso";
-			$qsocount_join = 
+			$qsocount_join =
 				" LEFT JOIN (
-					SELECT sp.user_id, 
+					SELECT sp.user_id,
 						COUNT(l.col_primary_key) AS qsocount,
 						MAX(l.COL_TIME_ON)      AS lastqso
 					FROM station_profile sp
@@ -740,7 +787,7 @@ class User_Model extends CI_Model {
 					GROUP BY sp.user_id
 				) lc ON lc.user_id = u.user_id";
 		}
-		$sql = "SELECT 
+		$sql = "SELECT
 					u.user_id,
 					u.user_name,
 					u.user_firstname,
@@ -856,12 +903,12 @@ class User_Model extends CI_Model {
 
 	// FUNCTION: bool _auth($password, $hash)
 	// Checks a password against the stored hash
+	// Understands the difference between password and session hashes
 	private function _auth($password, $hash) {
-		if(password_verify($password, $hash)) {
-			return 1;
-		} else {
-			return 0;
+		if (strpos($hash, '$2y$') === 0 || strlen($hash) === 60) {
+			return password_verify($password, $hash) ? 1 : 0;
 		}
+		return hash_equals($this->_session_hash($password), $hash) ? 1 : 0;
 	}
 
 	// FUNCTION: string _hash($password)
@@ -876,6 +923,23 @@ class User_Model extends CI_Model {
 		} else {
 			return $hash;
 		}
+	}
+
+	// FUNCTION: string _session_hash($payload)
+	// Creates a HMAC-SHA256 hash of the supplied $payload
+	// Used for session validation as it is blazing fast and will
+	// Be different after each Login
+	private function _session_hash($payload) {
+		$secret = $this->config->item('encryption_key');
+		if (($secret ?? NULL) == NULL) {
+			log_message('error', 'Encryption key is not set in config.php! Session security is compromised!');
+			// A fully missing encryption key is a showstopper, throw an exception
+			// This also means that there is something seriously wrong with the installation
+			throw new RuntimeException('Encryption key not configured');
+		} elseif ($secret == 'flossie1234555541') { // Once upon a time, this was the default key shipped which never changed
+			log_message('error', 'Default encryption key is set in config.php ("flossie...")! Session security is compromised! Change the encryption key to a unique value!');
+		}
+		return hash_hmac('sha256', (string)$payload, $secret);
 	}
 
 	/**
@@ -941,23 +1005,23 @@ class User_Model extends CI_Model {
 
 	function convert($user_id, $clubstation) {
 		$sql = "UPDATE users SET clubstation = ? WHERE user_id = ?;";
-	
+
 		$this->db->trans_start();
-	
+
 		if (!$this->db->query($sql, [$clubstation, $user_id])) {
 			$this->db->trans_rollback();
 			return false;
 		}
-	
+
 		// Remove all club permissions in case there is a club with this user id
 		$delete_sql = "DELETE FROM club_permissions WHERE club_id = ?;";
 		if (!$this->db->query($delete_sql, [$user_id])) {
 			$this->db->trans_rollback();
 			return false;
 		}
-	
+
 		$this->db->trans_complete();
-	
+
 		return $this->db->trans_status();
 	}
 
@@ -968,13 +1032,13 @@ class User_Model extends CI_Model {
 		}
 
 		try {
-			$this->db->query("INSERT INTO station_logbooks (user_id, logbook_name, modified, public_slug, public_search) 
+			$this->db->query("INSERT INTO station_logbooks (user_id, logbook_name, modified, public_slug, public_search)
 				VALUES (?, 'Home Logbook', NULL, NULL, 0)", [$stationdata['user_id']]
 			);
 			$station_logbooks_insert_id = $this->db->insert_id();
 
-			$this->db->query("UPDATE users 
-				SET active_station_logbook = ? 
+			$this->db->query("UPDATE users
+				SET active_station_logbook = ?
 				WHERE user_id = ?", [$station_logbooks_insert_id, $stationdata['user_id']]
 			);
 
@@ -986,7 +1050,7 @@ class User_Model extends CI_Model {
 					station_sig, station_sig_info, qrzrealtime, user_id, station_wwff, station_pota, oqrs, oqrs_text, oqrs_email,
 					webadifapikey, webadifapiurl, webadifrealtime, clublogignore, clublogrealtime, hrdlogrealtime, hrdlog_code, hrdlog_username
 				) VALUES (
-					?, ?, '', '', '', ?, NULL, ?, '', ?, ?, 1, '', '', '', '', '', '', 0, ?, '', '', 0, '', 0, '', 
+					?, ?, '', '', '', ?, NULL, ?, '', ?, ?, 1, '', '', '', '', '', '', 0, ?, '', '', 0, '', 0, '',
 					'https://qo100dx.club/api', 0, 0, 0, 0, '', ''
 				)", [
 					$stationdata['station_name'],
@@ -1000,7 +1064,7 @@ class User_Model extends CI_Model {
 			);
 			$station_profile_insert_id = $this->db->insert_id();
 
-			$this->db->query("INSERT INTO station_logbooks_relationship (station_logbook_id, station_location_id, modified) 
+			$this->db->query("INSERT INTO station_logbooks_relationship (station_logbook_id, station_location_id, modified)
 				VALUES (?, ?, NULL)", [$station_logbooks_insert_id, $station_profile_insert_id]
 			);
 

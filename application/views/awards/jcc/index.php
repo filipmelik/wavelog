@@ -1,5 +1,6 @@
 <script>
-   var tileUrl="<?php echo $this->optionslib->get_option('option_map_tile_server');?>"
+	let tileUrl="<?php echo $this->optionslib->get_option('option_map_tile_server');?>"
+	let user_map_custom = JSON.parse('<?php echo $user_map_custom; ?>');
 </script>
 <style>
     #jccmap {
@@ -17,6 +18,7 @@
             var lang_award_info_ln2 = "<?= __("May be claimed for having contacted (heard) and received a QSL card from an amateur station located in each of at least 100 different cities of Japan."); ?>";
             var lang_award_info_ln3 = "<?= __("JCC-200, 300, 400, 500, 600, 700 and 800 will be issued as separate awards. A list of QSL cards should be arranged in order of JCC reference number, however names of city may be omitted. An additional sticker will be issued at every 50 contacts like 150, 250, 350, 450, 550, 650, 750 cities."); ?>";
             var lang_award_info_ln4 = "<?= sprintf(__("For more information, please visit: %s."), "<a href='https://www.jarl.org/English/4_Library/A-4-2_Awards/Award_Main.htm' target='_blank'>https://www.jarl.org/English/4_Library/A-4-2_Awards/Award_Main.htm</a>"); ?>";
+			var lang_award_info_ln5 = "<?= __("Fields taken for this Award: DXCC (Japan) and County (Must contain a valid reference!)"); ?>";
             </script>
             <h2><?php echo $page_title; ?></h2>
             <button type="button" class="btn btn-sm btn-primary me-1" id="displayAwardInfo"><?= __("Award Info"); ?></button>
@@ -71,7 +73,7 @@
             </div>
 
             <div class="mb-3 row">
-                <label class="col-md-2 control-label" for="band"><?= __("Band"); ?></label>
+                <label class="col-md-2 control-label" for="band2"><?= __("Band"); ?></label>
                 <div class="col-md-2">
                     <select id="band2" name="band" class="form-select form-select-sm">
                         <option value="All" <?php if ($this->input->post('band') == "All" || $this->input->method() !== 'post') echo ' selected'; ?> ><?= __("Every band"); ?></option>

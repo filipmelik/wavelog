@@ -3,7 +3,7 @@
 class Satellite_model extends CI_Model {
 
 	function get_all_satellites() {
-		$sql = "select satellite.id, satellite.name as satname, group_concat(distinct satellitemode.name separator ', ') as modename, satellite.displayname, satellite.orbit, satellite.lotw as lotw, tle.updated
+		$sql = "select satellite.id, satellite.name as satname, group_concat(distinct satellitemode.name separator ', ') as modename, satellite.displayname, satellite.orbit, satellite.lotw as lotw, tle.updated, tle.tle
 		from satellite
 		left outer join satellitemode on satellite.id = satellitemode.satelliteid
 		left outer join tle on satellite.id = tle.satelliteid
@@ -12,14 +12,48 @@ class Satellite_model extends CI_Model {
 		return $this->db->query($sql)->result();
 	}
 
+	function get_satellite_information($satname = null) {
+		$bindings = [];
+		$sql = "select satellite.id, coalesce(nullif(satellite.name, ''), satellite.displayname) as satname, satellitemode.name as modename, satellite.displayname, satellite.orbit, satellite.lotw as lotw, tle.updated, satellitemode.uplink_mode, satellitemode.downlink_mode, FORMAT((satellitemode.uplink_freq / 1000000), 3) AS uplink_freq, FORMAT((satellitemode.downlink_freq / 1000000), 3) AS downlink_freq
+		from satellite
+		left outer join satellitemode on satellite.id = satellitemode.satelliteid
+		left outer join tle on satellite.id = tle.satelliteid ";
+
+		if ($satname != null) {
+			$sql .= " where satellite.name = ? or satellite.displayname = ?";
+			$bindings[] = $satname;
+			$bindings[] = $satname;
+		}
+
+		return $this->db->query($sql, $bindings)->result();
+	}
+
 	function get_all_satellites_with_tle() {
-		$sql = "select satellite.id, satellite.name as satname, tle.tle
+		$sql = "select satellite.id, satellite.name as satname, satellite.displayname as displayname, tle.tle
 		from satellite
 		join tle on satellite.id = tle.satelliteid
+		where tle is not NULL
 		order by satellite.name
 		";
 
 		return $this->db->query($sql)->result();
+	}
+
+	function get_last_worked_sat() {
+		$this->load->model('logbooks_model');
+		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
+		$location_list = "'" . implode("','", $logbooks_locations_array) . "'";
+		$sql = "select COL_SAT_NAME as sat from " . $this->config->item('table_name') .
+			" where station_id in (" . $location_list . ")" .
+			" AND COL_PROP_MODE = 'SAT' AND COL_SAT_NAME is not null AND COL_SAT_NAME != '' ".
+			"order by COL_TIME_ON DESC LIMIT 1";
+
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		if (isset($row)) {
+			return ($row->sat);
+		}
+		return null;
 	}
 
 	function delete($id) {
@@ -28,6 +62,42 @@ class Satellite_model extends CI_Model {
 
 		// Delete Satellite
 		$this->db->delete('satellite', array('id' => $clean_id));
+	}
+
+
+	function deleteTle($id) {
+		// Delete TLE
+		$this->db->delete('tle', array('satelliteid' => $id));
+	}
+
+	function saveTle($id, $tle) {
+		$tlelines = explode("\n", trim($tle)); // Trim to remove extra spaces or newlines
+		$lineCount = count($tlelines);
+
+		if ($lineCount === 3) {
+			$tleline1 = trim($tlelines[1]); // First data line
+			$tleline2 = trim($tlelines[2]); // Second data line
+		} else {
+			$tleline1 = trim($tlelines[0]);
+			$tleline2 = trim($tlelines[1]);
+		}
+
+		$this->db->where('satelliteid', $id);
+		if ($this->db->get('tle')->num_rows() > 0) {
+			$data = array(
+				'tle'			=> $tleline1 . "\n" . $tleline2,
+			);
+			$this->db->where('satelliteid', $id);
+			$this->db->update('tle', $data);
+		} else {
+			$data = array(
+				'satelliteid' 	=> $id,
+				'tle'			=> $tleline1 . "\n" . $tleline2,
+			);
+			$this->db->insert('tle', $data);
+			$insert_id = $this->db->insert_id();
+			return $insert_id;
+		}
 	}
 
 	function deleteSatMode($id) {
@@ -63,6 +133,7 @@ class Satellite_model extends CI_Model {
 		}
 
 		$this->db->where('name', xss_clean($this->input->post('name', true)));
+		$this->db->where('displayname', xss_clean($this->input->post('displayname', true)));
 		$result = $this->db->get('satellite');
 
 		if ($result->num_rows() == 0) {
@@ -79,6 +150,8 @@ class Satellite_model extends CI_Model {
 			);
 
 			$this->db->insert('satellitemode', $data);
+		} else {
+			log_message('error', 'Duplicate satellite to be added: '.$data['displayname'].' - '.$data['name']);
 		}
 
 	}
@@ -129,12 +202,23 @@ class Satellite_model extends CI_Model {
 		return $groups;
 	}
 
-	function get_tle($sat) {
-		$this->db->select('satellite.name AS satellite, tle.tle');
-		$this->db->join('tle', 'satellite.id = tle.satelliteid');
+	function get_sat_info($sat) {
+		$this->db->select('satellite.name AS satellite, satellite.displayname AS displayname, tle.tle, tle.updated, satellite.lotw AS lotw_support');
+		$this->db->join('tle', 'satellite.id = tle.satelliteid', 'left');
 		$this->db->where('name', $sat);
+		$this->db->or_where('displayname', $sat);
 		$query = $this->db->get('satellite');
-		return $query->row();
+		if ($query->num_rows() == 1) {
+			return $query->row();
+		} else {
+			// Looks for TLEs with displayname in case name fails
+			$this->db->select('satellite.name AS satellite, satellite.displayname AS displayname, tle.tle, tle.updated');
+			$this->db->join('tle', 'satellite.id = tle.satelliteid');
+			$this->db->where('displayname', $sat);
+			$query = $this->db->get('satellite');
+			return $query->row();
+		}
+		return null;
 	}
 
 }

@@ -2,9 +2,14 @@
 
 class Statistics extends CI_Controller {
 
-	function __construct()
-	{
+	function __construct() {
 		parent::__construct();
+
+		$this->load->model('user_model');
+		if (!$this->user_model->authorize(2)) {
+			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
+			redirect('dashboard');
+		}
 	}
 
 
@@ -12,14 +17,6 @@ class Statistics extends CI_Controller {
 		$this->load->model('user_model');
 		$this->load->model('bands');
 
-		if(!$this->user_model->authorize($this->config->item('auth_mode'))) {
-			if($this->user_model->validate_session()) {
-				$this->user_model->clear_session();
-				show_error('Access denied<p>Click <a href="'.site_url('user/login').'">here</a> to log in as another user', 403);
-			} else {
-				redirect('user/login');
-			}
-		}
 		// Render User Interface
 
 		// Set Page Title
@@ -65,23 +62,62 @@ class Statistics extends CI_Controller {
 		echo json_encode($yearstats);
 	}
 
+	public function get_year_month() {
+		$this->load->model('logbook_model');
+
+		$dateFrom = xss_clean($this->input->post('dateFrom'));
+		$dateTo = xss_clean($this->input->post('dateTo'));
+
+		// get data
+		$totals_month = $this->logbook_model->totals_year_month($dateFrom, $dateTo);
+
+		$monthstats = array();
+
+		$i = 0;
+		if ($totals_month) {
+			foreach($totals_month->result() as $qso_numbers) {
+				$monthstats[$i]['month'] = intval($qso_numbers->month);
+				$monthstats[$i++]['total'] = $qso_numbers->total;
+			}
+		}
+
+		header('Content-Type: application/json');
+		echo json_encode($monthstats);
+	}
+
 	public function get_mode() {
 		$this->load->model('logbook_model');
-		$yr = xss_clean($this->input->post('yr')) ?? 'All';
+		$dateFrom = xss_clean($this->input->post('dateFrom'));
+		$dateTo = xss_clean($this->input->post('dateTo'));
 
 		$modestats = array();
 
 		$i = 0;
-		$modestats[$i]['mode'] = 'ssb';
-		$modestats[$i++]['total'] = $this->logbook_model->total_ssb($yr);
-		$modestats[$i]['mode'] = 'cw';
-		$modestats[$i++]['total'] = $this->logbook_model->total_cw($yr);
-		$modestats[$i]['mode'] = 'fm';
-		$modestats[$i++]['total'] = $this->logbook_model->total_fm($yr);
-		$modestats[$i]['mode'] = 'am';
-		$modestats[$i++]['total'] = $this->logbook_model->total_am($yr);
-		$modestats[$i]['mode'] = 'digi';
-		$modestats[$i]['total'] = $this->logbook_model->total_digi($yr);
+		$ssb = $this->logbook_model->total_ssb($dateFrom, $dateTo);
+		$cw = $this->logbook_model->total_cw($dateFrom, $dateTo);
+		$fm = $this->logbook_model->total_fm($dateFrom, $dateTo);
+		$am = $this->logbook_model->total_am($dateFrom, $dateTo);
+		$digi = $this->logbook_model->total_digi($dateFrom, $dateTo);
+		if ($ssb > 0) {
+			$modestats[$i]['mode'] = 'ssb';
+			$modestats[$i++]['total'] = $ssb;
+		}
+		if ($cw > 0) {
+			$modestats[$i]['mode'] = 'cw';
+			$modestats[$i++]['total'] = $cw;
+		}
+		if ($fm > 0) {
+			$modestats[$i]['mode'] = 'fm';
+			$modestats[$i++]['total'] = $fm;
+		}
+		if ($am > 0) {
+			$modestats[$i]['mode'] = 'am';
+			$modestats[$i++]['total'] = $am;
+		}
+		if ($digi > 0) {
+			$modestats[$i]['mode'] = 'digi';
+			$modestats[$i]['total'] = $digi;
+		}
 		usort($modestats, fn($a, $b) => $b['total'] <=> $a['total']);
 
 		header('Content-Type: application/json');
@@ -94,8 +130,9 @@ class Statistics extends CI_Controller {
 
 		$bandstats = array();
 
-		$yr = xss_clean($this->input->post('yr')) ?? 'All';
-		$total_bands = $this->logbook_model->total_bands($yr);
+		$dateFrom = xss_clean($this->input->post('dateFrom'));
+		$dateTo = xss_clean($this->input->post('dateTo'));
+		$total_bands = $this->logbook_model->total_bands($dateFrom, $dateTo);
 
 		$i = 0;
 
@@ -118,11 +155,12 @@ class Statistics extends CI_Controller {
 		//define stats array
 		$operatorstats = array();
 
-		//get year if present
-		$yr = xss_clean($this->input->post('yr')) ?? 'All';
-		
+		//get date range if present
+		$dateFrom = xss_clean($this->input->post('dateFrom'));
+		$dateTo = xss_clean($this->input->post('dateTo'));
+
 		//load stats
-		$total_operators = $this->logbook_model->total_operators($yr);
+		$total_operators = $this->logbook_model->total_operators($dateFrom, $dateTo);
 
 		$i = 0;
 
@@ -144,8 +182,9 @@ class Statistics extends CI_Controller {
 
 		$satstats = array();
 
-		$yr = xss_clean($this->input->post('yr')) ?? 'All';
-		$total_sat = $this->logbook_model->total_sat($yr);
+		$dateFrom = xss_clean($this->input->post('dateFrom'));
+		$dateTo = xss_clean($this->input->post('dateTo'));
+		$total_sat = $this->logbook_model->total_sat($dateFrom, $dateTo);
 		$i = 0;
 
 		if ($total_sat) {
@@ -164,16 +203,35 @@ class Statistics extends CI_Controller {
 
 		$total_qsos = array();
 
-		$yr = xss_clean($this->input->post('yr')) ?? 'All';
-		$result = $this->stats->unique_sat_callsigns($yr);
+		$dateFrom = xss_clean($this->input->post('dateFrom'));
+		$dateTo = xss_clean($this->input->post('dateTo'));
+		$result = $this->stats->unique_sat_callsigns($dateFrom, $dateTo);
 		$total_qsos['qsoarray'] = $result['qsoView'];
 		$total_qsos['satunique'] = $result['satunique'];
 		$total_qsos['modeunique'] = $result['modeunique'];
 		$total_qsos['total'] = $result['total'];
-		$total_qsos['sats'] = $this->stats->get_sats($yr);
-		$total_qsos['modes'] = $this->stats->get_sat_modes($yr);
+		$total_qsos['sats'] = $this->stats->get_sats($dateFrom, $dateTo);
+		$total_qsos['modes'] = $this->stats->get_sat_modes($dateFrom, $dateTo);
 
 		$this->load->view('statistics/satuniquetable', $total_qsos);
+	}
+
+	public function get_unique_sat_grids() {
+		$this->load->model('stats');
+
+		$total_qsos = array();
+
+		$dateFrom = xss_clean($this->input->post('dateFrom'));
+		$dateTo = xss_clean($this->input->post('dateTo'));
+		$result = $this->stats->unique_sat_grids($dateFrom, $dateTo);
+		$total_qsos['qsoarray'] = $result['qsoView'];
+		$total_qsos['satunique'] = $result['satunique'];
+		$total_qsos['modeunique'] = $result['modeunique'];
+		$total_qsos['total'] = $result['total'];
+		$total_qsos['sats'] = $this->stats->get_sats($dateFrom, $dateTo);
+		$total_qsos['modes'] = $this->stats->get_sat_modes($dateFrom, $dateTo);
+
+		$this->load->view('statistics/satuniquegridtable', $total_qsos);
 	}
 
 	public function get_unique_callsigns() {
@@ -181,13 +239,14 @@ class Statistics extends CI_Controller {
 
 		$total_qsos = array();
 
-		$yr = xss_clean($this->input->post('yr')) ?? 'All';
-		$result = $this->stats->unique_callsigns($yr);
+		$dateFrom = xss_clean($this->input->post('dateFrom'));
+		$dateTo = xss_clean($this->input->post('dateTo'));
+		$result = $this->stats->unique_callsigns($dateFrom, $dateTo);
 		$total_qsos['qsoarray'] = $result['qsoView'];
 		$total_qsos['bandunique'] = $result['bandunique'];
 		$total_qsos['modeunique'] = $result['modeunique'];
 		$total_qsos['total'] = $result['total'];
-		$total_qsos['bands'] = $this->stats->get_bands($yr);
+		$total_qsos['bands'] = $this->stats->get_bands($dateFrom, $dateTo);
 
 		$this->load->view('statistics/uniquetable', $total_qsos);
 	}
@@ -197,13 +256,14 @@ class Statistics extends CI_Controller {
 
 		$total_qsos = array();
 
-		$yr = xss_clean($this->input->post('yr')) ?? 'All';
-		$result = $this->stats->total_sat_qsos($yr);
+		$dateFrom = xss_clean($this->input->post('dateFrom'));
+		$dateTo = xss_clean($this->input->post('dateTo'));
+		$result = $this->stats->total_sat_qsos($dateFrom, $dateTo);
 		$total_qsos['qsoarray'] = $result['qsoView'];
 		$total_qsos['sattotal'] = $result['sattotal'];
 		$total_qsos['modetotal'] = $result['modetotal'];
 		$total_qsos['modes'] = $result['modes'];
-		$total_qsos['sats'] = $this->stats->get_sats($yr);
+		$total_qsos['sats'] = $this->stats->get_sats($dateFrom, $dateTo);
 
 		$this->load->view('statistics/satqsotable', $total_qsos);
 	}
@@ -213,12 +273,13 @@ class Statistics extends CI_Controller {
 
 		$total_qsos = array();
 
-		$yr = xss_clean($this->input->post('yr')) ?? 'All';
-		$result = $this->stats->total_qsos($yr);
+		$dateFrom = xss_clean($this->input->post('dateFrom'));
+		$dateTo = xss_clean($this->input->post('dateTo'));
+		$result = $this->stats->total_qsos($dateFrom, $dateTo);
 		$total_qsos['qsoarray'] = $result['qsoView'];
 		$total_qsos['bandtotal'] = $result['bandtotal'];
 		$total_qsos['modetotal'] = $result['modetotal'];
-		$total_qsos['bands'] = $this->stats->get_bands($yr);
+		$total_qsos['bands'] = $this->stats->get_bands($dateFrom, $dateTo);
 
 		$this->load->view('statistics/qsotable', $total_qsos);
 	}
@@ -261,7 +322,8 @@ class Statistics extends CI_Controller {
 		$footerData = [];
 		$footerData['scripts'] = [
 			'assets/js/chart.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/chart.js")),
-			'assets/js/sections/antennastats.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/antennestats.js")),
+			'assets/js/sections/antennastats.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/antennastats.js")),
+			'assets/js/bootstrap-multiselect.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/bootstrap-multiselect.js")),
 		];
 
 		// Load Views
@@ -275,9 +337,11 @@ class Statistics extends CI_Controller {
 		$mode = xss_clean($this->input->post('mode'));
 		$sat = xss_clean($this->input->post('sat'));
 		$orbit = xss_clean($this->input->post('orbit'));
+		$dateFrom = xss_clean($this->input->post('dateFrom'));
+		$dateTo = xss_clean($this->input->post('dateTo'));
 
 		$this->load->model('stats');
-		$azimutharray = $this->stats->azimuthdata($band, $mode, $sat, $orbit);
+		$azimutharray = $this->stats->azimuthdata($band, $mode, $sat, $orbit, $dateFrom, $dateTo);
 
 		header('Content-Type: application/json');
 		echo json_encode($azimutharray);
@@ -286,11 +350,86 @@ class Statistics extends CI_Controller {
 	public function get_elevation_data() {
 		$sat = xss_clean($this->input->post('sat'));
 		$orbit = xss_clean($this->input->post('orbit'));
+		$dateFrom = xss_clean($this->input->post('dateFrom'));
+		$dateTo = xss_clean($this->input->post('dateTo'));
 
 		$this->load->model('stats');
-		$elevationarray = $this->stats->elevationdata($sat, $orbit);
+		$elevationarray = $this->stats->elevationdata($sat, $orbit, $dateFrom, $dateTo);
 
 		header('Content-Type: application/json');
 		echo json_encode($elevationarray);
+	}
+
+	public function sat_qsos_ajax() {
+		$this->load->model('stats');
+
+		$sat = str_replace('"', "", $this->security->xss_clean($this->input->post("Sat")));
+		$mode = str_replace('"', "", $this->security->xss_clean($this->input->post("Mode")));
+		$dateFrom = $this->security->xss_clean($this->input->post("dateFrom"));
+		$dateTo = $this->security->xss_clean($this->input->post("dateTo"));
+		$data['results'] = $this->stats->sat_qsos($sat,$dateFrom,$dateTo,$mode);
+
+		$data['page_title'] = __("Log View")." - " . __("Satellite QSOs");
+		$data['filter'] = $sat;
+		$data['ispopup'] = true;
+
+		$this->load->view('statistics/details', $data);
+	}
+
+	public function initials() {
+		$this->load->model('stats');
+		$this->load->model('bands');
+
+		$data['modes'] = $this->stats->get_eme_modes();
+
+		$data['worked_bands'] = $this->bands->get_worked_bands_eme();
+
+		// Set Page Title
+		$data['page_title'] = __("EME Initials");
+
+		$footerData = [];
+		$footerData['scripts'] = [
+			'assets/js/sections/initials.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/initials.js")),
+		];
+
+		// Load Views
+		$this->load->view('interface_assets/header', $data);
+		$this->load->view('statistics/initials');
+		$this->load->view('interface_assets/footer', $footerData);
+	}
+
+	public function getInitials() {
+		$band = xss_clean($this->input->post('band'));
+		$mode = xss_clean($this->input->post('mode'));
+
+		if ($this->session->userdata('user_measurement_base') == NULL) {
+			$measurement_base = $this->config->item('measurement_base');
+		} else {
+			$measurement_base = $this->session->userdata('user_measurement_base');
+		}
+
+		switch ($measurement_base) {
+			case 'M':
+				$unit = "mi";
+				$factor = 0.621371;
+				break;
+			case 'K':
+				$unit = "km";
+				$factor = 1;
+				break;
+			case 'N':
+				$unit = "nmi";
+				$factor = 0.539957;
+				break;
+			default:
+				$unit = "km";
+				$factor = 1;
+				break;
+		}
+		$this->load->model('stats');
+		$data['factor'] = $factor;
+		$data['unit'] = $unit;
+		$data['intials_array'] = $this->stats->getInitialsFromDb($band, $mode);
+		$this->load->view('statistics/initialresult', $data);
 	}
 }

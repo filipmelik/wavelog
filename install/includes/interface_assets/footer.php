@@ -68,7 +68,9 @@
 		<?= __("French"); ?>
 		<?= __("German"); ?>
 		<?= __("Greek"); ?>
+		<?= __("Hungarian"); ?>
 		<?= __("Italian"); ?>
+		<?= __("Japanese"); ?>
 		<?= __("Latvian"); ?>
 		<?= __("Lithuanian"); ?>
 		<?= __("Montenegrin"); ?>
@@ -76,6 +78,7 @@
 		<?= __("Portuguese"); ?>
 		<?= __("Russian"); ?>
 		<?= __("Serbian"); ?>
+		<?= __("Slovak"); ?>
 		<?= __("Slovenian"); ?>
 		<?= __("Spanish"); ?>
 		<?= __("Swedish"); ?>

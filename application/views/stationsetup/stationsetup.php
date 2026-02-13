@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    var custom_date_format = "<?php echo $custom_date_format ?>";
+</script>
 <div class="container">
 
     <br>
@@ -18,7 +21,7 @@
 				<?= __("Station Logbooks")?>
 					</div>
 					<div class="card-body">
-                    <p class="card-text"><?= __("Station Logbooks allow you to group Station Locations, this allows you to see all the locations across one session from the logbook areas to the analytics. Great for when your operating in multiple locations but they are part of the same DXCC or VUCC Circle.")?></p>
+                    <p class="card-text"><?= __("Station Logbooks allow you to group Station Locations, this allows you to see all the locations across one session from the logbook areas to the analytics. Great for when you're operating in multiple locations but they are part of the same DXCC or VUCC Circle.")?></p>
 					<a class="btn btn-primary btn-sm" href="javascript:createStationLogbook();"><i class="fas fa-plus"></i> <?= __("Create Station Logbook")?></a>
 
 
@@ -29,7 +32,7 @@
                                 <tr>
                                     <th scope="col"><?= __("Name")?></th>
                                     <th scope="col"><?= __("Status")?></th>
-                                    <th scope="col"><?= __("Linked locations"); ?></th>
+                                    <th scope="col"><?= __("Edit Linked locations"); ?></th>
                                     <th scope="col"><?= __("Delete")?></th>
                                     <th scope="col"><?= __("Visitor site"); ?></th>
                                     <th scope="col"><?= __("Public Search")?></th>
@@ -52,7 +55,7 @@
                                     <td>
                                         <?php if($this->session->userdata('active_station_logbook') != $row->logbook_id) { ?>
                                         <button id="<?php echo $row->logbook_id; ?>" class="deleteLogbook btn btn-outline-danger btn-sm"
-                                            cnftext="'<?= __("Are you sure you want to delete the following station logbook? You must re-link any locations linked here to another logbook.: ") . $row->logbook_name; ?>'"><i
+                                            cnftext="<?= sprintf(__("Are you sure you want to delete the station logbook %s? You must re-link any locations linked here to another logbook."), $row->logbook_name); ?>"><i
                                                 class="fas fa-trash-alt"></i></a>
                                         <?php } ?>
                                     </td>
@@ -98,7 +101,9 @@
 					<?= __("The 'Linked' column shows if the station location is linked with the Active Logbook selected above."); ?>
 				</p>
 
-						<p><a href="<?php echo site_url('station/create'); ?>" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> <?= __("Create a Station Location"); ?></a></p>
+						<p><a href="<?php echo site_url('station/create'); ?>" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> <?= __("Create a Station Location"); ?></a> <button onclick="filterlocations();" class="btn btn-sm btn-success"><?= __("Show only locations from the active logbook"); ?></button>
+						<button onclick="removefilterlocations();" class="btn btn-sm btn-success"><?= __("Show all locations"); ?></button>
+					<a href="<?php echo site_url('stationsetup/list_locations'); ?>" class="btn btn-sm btn-success"><?= __("Show a location list"); ?></a></p>
 
 <?php if($current_active == 0) { ?>
 <div class="alert alert-danger" role="alert">
@@ -123,6 +128,7 @@
 			<th scope="col"><?= __("Station Callsign"); ?></th>
 			<th scope="col"><?= __("Country"); ?></th>
 			<th scope="col"><?= __("Gridsquare"); ?></th>
+			<th scope="col"><?= __("Last QSO"); ?></th>
 			<th></th>
 			<th scope="col"><?= __("Linked"); ?></th>
 			<th scope="col"><?= __("Edit"); ?></th>
@@ -146,12 +152,13 @@
 			<td>
 				<?php echo $row->station_profile_name;?><br>
 			</td>
-			<td><?php echo $row->station_callsign;?></td>
+			<td><?php echo str_replace('0', 'Ø', $row->station_callsign);?></td>
 			<td><?php echo $row->station_country == '' ? __("Please select one") : $row->station_country; if ($row->dxcc_end != NULL) { echo ' <span class="badge bg-danger">'.__("Deleted DXCC").'</span>'; } ?></td>
 			<td><?php echo $row->station_gridsquare;?></td>
+			<td></td>
 			<td>
 				<?php if($row->station_active != 1) { ?>
-					<a href="<?php echo site_url('station/set_active/').$current_active."/".$row->station_id; ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('<?= __("Are you sure you want to make the following station the active station: "); ?> <?php echo $row->station_profile_name; ?>');"><?= __("Set Active"); ?></a>
+					<a href="<?php echo site_url('station/set_active/').$current_active."/".$row->station_id; ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('<?= sprintf(__("Are you sure you want to make the station profile %s the active station?"), $row->station_profile_name); ?>');"><?= __("Set Active"); ?></a>
 				<?php } else { ?>
 					<span class="badge bg-success"><?= __("Active Station"); ?></span>
 				<?php } ?>

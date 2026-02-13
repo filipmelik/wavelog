@@ -229,7 +229,10 @@ function handleInput() {
 	var stx_incr_mode = 0;
 	var prev_stx = "";
 	var prev_stx_string = "";
+	var retained_info = {};
+
 	qsoList = [];
+	var timezoneOffsetHours = 0;
 	$("#qsoTable tbody").empty();
 	errors = [];
 	checkMainFieldsErrors();
@@ -237,27 +240,47 @@ function handleInput() {
 	var text = textarea.val().trim();
 	lines = text.split("\n");
 	lines.forEach((row) => {
+		// Solve timezone offset if specified
+		var tzMatch = row.trim().match(/^(?:TIMEZONE|TZOFS)\s+([+-]\d+)/i);
+		if (tzMatch) {
+			timezoneOffsetHours = parseInt(tzMatch[1], 10);
+			return;
+		}
+
 		var rst_s = null;
 		var rst_r = null;
 		var gridsquare = "";
 		var srx = "";
 		var stx = "";
 		var call_rec = false;
-		var add_info = {};
+		var add_info = structuredClone(retained_info);
 
 		// First, search for <...>- and [...]-Patterns, which may contain comments (... or additional fields) / qsl-notes
 		let addInfoMatches = row.matchAll(/<([^>]*)>|\[([^\]]*)\]/g);
-		addInfoMatches.forEach((item) => {
+		for (const item of addInfoMatches) {
 			row = row.replace(item[0], "");
 			let kv;
-			if (item[0][0] == '<' && (kv = item[1].match(/^([a-z_]+): *(.*)$/))) {
+			if (item[0][0] == '<' && (kv = item[1].match(/^([A-Za-z_]+): *(.*)$/))) {
+
+				kv[1] = kv[1].toLowerCase();
+
+				if (kv[2] == '') {
+					if (retained_info.hasOwnProperty(kv[1])) delete retained_info[kv[1]];
+					if (add_info.hasOwnProperty(kv[1])) delete add_info[kv[1]];
+					continue;
+				}
+
+				if (kv[1].match(/^(my_|tx_pwr$)/) !== null) {
+					retained_info[kv[1]] = kv[2];
+				}
+
 				add_info[kv[1]] = kv[2];
 			} else if (item[0][0] == '[') {
 				add_info.qslmsg = item[2];
 			} else {
 				add_info.comment = (('comment' in add_info)?add_info.comment+' ': '')+item[1];
 			}
-		});
+		}
 
 		// Now split the remaining line by spaces and match patterns on those
 		var itemNumber = 0;
@@ -369,7 +392,7 @@ function handleInput() {
 						prev_stx_string = '';
 					}
 
-					// FLE paradima: Previous if not set - we have some sort of contest exchange, so 
+					// FLE paradima: Previous if not set - we have some sort of contest exchange, so
 					// re-apply previously set stx / stx_string if not already populated
 					if (prev_stx != '' && stx == '') {
 						stx = (prev_stx*1) + stx_incr_mode;
@@ -418,9 +441,22 @@ function handleInput() {
 			rst_s = getReportByMode(rst_s, mode);
 			rst_r = getReportByMode(rst_r, mode);
 
+			var utcDate = extraQsoDate;
+			var utcTime = qsotime;
+
+			if (timezoneOffsetHours !== 0) {
+				var offsetString = (timezoneOffsetHours >= 0 ? '+' : '-') + ('0' + Math.abs(timezoneOffsetHours)).slice(-2) + ':00';
+				var fullIsoString = extraQsoDate + 'T' + qsotime.slice(0, 2) + ':' + qsotime.slice(2) + ':00' + offsetString;
+
+				var dateObject = new Date(fullIsoString);
+
+				utcDate = dateObject.getUTCFullYear() + '-' + ('0' + (dateObject.getUTCMonth() + 1)).slice(-2) + '-' + ('0' + dateObject.getUTCDate()).slice(-2);
+
+				utcTime = ('0' + dateObject.getUTCHours()).slice(-2) + ('0' + dateObject.getUTCMinutes()).slice(-2);
+			}
 			qsoList.push([
-				extraQsoDate,
-				qsotime,
+				utcDate,
+				utcTime,
 				callsign,
 				freq,
 				band,
@@ -465,8 +501,8 @@ function handleInput() {
 			}
 
 			const tableRow = $(`<tr>
-			<td>${extraQsoDate}</td>
-			<td>${qsotime}</td>
+			<td>${utcDate}</td>
+			<td>${utcTime}</td>
 			<td>${callsign}</td>
 			<td><span data-bs-toggle="tooltip" data-placement="left" title="${freq}">${band}</span></td>
 			<td>${mode}</td>
@@ -732,12 +768,12 @@ function getSettingsMode(mode, modesArray = Modes) {
         }
     }
 
-	return settingsMode; 
+	return settingsMode;
 }
 
 function modes_regex(modesArray) {
     var regexPattern = '^';
-    
+
     for (var i = 0; i < modesArray.length; i++) {
 
 		var modeValue = modesArray[i]['mode'] + '$|^';
@@ -856,7 +892,7 @@ function getReportByMode(rst, mode) {
 				default: return "+0 dB";
 			}
 		}
-	
+
 		return "599";
 
 	} else {
@@ -874,7 +910,7 @@ function getReportByMode(rst, mode) {
 		} else if (rst.startsWith('+') || rst.startsWith('-')) {
 			return rst + " dB";
 		}
-		
+
 		if (rst.length === 1) {
 			switch(mode) {
 				case "CW": 				return "5" + rst + "9";
@@ -899,7 +935,7 @@ function getReportByMode(rst, mode) {
 
 				default: 				return "+" + rst + " dB";
 			};
-		} 
+		}
 	}
 
 	return rst;
@@ -1049,7 +1085,7 @@ $(".js-save-to-log").click(function () {
 						var gridsquare = item[6];
 						var rst_sent = item[7].replace(/dB$/, ''); // we don't want 'dB' in the database
 						var rst_rcvd = item[8].replace(/dB$/, ''); // *
-						var start_date = item[0];
+						var start_date = item[0].replaceAll('-', '');
 						var start_time =
 							item[1][0] +
 							item[1][1] +

@@ -21,11 +21,11 @@
         <input type="radio" id="lotwimport" name="lotwimport" class="form-check-input"<?php if ($this->config->item('disable_manual_lotw')) { echo ' checked="checked"'; } ?>>
         <label class="form-check-label" for="lotwimport"><?= __("Upload a File"); ?></label>
         <br><br>
-        <p><?= sprintf(__("Upload the Exported ADIF file from LoTW from the %s Area, to mark QSOs as confirmed on LoTW."), "<a href='https://p1k.arrl.org/lotwuser/qsos?qsoscmd=adif' target='_blank'>".__("Download Report")."</a>"); ?></p>
+        <p><?= sprintf(__("Upload the Exported ADIF file from LoTW from the %s Area, to mark QSOs as confirmed on LoTW."), "<a href='https://lotw.arrl.org/lotwuser/qsos?qsoscmd=adif' target='_blank'>".__("Download Report")."</a>"); ?></p>
         <p><span class="badge text-bg-info"><?= __("Important"); ?></span> <?= __("Log files must have the file type .adi"); ?></p>
 
         <label class="visually-hidden" for="adiffile"><?= __("Choose file"); ?></label>
-        <input type="file" class="file-input mb-2 me-sm-2" id="adiffile" name="userfile" size="20" />
+        <input type="file" class="file-input mb-2 me-sm-2" id="adiffile" name="userfile" size="20" accept=".adi,.ADI,.adif,.ADIF" />
       </div>
 
       <br><br>

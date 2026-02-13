@@ -42,7 +42,6 @@ class Qrz extends CI_Controller {
 		curl_setopt( $ch, CURLOPT_USERAGENT, 'Wavelog/'.$this->optionslib->get_option('version'));
 		
 		$content = curl_exec($ch);
-		curl_close($ch);
 
 		if ($content){
 			if (stristr($content,'RESULT=OK')) {
@@ -249,7 +248,9 @@ class Qrz extends CI_Controller {
 					echo json_encode($data);
 				}
 			} else {
-				$data['status']='QRZ Disabled for station'.$this->security->xss_clean($postData['station_id']);
+				$profile = $this->stations->profile($this->security->xss_clean($postData['station_id']))->row()->station_profile_name;
+				$data['status']='Error';
+				$data['info']='QRZ upload disabled for station profile:'.' '.$profile;
 				echo json_encode($data);
 			}
 		} else {

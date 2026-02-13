@@ -1,3 +1,59 @@
+// ========================================
+// PLATFORM DETECTION UTILITIES
+// ========================================
+
+/**
+ * Platform detection utilities using modern userAgentData API with fallback
+ */
+var PlatformDetection = {
+    /**
+     * Check if the current platform is macOS
+     * @returns {boolean} True if platform is macOS
+     */
+    isMac: function() {
+        // Use modern userAgentData API if available, fallback to userAgent
+        if (navigator.userAgentData && navigator.userAgentData.platform) {
+            return navigator.userAgentData.platform.toUpperCase().indexOf('MAC') >= 0;
+        }
+        return navigator.userAgent.toUpperCase().indexOf('MAC') >= 0;
+    },
+
+    /**
+     * Check if the current platform is Windows
+     * @returns {boolean} True if platform is Windows
+     */
+    isWindows: function() {
+        if (navigator.userAgentData && navigator.userAgentData.platform) {
+            return navigator.userAgentData.platform.toUpperCase().indexOf('WIN') >= 0;
+        }
+        return navigator.userAgent.toUpperCase().indexOf('WIN') >= 0;
+    },
+
+    /**
+     * Check if the current platform is Linux
+     * @returns {boolean} True if platform is Linux
+     */
+    isLinux: function() {
+        if (navigator.userAgentData && navigator.userAgentData.platform) {
+            return navigator.userAgentData.platform.toUpperCase().indexOf('LINUX') >= 0;
+        }
+        return navigator.userAgent.toUpperCase().indexOf('LINUX') >= 0;
+    },
+
+    /**
+     * Check if the modifier key is pressed (Cmd on Mac, Ctrl on Windows/Linux)
+     * @param {Event} event - The keyboard or mouse event
+     * @returns {boolean} True if the platform-specific modifier key is pressed
+     */
+    isModifierKey: function(event) {
+        return this.isMac() ? event.metaKey : event.ctrlKey;
+    }
+};
+
+// ========================================
+// QSO FORM UTILITIES
+// ========================================
+
 function setRst(mode) {
 	if(mode == 'JT65' || mode == 'JT65B' || mode == 'JT6C' || mode == 'JTMS' || mode == 'ISCAT' || mode == 'MSK144' || mode == 'JTMSK' || mode == 'QRA64' || mode == 'FT8' || mode == 'FT4' || mode == 'JS8' || mode == 'JT9' || mode == 'JT9-1' || mode == 'ROS'){
 		$('#rst_sent').val('-5');
@@ -8,6 +64,9 @@ function setRst(mode) {
 	} else if (mode == 'CW' || mode == 'RTTY' || mode == 'PSK31' || mode == 'PSK63') {
 		$('#rst_sent').val('599');
 		$('#rst_rcvd').val('599');
+	} else if (mode == 'SSTV' || mode == 'ATV') {
+		$('#rst_sent').val('595');
+		$('#rst_rcvd').val('595');
 	} else {
 		$('#rst_sent').val('59');
 		$('#rst_rcvd').val('59');
@@ -15,97 +74,105 @@ function setRst(mode) {
 }
 
 function qsl_rcvd(id, method) {
-    $(".ld-ext-right-r-"+method).addClass('running');
-    $(".ld-ext-right-r-"+method).prop('disabled', true);
-    $.ajax({
-        url: base_url + 'index.php/qso/qsl_rcvd_ajax',
-        type: 'post',
-        data: {'id': id,
-            'method': method
-        },
-        success: function(data) {
-            $(".ld-ext-right-r-"+method).removeClass('running');
-            $(".ld-ext-right-r-"+method).prop('disabled', false);
-            if (data.message == 'OK') {
-                $("#qsl_" + id).find("span:eq(1)").attr('class', 'qsl-green'); // Paints arrow green
-                $("#qrz_" + id).find("span:eq(0)").attr('class', 'qsl-yellow'); // marks the QRZ Upload as modified
-                $(".qsl_rcvd_" + id).remove(); // removes choice from menu
-            }
-            else {
-                $(".bootstrap-dialog-message").append('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>You are not allowed to update QSL status!</div>');
-            }
-        }
-    });
+	$(".ld-ext-right-r-"+method).addClass('running');
+	$(".ld-ext-right-r-"+method).prop('disabled', true);
+	$.ajax({
+		url: base_url + 'index.php/qso/qsl_rcvd_ajax',
+		type: 'post',
+		data: {'id': id,
+			'method': method
+		},
+		success: function(data) {
+			$(".ld-ext-right-r-"+method).removeClass('running');
+			$(".ld-ext-right-r-"+method).prop('disabled', false);
+			if (data.message == 'OK') {
+				$("#qsl_" + id).find("span:eq(1)").attr('class', 'qsl-green'); // Paints arrow green
+				if ($("#qrz_"+ id).find("span:eq(0)").hasClass("qrz-green")) {
+					$("#qrz_" + id).find("span:eq(0)").attr('class', 'qrz-yellow'); // marks the QRZ Upload as modified
+				}
+				$(".qsl_rcvd_" + id).remove(); // removes choice from menu
+			}
+			else {
+				$(".bootstrap-dialog-message").append('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>You are not allowed to update QSL status!</div>');
+			}
+		}
+	});
 }
 
 function qsl_sent(id, method) {
-    $.ajax({
-        url: base_url + 'index.php/qso/qsl_sent_ajax',
-        type: 'post',
-        data: {'id': id,
-            'method': method
-        },
-        success: function(data) {
-            if (data.message == 'OK') {
-                $("#qsl_" + id).find("span:eq(0)").attr('class', 'qsl-green'); // Paints arrow green
-                $("#qrz_" + id).find("span:eq(0)").attr('class', 'qsl-yellow'); // marks the QRZ Upload as modified
-                $(".qsl_sent_" + id).remove(); // removes choice from menu
-            }
-            else {
-                $(".bootstrap-dialog-message").append('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>You are not allowed to update QSL status!</div>');
-            }
-        }
-    });
+	$.ajax({
+		url: base_url + 'index.php/qso/qsl_sent_ajax',
+		type: 'post',
+		data: {'id': id,
+			'method': method
+		},
+		success: function(data) {
+			if (data.message == 'OK') {
+				$("#qsl_" + id).find("span:eq(0)").attr('class', 'qsl-green'); // Paints arrow green
+				if ($("#qrz_"+ id).find("span:eq(0)").hasClass("qrz-green")) {
+					$("#qrz_" + id).find("span:eq(0)").attr('class', 'qrz-yellow'); // marks the QRZ Upload as modified
+				}
+				$(".qsl_sent_" + id).remove(); // removes choice from menu
+			}
+			else {
+				$(".bootstrap-dialog-message").append('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>You are not allowed to update QSL status!</div>');
+			}
+		}
+	});
 }
 
 // Function: qsl_requested
 // Marks QSL card requested against the QSO.
 function qsl_requested(id, method) {
-    $(".ld-ext-right-t-"+method).addClass('running');
-    $(".ld-ext-right-t-"+method).prop('disabled', true);
-    $.ajax({
-        url: base_url + 'index.php/qso/qsl_requested_ajax',
-        type: 'post',
-        data: {'id': id,
-            'method': method
-        },
-        success: function(data) {
-            $(".ld-ext-right-t-"+method).removeClass('running');
-            $(".ld-ext-right-t-"+method).prop('disabled', false);
-            if (data.message == 'OK') {
-                $("#qsl_" + id).find("span:eq(0)").attr('class', 'qsl-yellow'); // Paints arrow yellow
-                $("#qrz_" + id).find("span:eq(0)").attr('class', 'qsl-yellow'); // marks the QRZ Upload as modified
-            }
-            else {
-                $(".bootstrap-dialog-message").append('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>You are not allowed to update QSL status!</div>');
-            }
-        }
-    });
+	$(".ld-ext-right-t-"+method).addClass('running');
+	$(".ld-ext-right-t-"+method).prop('disabled', true);
+	$.ajax({
+		url: base_url + 'index.php/qso/qsl_requested_ajax',
+		type: 'post',
+		data: {'id': id,
+			'method': method
+		},
+		success: function(data) {
+			$(".ld-ext-right-t-"+method).removeClass('running');
+			$(".ld-ext-right-t-"+method).prop('disabled', false);
+			if (data.message == 'OK') {
+				$("#qsl_" + id).find("span:eq(0)").attr('class', 'qsl-yellow'); // Paints arrow yellow
+				if ($("#qrz_"+ id).find("span:eq(0)").hasClass("qrz-green")) {
+					$("#qrz_" + id).find("span:eq(0)").attr('class', 'qrz-yellow'); // marks the QRZ Upload as modified
+				}
+			}
+			else {
+				$(".bootstrap-dialog-message").append('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>You are not allowed to update QSL status!</div>');
+			}
+		}
+	});
 }
 
 // Function: qsl_ignore
 // Marks QSL card ignore against the QSO.
 function qsl_ignore(id, method) {
-    $(".ld-ext-right-ignore").addClass('running');
-    $(".ld-ext-right-ignore").prop('disabled', true);
-    $.ajax({
-        url: base_url + 'index.php/qso/qsl_ignore_ajax',
-        type: 'post',
-        data: {'id': id,
-            'method': method
-        },
-        success: function(data) {
-            $(".ld-ext-right-ignore").removeClass('running');
-            $(".ld-ext-right-ignore").prop('disabled', false);
-            if (data.message == 'OK') {
-                $("#qsl_" + id).find("span:eq(0)").attr('class', 'qsl-grey'); // Paints arrow grey
-                $("#qrz_" + id).find("span:eq(0)").attr('class', 'qsl-yellow'); // marks the QRZ Upload as modified
-            }
-            else {
-                $(".bootstrap-dialog-message").append('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>You are not allowed to update QSL status!</div>');
-            }
-        }
-    });
+	$(".ld-ext-right-ignore").addClass('running');
+	$(".ld-ext-right-ignore").prop('disabled', true);
+	$.ajax({
+		url: base_url + 'index.php/qso/qsl_ignore_ajax',
+		type: 'post',
+		data: {'id': id,
+			'method': method
+		},
+		success: function(data) {
+			$(".ld-ext-right-ignore").removeClass('running');
+			$(".ld-ext-right-ignore").prop('disabled', false);
+			if (data.message == 'OK') {
+				$("#qsl_" + id).find("span:eq(0)").attr('class', 'qsl-grey'); // Paints arrow grey
+				if ($("#qrz_"+ id).find("span:eq(0)").hasClass("qrz-green")) {
+					$("#qrz_" + id).find("span:eq(0)").attr('class', 'qrz-yellow'); // marks the QRZ Upload as modified
+				}
+			}
+			else {
+				$(".bootstrap-dialog-message").append('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>You are not allowed to update QSL status!</div>');
+			}
+		}
+	});
 }
 
 function displayQso(id) {
@@ -273,16 +340,35 @@ function qso_edit(id) {
 
                     $('[data-bs-toggle="tooltip"]').tooltip();
 
-                    if ($('#dxcc_id_edit').val() == '291' || $('#dxcc_id_edit').val() == '110' || $('#dxcc_id_edit').val() == '6') {
-                        $('#location_us_county_edit').show();
-                    } else {
-                        $('#location_us_county_edit').hide();
-                    }
-
+                    var dxcc = $('#dxcc_id_edit').val();
                     var state = $("#stateDropdownEdit option:selected").text();
-                    if (state != "") {
-                        $("#stationCntyInputEdit").prop('disabled', false);
-                        selectize_usa_county('#stateDropdown', '#stationCntyInputEdit');
+                    switch (dxcc) {
+                       case '6':
+                       case '110':
+                       case '291':
+                          if (state != "") {
+                             $("#stationCntyInputEdit").prop('disabled', false);
+                             selectize_usa_county('#stateDropdownEdit', '#stationCntyInputEdit');
+                          }
+                          $('#location_us_county_edit').show();
+                          break;
+                       case '15':
+                       case '54':
+                       case '61':
+                       case '126':
+                       case '151':
+                       case '288':
+                       case '339':
+                       case '170':
+                       case '21':
+                       case '29':
+                       case '32':
+                       case '281':
+                          $("#stationCntyInputEdit").prop('disabled', false);
+                          $('#location_us_county_edit').show();
+                          break;
+                       default:
+                          $('#location_us_county_edit').show();
                     }
 
                     var unsupported_lotw_prop_modes = [];
@@ -312,15 +398,36 @@ function qso_edit(id) {
                     });
 
                     $('#stateDropdownEdit').change(function(){
+                        var dxcc = $('#dxcc_id_edit').val();
+                       console.log("TEST: "+dxcc);
                         var state = $("#stateDropdownEdit option:selected").text();
-                        if (state != "") {
-                            $("#stationCntyInputEdit").prop('disabled', false);
-
-                            selectize_usa_county('#stateDropdownEdit', '#stationCntyInputEdit');
-
-                        } else {
-                            $("#stationCntyInputEdit").prop('disabled', true);
-                            $("#stationCntyInputEdit").val("");
+                        switch (dxcc) {
+                            case '6':
+                            case '110':
+                            case '291':
+                                 if (state != "") {
+                                     $("#stationCntyInputEdit").prop('disabled', false);
+                                     selectize_usa_county('#stateDropdownEdit', '#stationCntyInputEdit');
+                                 }
+                                 break;
+                            case '15':
+                            case '54':
+                            case '61':
+                            case '126':
+                            case '151':
+                            case '288':
+                            case '339':
+                            case '170':
+                            case '21':
+                            case '29':
+                            case '32':
+                            case '281':
+								 if (state != "") {
+									 $("#stationCntyInputEdit").prop('disabled', false);
+								 } else {
+									 $("#stationCntyInputEdit").prop('disabled', true);
+								 }
+                                 break;
                         }
                     });
 
@@ -559,6 +666,7 @@ function qso_save() {
 }
 
 function selectize_usa_county(state_field, county_field) {
+    $(county_field).selectize()[0].selectize.destroy();
     $(county_field).selectize({
         delimiter: ';',
         maxItems: 1,
@@ -569,10 +677,10 @@ function selectize_usa_county(state_field, county_field) {
         searchField: 'name',
         options: [],
         create: false,
+        preload: true,
         load: function(query, callback) {
             var state = $(state_field + ' option:selected').text();
 
-            if (!query || state == "") return callback();
             $.ajax({
                 url: base_url + 'index.php/lookup/get_county',
                 type: 'GET',
@@ -594,6 +702,7 @@ function selectize_usa_county(state_field, county_field) {
 
 async function updateStateDropdown(dxcc_field, state_label, county_div, county_input, dropdown = '#stateDropdown') {
     var selectedDxcc = $(dxcc_field);
+	var selectedState = $(dropdown);
 
     if (selectedDxcc.val() !== "") {
         await $.ajax({
@@ -615,12 +724,40 @@ async function updateStateDropdown(dxcc_field, state_label, county_div, county_i
         });
     }
 
-    if (selectedDxcc.val() == '291' || selectedDxcc.val() == '110' || selectedDxcc.val() == '6') {
-        $(county_div).show();
-    } else {
-        $(county_div).hide();
-        $(county_input).val();
-    }
+	switch (selectedDxcc.val()) {
+		case '6':
+		case '110':
+		case '291':
+			$(county_div).find('.form-control').hide();
+			$(county_div).find('.selectize-control').show();
+			$(county_div).show();
+			break;
+		case '15':
+		case '54':
+		case '61':
+		case '126':
+		case '151':
+		case '288':
+		case '339':
+		case '170':
+		case '21':
+		case '29':
+		case '32':
+		case '281':
+			$(county_div).find('.form-control').show();
+			var state = selectedState.val();
+			if (state == '') {
+				$(county_div).find('.form-control').prop('disabled', true);
+			} else {
+				$(county_div).find('.form-control').prop('disabled', false);
+			}
+			$(county_div).find('.selectize-control').hide();
+			$(county_div).show();
+			break;
+		default:
+			$(county_div).hide();
+			$(county_input).val('');
+	}
 }
 
 function spawnQrbCalculator(locator1, locator2) {
@@ -635,13 +772,13 @@ function spawnQrbCalculator(locator1, locator2) {
 				nl2br: false,
 				message: html,
 				onshown: function(dialog) {
-                    if (locator1 !== undefined) {
-                        $("#qrbcalc_locator1").val(locator1);
-                    }
-                    if (locator2 !== undefined) {
-                        $("#qrbcalc_locator2").val(locator2);
-                        calculateQrb();
-                    }
+					if (locator1 !== undefined) {
+						$("#qrbcalc_locator1").val(locator1);
+					}
+					if (locator2 !== undefined) {
+						$("#qrbcalc_locator2").val(locator2);
+						calculateQrb();
+					}
 				},
 				buttons: [{
 					label: lang_admin_close,
@@ -787,7 +924,7 @@ function changeLookupType(type) {
         $('#quicklookupdxcc').show();
     } else if (type == "iota") {
         $('#quicklookupiota').show();
-    } else if (type == "vucc" || type == "sota" || type == "wwff" || type == "lotw") {
+    } else if (type == "vucc" || type == "sota" || type == "wwff" || type == "lotw" || type == "pota" || type == "dok") {
         $('#quicklookuptext').show();
     } else if (type == "cq") {
         $('#quicklookupcqz').show();
@@ -818,7 +955,9 @@ function getLookupResult() {
 			wwff: $('#quicklookuptext').val(),
 			lotw: $('#quicklookuptext').val(),
 			ituz: $('#quicklookupituz').val(),
+			pota: $('#quicklookuptext').val(),
 			continent: $('#quicklookupcontinent').val(),
+			dok: $('#quicklookuptext').val(),
 		},
 		success: function (html) {
 			$('#lookupresulttable').html(html);
@@ -830,25 +969,31 @@ function getLookupResult() {
 
 // This function executes the call to the backend for fetching dxcc summary and inserted table below qso entry
 function getDxccResult(dxcc, name) {
-	$.ajax({
-		url: base_url + 'index.php/lookup/search',
-		type: 'post',
-		data: {
-			type: 'dxcc',
-			dxcc: dxcc,
-            reduced_mode: true,
-            current_band: $('#band').val(),
-            current_mode: $('#mode').val(),
-		},
-		success: function (html) {
-            $('.dxccsummary').remove();
-            $('.qsopane').append('<div class="dxccsummary col-sm-12"><br><div class="card"><div class="card-header dxccsummaryheader" data-bs-toggle="collapse" data-bs-target=".dxccsummarybody">' + lang_dxccsummary_for + name + '</div><div class="card-body collapse dxccsummarybody"></div></div></div>');
-            $('.dxccsummarybody').append(html);
-			$('.dxccsummaryheader').click(function(){
-				$('.dxccsummaryheader').toggleClass('dxccsummaryheaderopened');
-			});
-		}
-	});
+	let $targetPane = $('#dxcc-summary');
+
+	if (!$targetPane.data("loaded")) {
+		$targetPane.data("loaded", true); // Mark as loaded
+			satOrBand = $('#band').val();
+			if ($('#selectPropagation').val() == 'SAT') {
+				satOrBand = 'SAT';
+			}
+		$.ajax({
+			url: base_url + 'index.php/lookup/search',
+			type: 'post',
+			data: {
+				type: 'dxcc',
+				dxcc: dxcc,
+				reduced_mode: true,
+				current_band: satOrBand,
+				current_mode: $('#mode').val(),
+			},
+			success: function (html) {
+				$('#dxcc-summary').empty();
+				$('#dxcc-summary').append(lang_summary_dxcc + ' ' + name + '.');
+				$('#dxcc-summary').append(html);
+			}
+		});
+	}
 }
 
 function displayQsl(id) {
@@ -1062,7 +1207,7 @@ $(document).ready(function() {
 });
 
 // auto setting of gridmap height
-function set_map_height() {
+function set_map_height(extra_height = 0) {
     //header menu
     var headerNavHeight = $('nav').outerHeight();
     // console.log('nav: ' + headerNavHeight);
@@ -1076,7 +1221,7 @@ function set_map_height() {
     // console.log('.gridsquare_map_form: ' + gridsquareFormHeight);
 
     // calculate correct map height
-    var gridsquareMapHeight = window.innerHeight - headerNavHeight - coordinatesHeight - gridsquareFormHeight;
+    var gridsquareMapHeight = window.innerHeight - headerNavHeight - coordinatesHeight - gridsquareFormHeight - extra_height;
 
     // and set it
     $('#gridsquare_map').css('height', gridsquareMapHeight + 'px');
@@ -1100,55 +1245,76 @@ function newpath(latlng1, latlng2, locator1, locator2) {
         },
       }).setView([30, 0], 1.5);
 
-    // Need to fix so that marker is placed at same place as end of line, but this only needs to be done when longitude is < -170
-    if (latlng2[1] < -170) {
-        latlng2[1] =  parseFloat(latlng2[1])+360;
+    if (locator1.toUpperCase() != locator2.toUpperCase()) {
+
+        // Need to fix so that marker is placed at same place as end of line, but this only needs to be done when longitude is < -170
+        if (latlng2[1] < -170) {
+            latlng2[1] =  parseFloat(latlng2[1])+360;
+        }
+        if (latlng1[1] < -170) {
+            latlng1[1] =  parseFloat(latlng1[1])+360;
+        }
+
+        if ((latlng1[1] - latlng2[1]) < -180) {
+            latlng2[1] = parseFloat(latlng2[1]) -360;
+        } else if ((latlng1[1] - latlng2[1]) > 180) {
+            latlng2[1] = parseFloat(latlng2[1]) +360;
+        }
+
+        map.fitBounds([
+            [latlng1[0], latlng1[1]],
+            [latlng2[0], latlng2[1]]
+        ]);
+
+        var maidenhead = L.maidenheadqrb().addTo(map);
+
+        var osmUrl = option_map_tile_server;
+        var osmAttrib= option_map_tile_server_copyright;
+        var osm = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 12, attribution: osmAttrib});
+
+        var redIcon = L.icon({
+            iconUrl: icon_dot_url,
+            iconSize:     [10, 10], // size of the icon
+        });
+
+        map.addLayer(osm);
+
+        var marker = L.marker([latlng1[0], latlng1[1]], {closeOnClick: false, autoClose: false}).addTo(map).bindPopup(locator1);
+
+        var marker2 = L.marker([latlng2[0], latlng2[1]], {closeOnClick: false, autoClose: false}).addTo(map).bindPopup(locator2);
+
+        const multiplelines = [];
+            multiplelines.push(
+                new L.LatLng(latlng1[0], latlng1[1]),
+                new L.LatLng(latlng2[0], latlng2[1])
+            )
+
+        const geodesic = L.geodesic(multiplelines, {
+            weight: 3,
+            opacity: 1,
+            color: 'red',
+            wrap: false,
+            steps: 100
+        }).addTo(map);
+    } else {
+        // Need to fix so that marker is placed at same place as end of line, but this only needs to be done when longitude is < -170
+        if (latlng1[1] < -170) {
+            latlng1[1] =  parseFloat(latlng1[1])+360;
+        }
+        var maidenhead = L.maidenheadqrb().addTo(map);
+        map.setView([latlng1[0], latlng1[1]], 13);
+
+        var osmUrl = option_map_tile_server;
+        var osmAttrib= option_map_tile_server_copyright;
+        var osm = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 12, attribution: osmAttrib});
+
+        var redIcon = L.icon({
+            iconUrl: icon_dot_url,
+            iconSize:     [10, 10], // size of the icon
+        });
+        map.addLayer(osm);
+        var marker = L.marker([latlng1[0], latlng1[1]], {closeOnClick: false, autoClose: false}).addTo(map).bindPopup(locator1);
     }
-    if (latlng1[1] < -170) {
-        latlng1[1] =  parseFloat(latlng1[1])+360;
-    }
-
-	if ((latlng1[1] - latlng2[1]) < -180) {
-		latlng2[1] = parseFloat(latlng2[1]) -360;
-	} else if ((latlng1[1] - latlng2[1]) > 180) {
-		latlng2[1] = parseFloat(latlng2[1]) +360;
-	}
-
-    map.fitBounds([
-        [latlng1[0], latlng1[1]],
-        [latlng2[0], latlng2[1]]
-    ]);
-
-    var maidenhead = L.maidenheadqrb().addTo(map);
-
-    var osmUrl = option_map_tile_server;
-    var osmAttrib= option_map_tile_server_copyright;
-    var osm = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 12, attribution: osmAttrib});
-
-    var redIcon = L.icon({
-					iconUrl: icon_dot_url,
-					iconSize:     [10, 10], // size of the icon
-				});
-
-    map.addLayer(osm);
-
-    var marker = L.marker([latlng1[0], latlng1[1]], {closeOnClick: false, autoClose: false}).addTo(map).bindPopup(locator1);
-
-    var marker2 = L.marker([latlng2[0], latlng2[1]], {closeOnClick: false, autoClose: false}).addTo(map).bindPopup(locator2);
-
-    const multiplelines = [];
-		multiplelines.push(
-            new L.LatLng(latlng1[0], latlng1[1]),
-            new L.LatLng(latlng2[0], latlng2[1])
-        )
-
-    const geodesic = L.geodesic(multiplelines, {
-        weight: 3,
-        opacity: 1,
-        color: 'red',
-        wrap: false,
-        steps: 100
-    }).addTo(map);
 }
 
 function disableMap() {
@@ -1195,6 +1361,112 @@ function shareModal(qso_data) {
     });
 }
 
+
+// Show Bootstrap Toast
+function showToast(title, text, type = 'bg-success text-white', delay = 3000) {
+	/*
+	Examples:
+	showToast('Saved', 'Your data was saved!', 'bg-success text-white', 3000);
+	showToast('Error', 'Failed to connect to server.', 'bg-danger text-white', 5000);
+	showToast('Warning', 'Please check your input.', 'bg-warning text-dark', 4000);
+	showToast('Info', 'System will restart soon.', 'bg-info text-dark', 4000);
+	*/
+
+	const container = document.getElementById('toast-container');
+
+	// Create toast element
+	const toastEl = document.createElement('div');
+	toastEl.className = `toast align-items-center ${type}`;
+	toastEl.setAttribute('role', 'alert');
+	toastEl.setAttribute('aria-live', 'assertive');
+	toastEl.setAttribute('aria-atomic', 'true');
+	toastEl.setAttribute('data-bs-delay', delay);
+
+	// Toast inner HTML
+	toastEl.innerHTML = `
+		<div class="d-flex">
+		<div class="toast-body">
+			<strong>${title}</strong><br>${text}
+		</div>
+		<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+	`;
+
+	// Append and show
+	container.appendChild(toastEl);
+	const bsToast = new bootstrap.Toast(toastEl);
+	bsToast.show();
+
+	// Remove from DOM when hidden
+	toastEl.addEventListener('hidden.bs.toast', () => toastEl.remove());
+}
+
+function hexToRgba(hex, alpha = 1) {
+	if (!hex) return null;
+	// Remove the leading "#"
+	hex = hex.replace(/^#/, '');
+
+	// Expand short form (#f0a → #ff00aa)
+	if (hex.length === 3) {
+		hex = hex.split('').map(c => c + c).join('');
+	}
+
+	const num = parseInt(hex, 16);
+	const r = (num >> 16) & 255;
+	const g = (num >> 8) & 255;
+	const b = num & 255;
+
+	return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+/**
+ * Cookie Management Utilities
+ */
+
+/**
+ * Set a cookie
+ * @param {string} name - Cookie name
+ * @param {string} value - Cookie value
+ * @param {number} days - Days until expiration
+ */
+function setCookie(name, value, days) {
+	var expires = "";
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		expires = "; expires=" + date.toUTCString();
+	}
+	document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+/**
+ * Get a cookie value
+ * @param {string} name - Cookie name
+ * @returns {string|null} Cookie value or null if not found
+ */
+function getCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+		if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+	}
+	return null;
+}
+
+/**
+ * In some cases gettext-translated strings are still htmlencoded in the frontend. Use this funktion to decode them.
+ * @param {string} text - The text to decode
+ * @returns {string} Decoded text
+ */
+function decodeHtml(html) {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = html;
+    return txt.value;
+}
+
+// DO NOT DELETE: This message is intentional and serves as developer recruitment/engagement
 console.log("Ready to unleash your coding prowess and join the fun?\n\n" +
     "Check out our GitHub Repository and dive into the coding adventure:\n\n" +
     "🚀 https://www.github.com/wavelog/wavelog");

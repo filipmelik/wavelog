@@ -1,4 +1,4 @@
-<?php if ($query->num_rows() > 0) {  foreach ($query->result() as $row) { ?>
+<?php if ($query && ($query->num_rows() > 0)) {  foreach ($query->result() as $row) { ?>
 <div class="container-fluid">
 
     <ul style="margin-bottom: 10px;" class="nav nav-tabs" id="myTab" role="tablist">
@@ -81,7 +81,13 @@
 
                     <tr>
                         <td><?= __("Callsign"); ?></td>
-                        <td><b><?php echo str_replace("0","&Oslash;",strtoupper($row->COL_CALL)); ?></b> <a target="_blank" href="https://www.qrz.com/db/<?php echo strtoupper($row->COL_CALL); ?>"><img width="16" height="16" src="<?php echo base_url(); ?>images/icons/qrz.png" alt="Lookup <?php echo strtoupper($row->COL_CALL); ?> on QRZ.com"></a> <a target="_blank" href="https://www.hamqth.com/<?php echo strtoupper($row->COL_CALL); ?>"><img width="16" height="16" src="<?php echo base_url(); ?>images/icons/hamqth.png" alt="Lookup <?php echo strtoupper($row->COL_CALL); ?> on HamQTH"></a> <a target="_blank" href="http://www.eqsl.cc/Member.cfm?<?php echo strtoupper($row->COL_CALL); ?>"><img width="16" height="16" src="<?php echo base_url(); ?>images/icons/eqsl.png" alt="Lookup <?php echo strtoupper($row->COL_CALL); ?> on eQSL.cc"></a> <a target="_blank" href="https://clublog.org/logsearch.php?log=<?php echo strtoupper($row->COL_CALL); ?>&call=<?php echo strtoupper($row->station_callsign); ?>"><img width="16" height="16" src="<?php echo base_url(); ?>images/icons/clublog.png" alt="Clublog Log Search"></a></td>
+                        <td><b><?php echo str_replace("0","&Oslash;",strtoupper($row->COL_CALL)); ?></b> <a target="_blank" href="https://www.qrz.com/db/<?php echo strtoupper($row->COL_CALL); ?>"><img width="16" height="16" src="<?php echo base_url(); ?>images/icons/qrz.png" alt="Lookup <?php echo strtoupper($row->COL_CALL); ?> on QRZ.com"></a> <a target="_blank" href="https://www.hamqth.com/<?php echo strtoupper($row->COL_CALL); ?>"><img width="16" height="16" src="<?php echo base_url(); ?>images/icons/hamqth.png" alt="Lookup <?php echo strtoupper($row->COL_CALL); ?> on HamQTH"></a> <a target="_blank" href="http://www.eqsl.cc/Member.cfm?<?php echo strtoupper($row->COL_CALL); ?>"><img width="16" height="16" src="<?php echo base_url(); ?>images/icons/eqsl.png" alt="Lookup <?php echo strtoupper($row->COL_CALL); ?> on eQSL.cc"></a> <a target="_blank" href="https://clublog.org/logsearch.php?log=<?php echo strtoupper($row->COL_CALL); ?>&call=<?php echo strtoupper($row->station_callsign); ?>"><img width="16" height="16" src="<?php echo base_url(); ?>images/icons/clublog.png" alt="Clublog Log Search"></a>
+                        <?php if (!empty($contacts_note_id) && $this->session->userdata('user_show_notes')==1) { ?>
+                            <a href="<?php echo base_url(); ?>index.php/notes/view/<?php echo $contacts_note_id; ?>" target="_blank" title="<?= __("View note for this callsign"); ?>" style="margin-left:2px;vertical-align:middle;">
+                                <i class="fa fa-sticky-note text-info" style="font-size:16px;vertical-align:middle;"></i>
+                            </a>
+                        <?php } ?>
+                        </td>
                     </tr>
 
                     <tr>
@@ -296,7 +302,7 @@
                         <td><?= __("Satellite Name"); ?></td>
                         <td><a href="https://db.satnogs.org/search/?q=<?php echo $row->COL_SAT_NAME; ?>" target="_blank">
                         <?php if ($row->sat_displayname != null) {
-                                 echo $row->sat_displayname." (".$row->COL_SAT_NAME.")";
+                                 echo $row->COL_SAT_NAME." (".$row->sat_displayname.")";
                             } else {
                                  echo $row->COL_SAT_NAME;
                             }
@@ -370,10 +376,10 @@
                     </tr>
                     <?php } ?>
 
-                    <?php if($row->COL_CONTEST_ID != null) { ?>
+                    <?php if($row->contestname != null) { ?>
                     <tr>
                         <td><?= __("Contest Name"); ?></td>
-                        <td><?php echo $row->COL_CONTEST_ID; ?></td>
+                        <td><?php echo $row->contestname; ?></td>
                     </tr>
                     <?php } ?>
 
@@ -422,7 +428,7 @@
 
                     <?php if($row->COL_SIG != null) { ?>
                     <tr>
-                        <td><?= __("Sig"); ?></td>
+                        <td><?= __("SIG"); ?></td>
                         <?php
                         switch ($row->COL_SIG) {
                         case "GMA":
@@ -438,7 +444,7 @@
 
                     <?php if($row->COL_SIG_INFO != null) { ?>
                     <tr>
-                        <td><?= __("Sig Info"); ?></td>
+                        <td><?= __("SIG Info"); ?></td>
                         <?php
                         switch ($row->COL_SIG) {
                         case "GMA":
@@ -529,7 +535,7 @@
 
                     <?php if($row->COL_LOTW_QSL_RCVD == "Y" && $row->COL_LOTW_QSLRDATE != null) { ?>
                     <h3><?= __("LoTW"); ?></h3>
-                    <p><?= __("This QSO was confirmed on"); ?> <?php $timestamp = strtotime($row->COL_LOTW_QSLRDATE); echo date($custom_date_format, $timestamp); ?>.</p>
+                    <p><?= __("This QSO was confirmed on"); ?> <?php $timestamp = strtotime($row->COL_LOTW_QSLRDATE); echo date($custom_date_format, $timestamp); if (date('H:i', $timestamp) != '00:00') { echo " ".date('H:i', $timestamp);?> UTC<?php } ?>.</p>
                     <?php } ?>
 
 					<?php if($row->COL_LOTW_QSL_RCVD == "Y" && $row->COL_LOTW_QSLRDATE == null) { ?>
@@ -566,9 +572,19 @@
                         <p><?= __("This QSO was confirmed on"); ?> <?php $timestamp = strtotime($row->COL_CLUBLOG_QSO_DOWNLOAD_DATE); echo date($custom_date_format, $timestamp); ?>.</p>
                     <?php } ?>
 
-					<?php if($row->COL_CLUBLOG_QSO_DOWNLOAD_STATUS == "Y" && $row->COL_CLUBLOG_QSO_DOWNLOAD_DATE == null) { ?>
+			<?php if($row->COL_CLUBLOG_QSO_DOWNLOAD_STATUS == "Y" && $row->COL_CLUBLOG_QSO_DOWNLOAD_DATE == null) { ?>
                     <h3><?= __("Clublog"); ?></h3>
                         <p><?= __("This QSO is confirmed on Clublog."); ?></p>
+                    <?php } ?>
+
+                    <?php if($row->COL_DCL_QSL_RCVD == "Y" && $row->COL_DCL_QSLRDATE != null) { ?>
+                    <h3><?= __("DCL"); ?></h3>
+                        <p><?= __("This QSO was confirmed on"); ?> <?php $timestamp = strtotime($row->COL_DCL_QSLRDATE); echo date($custom_date_format, $timestamp); ?>.</p>
+                    <?php } ?>
+
+					<?php if($row->COL_DCL_QSL_RCVD == "Y" && $row->COL_DCL_QSLRDATE == null) { ?>
+                    <h3><?= __("DCL"); ?></h3>
+                        <p><?= __("This QSO is confirmed on DCL."); ?></p>
                     <?php } ?>
             </div>
 
@@ -693,6 +709,13 @@
                     </tr>
                     <?php } ?>
 
+                    <?php if($row->COL_MY_RIG && (($row->COL_MY_RIG ?? '') != '')) { ?>
+                    <tr>
+                        <td><?= __("Station") . ' ' . __("Radio"); ?></td>
+                        <td><?php echo $row->COL_MY_RIG; ?></td>
+                    </tr>
+                    <?php } ?>
+
                     <?php if($row->station_iota) { ?>
                     <tr>
                         <td><?= __("Station") . ' ' . __("IOTA Reference"); ?></td>
@@ -723,12 +746,12 @@
 
                     <?php if($row->station_sig) { ?>
                     <tr>
-                        <td><?= __("Station") . ' ' . __("Sig"); ?></td>
+                        <td><?= __("Station") . ' ' . __("SIG"); ?></td>
                         <td><?php echo $row->station_sig; ?></td>
                     </tr>
 
                     <tr>
-                        <td><?= __("Station") . ' ' . __("Sig Info"); ?></td>
+                        <td><?= __("Station") . ' ' . __("SIG Info"); ?></td>
                         <td><?php echo $row->station_sig_info; ?></td>
                     </tr>
                     <?php } ?>
@@ -895,4 +918,8 @@ var callsign = "<?php echo $row->COL_CALL; ?>";
     <div hidden id ='callsign'><?php echo $row->COL_CALL; ?></div>
     <div hidden id ='qsoid'><?php echo $row->COL_PRIMARY_KEY; ?></div>
 
-<?php } } ?>
+<?php }
+	} else {
+		echo __("QSO not found");
+	}
+?>

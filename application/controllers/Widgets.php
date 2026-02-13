@@ -14,17 +14,45 @@ class Widgets extends CI_Controller {
 	}
 
 
-	// Can be used to embed last 11 QSOs in a iframe or javascript include.
+	// Can be used to embed last few QSOs
 	public function qsos($logbook_slug = null) {
 
 		if($logbook_slug == null) {
 			show_error(__("Unknown Public Page, please make sure the public slug is correct."));
 		}
-		$this->load->model('logbook_model');
 
+		// determine theme
+		$this->load->model('themes_model');
+		$theme = $this->input->get('theme', TRUE);
+		if ($theme != null) {
+			if (($this->themes_model->get_theme_mode($theme) ?? '') != '') {
+				$data['theme'] = $theme;
+			} else {
+				$data['theme'] = $this->config->item('option_theme');
+			}
+		} else {
+			$data['theme'] = "default";
+		}
+
+		// determine text size
+		$text_size = $this->input->get('text_size', true) ?? 1;
+		$data['text_size_class'] = $this->prepare_text_size_css_class($text_size);
+
+		// number of QSOs shown
+		$qso_count_param = $this->input->get('qso_count', TRUE);
+		if ($qso_count_param === null || !is_numeric($qso_count_param)) {
+			$qso_count = QSO_WIDGET_DEFAULT_QSO_LIMIT;
+		} else {
+			$qso_count = min($qso_count_param, QSO_WIDGET_MAX_QSO_LIMIT);
+		}
+
+		// date format
+		$data['date_format'] = $this->config->item('qso_date_format'); // date format from /config/wavelog.php
+
+		$this->load->model('logbook_model');
 		$this->load->model('logbooks_model');
+		$this->load->model('stationsetup_model');
 		if($this->logbooks_model->public_slug_exists($logbook_slug)) {
-			// Load the public view
 
 			$logbook_id = $this->logbooks_model->public_slug_exists_logbook_id($logbook_slug);
 			if($logbook_id != false)
@@ -40,31 +68,36 @@ class Widgets extends CI_Controller {
 				show_404(__("Unknown Public Page."));
 			}
 
-			$data['last_qsos_list'] = $this->logbook_model->get_last_qsos(15, $logbooks_locations_array);
+			// Get widget settings
+			$user_id = $this->stationsetup_model->public_slug_exists_userid($logbook_slug);
+			$widget_options = $this->get_qso_widget_options($user_id);
+
+			$data['show_time'] = $widget_options->display_qso_time;
+			$data['last_qsos_list'] = $this->logbook_model->get_last_qsos($qso_count, $logbooks_locations_array);
 
 			$this->load->view('widgets/qsos', $data);
 		}
 	}
 
-	public function oqrs($user_callsign = 'CALL MISSING') {
+	public function oqrs($slug) {
 		$this->load->model('oqrs_model');
-		$stations = $this->oqrs_model->get_oqrs_stations();
+		$this->load->model('publicsearch');
+		$this->load->model('stationsetup_model');
+		$this->load->model('user_model');
+		
+		$data['slug'] = $this->security->xss_clean($slug);
 
-		if ($stations->result() === NULL) {
+		$logbook_id = $this->stationsetup_model->public_slug_exists_logbook_id($data['slug']);
+        if ($logbook_id == false) {
 			show_404(__("No stations found that are using Wavelog OQRS."));
 			return;
-		}
+        }
+		$data['userid'] = $this->publicsearch->get_userid_for_slug($data['slug']);
+		$data['logo_url'] = site_url('visitor') . '/' . $data['slug'];
 
-		$slug = $this->input->get('slug', TRUE);
-		if ($slug != null) {
-			$data['logo_url'] = base_url() . 'index.php/visitor/' . $slug;
-		} else {
-			$data['logo_url'] = 'https://github.com/wavelog/wavelog';
-		}
-
-		$this->load->model('themes_model');
 		$theme = $this->input->get('theme', TRUE);
 		if ($theme != null) {
+			$this->load->model('themes_model');
 			if (($this->themes_model->get_theme_mode($theme) ?? '') != '') {
 				$data['theme'] = $theme;
 			} else {
@@ -74,7 +107,8 @@ class Widgets extends CI_Controller {
 			$data['theme'] = $this->config->item('option_theme');
 		}
 
-		$data['user_callsign'] = strtoupper($this->security->xss_clean($user_callsign));
+		$user = $this->user_model->get_by_id($data['userid'])->row();
+		$data['user_callsign'] = strtoupper($user->user_callsign);
 		$this->load->view('widgets/oqrs', $data);
 	}
 
@@ -85,7 +119,15 @@ class Widgets extends CI_Controller {
 	 * @return void
 	 */
 	public function on_air($user_slug = "") {
-		// determine theme
+		// Check for nojs parameter (for QRZ.com compatibility)
+		$nojs = $this->input->get('nojs', TRUE) == '1';
+
+		if (!$nojs) {
+			$this->output->set_header('Content-Security-Policy: script-src \'self\' \'unsafe-inline\'');
+			$this->output->set_header('X-Frame-Options: ALLOWALL');
+			$this->output->set_header('Feature-Policy: *');
+		}
+
 		$this->load->model('themes_model');
 		$theme = $this->input->get('theme', TRUE);
 		if ($theme != null) {
@@ -98,12 +140,13 @@ class Widgets extends CI_Controller {
 			$data['theme'] = $this->config->item('option_theme');
 		}
 
-		// determine text size
 		$text_size = $this->input->get('text_size', true) ?? 1;
 
 		if (empty($user_slug)) {
 			$data['text_size_class'] = $this->prepare_text_size_css_class($text_size);
 			$data['error'] = __("User slug not specified");
+			$data['user_slug'] = '';
+			$data['nojs'] = $nojs;
 			$this->load->view('widgets/on_air', $data);
 			return;
 		}
@@ -114,6 +157,8 @@ class Widgets extends CI_Controller {
 			$data['text_size_class'] = $this->prepare_text_size_css_class($text_size);
 			$data['error'] = __("User slug not specified");
 			$data['error'] = $e->getMessage();
+			$data['user_slug'] = $user_slug;
+			$data['nojs'] = $nojs;
 			$this->load->view('widgets/on_air', $data);
 			return;
 		}
@@ -124,13 +169,14 @@ class Widgets extends CI_Controller {
 		if ($widget_options->is_enabled === false) {
 			$data['text_size_class'] = $this->prepare_text_size_css_class($text_size);
 			$data['error'] = __("User has on-air widget disabled");
+			$data['user_slug'] = $user_slug;
+			$data['nojs'] = $nojs;
 			$this->load->view('widgets/on_air', $data);
 			return;
 		}
 
 		$this->load->model('cat');
 		$query = $this->cat->status_for_user_id($user_id);
-
 
 		if ($query->num_rows() > 0) {
 			$radio_timeout_seconds = $this->get_radio_timeout_seconds();
@@ -139,11 +185,9 @@ class Widgets extends CI_Controller {
 			$last_seen_days_ago = 999;
 
 			foreach ($query->result() as $radio_data) {
-				// There can be multiple radios online, we need to take into account all of them
 				$radio_updated_ago_minutes = $this->calculate_radio_updated_ago_minutes($radio_data->timestamp);
 
 				if ($radio_updated_ago_minutes > $cat_timeout_interval_minutes) {
-					// Radio was updated too long ago - calculate user's "last seen X days ago" value
 					$mins_per_day = 1440;
 					$radio_last_seen_days_ago = (int)floor($radio_updated_ago_minutes / $mins_per_day);
 					$last_seen_days_ago = min($last_seen_days_ago, $radio_last_seen_days_ago);
@@ -152,40 +196,155 @@ class Widgets extends CI_Controller {
 					$radio_obj = new \stdClass;
 					$radio_obj->updated_at = $radio_data->timestamp;
 					$radio_obj->frequency_string = $this->prepare_frequency_string_for_widget($radio_data);
+					$radio_obj->mode = $radio_data->mode ?? '';
 					$radios_online[] = $radio_obj;
 				}
 			}
 
 			if (count($radios_online) > 1 && $widget_options->display_only_most_recent_radio) {
-				// in case only most recent radio should be displayed, use only most recently updated radio as a result
 				usort($radios_online, function($radio_a, $radio_b) {
 					if ($radio_a->updated_at == $radio_b->updated_at) return 0;
-  					return ($radio_a->updated_at > $radio_b->updated_at) ? -1 : 1;
+ 					return ($radio_a->updated_at > $radio_b->updated_at) ? -1 : 1;
 				});
 
 				$radios_online = [$radios_online[0]];
 			}
 
-			// last seen text
 			$last_seen_text = $widget_options->display_last_seen ? $this->prepare_last_seen_text($last_seen_days_ago) : null;
 
 			$data['text_size_class'] = $this->prepare_text_size_css_class($text_size);
+			$data['user_slug'] = $user_slug;
+			$data['nojs'] = $nojs;
 
-			// prepare rest of the data for UI
 			$data['user_callsign'] = strtoupper($user->user_callsign);
 			$data['is_on_air'] = count($radios_online) > 0;
 			$data['radios_online'] = $radios_online;
 			$data['last_seen_text'] = $last_seen_text;
 
 			$this->load->view('widgets/on_air', $data);
-
 		} else {
 			$data['text_size_class'] = $this->prepare_text_size_css_class($text_size);
-			$data['user_callsign'] = strtoupper($user->user_callsign);
+			$data['user_slug'] = $user_slug;
+			$data['nojs'] = $nojs;
 			$data['error'] = __("No CAT interfaced radios found. You need to have at least one radio interface configured.");
+			$data['user_callsign'] = strtoupper($user->user_callsign);
+			$data['is_on_air'] = false;
+			$data['radios_online'] = [];
+			$data['last_seen_text'] = null;
 			$this->load->view('widgets/on_air', $data);
+		}
+	}
+
+	public function on_air_ajax($user_slug = "") {
+		header('Content-Type: application/json');
+
+		if (empty($user_slug)) {
+			echo json_encode(['error' => 'User slug not specified']);
 			return;
 		}
+
+		try {
+			$user = $this->get_user_by_slug($user_slug);
+		} catch (\Exception $e) {
+			echo json_encode(['error' => $e->getMessage()]);
+			return;
+		}
+
+		$user_id = $user->user_id;
+		$widget_options = $this->get_on_air_widget_options($user_id);
+
+		if ($widget_options->is_enabled === false) {
+			echo json_encode(['error' => 'User has on-air widget disabled']);
+			return;
+		}
+
+		$this->load->model('cat');
+		$query = $this->cat->status_for_user_id($user_id);
+
+		if ($query->num_rows() > 0) {
+			$radio_timeout_seconds = $this->get_radio_timeout_seconds();
+			$cat_timeout_interval_minutes = floor($radio_timeout_seconds / 60);
+			$radios_online = [];
+			$last_seen_days_ago = 999;
+
+			foreach ($query->result() as $radio_data) {
+				$radio_updated_ago_minutes = $this->calculate_radio_updated_ago_minutes($radio_data->timestamp);
+
+				if ($radio_updated_ago_minutes > $cat_timeout_interval_minutes) {
+					$mins_per_day = 1440;
+					$radio_last_seen_days_ago = (int)floor($radio_updated_ago_minutes / $mins_per_day);
+					$last_seen_days_ago = min($last_seen_days_ago, $radio_last_seen_days_ago);
+				} else {
+					$radio_obj = new \stdClass;
+					$radio_obj->updated_at = $radio_data->timestamp;
+					$radio_obj->frequency_string = $this->prepare_frequency_string_for_widget($radio_data);
+					$radio_obj->mode = $radio_data->mode ?? '';
+					$radios_online[] = $radio_obj;
+				}
+			}
+
+			if (count($radios_online) > 1 && $widget_options->display_only_most_recent_radio) {
+				usort($radios_online, function($radio_a, $radio_b) {
+					if ($radio_a->updated_at == $radio_b->updated_at) return 0;
+					return ($radio_a->updated_at > $radio_b->updated_at) ? -1 : 1;
+				});
+				$radios_online = [$radios_online[0]];
+			}
+
+			$last_seen_text = $widget_options->display_last_seen ? $this->prepare_last_seen_text($last_seen_days_ago) : null;
+
+			$response = [
+				'success' => true,
+				'user_callsign' => strtoupper($user->user_callsign),
+				'is_on_air' => count($radios_online) > 0,
+				'radios_online' => $radios_online,
+				'last_seen_text' => $last_seen_text,
+				'timestamp' => date('Y-m-d H:i:s')
+			];
+
+			echo json_encode($response);
+		} else {
+			echo json_encode([
+				'success' => true,
+				'user_callsign' => strtoupper($user->user_callsign),
+				'is_on_air' => false,
+				'radios_online' => [],
+				'last_seen_text' => null,
+				'timestamp' => date('Y-m-d H:i:s')
+			]);
+		}
+	}
+
+	/**
+	 * Fetch and prepare user options for QSO widget
+	 *
+	 * @return stdClass
+	 */
+	private function get_qso_widget_options($user_id) {
+		$raw_widget_options = $this->user_options_model->get_options('widget', null, $user_id)->result_array();
+
+		// default values
+		$options = new \stdClass();
+		$options->display_qso_time = false;
+
+		if ($raw_widget_options === null) {
+			return $options;
+		}
+
+		foreach ($raw_widget_options as $opt_data) {
+			if ($opt_data["option_name"] !== 'qso') {
+				continue;
+			}
+
+			$key = $opt_data["option_key"];
+			$value = $opt_data["option_value"];
+
+			if ($key === "display_qso_time") {
+				$options->display_qso_time = $value === "true";
+			}
+		}
+
+		return $options;
 	}
 
 	/**
@@ -238,7 +397,7 @@ class Widgets extends CI_Controller {
 		$query_param_value = $this->input->get('radio_timeout_seconds', true);
 
 		if (is_numeric($query_param_value) === false || empty($query_param_value)) {
-			return intval($this->config->item('radio_timeout_seconds'));
+			return intval($this->optionslib->get_option('cat_timeout_interval'));
 		}
 
 		$radio_timeout_seconds = intval($query_param_value);

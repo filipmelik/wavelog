@@ -61,19 +61,16 @@ class Clublog extends CI_Controller
 		if (!empty($users)) {
 			foreach ($users as $user) {
 				$r = $this->clublog_model->downloadUser($user->user_id, $user->user_clublog_name, $user->user_clublog_password);
+				if ($r == 'Impossible to reach Clublog') { // Stop Download immediatly, because we're blocked
+					log_message("Error","We're blocked by Clublog. Stopping Download!");
+					break;
+				}
 			}
 		} else {
 			$r = __("No user has configured Clublog.");
 		}
 
 		echo $r;
-	}
-
-	function markqso($station_id)
-	{
-		$clean_station_id = $this->security->xss_clean($station_id);
-		$this->load->model('clublog_model');
-		$this->clublog_model->mark_qsos_sent($clean_station_id);
 	}
 
 	/*

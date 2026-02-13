@@ -1,11 +1,11 @@
 <div class="modal fade bg-black bg-opacity-50" id="firstLoginWizardModal" tabindex="-1" aria-labelledby="firstLoginWizardLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-lg-down">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-lg-down" style="max-height: 100vh;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="firstLoginWizardLabel"><?= __("First Login Wizard") ?></h5>
             </div>
-            <div class="modal-body" id="firstloginwizard_modal_content">
-                <form action="<?php echo site_url('user/firstlogin_wizard_form'); ?>" method="post" style="display: inline;">
+            <form action="<?php echo site_url('user/firstlogin_wizard_form'); ?>" method="post" style="display: inline;">
+            <div class="modal-body" id="firstloginwizard_modal_content" style="overflow-y: auto; max-height: 75vh;">
                     <div class="row" style="margin-top: 20px;">
                         <div class="col-md-5" id="logo-container">
                             <img src="<?php echo base_url(); ?>assets/logo/wavelog_logo_darkly.png" alt="" style="max-width: 100%; height: auto; margin-top: 70px;">
@@ -34,7 +34,7 @@
                                         <label for="station_callsign" class="form-label mb-0"><?= __("Station Callsign"); ?></label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control uppercase" id="station_callsign" name="station_callsign" placeholder="4W7EST" required>
+                                        <input type="text" class="form-control uppercase" id="station_callsign" pattern="^\S+$" name="station_callsign" placeholder="4W7EST" required>
                                     </div>
                                 </div>
                                 <div class="row mb-3 align-items-center">

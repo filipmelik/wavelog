@@ -8,6 +8,7 @@
             var lang_award_info_ln2 = "<?= __("Germany extends over 630 km from East to West and nearly 900 km from North to South. Around 70,000 of Germany's 82 million inhabitants are licensed hams, with more than 40,000 of them being members of DARC. DOK is a system that provides individual local chapters with an identifier and means 'Deutscher Ortsverband Kenner' (English: 'German Local Association Identifier')."); ?>";
             var lang_award_info_ln3 = "<?= __("The DOK consists of a letter for the district and a two-digit number for the local chapter, like P03 Friedrichshafen (city of the 'Hamradio exhibition') or F41 Baunatal (location of the DARC headquarters). Note: A zero in a DOK is a common mistake, often being logged as the letter O."); ?>";
             var lang_award_info_ln4 = "<?= sprintf(_pgettext("uses 'DARC Website' and 'here'", "This information is provided by the %s. Information about the DOK Awards and its rules can be found %s."), "<a href='https://www.darc.de/der-club/referate/conteste/wag-contest/en/service/districtsdoks/' target='_blank'>" . __("DARC website") . "</a>", "<a href='https://www.darc.de/der-club/referate/conteste/wag-contest/en/service/award-check/' target='_blank'>" . __("here") . "</a>"); ?>";
+            var lang_award_info_ln5 = "<?= __("Fields taken for this Award: DOK (ADIF: DARC_DOK)"); ?>";
             </script>
             <h2><?php echo $page_title; ?></h2>
             <button type="button" class="btn btn-sm btn-primary me-1" id="displayAwardInfo"><?= __("Award Info"); ?></button>
@@ -17,7 +18,7 @@
             <fieldset>
 
             <div class="mb-3 row">
-                <label class="col-md-2 control-label" for="band"><?= __("DOK / SDOK"); ?></label>
+                <label class="col-md-2 control-label" for="doks"><?= __("DOK / SDOK"); ?></label>
                 <div class="col-md-2">
                     <select id="doks" name="doks" class="form-select form-select-sm">
                         <option value="both" <?php if ($this->input->post('doks') == "both" || $this->input->method() !== 'post') echo ' selected'; ?> ><?= __("DOK + SDOK"); ?></option>
@@ -74,7 +75,7 @@
             </div>
 
            <div class="mb-3 row">
-               <label class="col-md-2 control-label" for="band"><?= __("Band"); ?></label>
+               <label class="col-md-2 control-label" for="band2"><?= __("Band"); ?></label>
                <div class="col-md-2">
                    <select id="band2" name="band" class="form-select form-select-sm">
                        <option value="All" <?php if ($this->input->post('band') == "All" || $this->input->method() !== 'post') echo ' selected'; ?> ><?= __("Every band"); ?></option>

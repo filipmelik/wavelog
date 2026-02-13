@@ -30,7 +30,6 @@
 
 	<?php if(validation_errors()) { ?>
     <div class="alert alert-danger">
-    	<a class="btn-close" data-bs-dismiss="alert">x</a>
  		<?php echo validation_errors(); ?>
     </div>
 	<?php } ?>
@@ -136,7 +135,7 @@
 								<div class="card-body">
 									<div class="mb-3">
 										<label><?php if ($clubstation) { echo __("Special/Club Callsign"); } else { echo __("Callsign"); } ?></label>
-										<input class="form-control uppercase" type="text" name="user_callsign" value="<?php if(isset($user_callsign)) { echo $user_callsign; } ?>" />
+										<input class="form-control uppercase" type="text" name="user_callsign" pattern="^\S+$" value="<?php if(isset($user_callsign)) { echo $user_callsign; } ?>" />
 											<?php if(isset($callsign_error)) { echo "<small class=\"badge bg-danger\">".$callsign_error."</small>"; } else { ?>
 											<?php } ?>
 									</div>
@@ -202,15 +201,16 @@
 										<label for="SelectDateFormat"><?= __("Date Format"); ?></label>
 										<?php if(!isset($user_date_format)) { $user_date_format='d/m/y'; }?>
 										<select name="user_date_format" class="form-select" id="SelectDateFormat" aria-describedby="SelectDateFormatHelp">
-											<option value="d/m/y" <?php if($user_date_format == "d/m/y") { echo "selected=\"selected\""; } ?>><?php echo date('d/m/y'); ?></option>
-											<option value="d/m/Y" <?php if($user_date_format == "d/m/Y") { echo "selected=\"selected\""; } ?>><?php echo date('d/m/Y'); ?></option>
-											<option value="m/d/y" <?php if($user_date_format == "m/d/y") { echo "selected=\"selected\""; } ?>><?php echo date('m/d/y'); ?></option>
-											<option value="m/d/Y" <?php if($user_date_format == "m/d/Y") { echo "selected=\"selected\""; } ?>><?php echo date('m/d/Y'); ?></option>
-											<option value="d.m.Y" <?php if($user_date_format == "d.m.Y") { echo "selected=\"selected\""; } ?>><?php echo date('d.m.Y'); ?></option>
-											<option value="y/m/d" <?php if($user_date_format == "y/m/d") { echo "selected=\"selected\""; } ?>><?php echo date('y/m/d'); ?></option>
-											<option value="Y-m-d" <?php if($user_date_format == "Y-m-d") { echo "selected=\"selected\""; } ?>><?php echo date('Y-m-d'); ?></option>
-											<option value="M d, Y" <?php if($user_date_format == "M d, Y") { echo "selected=\"selected\""; } ?>><?php echo date('M d, Y'); ?></option>
-											<option value="M d, y" <?php if($user_date_format == "M d, y") { echo "selected=\"selected\""; } ?>><?php echo date('M d, y'); ?></option>
+											<option value="d/m/y" <?php if($user_date_format == "d/m/y") { echo "selected=\"selected\""; } ?>><?php echo date('d/m/y'); ?> - ( DD/MM/YY )</option>
+											<option value="d/m/Y" <?php if($user_date_format == "d/m/Y") { echo "selected=\"selected\""; } ?>><?php echo date('d/m/Y'); ?> - ( DD/MM/YYYY )</option>
+											<option value="m/d/y" <?php if($user_date_format == "m/d/y") { echo "selected=\"selected\""; } ?>><?php echo date('m/d/y'); ?> - ( MM/DD/YY )</option>
+											<option value="m/d/Y" <?php if($user_date_format == "m/d/Y") { echo "selected=\"selected\""; } ?>><?php echo date('m/d/Y'); ?> - ( MM/DD/YYYY )</option>
+											<option value="d.m.Y" <?php if($user_date_format == "d.m.Y") { echo "selected=\"selected\""; } ?>><?php echo date('d.m.Y'); ?> - ( DD.MM.YYYY )</option>
+											<option value="y/m/d" <?php if($user_date_format == "y/m/d") { echo "selected=\"selected\""; } ?>><?php echo date('y/m/d'); ?> - ( YY/MM/DD )</option>
+											<option value="Y-m-d" <?php if($user_date_format == "Y-m-d") { echo "selected=\"selected\""; } ?>><?php echo date('Y-m-d'); ?> - ( YYYY-MM-DD )</option>
+											<option value="M d, Y" <?php if($user_date_format == "M d, Y") { echo "selected=\"selected\""; } ?>><?php echo date('M d, Y'); ?> - ( MMM DD, YYYY )</option>
+											<option value="M d, y" <?php if($user_date_format == "M d, y") { echo "selected=\"selected\""; } ?>><?php echo date('M d, y'); ?> - ( MMM DD, YY )</option>
+											<option value="d M y" <?php if($user_date_format == "d M y") { echo "selected=\"selected\""; } ?>><?php echo date('d M y'); ?> - ( DD MMM YY )</option>
 										</select>
 										<small id="SelectDateFormatHelp" class="form-text text-muted"><?= __("Select how you would like dates shown when logged into your account."); ?></small>
 									</div>
@@ -225,17 +225,6 @@
 											<option value='N' <?php if($user_measurement_base == "N") { echo "selected=\"selected\""; } ?>><?= __("Nautical miles"); ?></option>
 										</select>
 										<small id="user_measurement_base_Help" class="form-text text-muted"><?= __("Choose which unit distances will be shown in"); ?></small>
-									</div>
-
-									<div class="mb-3">
-										<label for="user_dashboard_map"><?= __("Show Dashboard Map"); ?></label>
-										<?php if(!isset($user_dashboard_map)) { $user_dashboard_map='Y'; }?>
-										<select class="form-select" id="user_dashboard_map" name="user_dashboard_map" aria-describedby="user_dashboard_map_Help" required>
-											<option value='Y' <?php if($user_dashboard_map == "Y") { echo "selected=\"selected\""; } ?>><?= __("Yes"); ?></option>
-											<option value='map_at_right' <?php if($user_dashboard_map == "map_at_right") { echo "selected=\"selected\""; } ?>><?= __("Map at right"); ?></option>
-											<option value='N' <?php if($user_dashboard_map == "N") { echo "selected=\"selected\""; } ?>><?= __("No"); ?></option>
-										</select>
-										<small id="user_dashboard_map_Help" class="form-text text-muted"><?= __("Choose whether to show map on dashboard or not"); ?></small>
 									</div>
 								</div>
 							</div>
@@ -360,6 +349,7 @@
 											<option value="Name" <?php if ($user_column5 == "Name") { echo " selected =\"selected\""; } ?>><?= __("Name"); ?></option>
 											<option value="Location" <?php if ($user_column5 == "Location") { echo " selected =\"selected\""; } ?>><?= __("Station Location"); ?></option>
 											<option value="Bearing" <?php if ($user_column5 == "Bearing") { echo " selected =\"selected\""; } ?>><?= __("Bearing"); ?></option>
+											<option value="Propagation" <?php if ($user_column5 == "Propagation") { echo " selected =\"selected\""; } ?>><?= __("Propagation"); ?></option>
 										</select>
 									</div>
 								</div>
@@ -381,6 +371,16 @@
 										<small id="SelectDateFormatHelp" class="form-text text-muted"><?= __("Choose yes here if you want to log QSO start and end times separately. If set to 'No' the end time will be the same as start time."); ?></small>
 									</div>
 
+									<hr />
+									<div class="mb-3">
+										<label for="logendtime"><?= __("Prioritize database search over external lookup"); ?></label>
+										<?php if(!isset($user_qso_db_search_priority)) { $user_qso_db_search_priority='Y'; }?>
+										<select class="form-select" id="logendtimes" name="user_qso_db_search_priority">
+											<option value="Y" <?php if ($user_qso_db_search_priority == 'Y') { echo " selected =\"selected\""; } ?>><?= __("Yes"); ?></option>
+											<option value="N" <?php if ($user_qso_db_search_priority == 'N') { echo " selected =\"selected\""; } ?>><?= __("No"); ?></option>
+										</select>
+										<small id="SelectDateFormatHelp" class="form-text text-muted"><?= __("When set to \"Yes\", callsign lookup will first use data from your previous QSOs before querying external services. Set to \"No\" to always use external lookup services instead."); ?></small>
+									</div>
 									<hr />
 									<div class="mb-3">
 										<label for="profileimages"><?= __("Show profile picture of QSO partner from qrz.com/hamqth.com profile in the log QSO section."); ?></label>
@@ -441,6 +441,18 @@
 											} ?>
 										</select>
 									</div>
+									<hr />
+									<!--- DX Waterfall -->
+									<div class="mb-3">
+											<label for="user_dxwaterfall_enable"><?= __("DX Waterfall"); ?></label>
+											<?php if(!isset($user_dxwaterfall_enable)) { $user_dxwaterfall_enable='N'; }?>
+											<select class="form-select" id="user_dxwaterfall_enable" name="user_dxwaterfall_enable" aria-describedby="user_dxwaterfall_enable_Help" required>
+												<option value='Y' <?php if($user_dxwaterfall_enable == "Y") { echo "selected=\"selected\""; } ?>><?= __("Enabled"); ?></option>
+												<option value='E' <?php if($user_dxwaterfall_enable == "E") { echo "selected=\"selected\""; } ?>><?= __("Enabled").' '.__("squelched"); ?></option>
+												<option value='N' <?php if($user_dxwaterfall_enable == "N") { echo "selected=\"selected\""; } ?>><?= __("Disabled"); ?></option>
+											</select>
+											<small id="user_dxwaterfall_enable_Help" class="form-text text-muted"><?= __("Show an interactive DX Cluster 'Waterfall' on the QSO logging page."); ?></small>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -477,8 +489,8 @@
 										<label for="quicklog_enter"><?= __("Quicklog - Action on press Enter"); ?></label>
 										<?php if(!isset($user_quicklog_enter)) { $user_quicklog_enter='0'; }?>
 										<select class="form-select" id="quicklog_enter" name="user_quicklog_enter">
-											<option value="0" <?php if ($user_quicklog_enter == 0) { echo " selected =\"selected\""; } ?>><?= __("Log Callsign"); ?></option>
 											<option value="1" <?php if ($user_quicklog_enter == 1) { echo " selected =\"selected\""; } ?>><?= __("Search Callsign"); ?></option>
+											<option value="0" <?php if ($user_quicklog_enter == 0) { echo " selected =\"selected\""; } ?>><?= __("Log Callsign"); ?></option>
 										</select>
 										<small id="SelectDateFormatHelp" class="form-text text-muted"><?= __("What action should be performed when Enter is pressed in the quicklog field?"); ?></small>
 									</div>
@@ -491,7 +503,7 @@
 											<option value="false" <?php if ($user_locations_quickswitch == 'false') { echo " selected =\"selected\""; } ?>><?= __("Disabled"); ?></option>
 											<option value="true" <?php if ($user_locations_quickswitch == 'true') { echo " selected =\"selected\""; } ?>><?= __("Enabled"); ?></option>
 										</select>
-										<small id="SelectDateFormatHelp" class="form-text text-muted"><?= __("Show the Station Locations Quickswitch in the main menu"); ?></small>
+										<small id="SelectDateFormatHelp" class="form-text text-muted"><?= __("Show the Station Locations Quickswitch in the main menu. You can add locations by adding them to favourites at the station setup page."); ?></small>
 									</div>
 
 									<div class="mb-3">
@@ -534,12 +546,12 @@
 									</div>
 									<div class="row"> <!-- QSO (default) -->
 										<div class="mb-3 col-md-4">
-											<label><?= __("QSO (by default)"); ?></label>
+											<label><?= __("QSO (worked, not confirmed)"); ?></label>
 										</div>
 										<div class="mb-3 col-md-3">
 											<div class="icon_selectBox" data-boxcontent="qso">
-												<input type="hidden" name="user_map_qso_icon" value="<?php echo $user_map_qso_icon; ?>">
-												<div class="form-select icon_overSelect"><?php echo "<i class='".$user_map_qso_icon."'></i>"; ?></div>
+												<input type="hidden" name="user_map_qso_icon" value="<?php echo $user_map_qso_icon ?? "fas fa-dot-circle"; ?>">
+												<div class="form-select icon_overSelect"><?php echo "<i class='".($user_map_qso_icon ?? "fas fa-dot-circle")."'></i>"; ?></div>
 											</div>
 											<div class="col-md-3 icon_selectBox_data" data-boxcontent="qso">
 												<?php foreach($map_icon_select['qso'] as $val) {
@@ -548,18 +560,18 @@
 											</div>
 										</div>
 										<div class="mb-3 col-md-2">
-											<input type="color" class="form-control user_icon_color" name="user_map_qso_color" id="user_map_qso_color" value="<?php echo $user_map_qso_color; ?>" style="padding:initial;" data-icon="qso" />
+											<input type="color" class="form-control user_icon_color" name="user_map_qso_color" id="user_map_qso_color" value="<?php echo $user_map_qso_color ?? "#E5A50A"; ?>" style="padding:initial;" data-icon="qso" />
 										</div>
 									</div>
 									<div class="row"> <!-- QSO (confirmed) -->
 										<div class="mb-3 col-md-4">
 											<label><?= __("QSO (confirmed)"); ?></label>
-											<small class="form-text text-muted"><?= __("(If 'No', displayed as 'QSO (by default))'"); ?></small>
+											<small class="form-text text-muted"><?= __("(If 'No', displayed as 'QSO (worked, not confirmed)')"); ?></small>
 										</div>
 										<div class="mb-3 col-md-3">
 											<div class="icon_selectBox" data-boxcontent="qsoconfirm">
-												<input type="hidden" name="user_map_qsoconfirm_icon" value="<?php echo $user_map_qsoconfirm_icon; ?>">
-												<div class="form-select icon_overSelect"><?php echo (($user_map_qsoconfirm_icon=="0")?__("No"):("<i class='".$user_map_qsoconfirm_icon."'></i>")); ?></div>
+												<input type="hidden" name="user_map_qsoconfirm_icon" value="<?php echo $user_map_qsoconfirm_icon ?? "0"; ?>">
+												<div class="form-select icon_overSelect"><?php echo ((!isset($user_map_qsoconfirm_icon) || $user_map_qsoconfirm_icon=="0")?__("No"):("<i class='".($user_map_qsoconfirm_icon ?? "")."'></i>")); ?></div>
 											</div>
 											<div class="col-md-3 icon_selectBox_data" data-boxcontent="qsoconfirm">
 												<?php foreach($map_icon_select['qsoconfirm'] as $val) {
@@ -568,7 +580,18 @@
 											</div>
 										</div>
 										<div class="md-3 col-md-2">
-											<input type="color" class="form-control user_icon_color" name="user_map_qsoconfirm_color" id="user_map_qsoconfirm_color" value="<?php echo $user_map_qsoconfirm_color; ?>" style="padding:initial;<?php echo ($user_map_qsoconfirm_icon=="0")?'display:none;':''; ?>" data-icon="qsoconfirm" />
+											<input type="color" class="form-control user_icon_color" name="user_map_qsoconfirm_color" id="user_map_qsoconfirm_color" value="<?php echo $user_map_qsoconfirm_color ?? "#90EE90"; ?>" style="padding:initial;<?php echo (!isset($user_map_qsoconfirm_icon) || $user_map_qsoconfirm_icon=="0")?'display:none;':''; ?>" data-icon="qsoconfirm" />
+										</div>
+									</div>
+									<div class="row"> <!-- Unworked (zones) color -->
+										<div class="mb-3 col-md-4">
+											<label><?= __("Unworked (e.g. Zones)"); ?></label>
+											<small class="form-text text-muted"><?= __("(Color for unworked zones)"); ?></small>
+										</div>
+										<div class="mb-3 col-md-3">
+										</div>
+										<div class="md-3 col-md-2">
+											<input type="color" class="form-control user_icon_color" name="user_map_unworked_color" id="user_map_unworked_color" value="<?php echo $user_map_unworked_color ?? "#CC372D"; ?>" style="padding:initial;" data-icon="unworked" />
 										</div>
 									</div>
 									<div class="row">
@@ -604,6 +627,7 @@
 												<option value="2" <?php if ($user_previous_qsl_type == 2) { echo " selected =\"selected\""; } ?>><?= __("eQSL"); ?></option>
 												<option value="4" <?php if ($user_previous_qsl_type == 4) { echo " selected =\"selected\""; } ?>><?= __("QRZ"); ?></option>
 												<option value="8" <?php if ($user_previous_qsl_type == 8) { echo " selected =\"selected\""; } ?>><?= __("Clublog"); ?></option>
+												<option value="16" <?php if ($user_previous_qsl_type == 16) { echo " selected =\"selected\""; } ?>><?= __("DCL"); ?></option>
 											</select>
 										</div>
 									</div>
@@ -623,6 +647,38 @@
 													printf("<option value=\"{$i}\"{$selected_attribute_value}>{$i}</option>");
 												} ?>
 											</select>
+											<small id="SelectDateFormatHelp" class="form-text text-muted"><?= __("Choose the number of latest QSOs to be displayed on dashboard."); ?></small>
+										</div>
+
+										<div class="mb-3">
+											<label for="user_dashboard_map"><?= __("Show Dashboard Map"); ?></label>
+											<?php if(!isset($user_dashboard_map)) { $user_dashboard_map='Y'; }?>
+											<select class="form-select" id="user_dashboard_map" name="user_dashboard_map" aria-describedby="user_dashboard_map_Help" required>
+												<option value='Y' <?php if($user_dashboard_map == "Y") { echo "selected=\"selected\""; } ?>><?= __("Yes"); ?></option>
+												<option value='map_at_right' <?php if($user_dashboard_map == "map_at_right") { echo "selected=\"selected\""; } ?>><?= __("Map at right"); ?></option>
+												<option value='N' <?php if($user_dashboard_map == "N") { echo "selected=\"selected\""; } ?>><?= __("No"); ?></option>
+											</select>
+											<small id="user_dashboard_map_Help" class="form-text text-muted"><?= __("Choose whether to show map on dashboard or not"); ?></small>
+										</div>
+
+										<div class="mb-3">
+											<label for="user_dashboard_banner"><?= __("Dashboard Notification Banner"); ?></label>
+											<?php if(!isset($user_dashboard_banner)) { $user_dashboard_banner='Y'; }?>
+											<select class="form-select" id="user_dashboard_banner" name="user_dashboard_banner" aria-describedby="user_dashboard_banner_Help" required>
+												<option value='true' <?php if($user_dashboard_banner == "true") { echo "selected=\"selected\""; } ?>><?= __("Enabled"); ?></option>
+												<option value='false' <?php if($user_dashboard_banner == "false") { echo "selected=\"selected\""; } ?>><?= __("Disabled"); ?></option>
+											</select>
+											<small id="user_dashboard_banner_Help" class="form-text text-muted"><?= __("This allows to disable the global notification banner on the dashboard."); ?></small>
+										</div>
+
+										<div class="mb-3">
+											<label for="user_dashboard_solar"><?= __("Dashboard solar and propagation data"); ?></label>
+											<?php if(!isset($user_dashboard_solar)) { $user_dashboard_solar='N'; }?>
+											<select class="form-select" id="user_dashboard_solar" name="user_dashboard_solar" aria-describedby="user_dashboard_solar_Help" required>
+												<option value='Y' <?php if($user_dashboard_solar == "Y") { echo "selected=\"selected\""; } ?>><?= __("Enabled"); ?></option>
+												<option value='N' <?php if($user_dashboard_solar == "N") { echo "selected=\"selected\""; } ?>><?= __("Disabled"); ?></option>
+											</select>
+											<small id="user_dashboard_solar_Help" class="form-text text-muted"><?= __("This switches the display of the solar and propagation data on the dashboard."); ?></small>
 										</div>
 									</div>
 								</div>
@@ -630,7 +686,7 @@
 						</div>
 						<div class="col-md">
 							<div class="card">
-								<div class="card-header"><?= __("Show Reference Fields on QSO Tab"); ?></div>
+								<div class="card-header"><?= __("Show Fields on QSO Tab"); ?></div>
 								<div class="card-body">
 									<div class="row">
 										<div class="mb-3">
@@ -653,11 +709,15 @@
 											</div>
 											<div class="form-check form-switch">
 												<input name="user_sig_to_qso_tab" class="form-check-input" type="checkbox" role="switch" id="sigToQsoTab" <?php if ($user_sig_to_qso_tab ?? false) { echo 'checked'; } ?>>
-												<label class="form-check-label" for="sigToQsoTab" ><?= __("Sig"); ?> / <?= __("Sig Info"); ?></label>
+												<label class="form-check-label" for="sigToQsoTab" ><?= __("SIG"); ?> / <?= __("SIG Info"); ?></label>
 											</div>
 											<div class="form-check form-switch">
 												<input name="user_dok_to_qso_tab" class="form-check-input" type="checkbox" role="switch" id="dokToQsoTab" <?php if ($user_dok_to_qso_tab ?? false) { echo 'checked'; } ?>>
 												<label class="form-check-label" for="dokToQsoTab" ><?= __("DOK"); ?></label>
+											</div>
+											<div class="form-check form-switch">
+												<input name="user_station_to_qso_tab" class="form-check-input" type="checkbox" role="switch" id="stationToQsoTab" <?php if ($user_station_to_qso_tab ?? false) { echo 'checked'; } ?>>
+												<label class="form-check-label" for="stationToQsoTab" ><?= __("Station Location"); ?></label>
 											</div>
 										</div>
 									</div>
@@ -666,6 +726,62 @@
 							</div>
 						</div>
 					</div>
+
+					<?php if (!($this->config->item('disable_oqrs') ?? false)) { ?>
+
+					<div class="row mb-3">
+						<div class="col-md">
+							<div class="card">
+								<div class="card-header"><?= __("Online QSL request (OQRS) settings"); ?></div>
+									<div class="card-body">
+										<div class="row">
+											<div class="mb-3">
+												<label for="global_oqrs_text"><?= __("Global text"); ?></label>
+												<input type="text" name="global_oqrs_text" class="form-control" id="global_oqrs_text" aria-describedby="global_oqrs_text" value="<?php echo ($global_oqrs_text ?? ''); ?>">
+												<small id="global_oqrs_text_help" class="form-text text-muted"><?= __("This text is an optional text that can be displayed on top of the OQRS page."); ?></small>
+											</div>
+											<div class="mb-3">
+												<label for="oqrs_grouped_search"><?= __("Grouped search"); ?></label>
+												<select name="oqrs_grouped_search" class="form-select" id="oqrs_grouped_search">
+													<option value="off" <?php if(($oqrs_grouped_search ?? 'off') == "off") { echo "selected=\"selected\""; } ?>><?= __("Off"); ?></option>
+													<option value="on" <?php if(($oqrs_grouped_search ?? 'off') == "on") { echo "selected=\"selected\""; } ?>><?= __("On"); ?></option>
+												</select>
+												<small id="oqrs_grouped_search_help" class="form-text text-muted"><?= __("When this is on, all station locations with OQRS active, will be searched at once."); ?></small>
+											</div>
+
+											<div class="mb-3">
+												<label for="oqrs_grouped_search_show_station_name"><?= __("Show station location name in grouped search results"); ?></label>
+												<select name="oqrs_grouped_search_show_station_name" class="form-select" id="oqrs_grouped_search_show_station_name">
+													<option value="off" <?php if(($oqrs_grouped_search_show_station_name ?? 'off') == "off") { echo "selected=\"selected\""; } ?>><?= __("Off"); ?></option>
+													<option value="on" <?php if(($oqrs_grouped_search_show_station_name ?? 'off') == "on") { echo "selected=\"selected\""; } ?>><?= __("On"); ?></option>
+												</select>
+												<small id="oqrs_grouped_search_show_station_name_help" class="form-text text-muted"><?= __("If grouped search is ON, you can decide if the name of the station location shall be shown in the results table."); ?></small>
+											</div>
+
+											<div class="mb-3">
+												<label for="oqrs_auto_matching"><?= __("Automatic OQRS matching"); ?></label>
+												<select name="oqrs_auto_matching" class="form-select" id="oqrs_auto_matching">
+													<option value="off" <?php if(($oqrs_auto_matching ?? 'on') == "off") { echo "selected=\"selected\""; } ?>><?= __("Off"); ?></option>
+													<option value="on" <?php if(($oqrs_auto_matching ?? 'on') == "on") { echo "selected=\"selected\""; } ?>><?= __("On"); ?></option>
+												</select>
+												<small id="oqrs_auto_matching_help" class="form-text text-muted"><?= __("If this is on, automatic OQRS matching will happen, and the system will try to match incoming requests with existing logs automatically."); ?></small>
+											</div>
+
+											<div class="mb-3">
+												<label for="oqrs_direct_auto_matching"><?= __("Automatic OQRS matching for direct requests"); ?></label>
+												<select name="oqrs_direct_auto_matching" class="form-select" id="oqrs_direct_auto_matching">
+													<option value="off" <?php if(($oqrs_direct_auto_matching ?? 'on') == "off") { echo "selected=\"selected\""; } ?>><?= __("Off"); ?></option>
+													<option value="on" <?php if(($oqrs_direct_auto_matching ?? 'on') == "on") { echo "selected=\"selected\""; } ?>><?= __("On"); ?></option>
+												</select>
+												<small id="oqrs_direct_auto_matching_help" class="form-text text-muted"><?= __("If this is on, automatic OQRS matching for direct request will happen."); ?></small>
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+					</div>
+
+					<?php }	?>
 				</div>
 			</div>
 		</div>
@@ -739,6 +855,14 @@
 											echo '>'; ?>
 											<label class="form-check-label" for="user_default_confirmation_clublog"><?= __("Clublog"); ?></label>
 										</div>
+										<div class="form-check-inline">
+											<?php echo '<input class="form-check-input" type="checkbox" name="user_default_confirmation_dcl" id="user_default_confirmation_dcl"';
+											if (isset($user_default_confirmation) && strpos($user_default_confirmation, 'D') !== false) {
+												echo ' checked';
+											}
+											echo '>'; ?>
+											<label class="form-check-label" for="user_default_confirmation_dcl"><?= __("DCL"); ?></label>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -787,7 +911,7 @@
 						<!-- eQSL -->
 						<div class="col-md">
 							<div class="card">
-								<div class="card-header"><?= __("eQSL"); ?></div>
+								<div class="card-header"><?= __("eQSL"); ?> <span class="badge text-bg-warning"><?= sprintf(__("Trouble? Check the %swiki%s."), '<a href="https://github.com/wavelog/wavelog/wiki/eQSL#read-common-pitfalls-with-eqsl" target="_blank">', '</a>'); ?></span></div>
 								<div class="card-body">
 									<div class="mb-3">
 										<label><?= __("eQSL.cc Username"); ?></label>
@@ -816,8 +940,8 @@
 								<div class="card-header"><?= __("Club Log"); ?></div>
 								<div class="card-body">
 									<div class="mb-3">
-										<label><?= __("Club Log Email/Callsign"); ?></label>
-										<input class="form-control" type="text" name="user_clublog_name" value="<?php if(isset($user_clublog_name)) { echo $user_clublog_name; } ?>" />
+										<label><?= __("Club Log Email"); ?></label>
+										<input class="form-control" type="email" name="user_clublog_name" value="<?php if(isset($user_clublog_name)) { echo $user_clublog_name; } ?>" />
 										<?php if(isset($userclublogname_error)) { echo "<small class=\"badge bg-danger\">".$userclublogname_error."</small>"; } ?>
 									</div>
 
@@ -864,7 +988,7 @@
 										<small class="form-text text-muted">
 											<?= sprintf(__("Note: In order to use this widget, you need to have at least one CAT radio configured and working.")); ?>
 											<?php if (isset($on_air_widget_url)) {
-												// when adding user, the $on_air_widget_url url is not yet availalable, hence the if condition here 
+												// when adding user, the $on_air_widget_url url is not yet availalable, hence the if condition here
 												print("<br>");
 												printf(__("When enabled, widget will be available at %s."), "<a href='$on_air_widget_url' target='_blank'>$on_air_widget_url</a>");
 											} ?>
@@ -887,6 +1011,25 @@
 										<option value="false" <?php if ($on_air_widget_show_only_most_recent_radio == "false") { echo 'selected="selected"'; } ?>><?= __("No, show all radios"); ?></option>
 										</select>
 										<small class="form-text text-muted"><?= __("If you have multiple CAT radios configured, this setting controls whether the widget should display all on-air radios of the user, or just the most recently updated one. In case you have only one radio, this setting has no effect."); ?></small>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<!-- QSOs Widget Settings -->
+						<div class="col-md">
+							<div class="card">
+								<div class="card-header"><?= __("QSOs widget"); ?></div>
+								<div class="card-body">
+									<div class="mb-3">
+										<label><?= __('Display exact QSO time'); ?></label>
+										<?php if(!isset($qso_widget_display_qso_time)) { $qso_widget_display_qso_time='false'; }?>
+										<select class="form-select" name="qso_widget_display_qso_time" id="qso_widget_display_qso_time">
+											<option value="false" <?php if ($qso_widget_display_qso_time == "false") { echo 'selected="selected"'; } ?>><?= __("No"); ?></option>
+											<option value="true" <?php if ($qso_widget_display_qso_time == "true") { echo 'selected="selected"'; } ?>><?= __("Yes"); ?></option>
+										</select>
+										<small class="form-text text-muted"><?= __("This setting control whether exact QSO time should displayed in the QSO widget or not."); ?></small>
 									</div>
 								</div>
 							</div>
@@ -938,7 +1081,7 @@
 						<!-- Winkeyer -->
 						<div class="col-md">
 							<div class="card">
-								<div class="card-header"><?= __("Winkeyer"); ?> <span class="badge text-bg-danger float-end"><?= __("Experimental"); ?></span></div>
+								<div class="card-header"><?= __("Winkeyer"); ?></div>
 								<div class="card-body">
 									<div class="mb-3">
 										<label><?= __("Winkeyer Features Enabled"); ?></label>

@@ -3,6 +3,9 @@
     var lang_japan_province = "<?= _pgettext("Japan Prefecture", "Prefecture"); ?>";
     var lang_hover_over_a_prefecture = "<?= __("Hover over a prefecture"); ?>";
 </script>
+<script>
+	let user_map_custom = JSON.parse('<?php echo $user_map_custom; ?>');
+</script>
 
 <style>
     #wajamap {
@@ -20,6 +23,7 @@
             var lang_award_info_ln2 = "<?= __("WAJA, Worked All Japan prefectures in Amateur Radio, encourages licensed ham radio operators to work all the prefectures in Japan."); ?>";
             var lang_award_info_ln3 = "<?= __("May be claimed for having contacted (heard) and received a QSL card from an amateur station located in each of the 47 prefectures of Japan. A list of QSL cards should be arranged in order of WAJA (HAJA) reference number, however names of prefectures may be omitted."); ?>";
             var lang_award_info_ln4 = "<?= sprintf(__("For more information, please visit: %s."), "<a href='https://www.jarl.org/English/4_Library/A-4-2_Awards/Award_Main.htm' target='_blank'>https://www.jarl.org/English/4_Library/A-4-2_Awards/Award_Main.htm</a>"); ?>";
+			var lang_award_info_ln5 = "<?= __("Fields taken for this Award: DXCC (Japan) and STATE (Must contain a valid prefecture!)"); ?>";
             </script>
             <h2><?php echo $page_title; ?></h2>
             <button type="button" class="btn btn-sm btn-primary me-1" id="displayAwardInfo"><?= __("Award Info"); ?></button>
@@ -74,7 +78,7 @@
             </div>
 
             <div class="mb-3 row">
-                <label class="col-md-2 control-label" for="band"><?= __("Band"); ?></label>
+                <label class="col-md-2 control-label" for="band2"><?= __("Band"); ?></label>
                 <div class="col-md-2">
                     <select id="band2" name="band" class="form-select form-select-sm">
                         <option value="All" <?php if ($this->input->post('band') == "All" || $this->input->method() !== 'post') echo ' selected'; ?> ><?= __("Every band"); ?></option>

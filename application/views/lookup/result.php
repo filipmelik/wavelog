@@ -1,5 +1,25 @@
 <?php
-echo '
+		$colors = json_decode($user_map_custom);?>
+		<style>
+			.awardsBgSuccess {
+				background-color: <?php echo $colors->qsoconfirm->color; ?> !important;
+			}
+			.awardsBgDanger {
+				background-color: <?php echo $colors->qso->color; ?> !important;
+			}
+		</style>
+
+<?php if (isset($vuccdxcc) && is_array($vuccdxcc) && count($vuccdxcc) > 0) {
+	echo '<div class="alert alert-success w-auto d-inline-block" role="alert">';
+	echo '<div style="display: flex; align-items: center; gap: 10px;">';
+	echo '<span class="fas fa-info-circle fa-2x"></span>';
+	echo '<div><strong>' . __("This gridsquare exists in the following DXCC(s):") . '</strong><br>';
+	echo implode(', ', $vuccdxcc) . '</div>';
+	echo '</div>';
+	echo '</div>';
+} ?>
+
+<?php echo '
     <table style="width:100%" class="table-sm table table-bordered table-hover table-striped table-condensed text-center">
 	    <thead>
 			<tr>
@@ -22,45 +42,53 @@ foreach ($result as $mode => $value) {
 			}
 		}
 	}
+	if (strtoupper($mode) == strtoupper($current_mode)) {
+		$showRow = true;
+	}
 
 	if ($showRow) {
-		echo '<tr>
-				<td>'. strtoupper($mode) .'</td>';
-		foreach ($value as $key => $val) {
-			switch($type) {
-				// function displayContacts(searchphrase, band, sat, orbit, mode, type, qsl) {
+		echo '<tr><td>' . strtoupper($mode) . '</td>';
 
-				case 'dxcc': $linkinfo = '<a href=\'javascript:displayContacts("'.str_replace("&", "%26", $dxcc).'","' . $key . '","All","All","' . $mode . '","DXCC2")\'>'  . $val . '</a>'; break;
-				case 'iota': $linkinfo = '<a href=\'javascript:displayContacts("'.str_replace("&", "%26", $iota).'","' . $key . '","All","All","' . $mode . '","IOTA")\'>'   . $val . '</a>'; break;
-				case 'vucc': $linkinfo = '<a href=\'javascript:displayContacts("'.str_replace("&", "%26", $grid).'","' . $key . '","All","All","' . $mode . '","VUCC")\'>'   . $val . '</a>'; break;
-				case 'cq':  $linkinfo = '<a href=\'javascript:displayContacts("'.str_replace("&", "%26", $cqz).'","'  . $key . '","All","All","' . $mode . '","CQZone")\'>' . $val . '</a>'; break;
-				case 'was':  $linkinfo = '<a href=\'javascript:displayContacts("'.str_replace("&", "%26", $was).'","'  . $key . '","All","All","' . $mode . '","WAS")\'>'    . $val . '</a>'; break;
-				case 'sota': $linkinfo = '<a href=\'javascript:displayContacts("'.str_replace("&", "%26", $sota).'","' . $key . '","All","All","' . $mode . '","SOTA")\'>'   . $val . '</a>'; break;
-				case 'wwff': $linkinfo = '<a href=\'javascript:displayContacts("'.str_replace("&", "%26", $wwff).'","' . $key . '","All","All","' . $mode . '","WWFF")\'>'   . $val . '</a>'; break;
-				case 'itu': $linkinfo = '<a href=\'javascript:displayContacts("'.str_replace("&", "%26", $ituz).'","' . $key . '","All","All","' . $mode . '","ITU")\'>'   . $val . '</a>'; break;
-				case 'continent': $linkinfo = '<a href=\'javascript:displayContacts("'.str_replace("&", "%26", $continent).'","' . $key . '","All","All","' . $mode . '","WAC")\'>'   . $val . '</a>'; break;
-			}
+		$typeMapping = [
+			'dxcc' => $dxcc,
+			'iota' => $iota,
+			'vucc' => substr(trim($grid), 0, 4),
+			'cq' => $cqz,
+			'was' => $was,
+			'sota' => $sota,
+			'wwff' => $wwff,
+			'itu' => $ituz,
+			'continent' => $continent,
+			'pota' => $pota,
+			'dxcc2' => $dxcc,
+			'dok' => $dok
+		];
 
-			if ($current_band == $key && strtoupper($current_mode )== strtoupper($mode)) {
-				$info = '<td class=\'border-3 border-danger\'>';
-			} else {
-				$info = '<td>';
-			}
-
-			if ($val == 'W') {
-				$info .= '<div class=\'bg-danger awardsBgDanger\'>' . $linkinfo . '</div>';
-			}
-			else if ($val == 'C') {
-				$info .= '<div class=\'bg-success awardsBgSuccess\'>' . $linkinfo . '</div>';
-			}
-			else {
-				$info .= $val;
-			}
-
-			$info .= '</td>';
-
-			echo $info;
+		if ($type == 'dxcc') {
+			$type = 'dxcc2';
 		}
+
+		foreach ($value as $key => $val) {
+			$searchPhrase = isset($typeMapping[$type]) ? str_replace("&", "%26", $typeMapping[$type]) : '';
+
+			$linkinfo = $searchPhrase
+				? "<a href='javascript:displayContacts(\"$searchPhrase\",\"$key\",\"All\",\"All\",\"$mode\",\"" . strtoupper($type) . "\")'>$val</a>"
+				: $val;
+
+			$tdClass = ($current_band == $key && strtoupper($current_mode) == strtoupper($mode))
+				? "class='border-3 border-danger'"
+				: '';
+
+			$content = $val;
+			if ($val === 'W') {
+				$content = "<div class='bg-danger awardsBgDanger'>$linkinfo</div>";
+			} elseif ($val === 'C') {
+				$content = "<div class='bg-success awardsBgSuccess'>$linkinfo</div>";
+			}
+
+			echo "<td $tdClass>$content</td>";
+		}
+
 		echo '</tr>';
 	}
 }

@@ -12,24 +12,50 @@ class Stationsetup extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
 
 		$this->load->model('user_model');
+		if (($this->router->method == 'list_locations') && $this->user_model->authorize(2) && ((clubaccess_check(3) || clubaccess_check(6)))) { return; }	// Allow Clubmembers and Clubmembers ADIF to access list_locations
 		if(!$this->user_model->authorize(2) || !clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 	}
 
 	public function index() {
 		$this->load->model('stations');
+		$this->load->model('stationsetup_model');
 		$this->load->model('Logbook_model');
 		$this->load->model('logbooks_model');
 
 		$data['my_logbooks'] = $this->logbooks_model->show_all();
 
-		$data['stations'] = $this->stations->all_with_count();
+		$data['stations'] = $this->stationsetup_model->get_all_locations();
 		$data['current_active'] = $this->stations->find_active();
 		$data['is_there_qsos_with_no_station_id'] = $this->Logbook_model->check_for_station_id();
 
 		$footerData = [];
 		$footerData['scripts'] = [
+			'assets/js/moment.min.js',
+			'assets/js/datetime-moment.js',
 			'assets/js/sections/stationsetup.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/stationsetup.js")),
 		];
+
+				// Get Date format
+		if($this->session->userdata('user_date_format')) {
+			// If Logged in and session exists
+			$data['custom_date_format'] = $this->session->userdata('user_date_format');
+		} else {
+			// Get Default date format from /config/wavelog.php
+			$data['custom_date_format'] = $this->config->item('qso_date_format');
+		}
+
+		switch ($data['custom_date_format']) {
+			case "d/m/y": $data['custom_date_format'] = 'DD/MM/YY'; break;
+			case "d/m/Y": $data['custom_date_format'] = 'DD/MM/YYYY'; break;
+			case "m/d/y": $data['custom_date_format'] = 'MM/DD/YY'; break;
+			case "m/d/Y": $data['custom_date_format'] = 'MM/DD/YYYY'; break;
+			case "d.m.Y": $data['custom_date_format'] = 'DD.MM.YYYY'; break;
+			case "y/m/d": $data['custom_date_format'] = 'YY/MM/DD'; break;
+			case "Y-m-d": $data['custom_date_format'] = 'YYYY-MM-DD'; break;
+			case "M d, Y": $data['custom_date_format'] = 'MMM DD, YYYY'; break;
+			case "M d, y": $data['custom_date_format'] = 'MMM DD, YY'; break;
+			default: $data['custom_date_format'] = 'DD/MM/YYYY';
+		}
 
 		// Render Page
 		$data['page_title'] = __("Station Setup");
@@ -267,7 +293,7 @@ class Stationsetup extends CI_Controller {
 
 	private function lbdel2html($id, $logbook_name) {
 		if($this->session->userdata('active_station_logbook') != $id) {
-			$htmret='<button id="'.$id.'" class="deleteLogbook btn btn-outline-danger btn-sm" cnftext="'.__("Are you sure you want to delete the following station logbook? You must re-link any locations linked here to another logbook.: ").$logbook_name.'"><i class="fas fa-trash-alt"></i></button>';
+			$htmret='<button id="'.$id.'" class="deleteLogbook btn btn-outline-danger btn-sm" cnftext="'.sprintf(__("Are you sure you want to delete the station logbook %s? You must re-link any locations linked here to another logbook."), $logbook_name).'"><i class="fas fa-trash-alt"></i></button>';
 		} else {
 			$htmret='';
 		}
@@ -290,9 +316,10 @@ class Stationsetup extends CI_Controller {
 
 	public function fetchLocations() {
 		$this->load->model('stations');
+		$this->load->model('stationsetup_model');
 		$this->load->model('Logbook_model');
 
-		$result = $this->stations->all_with_count()->result();
+		$result = $this->stationsetup_model->get_all_locations()->result();
 		$current_active = $this->stations->find_active();
 		$data['is_there_qsos_with_no_station_id'] = $this->Logbook_model->check_for_station_id();
 
@@ -313,14 +340,30 @@ class Stationsetup extends CI_Controller {
 			$single->station_delete = $this->stationdelete2html($entry->station_id, $entry->station_profile_name, $entry->station_active);
 			$single->station_favorite = $this->stationfavorite2html($entry->station_id, $quickswitch_enabled);
 			$single->station_linked = $this->stationlinked2html($entry->linked);
+			$single->station_lastqso = $this->stationformattedlastqsodate2html($entry->lastqsodate);
 			array_push($hres,$single);
 		}
 		echo json_encode($hres);
 	}
 
+	private function stationformattedlastqsodate2html($lastqsodate) {
+		$CI =& get_instance();
+		// Get Date format
+		if($CI->session->userdata('user_date_format')) {
+			// If Logged in and session exists
+			$custom_date_format = $CI->session->userdata('user_date_format');
+		} else {
+			// Get Default date format from /config/wavelog.php
+			$custom_date_format = $CI->config->item('qso_date_format');
+		}
+		if ($lastqsodate == null) return '';
+
+		return date($custom_date_format . " H:i", strtotime($lastqsodate ?? '1970-01-01 00:00:00'));
+	}
+
 	private function stationlinked2html($linked) {
 		if ($linked == 1) {
-			return '<i class="fa fa-check text-success" aria-hidden="true"></i>';
+			return '<i class="fa fa-check text-success" aria-hidden="true"></i><span class="d-none">yes</span>';
 		}
 		return '<i class="fa fa-times text-danger" aria-hidden="true"></i>';
 	}
@@ -346,7 +389,7 @@ class Stationsetup extends CI_Controller {
 	private function stationbadge2html($station_active, $qso_total, $current_active, $station_profile_name, $id) {
 		$returntext = '';
 		if($station_active != 1) {
-			$returntext .= '<button id="'.$id.'" class="setActiveStation btn btn-outline-secondary btn-sm" cnftext="'. __("Are you sure you want to make the following station the active station: ") . $station_profile_name .'">' . __("Set Active") . '</button><br/>';
+			$returntext .= '<button id="'.$id.'" class="setActiveStation btn btn-outline-secondary btn-sm" cnftext="'. sprintf(__("Are you sure you want to make the station profile %s the active station?"), $station_profile_name) .'">' . __("Set Active") . '</button><br/>';
 		} else {
 			$returntext .= '<span class="badge bg-success text-bg-success">' . __("Active Station") . '</span><br/>';
 		}
@@ -477,4 +520,57 @@ class Stationsetup extends CI_Controller {
 		$this->user_options_model->set_option('ExportMapOptions', 'qsocount',  array($slug => xss_clean($this->input->post('qsocount'))));
 		$this->user_options_model->set_option('ExportMapOptions', 'band',  array($slug => xss_clean($this->input->post('band'))));
 	}
+
+	public function list_locations() {
+		$this->load->model('stationsetup_model');
+		$data['locations'] = $this->stationsetup_model->list_all_locations();
+		$data['page_title'] = __("Station location list");
+		$data['cd_p_level'] = ($this->session->userdata('cd_p_level') ?? 0);
+		$this->load->view('interface_assets/header', $data);
+		$this->load->view('stationsetup/locationlist');
+		$this->load->view('interface_assets/footer');
+	}
+
+	public function export_locations() {
+		$this->load->model('stationsetup_model');
+
+		$locations = $this->stationsetup_model->list_all_locations();
+
+		// Output as JSON
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($locations));
+	}
+
+	public function import_locations(){
+		if (empty($_FILES['file']['tmp_name'])) {
+			$this->output
+	->set_content_type('application/json')
+	->set_output(json_encode(['status' => 'error', 'message' => 'No file uploaded']));
+			return;
+		}
+
+		$fileContent = file_get_contents($_FILES['file']['tmp_name']);
+		$locations = json_decode($fileContent, true);
+
+		if ($locations === null) {
+			$this->output
+	->set_content_type('application/json')
+	->set_output(json_encode(['status' => 'error', 'message' => 'Invalid JSON file']));
+			return;
+		}
+
+		// Load your model
+		$this->load->model('stationsetup_model');
+
+		$imported = $this->stationsetup_model->import_locations_parse($locations);
+		if (($imported[0] ?? '0') == 'limit') {
+			$this->output->set_content_type('application/json')->set_output(json_encode(['status' => 'success', 'message' => ($imported[1] ?? '0')." locations imported. Maximum limit of 1000 locations reached."]));
+		} else {
+			$this->output
+	->set_content_type('application/json')
+	->set_output(json_encode(['status' => 'success', 'message' => ($imported[1] ?? '0')." locations imported."]));
+		}
+	}
+
 }

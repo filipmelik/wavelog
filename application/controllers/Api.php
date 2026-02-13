@@ -1,4 +1,9 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+use Wavelog\Dxcc\Dxcc;
+
+require_once APPPATH . '../src/Dxcc/Dxcc.php';
+
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class API extends CI_Controller {
 
@@ -23,6 +28,27 @@ class API extends CI_Controller {
 		redirect('api');
 	}
 
+	/**
+	 * Check rate limit for current endpoint
+	 * Only enforced if api_rate_limits config is set
+	 *
+	 * returns True if request is allowed, false if rate limited
+	 */
+	protected function check_rate_limit($endpoint, $identifier = null) {
+		if (!$this->load->is_loaded('rate_limit')) {
+			$this->load->library('rate_limit');
+		}
+
+		$result = $this->rate_limit->check($endpoint, $identifier);
+
+		if (!$result['allowed']) {
+			log_message("Debug","Rate limit for endpoint ".$endpoint." and ID: ".($identifier ?? '')." exceeded");
+			$this->rate_limit->send_limit_exceeded_response($result['retry_after']);
+			return false;
+		}
+
+		return true;
+	}
 
 	function edit($key) {
 		$this->load->model('user_model');
@@ -32,23 +58,20 @@ class API extends CI_Controller {
 
 		$this->load->helper(array('form', 'url'));
 
-        $this->load->library('form_validation');
+		$this->load->library('form_validation');
 
-        $this->form_validation->set_rules('api_desc', __("API Description"), 'required');
-        $this->form_validation->set_rules('api_key', __("API Key is required. Do not change this field"), 'required');
+		$this->form_validation->set_rules('api_desc', __("API Description"), 'required');
+		$this->form_validation->set_rules('api_key', __("API Key is required. Do not change this field"), 'required');
 
-        $data['api_info'] = $this->api_model->key_description($key);
+		$data['api_info'] = $this->api_model->key_description($key);
 
-        if ($this->form_validation->run() == FALSE)
-        {
-  	      	$data['page_title'] = __("Edit API Description");
+		if ($this->form_validation->run() == FALSE) {
+			$data['page_title'] = __("Edit API Description");
 
 			$this->load->view('interface_assets/header', $data);
 			$this->load->view('api/description');
 			$this->load->view('interface_assets/footer');
-		}
-		else
-		{
+		} else {
 			// Success!
 
 			$this->api_model->update_key_description($this->input->post('api_key'), $this->input->post('api_desc'));
@@ -117,6 +140,68 @@ class API extends CI_Controller {
 		}
 	}
 
+	function create_station($key = '') {
+		$this->load->model('api_model');
+
+		if ($this->api_model->access($key) == "No Key Found" || $this->api_model->access($key) == "Key Disabled") {
+			$this->output->set_status_header(401)->set_content_type('application/json')->set_output(json_encode(['status' => 'error', 'message' => 'Auth Error, invalid key']));
+			return;
+		}
+
+		$this->load->model('club_model');
+		$userid = $this->api_model->key_userid($key);
+		$created_by = $this->api_model->key_created_by($key);
+		$club_perm = $this->club_model->get_permission_noui($userid,$created_by);
+		if ($userid != $created_by) { // We're dealing with a Club Member/Member ADIF or Clubofficer
+			if ((($club_perm ?? 0) == 3) || (($club_perm ?? 0) == 6)) { // Member or ADIF-Member? DENY
+				$this->output->set_status_header(401)->set_content_type('application/json')->set_output(json_encode(['status' => 'error', 'message' => 'Auth Error, not enough grants for this operation']));
+				return;
+			}
+		}
+
+		try {
+			$raw = file_get_contents("php://input");
+			if ($raw === false) {
+				throw new Exception("Failed to read input data");
+			}
+
+			if (empty($raw)) {
+				$this->output->set_status_header(400)->set_content_type('application/json')->set_output(json_encode(['status' => 'error', 'message' => 'No file uploaded']));
+				return;
+			}
+
+			$raw = preg_replace('#<([eE][oO][rR])>[\r\n\t]+#', '<$1>', $raw);
+			if ($raw === null) {
+				throw new Exception("Regex processing failed");
+			}
+
+			$locations = json_decode($raw, true);
+
+			if ($locations === null) {
+				$this->output->set_status_header(400)->set_content_type('application/json')->set_output(json_encode(['status' => 'error', 'message' => 'Invalid JSON file']));
+				return;
+			}
+
+			// If a single station object is posted (not an array), wrap it in an array
+			if (isset($locations['station_callsign']) || isset($locations['station_profile_name'])) {
+				$locations = [$locations];
+			}
+		} catch (Exception $e) {
+			$this->output->set_status_header(500)->set_content_type('application/json')->set_output(json_encode(['status' => 'error', 'message' => 'Processing error: ' . $e->getMessage()]));
+		}
+		$this->load->model('stationsetup_model');
+		$imported = $this->stationsetup_model->import_locations_parse($locations,$userid);
+		if (($imported[0] ?? '0') == 'limit') {
+			$this->output->set_status_header(201)->set_content_type('application/json')->set_output(json_encode(['status' => 'success', 'message' => ($imported[1] ?? '0')." locations imported. Maximum limit of 1000 locations reached."]));
+		} else {
+			if (($imported[1] ?? 0) == 0) {
+				$this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode(['status' => 'dupe', 'message' => ($imported[1] ?? '0')." locations imported."]));
+			} else {
+				$this->output->set_status_header(201)->set_content_type('application/json')->set_output(json_encode(['status' => 'success', 'message' => ($imported[1] ?? '0')." locations imported."]));
+			}
+		}
+	}
+
 	function station_info($key = '') {
 		$this->load->model('api_model');
 		$this->load->model('stations');
@@ -132,12 +217,35 @@ class API extends CI_Controller {
 				$result['station_gridsquare']=$row->station_gridsquare;
 				$result['station_callsign']=$row->station_callsign;;
 				$result['station_active']=$row->station_active;
+				$result['station_uuid']=$row->station_uuid;
 				array_push($station_ids, $result);
 			}
 			echo json_encode($station_ids);
 		} else {
 			http_response_code(401);
 			echo json_encode(['status' => 'failed', 'reason' => "missing or invalid api key"]);
+		}
+	}
+
+	function check_auth($key = '') {
+		$this->load->model('api_model');
+		if($this->api_model->access($key ?? '') == "No Key Found" || $this->api_model->access($key ?? '') == "Key Disabled") {
+			// set the content type as json
+			header("Content-type: application/json");
+
+			// set the http response code to 401
+			http_response_code(401);
+
+			// return the json with the status as failed
+			echo json_encode(['status' => 'failed', 'reason' => "missing or invalid api key"]);
+		} else {
+			// set the content type as json
+			header("Content-type: application/json");
+
+			// set the http response code to 200
+			http_response_code(200);
+			// return the json
+			echo json_encode(['status' => 'valid', 'rights' => $this->api_model->access($key ?? '')]);
 		}
 	}
 
@@ -156,6 +264,7 @@ class API extends CI_Controller {
 		$this->load->model('api_model');
 
 		$this->load->model('stations');
+		$this->load->model('club_model');
 
 		if (!$this->load->is_loaded('Qra')) {
 			$this->load->library('Qra');
@@ -168,20 +277,28 @@ class API extends CI_Controller {
 		$raw = file_get_contents("php://input");
 		$raw = $raw = preg_replace('#<([eE][oO][rR])>[\r\n\t]+#', '<$1>', $raw);
 		$obj = json_decode($raw,true);
-		$raw='';
 		if ($obj === NULL) {
+		    log_message("Debug",'API Call 200. Wrong JSON provided: '.$raw);
 		    echo json_encode(['status' => 'failed', 'reason' => "wrong JSON"]);
 		    die();
 		}
 
+		// Check rate limit
+		$identifier = isset($obj['key']) ? $obj['key'] : null;
+		$this->check_rate_limit('qso', $identifier);
+
+		$raw='';
+
 		if(!isset($obj['key']) || $this->api_model->authorize($obj['key']) == 0) {
 		   http_response_code(401);
+		   log_message("Debug",'API Call 401. Invalid API Key: '.($obj['key'] ?? 'N/A'));
 		   echo json_encode(['status' => 'failed', 'reason' => "missing or wrong api key"]);
 		   die();
 		}
 
 		$userid = $this->api_model->key_userid($obj['key']);
 		$created_by = $this->api_model->key_created_by($obj['key']);
+		$club_perm = $this->club_model->get_permission_noui($userid,$created_by);
 
 		/**
 		 * As the API key user could use it also for clubstations we need to do an additional check here. Only if clubstations are enabled
@@ -190,12 +307,11 @@ class API extends CI_Controller {
 		 * If the user is not the creator of the API key, it's likely a clubstation. In this case the callsign of the clubstation
 		 * can not be the same as the callsign of the user (operator call provided by the user). If this is the case, we need to use the callsign of the creator of the API key
 		 */
-		$real_operator = null;
+		$real_operator = null;	// real_operator is only filled if its a clubstation and the used key is created by an OP. otherwise its null
 		if ($this->config->item('special_callsign')) {
 			if ($userid != $created_by) {
 				$this->load->model('user_model');
 				$real_operator = $this->user_model->get_by_id($created_by)->row()->user_callsign;
-				// TODO: It would be possible to check here if operator is allowed to use the clubstation, but this can be added later if needed
 			} else {
 				$real_operator = null;
 			}
@@ -205,6 +321,7 @@ class API extends CI_Controller {
 
 		if(!isset($obj['station_profile_id']) || $this->stations->check_station_against_user($obj['station_profile_id'], $userid) == false) {
 			http_response_code(401);
+			log_message("Debug",'API Call 401: Wrong station_id '.($obj['station_profile_id'] ?? 'N/A').' for User '.$userid);
 			echo json_encode(['status' => 'failed', 'reason' => "station id does not belong to the API key owner."]);
 			die();
 		}
@@ -237,9 +354,27 @@ class API extends CI_Controller {
 					if(count($record) == 0) {
 						break;
 					}
+
+					// Handle slashed zeros
+					$record['call'] = str_replace('Ø', "0", $record['call']);
+					if (($record['operator'] ?? '') != '') {
+						$record['operator'] = str_replace('Ø', "0", $record['operator']);
+					}
+					if (($record['station_callsign'] ?? '') != '') {
+						$record['station_callsign'] = str_replace('Ø', "0", $record['station_callsign']);
+					}
+					if (($record['owner_callsign'] ?? '') != '') {
+						$record['owner_callsign'] = str_replace('Ø', "0", $record['owner_callsign']);
+					}
+
 					// in case the provided op call is the same as the clubstation callsign, we need to use the creator of the API key as the operator
 					$recorded_operator = $record['operator'] ?? '';
 					if (key_exists('operator',$record) && $real_operator != null && ($record['operator'] == $record['station_callsign']) || ($recorded_operator == '')) {
+						$record['operator'] = $real_operator;
+					}
+
+					// in case the caller is an OP for a clubstation (real_operator is filled - see above) and the OP only has level 3 or 6 - take the OP from real_operator!
+					if ($real_operator != null && ((($club_perm ?? 0) == 3) || (($club_perm ?? 0) == 6))) {
 						$record['operator'] = $real_operator;
 					}
 
@@ -251,7 +386,8 @@ class API extends CI_Controller {
 				};
 				$record='';	// free memory
 				gc_collect_cycles();
-				$custom_errors = $this->logbook_model->import_bulk($alladif, $obj['station_profile_id'], false, false, false, false, false, false, false, false, true, false, true, false);
+				$result = $this->logbook_model->import_bulk($alladif, $obj['station_profile_id'], true, false, false, false, false, false, false, false, true, false, true, false);
+				$custom_errors = $result['errormessage'];
 				if ($custom_errors) {
 					$adif_errors++;
 				}
@@ -263,9 +399,11 @@ class API extends CI_Controller {
 
 			if ($adif_errors == 0) {
 				http_response_code(201);
+				log_message("Debug",'API Call 201: QSO created for Station-ID: '.($obj['station_profile_id'] ?? 'N/A').' and User: '.$userid);
 				echo json_encode(['status' => 'created', 'type' => $obj['type'], 'string' => $obj['string'], 'adif_count' => $adif_count, 'adif_errors' => $adif_errors, 'messages' => $return_msg ]);
 			} else {
 				$return_msg[]=$custom_errors;
+				log_message("Debug",'API Call 400: QSO NOT created for Station-ID: '.($obj['station_profile_id'] ?? 'N/A').' and User: '.$userid.' Reason: '.implode($return_msg));
 				http_response_code(400);
 				echo json_encode(['status' => 'abort', 'type' => $obj['type'], 'string' => $obj['string'], 'adif_count' => $adif_count, 'adif_errors' => $adif_errors, 'messages' => $return_msg ]);
 			}
@@ -353,33 +491,64 @@ class API extends CI_Controller {
 
 		//load adif data module
 		$this->load->model('adif_data');
+		$this->load->library('AdifHelper');
 
-		//get qso data
-		$data['qsos'] = $this->adif_data->export_past_id($station_id, $fetchfromid, $limit);
+		// Initialize tracking variables
+		$total_fetched = 0;
+		$all_qso_ids = [];
+		$lastfetchedid = $fetchfromid;
 
-		//set internalonly attribute for adif creation
-		$data['internalrender'] = true;
+		// Process in chunks to avoid memory issues
+		$chunk_size = 5000;
+		$remaining_limit = $limit;
+		$offset = 0;
 
-		//if no new QSOs are ready, return that
-		$qso_count = count($data['qsos']->result());
-		if($qso_count <= 0) {
+		// Start building ADIF content
+		$adif_content = $this->adifhelper->getAdifHeader($this->config->item('app_name'),$this->optionslib->get_option('version'));
+
+		do {
+			// Calculate chunk size for this iteration
+			$current_chunk_size = min($chunk_size, $remaining_limit);
+
+			// Fetch chunk
+			$qsos = $this->adif_data->export_past_id_chunked($station_id, $fetchfromid, $current_chunk_size, null, $offset, $current_chunk_size);
+
+			if ($qsos && $qsos->num_rows() > 0) {
+				// Process chunk
+				foreach ($qsos->result() as $row) {
+					// Build ADIF content directly
+					$adif_content .= $this->adifhelper->getAdifLine($row);
+
+					// Track data for response
+					$all_qso_ids[] = $row->COL_PRIMARY_KEY;
+					$lastfetchedid = max($lastfetchedid, $row->COL_PRIMARY_KEY);
+					$total_fetched++;
+				}
+
+				// Free memory
+				$qsos->free_result();
+
+				// Update tracking
+				$remaining_limit -= $qsos->num_rows();
+				$offset += $qsos->num_rows();
+
+				// Stop if we've hit the requested limit
+				if ($total_fetched >= $limit) {
+					break;
+				}
+			}
+
+			// Continue if we got a full chunk and haven't hit the limit
+		} while ($qsos && $qsos->num_rows() > 0 && $total_fetched < $limit);
+
+		// Return response (same format as original)
+		if($total_fetched <= 0) {
 			http_response_code(200);
 			echo json_encode(['status' => 'successfull', 'message' => 'No new QSOs available.', 'lastfetchedid' => $fetchfromid, 'exported_qsos' => 0, 'adif' => null]);
-			return;
+		} else {
+			http_response_code(200);
+			echo json_encode(['status' => 'successfull', 'message' => 'Export successfull', 'lastfetchedid' => $lastfetchedid, 'exported_qsos' => $total_fetched, 'adif' => $adif_content]);
 		}
-
-		//convert data to ADIF
-		$adif_content = $this->load->view('adif/data/exportall', $data, TRUE);
-
-		//get new goalpost
-		$lastfetchedid = 0;
-		foreach ($data['qsos']->result() as $row) {
-			$lastfetchedid = max($lastfetchedid, $row->COL_PRIMARY_KEY);
-		}
-
-		//return API result
-		http_response_code(200);
-		echo json_encode(['status' => 'successfull', 'message' => 'Export successfull', 'lastfetchedid' => $lastfetchedid, 'exported_qsos' => $qso_count, 'adif' => $adif_content]);
 	}
 
 
@@ -563,6 +732,17 @@ class API extends CI_Controller {
 
 	function radio() {
 		session_write_close();
+
+                if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { // Preflight CORS-Check: Allow posting from web-application as well (key is still needed!)
+                        header('Access-Control-Allow-Origin: *');
+                        header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+                        header('Access-Control-Allow-Headers: Content-Type');
+                        header('Access-Control-Max-Age: 86400');
+                        http_response_code(200);
+                        exit(0);
+                }
+                header('Access-Control-Allow-Origin: *'); // Allow posting from web-application as well (key is still needed!)
+
 		header('Content-type: application/json');
 
 		$this->load->model('api_model');
@@ -575,6 +755,10 @@ class API extends CI_Controller {
 
 		// Decode JSON and store
 		$obj = json_decode(file_get_contents("php://input"), true);
+
+		// Check rate limit
+		$identifier = isset($obj['key']) ? $obj['key'] : null;
+		$this->check_rate_limit('radio', $identifier);
 
 		if(!isset($obj['key']) || $this->api_model->authorize($obj['key']) == 0) {
 			http_response_code(401);
@@ -614,8 +798,23 @@ class API extends CI_Controller {
 			case 'RTTY-R':
 				$obj['mode'] = 'RTTY';
 				break;
+			case 'USB-D':
+			case 'USB-D1':
+				$obj['mode'] = 'USB';
+				break;
+			case 'LSB-D':
+			case 'LSB-D1':
+				$obj['mode'] = 'LSB';
+				break;
 		}
 
+		// Handle optional cat_url
+		if (isset($obj['cat_url']) && !empty($obj['cat_url'])) {
+			$cat_url = $this->sanitize_cat_url($obj['cat_url']);
+			if ($cat_url !== false) {
+				$obj['cat_url'] = $cat_url;
+			}
+		}
 
 		// Store Result to Database
 		$this->cat->update($obj, $user_id, $operator);
@@ -635,22 +834,32 @@ class API extends CI_Controller {
 	*/
 
 	function statistics($key = null) {
+		$this->load->model('api_model');
+		if ((($key ?? '') != '') && ($this->api_model->authorize($key) != 0)) {
+			$this->load->model('logbook_model');
+			$qso_counts = $this->logbook_model->get_qso_counts(null, $key);
+			$data['todays_qsos'] = $qso_counts['today'];
+			$data['total_qsos'] = $qso_counts['total'];
+			$data['month_qsos'] = $qso_counts['month'];
+			$data['year_qsos'] = $qso_counts['year'];
+		} else { # for Downcompat
+			$data['todays_qsos'] = 0;
+			$data['total_qsos'] = 0;
+			$data['month_qsos'] = 0;
+			$data['year_qsos'] = 0;
+		}
 		header('Content-type: application/json');
-		$this->load->model('logbook_model');
-
-		$data['todays_qsos'] = $this->logbook_model->todays_qsos(null, $key);
-		$data['total_qsos'] = $this->logbook_model->total_qsos(null, $key);
-		$data['month_qsos'] = $this->logbook_model->month_qsos(null, $key);
-		$data['year_qsos'] = $this->logbook_model->year_qsos(null, $key);
-
 		http_response_code(201);
 		echo json_encode(['Today' => $data['todays_qsos'], 'total_qsos' => $data['total_qsos'], 'month_qsos' => $data['month_qsos'], 'year_qsos' => $data['year_qsos']]);
-
 	}
 
 	function private_lookup() {
 		// Lookup Callsign and dxcc for further informations. UseCase: e.g. external Application which checks calls like FlexRadio-Overlay
 		$raw_input = json_decode(file_get_contents("php://input"), true);
+
+		// Check rate limit
+		$identifier = isset($raw_input['key']) ? $raw_input['key'] : null;
+		$this->check_rate_limit('private_lookup', $identifier);
 		$user_id='';
 		$this->load->model('user_model');
 		if (!( $this->user_model->authorize($this->config->item('auth_mode') ))) {				// User not authorized?
@@ -670,6 +879,17 @@ class API extends CI_Controller {
 		} else {
 			$user_id=$this->session->userdata('user_id');
 		}
+
+		if (($raw_input['callbook'] ?? '' == 'true') && (($raw_input['callsign'] ?? '') != '')) {
+			$this->load->library('callbook');
+			$this->load->model('logbook_model');
+			$lookupcall = $this->callbook->get_plaincall($raw_input['callsign']);
+
+			$callbook = $this->logbook_model->loadCallBook($raw_input['callsign'], $this->config->item('use_fullname'));
+		} else {
+			$callbook=null;
+		}
+
 
 		$this->load->model('stations');
 		$all_station_ids=$this->stations->all_station_ids_of_user($user_id);
@@ -742,8 +962,8 @@ class API extends CI_Controller {
 			];
 
 			$return['callsign'] = $lookup_callsign;
-
-			$callsign_dxcc_lookup = $this->logbook_model->dxcc_lookup($lookup_callsign, $date);
+			$dxccobj = new Dxcc(null);
+			$callsign_dxcc_lookup = $dxccobj->dxcc_lookup($lookup_callsign, $date);
 
 			$last_slash_pos = strrpos($lookup_callsign, '/');
 
@@ -760,7 +980,7 @@ class API extends CI_Controller {
 					break;
 				default:
 					// If its not one of the above suffix slashes its likely dxcc
-					$ans2 = $this->logbook_model->dxcc_lookup($suffix_slash, $date);
+					$ans2 = $dxccobj->dxcc_lookup($suffix_slash, $date);
 					$suffix_slash_item = null;
 				}
 
@@ -828,6 +1048,9 @@ class API extends CI_Controller {
 				$return['dxcc_confirmed_on_band']=($this->logbook_model->check_if_dxcc_cnfmd_in_logbook_api($userdata->row()->user_default_confirmation,$return['dxcc_id'], $station_ids, $band, null)>0) ? true : false;
 				$return['dxcc_confirmed_on_band_mode']=($this->logbook_model->check_if_dxcc_cnfmd_in_logbook_api($userdata->row()->user_default_confirmation,$return['dxcc_id'], $station_ids, $band, $mode)>0) ? true : false;
 			}
+			if ($callbook) {
+				$return['callbook']=$callbook;
+			}
 			echo json_encode($return, JSON_PRETTY_PRINT);
 		} else {
 			echo '{"error":"callsign to lookup not given"}';
@@ -838,16 +1061,21 @@ class API extends CI_Controller {
 	function lookup() {
 		// This API provides NO information about previous QSOs. It just derivates DXCC, Lat, Long. It is used by the DXClusterAPI
 		$raw_input = json_decode(file_get_contents("php://input"), true);
-		$user_id='';
+
+		// Check rate limit
+		$identifier = isset($raw_input['key']) ? $raw_input['key'] : null;
+		$this->check_rate_limit('lookup', $identifier);
+
+		$user_id = '';
 		$this->load->model('user_model');
 		if (!( $this->user_model->authorize($this->config->item('auth_mode') ))) {				// User not authorized?
-			$no_auth=true;
+			$no_auth = true;
 			$this->load->model('api_model');
 			if (!( ((isset($raw_input['key'])) && ($this->api_model->authorize($raw_input['key']) > 0) ))) {			// Key invalid?
-				$no_auth=true;
+				$no_auth = true;
 			} else {
-				$no_auth=false;
-				$user_id=$this->api_model->key_userid($raw_input['key']);
+				$no_auth = false;
+				$user_id = $this->api_model->key_userid($raw_input['key']);
 			}
 			if ($no_auth) {
 				http_response_code(401);
@@ -855,15 +1083,14 @@ class API extends CI_Controller {
 				die();
 			}
 		} else {
-			$user_id=$this->session->userdata('user_id');
+			$user_id = $this->session->userdata('user_id');
 		}
 
 		$this->load->model('stations');
-		$station_ids=$this->stations->all_station_ids_of_user($user_id);
+		$station_ids = $this->stations->all_station_ids_of_user($user_id);
 
 		$lookup_callsign = strtoupper($raw_input['callsign'] ?? '');
 		if ($lookup_callsign ?? '' != '') {
-
 
 			$this->load->model("logbook_model");
 			$date = date("Y-m-d");
@@ -894,46 +1121,16 @@ class API extends CI_Controller {
 
 			$return['callsign'] = $lookup_callsign;
 
-			$callsign_dxcc_lookup = $this->logbook_model->dxcc_lookup($lookup_callsign, $date);
+			// Use Wavelog\Dxcc\Dxcc for faster in-memory lookup
+			$dxccobj = new Dxcc($date);
+			$callsign_dxcc_lookup = $dxccobj->dxcc_lookup($lookup_callsign, $date);
 
-			$last_slash_pos = strrpos($lookup_callsign, '/');
-
-			if(isset($last_slash_pos) && $last_slash_pos > 4) {
-				$suffix_slash = $last_slash_pos === false ? $lookup_callsign : substr($lookup_callsign, $last_slash_pos + 1);
-				switch ($suffix_slash) {
-				case "P":
-					$suffix_slash_item = "Portable";
-					break;
-				case "M":
-					$suffix_slash_item = "Mobile";
-				case "MM":
-					$suffix_slash_item =  "Maritime Mobile";
-					break;
-				default:
-					// If its not one of the above suffix slashes its likely dxcc
-					$ans2 = $this->logbook_model->dxcc_lookup($suffix_slash, $date);
-					$suffix_slash_item = null;
-				}
-
-				$return['suffix_slash'] = $suffix_slash_item;
-			}
-
-			// If the final slash is a DXCC then find it!
-			if (isset($ans2['call'])) {
-				$return['dxcc_id'] = $ans2['adif'];
-				$return['dxcc'] = $ans2['entity'];
-				$return['dxcc_lat'] = $ans2['lat'];
-				$return['dxcc_long'] = $ans2['long'];
-				$return['dxcc_cqz'] = $ans2['cqz'];
-				$return['cont'] = $ans2['cont'];
-			} else {
-				$return['dxcc_id'] = $callsign_dxcc_lookup['adif'] ?? '';
-				$return['dxcc'] = $callsign_dxcc_lookup['entity'] ?? '';
-				$return['dxcc_lat'] = $callsign_dxcc_lookup['lat'] ?? '';
-				$return['dxcc_long'] = $callsign_dxcc_lookup['long'] ?? '';
-				$return['dxcc_cqz'] = $callsign_dxcc_lookup['cqz'] ?? '';
-				$return['cont'] = $callsign_dxcc_lookup['cont'] ?? '';
-			}
+			$return['dxcc_id'] = $callsign_dxcc_lookup['adif'] ?? '';
+			$return['dxcc'] = $callsign_dxcc_lookup['entity'] ?? '';
+			$return['dxcc_lat'] = $callsign_dxcc_lookup['lat'] ?? '';
+			$return['dxcc_long'] = $callsign_dxcc_lookup['long'] ?? '';
+			$return['dxcc_cqz'] = $callsign_dxcc_lookup['cqz'] ?? '';
+			$return['cont'] = $callsign_dxcc_lookup['cont'] ?? '';
 
 			/*
 			 *	Query Data of API-Key-Owner for further informations
@@ -1059,7 +1256,11 @@ class API extends CI_Controller {
 		}
 
 		// Load cache driver
-		$this->load->driver('cache', ['adapter' => 'file']);
+		$this->load->driver('cache', [
+			'adapter' => $this->config->item('cache_adapter') ?? 'file', 
+			'backup' => $this->config->item('cache_backup')	 ?? 'file',
+			'key_prefix' => $this->config->item('cache_key_prefix') ?? ''
+		]);
 
 		// Create cache key
 		$cache_key = "wp_stats_{$station_id}";
@@ -1082,6 +1283,30 @@ class API extends CI_Controller {
 		// Return result
 		http_response_code(200);
 		echo json_encode(['status' => 'successful', 'message' => 'Export successful', 'statistics' => $data]);
+	}
+
+	/**
+	 * Sanitize and validate callback URL
+	 * @param string $url The URL to sanitize
+	 * @return string|false Returns sanitized URL or false if invalid
+	 */
+	private function sanitize_cat_url($url) {
+		// Basic sanitization
+		$url = trim($url);
+
+		// Check if URL is valid and uses http or https
+		if (!filter_var($url, FILTER_VALIDATE_URL) ||
+			(!preg_match('/^https?:\/\//', $url))) {
+			return false;
+		}
+
+		// Remove trailing slashes
+		$url = rtrim($url, '/');
+
+		// Additional XSS cleaning
+		$url = $this->security->xss_clean($url);
+
+		return $url;
 	}
 
 }

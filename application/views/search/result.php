@@ -54,10 +54,18 @@
 		} else {
 			echo " <span data-bs-toggle=\"tooltip\" title=\"Not Worked\" class=\"badge text-bg-danger\" style=\"padding-left: 0.2em; padding-right: 0.2em;\">".strtoupper($callsign['gridsquare'])."</span>";
 		}
+		if ($callsign['geoloc'] == "grid") {
+			echo " <span data-bs-toggle=\"tooltip\" title=\"Grid auto-detected\" class=\"badge text-bg-danger\">".__("Grid is auto-detected by callbook and probably wrong")."</span>";
+		}
 	?>
 	</td>
 </tr>
 
+<tr>
+	<td style="padding: 0 0.3em 0 0;" align="left"><?= __("Source callbook"); ?></td>
+   <td style="padding: 0.3em 0 0.3em 0.5em;" align="left"><?= $callsign['source']; ?>
+	</td>
+</tr>
 <tr>
 	<td style="padding: 0 0.3em 0 0;" align="left"><?= __("LoTW User"); ?></td>
 	<td style="padding: 0.3em 0 0.3em 0.5em;" align="left">

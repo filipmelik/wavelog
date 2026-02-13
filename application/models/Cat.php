@@ -3,7 +3,7 @@
 	class Cat extends CI_Model {
 
 		function update($result, $user_id, $operator) {
-
+			$this->load->model('User_model');
 			$timestamp = gmdate("Y-m-d H:i:s");
 
 			if (isset($result['prop_mode'])) {
@@ -23,10 +23,21 @@
 			// Let's keep uplink_freq, downlink_freq, uplink_mode and downlink_mode for backward compatibility
 			$data = array(
 				'prop_mode' => $prop_mode,
-				'power' => $result['power'] ?? NULL,
 				'sat_name' => $result['sat_name'] ?? NULL,
 				'timestamp' => $timestamp,
 			);
+
+			// Handle callback URL if provided
+			if (isset($result['cat_url']) && !empty($result['cat_url'])) {
+				$data['cat_url'] = $result['cat_url'];
+			}
+
+			if ( (isset($result['power'])) && ($result['power'] != "NULL") && ($result['power'] != '') && (is_numeric($result['power']))) {
+				$data['power'] = $result['power'];
+			} else {
+				unset($data['power']);	// Do not update power since it isn't provided or not numeric
+			}
+
 			if ( (isset($result['frequency'])) && ($result['frequency'] != "NULL") && ($result['frequency'] != '') && (is_numeric($result['frequency']))) {
 				$data['frequency'] = $result['frequency'];
 			} else {
@@ -36,6 +47,7 @@
 					unset($data['frequency']);	// Do not update Frequency since it wasn't provided
 				}
 			}
+
 			if (isset($result['mode']) && $result['mode'] != "NULL") {
 				$data['mode'] = $result['mode'];
 			} else {
@@ -60,25 +72,36 @@
 				$data['mode_rx'] = NULL;
 			}
 
-			if ($query->num_rows() > 0)
-			{
+			if (($this->config->item('mqtt_server') ?? '') != '') {
+				$h_user=$this->User_model->get_by_id($user_id);
+				$this->load->library('Mh');
+				$eventdata=$data;
+				$eventdata['user_name']=$h_user->row()->user_name;
+				$eventdata['user_id']=$h_user->row()->user_id ?? '';
+			}
+			if ($query->num_rows() > 0) {
 				// Update the record
-				foreach ($query->result() as $row)
-				{
+				foreach ($query->result() as $row) {
 					$radio_id = $row->id;
-
 					$this->db->where('id', $radio_id);
 					$this->db->where('user_id', $user_id);
 					$this->db->update('cat', $data);
+					if (($this->config->item('mqtt_server') ?? '') != '') {
+                				$this->mh->wl_event('cat/'.$user_id, json_encode(array_merge($data,$eventdata)));
+					}
 				}
 			} else {
 				// Add a new record
 				$data['radio'] = $result['radio'];
 				$data['user_id'] = $user_id;
 				$data['operator'] = $operator;
-
 				$this->db->insert('cat', $data);
+				if (($this->config->item('mqtt_server') ?? '') != '') {
+                			$this->mh->wl_event('cat/'.$user_id, json_encode(array_merge($data,$eventdata)));
+				}
 			}
+			unset($eventdata);
+			unset($h_user);
 		}
 
 		/**

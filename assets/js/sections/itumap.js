@@ -1,8 +1,21 @@
-var osmUrl = tileUrl;
-var ituz;
-var geojson;
-var map;
-var info;
+let osmUrl = tileUrl;
+let ituz;
+let geojson;
+let map;
+let info;
+
+let confirmedColor = 'rgba(144,238,144)';
+if (typeof(user_map_custom.qsoconfirm) !== 'undefined') {
+      confirmedColor = user_map_custom.qsoconfirm.color;
+}
+let workedColor = 'rgba(229, 165, 10)';
+if (typeof(user_map_custom.qso) !== 'undefined') {
+      workedColor = user_map_custom.qso.color;
+}
+let unworkedColor = 'rgba(204, 55, 45)';
+if (typeof(user_map_custom.unworked) !== 'undefined') {
+   unworkedColor = user_map_custom.unworked.color;
+}
 
 function load_itu_map() {
     $('.nav-tabs a[href="#itumaptab"]').tab('show');
@@ -154,15 +167,15 @@ function load_itu_map2(data) {
     var workednotconfirmed = 0;
 
 	for (var i = 0; i < zonemarkers.length; i++) {
-        var mapColor = 'red';
+        var mapColor = unworkedColor	;
 
         if (data[i] == 'C') {
-            mapColor = 'green';
+            mapColor = confirmedColor;
             confirmed++;
             notworked--;
         }
         if (data[i] == 'W') {
-			mapColor = 'orange';
+			mapColor = workedColor;
 			workednotconfirmed++;
 			notworked--;
         }
@@ -187,9 +200,9 @@ function load_itu_map2(data) {
     legend.onAdd = function(map) {
         var div = L.DomUtil.create("div", "legend");
         div.innerHTML += "<h4>" + lang_general_word_colors + "</h4>";
-        div.innerHTML += "<i style='background: green'></i><span>" + lang_general_word_confirmed + " (" + confirmed + ")</span><br>";
-        div.innerHTML += "<i style='background: orange'></i><span>" + lang_general_word_worked_not_confirmed + " (" + workednotconfirmed + ")</span><br>";
-        div.innerHTML += "<i style='background: red'></i><span>" + lang_general_word_not_worked + " (" + notworked + ")</span><br>";
+        div.innerHTML += "<i style='background: " + confirmedColor + "'></i><span>" + lang_general_word_confirmed + " (" + confirmed + ")</span><br>";
+        div.innerHTML += "<i style='background: " + workedColor + "'></i><span>" + lang_general_word_worked_not_confirmed + " (" + workednotconfirmed + ")</span><br>";
+        div.innerHTML += "<i style='background: " + unworkedColor + "'></i><span>" + lang_general_word_not_worked + " (" + notworked + ")</span><br>";
         return div;
     };
 
@@ -215,9 +228,9 @@ function load_itu_map2(data) {
 }
 
 function getColor(d) {
-    return 	ituz[d-1] == 'C' ? 'green'  :
-			ituz[d-1] == 'W' ? 'orange' :
-							   'red';
+    return 	ituz[d-1] == 'C' ? confirmedColor  :
+			ituz[d-1] == 'W' ? workedColor :
+							   unworkedColor;
 }
 
 function highlightFeature(e) {

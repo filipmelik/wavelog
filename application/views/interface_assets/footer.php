@@ -8,17 +8,17 @@
 
     var base_url = "<?php echo base_url(); ?>"; // Base URL
     var site_url = "<?php echo site_url(); ?>"; // Site URL
-	let measurement_base = 'K';
+    let measurement_base = 'K';
 
-	<?php
-	if ($this->session->userdata('user_measurement_base') == NULL) {
-		?>
-		measurement_base = '<?php echo $this->config->item('measurement_base'); ?>';
-	<?php }
-	else { ?>
-		measurement_base = '<?php echo $this->session->userdata('user_measurement_base'); ?>';
-	<?php }
-	?>
+    <?php
+    if ($this->session->userdata('user_measurement_base') == NULL) {
+        ?>
+        measurement_base = '<?php echo $this->config->item('measurement_base'); ?>';
+    <?php }
+    else { ?>
+        measurement_base = '<?php echo $this->session->userdata('user_measurement_base'); ?>';
+    <?php }
+    ?>
 
     var icon_dot_url = "<?php echo $this->paths->cache_buster('/assets/images/dot.png');?>";
 
@@ -35,6 +35,8 @@
     var lang_general_word_error = "<?= __("ERROR"); ?>";
     var lang_general_word_attention = "<?= __("Attention"); ?>";
     var lang_general_word_warning = "<?= __("Warning"); ?>";
+    var lang_general_word_success = "<?= __("Success"); ?>";
+    var lang_general_word_info = "<?= __("Info"); ?>";
     var lang_general_word_cancel = "<?= __("Cancel"); ?>";
     var lang_general_word_ok = "<?= __("OK"); ?>";
     var lang_general_word_search = "<?= __("Search"); ?>";
@@ -43,6 +45,7 @@
     var lang_general_word_confirmed = "<?= __("Confirmed"); ?>";
     var lang_general_word_worked_not_confirmed = "<?= __("Worked not confirmed"); ?>";
     var lang_general_word_not_worked = "<?= __("Not worked"); ?>";
+    var lang_general_word_all = "<?= __("All"); ?>";
     var lang_general_gridsquares = "<?= __("Gridsquares"); ?>";
     var lang_admin_close = "<?= __("Close"); ?>";
     var lang_admin_save = "<?= __("Save"); ?>";
@@ -54,7 +57,89 @@
     var lang_general_refresh_list = '<?= __("Refresh List"); ?>';
     var lang_general_word_please_wait = "<?= __("Please Wait ..."); ?>";
     var lang_general_states_deprecated = "<?= _pgettext("Word for country states that are deprecated but kept for legacy reasons.", "deprecated"); ?>";
+    var lang_gen_hamradio_sat_info = "<?= __("Satellite Information"); ?>";
 
+    var lang_notes_error_loading = "<?= __("Error loading notes"); ?>";
+    var lang_notes_sort = "<?= __("Sorting"); ?>";
+    var lang_notes_duplication_disabled = "<?= __("Duplication is disabled for Contacts notes"); ?>";
+    var lang_general_word_delete = "<?= __("Delete"); ?>";
+    var lang_general_word_duplicate = "<?= __("Duplicate"); ?>";
+    var lang_notes_delete = "<?= __("Delete Note"); ?>";
+    var lang_notes_duplicate = "<?= __("Duplicate Note"); ?>";
+    var lang_notes_delete_confirmation = "<?= __("Delete this note?"); ?>";
+    var lang_notes_duplicate_confirmation = "<?= __("Duplicate this note?"); ?>";
+    var lang_notes_duplication_disabled_short = "<?= __("Duplication Disabled"); ?>";
+    var lang_notes_not_found = "<?= __("No notes were found"); ?>";
+    var lang_qso_note_missing = "<?= __("No notes for this callsign"); ?>";
+    var lang_qso_note_toast_title = "<?= __("Callsign Note"); ?>";
+    var lang_qso_note_deleted = "<?= __("Note deleted successfully"); ?>";
+    var lang_qso_note_created = "<?= __("Note created successfully"); ?>";
+    var lang_qso_note_saved = "<?= __("Note saved successfully"); ?>";
+    var lang_qso_note_error_saving = "<?= __("Error saving note"); ?>";
+    var lang_qso_added = "<?= __("QSO with %s by %s was added to logbook."); ?>";
+    var lang_qso_added_to_backlog = "<?= __("QSO Added to Backlog"); ?>";
+    var lang_qso_send_email_to = "<?= __("Send email to %s"); ?>";
+    var lang_qso_callsign_confirmed = "<?= __("Callsign was already worked and confirmed in the past on this band and mode!"); ?>";
+    var lang_qso_callsign_worked = "<?= __("Callsign was already worked in the past on this band and mode!"); ?>";
+    var lang_qso_callsign_new = "<?= __("New Callsign!"); ?>";
+    var lang_qso_grid_confirmed = "<?= __("Grid was already worked and confirmed in the past"); ?>";
+    var lang_qso_grid_worked = "<?= __("Grid was already worked in the past"); ?>";
+    var lang_qso_grid_new = "<?= __("New grid!"); ?>";
+    var lang_qso_delete_fav_confirm = "<?= __("Are you sure to delete Fav?"); ?>";
+    var lang_qso_dxcc_confirmed = "<?= __("DXCC was already worked and confirmed in the past on this band and mode!"); ?>";
+    var lang_qso_dxcc_worked = "<?= __("DXCC was already worked in the past on this band and mode!"); ?>";
+    var lang_qso_dxcc_new = "<?= __("New DXCC, not worked on this band and mode!"); ?>";
+    var lang_qso_lookup_info = "<?= __("Lookup %s info on %s"); ?>";
+    var lang_qso_lookup_summit_info = "<?= __("Lookup %s summit info on %s"); ?>";
+    var lang_qso_lookup_reference_info = "<?= __("Lookup %s reference info on %s"); ?>";
+    var lang_qso_error_loading_bearing = "<?= __("Error loading bearing!"); ?>";
+    var lang_qso_profile_aliases = "<?= __("Aliases"); ?>";
+    var lang_qso_profile_previously = "<?= __("Previously"); ?>";
+    var lang_qso_profile_born = "<?= __("Born"); ?>";
+    var lang_qso_profile_years_old = "<?= __("years old"); ?>";
+    var lang_qso_profile_license = "<?= __("License"); ?>";
+    var lang_qso_profile_from = "<?= __("from"); ?>";
+    var lang_qso_profile_years = "<?= __("years"); ?>";
+    var lang_qso_profile_expired_on = "<?= __("expired on"); ?>";
+    var lang_qso_profile_website = "<?= __("Website"); ?>";
+    var lang_qso_profile_local_time = "<?= __("Local time"); ?>";
+    var lang_qso_profile_qsl = "<?= __("QSL"); ?>";
+    var lang_qso_profile_view_location_maps = "<?= __("View location on Google Maps (Satellite)"); ?>";
+    var lang_qso_profile_license_novice = "<?= __("Novice"); ?>";
+    var lang_qso_profile_license_technician = "<?= __("Technician"); ?>";
+    var lang_qso_profile_license_general = "<?= __("General"); ?>";
+    var lang_qso_profile_license_advanced = "<?= __("Advanced"); ?>";
+    var lang_qso_profile_license_extra = "<?= __("Extra"); ?>";
+    var lang_qso_gridsquare_formatting = "<?= __("Gridsquare Formatting"); ?>";
+    var lang_qso_gridsquare_help = "<?= __("Enter multiple (4-digit) grids separated with commas. For example: IO77,IO78"); ?>";
+    var lang_cat_live = "<?= __("live"); ?>";
+    var lang_cat_polling = "<?= __("polling"); ?>";
+    var lang_cat_polling_tooltip = "<?= __("Note: Periodic polling is slow. When operating locally, WebSockets are a more convenient way to control your radio in real-time."); ?>";
+    var lang_cat_tx = "<?= __("TX"); ?>";
+    var lang_cat_rx = "<?= __("RX"); ?>";
+    var lang_cat_tx_rx = "<?= __("TX/RX"); ?>";
+    var lang_cat_mode = "<?= __("Mode"); ?>";
+    var lang_cat_power = "<?= __("Power"); ?>";
+    var lang_cat_connection_error = "<?= __("Radio connection error"); ?>";
+    var lang_cat_connection_lost = "<?= __("Connection lost, please select another radio."); ?>";
+    var lang_cat_connection_timeout = "<?= __("Radio connection timeout"); ?>";
+    var lang_cat_data_stale = "<?= __("Data is stale, please select another radio."); ?>";
+    var lang_cat_not_logged_in = "<?= __("You're not logged in. Please log in."); ?>";
+    var lang_cat_radio_tuning_failed = "<?= __("Radio Tuning Failed"); ?>";
+    var lang_cat_failed_to_tune = "<?= __("Failed to tune radio to"); ?>";
+    var lang_cat_not_responding = "<?= __("CAT interface not responding. Please check your radio connection."); ?>";
+    var lang_cat_no_url_configured = "<?= __("No CAT URL configured for this radio"); ?>";
+    var lang_cat_websocket_radio = "<?= __("WebSocket Radio"); ?>";
+    var lang_qso_location_is_fetched_from_provided_gridsquare = "<?= __("Location is fetched from provided gridsquare"); ?>";
+    var lang_qso_location_is_fetched_from_dxcc_coordinates = "<?= __("Location is fetched from DXCC coordinates (no gridsquare provided)"); ?>";
+
+    // CAT Offline Status Messages
+    var lang_cat_working_offline = "<?= __("Working without CAT connection"); ?>";
+    var lang_cat_offline_cat_disabled = "<?= __("CAT connection is currently disabled. Enable CAT connection to work in online mode with your radio."); ?>";
+    var lang_cat_offline_no_radio = "<?= __("To connect your radio to Wavelog, visit the Wavelog Wiki for setup instructions."); ?>";
+
+    // CAT Configuration
+    var cat_timeout_minutes = Math.floor(<?php echo $this->optionslib->get_option('cat_timeout_interval'); ?> / 60);
 </script>
 
 <!-- General JS Files used across Wavelog -->
@@ -277,9 +362,11 @@ function stopImpersonate_modal() {
     <script src="<?php echo $this->paths->cache_buster('/assets/js/jszip.min.js'); ?>"></script>
 <?php } ?>
 
-<?php if ($this->uri->segment(1) == "notes" && ($this->uri->segment(2) == "add" || $this->uri->segment(2) == "edit") ) { ?>
+<?php if ($this->uri->segment(1) == "notes" ) { ?>
     <!-- Javascript used for Notes Area -->
+	<?php if ($this->uri->segment(2) == "add" || $this->uri->segment(2) == "edit") { ?>
     <script src="<?php echo $this->paths->cache_buster('/assets/plugins/easymde/easymde.min.js'); ?>"></script>
+	<?php } ?>
     <script src="<?php echo $this->paths->cache_buster('/assets/js/sections/notes.js'); ?>"></script>
 <?php } ?>
 
@@ -287,6 +374,17 @@ function stopImpersonate_modal() {
     <!-- Javascript used for Notes Area -->
     <script src="<?php echo $this->paths->cache_buster('/assets/plugins/easymde/easymde.min.js'); ?>"></script>
     <script src="<?php echo $this->paths->cache_buster('/assets/js/sections/notes_view.js'); ?>"></script>
+<?php } ?>
+
+<?php if ($this->uri->segment(1) == "qso" ) { ?>
+    <!-- Javascript used for QSO Notes Area -->
+    <script src="<?php echo base_url() ;?>assets/plugins/easymde/easymde.min.js"></script>
+	<?php if(($this->session->userdata('user_dxwaterfall_enable') == 'E' ||  $this->session->userdata('user_dxwaterfall_enable') == 'Y') && isset($manual_mode) && $manual_mode == 0) { ?>
+		<script>
+			var dxwaterfall_enable='<?php echo $this->session->userdata('user_dxwaterfall_enable'); ?>';
+		</script>
+		<script type="text/javascript" src="<?php echo base_url() ;?>assets/js/dxwaterfall.js?v=<?php echo floor(time() / 3600); ?>"></script>
+	<?php } ?>
 <?php } ?>
 
 <?php if ($this->uri->segment(1) == "notes" && ($this->uri->segment(2) == "view") ) { ?>
@@ -344,30 +442,10 @@ $(function () {
 <?php } ?>
 
 <?php if ($this->uri->segment(1) == "api") { ?>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/sections/api.js"></script>
 <script type="text/javascript">
-function copyApiKey(apiKey) {
-   var apiKeyField = $('#'+apiKey);
-   navigator.clipboard.writeText(apiKey).then(function() {
-   });
-   apiKeyField.addClass('flash-copy')
-      .delay('1000').queue(function() {
-         apiKeyField.removeClass('flash-copy').dequeue();
-      });
-}
-
-function copyApiUrl() {
-   var apiUrlField = $('#apiUrl');
-   navigator.clipboard.writeText("<?php echo base_url(); ?>").then(function() {
-   });
-   apiUrlField.addClass('flash-copy')
-      .delay('1000').queue(function() {
-         apiUrlField.removeClass('flash-copy').dequeue();
-      });
-}
-
-$(function () {
-   $('[data-bs-toggle="tooltip"]').tooltip({'delay': { show: 500, hide: 0 }, 'placement': 'right'});
-});
+   // Pass PHP variable to JavaScript
+   var apiSiteUrl = "<?php echo site_url(); ?>";
 </script>
 <?php } ?>
 
@@ -523,7 +601,8 @@ $(function () {
             })
             .done(function(data) {
 
-                $('.exportbutton').html('<button class="btn btn-sm btn-primary" onclick="export_stored_query(' + id + ')">'+"<?= __("Export to ADIF"); ?>"+'</button>');
+                $('.exportbutton').html('<button class="btn btn-sm btn-primary me-1" onclick="export_stored_query(' + id + ')">'+"<?= __("Export to ADIF"); ?>"+'</button>');
+				$('.exportbutton').append('<button class="btn btn-sm btn-primary me-1" id="btn-lba" onclick="open_in_lba();"><?= __("Open in the Advanced Logbook"); ?></button>');
                 $('.card-body.result').empty();
                 $(".search-results-box").show();
 
@@ -659,7 +738,8 @@ $(function () {
                     search: JSON.stringify(result, null, 2)
                 })
                 .done(function(data) {
-                    $('.exportbutton').html('<button class="btn btn-sm btn-primary" onclick="export_search_result();">'+"<?= __("Export to ADIF"); ?>"+'</button>');
+                    $('.exportbutton').html('<button class="btn btn-sm btn-primary me-1" onclick="export_search_result();">'+"<?= __("Export to ADIF"); ?>"+'</button>');
+					$('.exportbutton').append('<button class="btn btn-sm btn-primary me-1" id="btn-lba" onclick="open_in_lba();"><?= __("Open in the Advanced Logbook"); ?></button>');
 
                     $('.card-body.result').empty();
                     $(".search-results-box").show();
@@ -766,6 +846,7 @@ $('#dxcc_id').on('change', function() {
             return dxcc.adif == dxccadif;
         });
         $("#stationCQZoneInput").val(dxccinfo[0].cq);
+		$("#stationITUZoneInput").val(dxccinfo[0].itu);
         if (dxccadif == 0) {
             $("#stationITUZoneInput").val(dxccinfo[0].itu); // Only set ITU zone to none if DXCC none is selected. We don't have ITU data for other DXCCs.
         }
@@ -875,6 +956,20 @@ function showActivatorsMap(call, count, grids) {
 
 <?php if ($this->uri->segment(1) == "search") { ?>
 <script type="text/javascript">
+	function open_in_lba() {
+		var user_id = <?php echo $this->session->userdata('user_id'); ?>;
+		var elements = $('.table tbody tr');
+
+		var id_list=[];
+		elements.each(function() {
+			let id = $(this).first().closest('tr').attr('id')?.replace(/\D/g, '')
+			id_list.push(id);
+		});
+
+		localStorage.setItem(`user_${user_id}_qsoids`, id_list);
+		window.location.href = base_url + 'index.php/logbookadvanced';
+	}
+
 i=0;
 
 function findlotwunconfirmed(){
@@ -895,7 +990,7 @@ function findlotwunconfirmed(){
             buttons: [
 				{
 					extend: 'csv',
-					className: 'mb-1 btn btn-primary', // Bootstrap classes
+					className: 'mb-1 btn-sm btn btn-primary', // Bootstrap classes
 						init: function(api, node, config) {
 							$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
 						},
@@ -909,101 +1004,10 @@ function findlotwunconfirmed(){
     });
 }
 
-function findincorrectcqzones() {
-    event.preventDefault();
-    $('#partial_view').load(base_url+"index.php/logbook/search_incorrect_cq_zones/"+$("#station_id").val(), function() {
-	    $('.qsolist').DataTable({
-	    "pageLength": 25,
-		    responsive: false,
-		    ordering: false,
-		    "scrollY":        "500px",
-		    "scrollCollapse": true,
-		    "paging":         false,
-		    "scrollX": true,
-		    "language": {
-		    url: getDataTablesLanguageUrl(),
-    },
-	    dom: 'Bfrtip',
-	    buttons: [
-			{
-				extend: 'csv',
-				className: 'mb-1 btn btn-primary', // Bootstrap classes
-					init: function(api, node, config) {
-						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
-					},
-			}
-	    ]
-    });
-	    // change color of csv-button if dark mode is chosen
-	    if (isDarkModeTheme()) {
-		    $(".buttons-csv").css("color", "white");
-	    }
-	    $(document).ready(function() {
-		    var target = document.body;
-		    var observer = new MutationObserver(function() {
-			    $('#dt-search-0').on('keyup', function (e) {
-				    tocrappyzero=$(this).val().toUpperCase().replaceAll(/0/g, 'Ø');
-				    $(this).val(tocrappyzero);
-				    $(this).trigger("input");
-			    });
-		    });
-		    var config = { childList: true, subtree: true};
-		    // pass in the target node, as well as the observer options
-		    observer.observe(target, config);
-	    });
-    });
-}
-
-function findincorrectituzones() {
-    event.preventDefault();
-    $('#partial_view').load(base_url+"index.php/logbook/search_incorrect_itu_zones/"+$("#station_id").val(), function() {
-	    $('.qsolist').DataTable({
-	    "pageLength": 25,
-		    responsive: false,
-		    ordering: false,
-		    "scrollY":        "500px",
-		    "scrollCollapse": true,
-		    "paging":         false,
-		    "scrollX": true,
-		    "language": {
-		    url: getDataTablesLanguageUrl(),
-    },
-	    dom: 'Bfrtip',
-	    buttons: [
-			{
-				extend: 'csv',
-				className: 'mb-1 btn btn-primary', // Bootstrap classes
-					init: function(api, node, config) {
-						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
-					},
-			}
-]
-    });
-	    // change color of csv-button if dark mode is chosen
-	    if (isDarkModeTheme()) {
-		    $(".buttons-csv").css("color", "white");
-	    }
-
-	    $(document).ready(function() {
-		    var target = document.body;
-		    var observer = new MutationObserver(function() {
-			    $('#dt-search-0').on('keyup', function (e) {
-				    tocrappyzero=$(this).val().toUpperCase().replaceAll(/0/g, 'Ø');
-				    $(this).val(tocrappyzero);
-				    $(this).trigger("input");
-			    });
-		    });
-		    var config = { childList: true, subtree: true};
-		    // pass in the target node, as well as the observer options
-		    observer.observe(target, config);
-	    });
-
-    });
-}
-
 function searchButtonPress() {
     if (event) { event.preventDefault(); }
     if ($('#callsign').val()) {
+		$('#btn-lba').removeAttr('hidden');
         let fixedcall = $('#callsign').val().trim();
         $('#partial_view').load("logbook/search_result/" + fixedcall.replaceAll('Ø', '0'), function() {
             $('[data-bs-toggle="tooltip"]').tooltip();
@@ -1027,7 +1031,6 @@ $($('#callsign')).on('keypress',function(e) {
         return false;
     }
 });
-
 
 });
 </script>
@@ -1066,6 +1069,7 @@ $($('#callsign')).on('keypress',function(e) {
 <?php if ($this->uri->segment(1) == "qso") { ?>
 
 <script src="<?php echo $this->paths->cache_buster('/assets/js/sections/qso.js'); ?>"></script>
+<script src="<?php echo $this->paths->cache_buster('/assets/js/sections/satellite_functions.js'); ?>"></script>
 <script src="<?php echo $this->paths->cache_buster('/assets/js/bootstrap-multiselect.js'); ?>"></script>
 <?php if ($this->session->userdata('isWinkeyEnabled')) { ?>
 	<script src="<?php echo $this->paths->cache_buster('/assets/js/winkey.js'); ?>"></script>
@@ -1086,11 +1090,35 @@ $($('#callsign')).on('keypress',function(e) {
         $user_gridsquare = ($active_station_info->station_gridsquare ?? '');
     }
 ?>
+<style>
+.grid-text {
+  word-wrap: normal !important;
+}
 
+/* Radio icon blink animation */
+@keyframes radio-icon-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.radio-icon-blink {
+  animation: radio-icon-blink 0.4s ease-in-out;
+}
+</style>
 <script>
+  var lang_gen_hamradio_gridsquares = '<?= _pgettext("Map Options", "Gridsquares"); ?>';
+  var maidenhead;
   var markers = L.layerGroup();
   var pos = [51.505, -0.09];
-  var mymap = L.map('qsomap').setView(pos, 12);
+  var mymap = L.map('qsomap', {
+    fullscreenControl: true,
+    fullscreenControlOptions: {
+			position: 'topleft'
+		},
+}).setView(pos, 12);
+
+maidenhead = L.maidenheadqrb().addTo(mymap);
+mymap.on('mousemove', onQsoMapMove);
   $.ajax({
      url: base_url + 'index.php/logbook/qralatlngjson',
      type: 'post',
@@ -1117,9 +1145,49 @@ $($('#callsign')).on('keypress',function(e) {
 
   L.tileLayer('<?php echo $this->optionslib->get_option('option_map_tile_server');?>', {
     maxZoom: 18,
+    minZoom: 1,
     attribution: '<?php echo $this->optionslib->get_option('option_map_tile_server_copyright');?>',
     id: 'mapbox.streets'
   }).addTo(mymap);
+  mymap.on('click', function(e) {
+    $('#locator').val((latLngToLocator(e.latlng.lat, e.latlng.lng).toUpperCase()));
+    $('#locator').trigger('input');
+	if (mymap._isFullscreen) {
+    	mymap.toggleFullscreen(); // only exits if in fullscreen
+  	}
+  });
+
+   var legend = L.control({ position: "topright" });
+
+    legend.onAdd = function(mymap) {
+        var div = L.DomUtil.create("div", "legend");
+        div.innerHTML += '<div id="qsomapgrid"></div>';
+		div.innerHTML += '<input type="checkbox" onclick="toggleGridsquares(this.checked)" ' + (typeof gridsquare_layer !== 'undefined' && gridsquare_layer ? 'checked' : '') + ' style="outline: none;"><span> ' + lang_gen_hamradio_gridsquares + '</span><br>';
+        return div;
+    };
+
+    legend.addTo(mymap);
+
+    if (typeof gridsquare_layer !== 'undefined') {
+		toggleGridsquares(gridsquare_layer);
+	} else {
+		toggleGridsquares(false);
+	}
+
+  function onQsoMapMove(event) {
+	var LatLng = event.latlng;
+	var lat = LatLng.lat;
+	var lng = LatLng.lng;
+	var locator = latLngToLocator(lat,lng);
+	$('#qsomapgrid').html(locator.toUpperCase());
+  }
+  function toggleGridsquares(bool) {
+	if(!bool) {
+		mymap.removeLayer(maidenhead);
+	} else {
+		maidenhead.addTo(mymap);
+	}
+};
 
 </script>
 
@@ -1274,138 +1342,20 @@ $($('#callsign')).on('keypress',function(e) {
 
 <?php } ?>
 <?php if ( $this->uri->segment(1) == "qso" || ($this->uri->segment(1) == "contesting" && $this->uri->segment(2) != "add")) { ?>
+	<!--- Frequency input functionality --->
     <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/sections/qrg_handler.js'); ?>"></script>
     <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/moment.min.js'); ?>"></script>
     <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/datetime-moment.js'); ?>"></script>
 
-    <script>
-    $( document ).ready(function() {
-	    // Javascript for controlling rig frequency.
-	    var updateFromCAT = function() {
-		    var cat2UI = function(ui, cat, allow_empty, allow_zero, callback_on_update) {
-			    // Check, if cat-data is available
-			    if(cat == null) {
-				    return;
-			    } else if (typeof allow_empty !== 'undefined' && !allow_empty && cat == '') {
-				    return;
-			    } else if (typeof allow_zero !== 'undefined' && !allow_zero && cat == '0' ) {
-				    return;
-			    }
-			    // Only update the ui-element, if cat-data has changed
-			    if (ui.data('catValue') != cat) {
-				    ui.val(cat);
-				    ui.data('catValue',cat);
-				    if (typeof callback_on_update === 'function') { callback_on_update(cat); }
-			    }
-		    }
-
-		    if($('select.radios option:selected').val() != '0') {
-			    radioID = $('select.radios option:selected').val();
-			    if ((typeof radioID !== 'undefined') && (radioID !== null) && (radioID !== "")) {
-				    $.getJSON( "radio/json/" + radioID, function( data ) {
-	/* {
-	"frequency": "2400210000",
-	    "frequency_rx": "10489710000",
-	    "mode": "SSB",
-	    "satmode": "S/X",
-	    "satname": "QO-100"
-	    "power": "20"
-	    "prop_mode": "SAT",
-	    "error": "not_logged_id" // optional, reserved for errors
-	}  */
-					    if (data.error) {
-						    if (data.error == 'not_logged_in') {
-							    $(".radio_cat_state" ).remove();
-							    if($('.radio_login_error').length == 0) {
-								    $('.qso_panel').prepend('<div class="alert alert-danger radio_login_error" role="alert"><i class="fas fa-broadcast-tower"></i> ' + '<?= sprintf(__("You're not logged in. Please %slogin%s"), '<a href="' . base_url() . '">', '</a>'); ?>' + '</div>');
-							    }
-						    }
-						    // Put future Errorhandling here
-					    } else {
-						    if($('.radio_login_error').length != 0) {
-							    $(".radio_login_error" ).remove();
-						    }
-						    cat2UI($('#frequency'),data.frequency,false,true,function(d){
-                                $('#frequency').trigger('change');
-							    if ($("#band").val() != frequencyToBand(d)) {
-								    $("#band").val(frequencyToBand(d)).trigger('change');	// Let's only change if we really have a different band!
-							    }
-						    });
-
-						    cat2UI($('#frequency_rx'),data.frequency_rx,false,true,function(d){$("#band_rx").val(frequencyToBand(d))});
-						    cat2UI($('.mode'),data.mode,false,false,function(d){setRst($(".mode").val())});
-						    cat2UI($('#sat_name'),data.satname,false,false);
-						    cat2UI($('#sat_mode'),data.satmode,false,false);
-						    cat2UI($('#transmit_power'),data.power,false,false);
-						    cat2UI($('#selectPropagation'),data.prop_mode,false,false);
-
-						    // Display CAT Timeout warning based on the figure given in the config file
-						    var minutes = Math.floor(<?php echo $this->optionslib->get_option('cat_timeout_interval'); ?> / 60);
-
-						    if(data.updated_minutes_ago > minutes) {
-							    $(".radio_cat_state" ).remove();
-							    if($('.radio_timeout_error').length == 0) {
-								    $('#radio_status').prepend('<div class="alert alert-danger radio_timeout_error" role="alert"><i class="fas fa-broadcast-tower"></i> Radio connection timed-out: ' + $('select.radios option:selected').text() + ' data is ' + data.updated_minutes_ago + ' minutes old.</div>');
-							    } else {
-								    $('.radio_timeout_error').html('Radio connection timed-out: ' + $('select.radios option:selected').text() + ' data is ' + data.updated_minutes_ago + ' minutes old.');
-							    }
-						    } else {
-							    $(".radio_timeout_error" ).remove();
-                                separator = '<span style="margin-left:10px"></span>';
-							    text = '<i class="fas fa-broadcast-tower"></i>' + separator + '<b>TX:</b> ' + data.frequency_formatted;
-							    if(data.mode != null) {
-								    text = text + separator + data.mode;
-							    }
-							    if(data.power != null && data.power != 0) {
-								    text = text + separator + data.power+' W';
-							    }
-                                complementary_info = []
-							    if(data.prop_mode != null && data.prop_mode != '') {
-								    if (data.prop_mode == 'SAT') {
-									    complementary_info.push(data.prop_mode + ' ' + data.satname);
-								    } else {
-                                        complementary_info.push(data.prop_mode);
-                                    }
-							    }
-							    if(data.frequency_rx != null && data.frequency_rx != 0) {
-                                    complementary_info.push('<b>RX:</b> ' + data.frequency_rx_formatted);
-							    }
-							    if( complementary_info.length > 0) {
-                                    text = text + separator + '(' + complementary_info.join(separator) + ')';
-                                }
-							    if (! $('#radio_cat_state').length) {
-								    $('#radio_status').prepend('<div aria-hidden="true"><div id="radio_cat_state" class="alert alert-success radio_cat_state" role="alert">'+text+'</div></div>');
-							    } else {
-								    $('#radio_cat_state').html(text);
-							    }
-						    }
-					    }
-				    });
-			    }
-		    }
-	    };
-
-	    // Update frequency every three second
-	    setInterval(updateFromCAT, 3000);
-
-	    // If a radios selected from drop down select radio update.
-	    $('.radios').change(updateFromCAT);
-
-	    // If no radio is selected clear data
-	    $( ".radios" ).change(function() {
-		    if ($(".radios option:selected").val() == 0) {
-			    $("#sat_name").val("");
-			    $("#sat_mode").val("");
-			    $("#frequency").val("");
-			    $("#frequency_rx").val("");
-			    $("#band_rx").val("");
-			    $("#selectPropagation").val($("#selectPropagation option:first").val());
-			    $(".radio_timeout_error" ).remove();
-                $(".radio_cat_state" ).remove();
-		    }
-	    });
-    });
-  </script>
+	<!--- CAT Functionality --->
+	<!--- DX Waterfall Functionality --->
+	<?php if (($this->session->userdata('user_dxwaterfall_enable') == 'Y') || ($this->session->userdata('user_dxwaterfall_enable') == 'E')) { ?>
+	<script>
+		// Global variable definition for dxwaterfall.js
+		var dxwaterfall_cat_state = "none";
+	</script>
+	<?php } ?>
+	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/cat.js"></script>
 
 <?php } ?>
 
@@ -1797,7 +1747,7 @@ $(document).ready(function(){
 		<script src="<?php echo $this->paths->cache_buster('/assets/js/sections/webadif.js'); ?>"></script>
 	<?php } ?>
 
-<?php if ($this->uri->segment(2) == "dxcc" || $this->uri->segment(2) == "wae") { ?>
+<?php if ($this->uri->segment(2) == "dxcc" || $this->uri->segment(2) == "wae" || $this->uri->segment(2) == "wpx") { ?>
 <script>
     $('.tabledxcc').DataTable({
         "pageLength": 25,
@@ -1814,7 +1764,7 @@ $(document).ready(function(){
         buttons: [
 			{
 				extend: 'csv',
-				className: 'mb-1 btn btn-primary', // Bootstrap classes
+				className: 'mb-1 btn btn-sm btn-primary', // Bootstrap classes
 					init: function(api, node, config) {
 						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
 					},
@@ -1837,7 +1787,7 @@ $(document).ready(function(){
         buttons: [
             {
 				extend: 'csv',
-				className: 'mb-1 btn btn-primary', // Bootstrap classes
+				className: 'mb-1 btn btn-sm btn-primary', // Bootstrap classes
 					init: function(api, node, config) {
 						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
 					},
@@ -1851,7 +1801,7 @@ $(document).ready(function(){
     }
  </script>
     <?php } ?>
-	<?php if ($this->uri->segment(2) == "wae") { ?>
+	<?php if ($this->uri->segment(2) == "wae" || $this->uri->segment(2) == "wpx") { ?>
 		<script>
 	$('#band2').change(function(){
    var band = $("#band2 option:selected").text();
@@ -1875,9 +1825,9 @@ $('#sats').change(function(){
 </script>
     <?php } ?>
 
-<?php if ($this->uri->segment(2) == "waja") { ?>
+<?php if ($this->uri->segment(2) == "wapc") { ?>
 <script>
-    $('.tablewaja').DataTable({
+    $('.tablewapc').DataTable({
         "pageLength": 25,
         responsive: false,
         ordering: false,
@@ -1915,7 +1865,62 @@ $('#sats').change(function(){
         buttons: [
             {
 				extend: 'csv',
-				className: 'mb-1 btn btn-primary', // Bootstrap classes
+				className: 'mb-1 btn-sm btn btn-primary', // Bootstrap classes
+					init: function(api, node, config) {
+						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
+					},
+			}
+        ]
+    });
+
+    // change color of csv-button if dark mode is chosen
+    if (isDarkModeTheme()) {
+        $(".buttons-csv").css("color", "white");
+    }
+ </script>
+<?php } ?>
+
+<?php if ($this->uri->segment(2) == "waja") { ?>
+<script>
+    $('.tablewaja').DataTable({
+        "pageLength": 25,
+        responsive: false,
+        ordering: false,
+        "scrollY":        "400px",
+        "scrollCollapse": true,
+        "paging":         false,
+        "scrollX": true,
+        "language": {
+            url: getDataTablesLanguageUrl(),
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+				extend: 'csv',
+				className: 'mb-1 btn btn-sm btn-primary', // Bootstrap classes
+					init: function(api, node, config) {
+						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
+					},
+			}
+        ]
+    });
+
+    $('.tablesummary').DataTable({
+        info: false,
+        searching: false,
+        ordering: false,
+        "paging":         false,
+        "language": {
+            url: getDataTablesLanguageUrl(),
+        },
+        dom: 'Bfrtip',
+        "language": {
+            url: getDataTablesLanguageUrl(),
+        },
+        buttons: [
+            {
+				extend: 'csv',
+				className: 'mb-1 btn btn-sm btn-primary', // Bootstrap classes
 					init: function(api, node, config) {
 						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
 					},
@@ -1947,7 +1952,7 @@ $('#sats').change(function(){
         buttons: [
             {
 				extend: 'csv',
-				className: 'mb-1 btn btn-primary', // Bootstrap classes
+				className: 'mb-1 btn btn-sm btn-primary', // Bootstrap classes
 					init: function(api, node, config) {
 						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
 					},
@@ -1970,7 +1975,7 @@ $('#sats').change(function(){
         buttons: [
             {
 				extend: 'csv',
-				className: 'mb-1 btn btn-primary', // Bootstrap classes
+				className: 'mb-1 btn btn-sm btn-primary', // Bootstrap classes
 					init: function(api, node, config) {
 						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
 					},
@@ -2279,6 +2284,10 @@ $('#sats').change(function(){
         <?php } ?>
 
 
+    <?php if ($this->uri->segment(1) == "usermode") { ?>
+		<script src="<?php echo base_url(); ?>assets/js/sections/usermode.js"></script>
+    <?php } ?>
+
     <?php if ($this->uri->segment(1) == "mode") { ?>
 		<script src="<?php echo $this->paths->cache_buster('/assets/js/sections/mode.js'); ?>"></script>
     <?php } ?>
@@ -2300,7 +2309,7 @@ $('#sats').change(function(){
 	<script src="<?php echo $this->paths->cache_buster('/assets/js/sections/timeplot.js'); ?>"></script>
 <?php } ?>
 
-<?php if ($this->uri->segment(1) == "qsl" || $this->uri->segment(1) == "eqsl") {
+<?php if ($this->uri->segment(1) == "generic_qsl" || $this->uri->segment(1) == "qsl" || $this->uri->segment(1) == "eqsl") {
     	// Get Date format
 	if($this->session->userdata('user_date_format')) {
 		// If Logged in and session exists
@@ -2336,22 +2345,27 @@ $('#sats').change(function(){
     </script>
     <?php if ($this->uri->segment(1) == "qsl") {
         $qsl_eqsl_table = '.qsltable';
+        $qsl_eqsl_info = 'true';
+    } else if ($this->uri->segment(1) == "generic_qsl") {
+        $qsl_eqsl_table = '.qsltable';
+        $qsl_eqsl_info = 'true';
     } else if ($this->uri->segment(1) == "eqsl") {
         $qsl_eqsl_table = '.eqsltable';
+        $qsl_eqsl_info = 'false'; // Server-side pagination, hide DataTables info
     } ?>
     <script>
         $('<?php echo $qsl_eqsl_table ?>').DataTable({
             "pageLength": 25,
             responsive: false,
             ordering: true,
-            "scrollY":        "500px",
             "scrollCollapse": true,
             "paging":         false,
-            "scrollX": true,
+            "scrollX": false,
             "language": {
                 url: getDataTablesLanguageUrl(),
             },
             "order": [ 2, 'desc' ],
+            "info": <?php echo $qsl_eqsl_info; ?>,
             dom: 'Bfrtip',
             buttons: [
 				{
@@ -2479,7 +2493,8 @@ function viewEqsl(picture, callsign) {
         var awardInfoLines = [
             lang_award_info_ln2,
             lang_award_info_ln3,
-            lang_award_info_ln4
+            lang_award_info_ln4,
+            typeof lang_award_info_ln5 !== 'undefined' ? lang_award_info_ln5 : ''
         ];
         var awardInfoContent = "";
         awardInfoLines.forEach(function (line) {
@@ -2495,7 +2510,7 @@ function viewEqsl(picture, callsign) {
   /*
    * Used to fetch QSOs from the logbook in the awards
    */
-    function displayContacts(searchphrase, band, sat, orbit, mode, type, qsl) {
+    function displayContacts(searchphrase, band, sat, orbit, mode, type, qsl, datefrom, dateto) {
         $.ajax({
             url: base_url + 'index.php/awards/qso_details_ajax',
             type: 'post',
@@ -2506,7 +2521,9 @@ function viewEqsl(picture, callsign) {
                 'Orbit': orbit,
                 'Mode': mode,
                 'Type': type,
-                'QSL' : qsl
+                'QSL' : qsl,
+				'dateFrom': datefrom,
+				'dateTo': dateto
             },
             success: function (html) {
                 BootstrapDialog.show({
@@ -2517,7 +2534,7 @@ function viewEqsl(picture, callsign) {
                     message: html,
                     onshown: function(dialog) {
                        $('[data-bs-toggle="tooltip"]').tooltip();
-                       $('.contacttable').DataTable({
+                       $('.displaycontactstable').DataTable({
                             "pageLength": 7,
                             responsive: false,
                             ordering: false,
@@ -2567,7 +2584,7 @@ function viewEqsl(picture, callsign) {
         });
     }
 
-    function displayContactsOnMap(target, searchphrase, band, sat, orbit, mode, type, qsl) {
+    function displayContactsOnMap(target, searchphrase, band, sat, orbit, mode, type, qsl, datefrom, dateto) {
 	    $.ajax({
 	    url: base_url + 'index.php/awards/qso_details_ajax',
 		    type: 'post',
@@ -2578,7 +2595,9 @@ function viewEqsl(picture, callsign) {
 			    'Orbit': orbit,
 			    'Mode': mode,
 			    'Type': type,
-			    'QSL' : qsl
+			    'QSL' : qsl,
+				'dateFrom': datefrom,
+				'dateTo': dateto
         },
 	    success: function (html) {
 		    var dialog = new BootstrapDialog({
@@ -2588,8 +2607,16 @@ function viewEqsl(picture, callsign) {
 			    nl2br: false,
 			    message: html,
 			    onshown: function(dialog) {
+					// Block propagation on the modal body
+					L.DomEvent.disableScrollPropagation(dialog.getModalBody()[0]);
+					L.DomEvent.disableClickPropagation(dialog.getModalBody()[0]);
+
+					// Also block on the DataTables scroll container once it exists
+					dialog.getModalBody().find('.dataTables_scrollBody').each(function() {
+						L.DomEvent.disableScrollPropagation(this);
+					});
 				    $('[data-bs-toggle="tooltip"]').tooltip();
-				    $('.contacttable').DataTable({
+				    $('.displaycontactstable').DataTable({
 				    "pageLength": 25,
 					    responsive: false,
 					    ordering: false,
@@ -2619,6 +2646,7 @@ function viewEqsl(picture, callsign) {
 			    label: lang_admin_close,
 				    action: function (dialogItself) {
 					    dialogItself.close();
+					    return false; // Prevent any form submission
 				    }
 				    }]
 	    });
@@ -2766,17 +2794,6 @@ function viewEqsl(picture, callsign) {
 		});
 	}
 
-	function searchAdditionalQsos(filename) {
-		$.ajax({
-			url: base_url + 'index.php/qsl/searchQsos',
-			type: 'post',
-			data: {'callsign': $('#callsign').val(), 'filename': filename},
-			success: function(html) {
-				$('#searchresult').empty();
-				$('#searchresult').append(html);
-			}
-		});
-	}
 </script>
 <?php if ($this->uri->segment(1) == "contesting" && ($this->uri->segment(2) != "add" && $this->uri->segment(2) != "edit")) { ?>
     <script>
@@ -3058,6 +3075,51 @@ function viewEqsl(picture, callsign) {
                $('[class*="buttons"]').css("color", "white");
             }
         </script>
+    <?php } else if ($this->uri->segment(2) == 'sota') { ?>
+        <script>
+            $.fn.dataTable.moment('<?php echo $usethisformat ?>');
+            $.fn.dataTable.ext.buttons.clear = {
+                className: 'buttons-clear',
+                action: function ( e, dt, node, config ) {
+                   dt.search('').draw();
+                }
+            };
+            $('#sotatable').DataTable({
+                "pageLength": 25,
+                responsive: false,
+                ordering: true,
+                "scrollY":        "500px",
+                "scrollCollapse": true,
+                "paging":         false,
+                "scrollX": true,
+                "language": {
+                    url: getDataTablesLanguageUrl(),
+                },
+                "order": [ 0, 'asc' ],
+                dom: 'Bfrtip',
+                buttons: [
+					{
+						extend: 'csv',
+						className: 'mb-1 btn btn-primary', // Bootstrap classes
+							init: function(api, node, config) {
+								$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
+						},
+					},
+                   {
+                      extend: 'clear',
+					  className: 'mb-1 btn btn-primary', // Bootstrap classes
+							init: function(api, node, config) {
+								$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
+						},
+                      text: lang_admin_clear
+                   }
+                ]
+            });
+            // change color of csv-button if dark mode is chosen
+            if (isDarkModeTheme()) {
+               $('[class*="buttons"]').css("color", "white");
+            }
+        </script>
     <?php } else if ($this->uri->segment(2) == "pota") { ?>
         <script>
             $.fn.dataTable.moment('<?php echo $usethisformat ?>');
@@ -3183,6 +3245,7 @@ if (isset($scripts) && is_array($scripts)){
 	}
 }
 ?>
-
+	<!-- Toast Notification - used by showToast() from common.js -->
+	<div id="toast-container" class="position-fixed top-0 end-0 p-3" style="z-index: 10100;"></div>
   </body>
 </html>

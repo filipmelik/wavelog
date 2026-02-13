@@ -119,7 +119,7 @@
                                     <div class="row">
                                         <div class="mb-3 col-sm-6">
                                             <label for="freq"><?= __("Mode"); ?></label>
-                                            <select id="edit_mode" class="form-select mode" name="mode">
+                                            <select id="edit_mode" class="form-select" name="mode">
                                                 <?php
                                                 foreach ($modes->result() as $mode) {
                                                     var_dump($mode);
@@ -307,7 +307,8 @@
                                         <div class="mb-3 col-sm-6">
                                             <label for="cqz"><?= __("CQ Zone"); ?></label>
                                             <select class="form-select" id="cqz_edit" name="cqz" required>
-                                                <?php for ($i = 1; $i <= 40; $i++) { ?>
+												<option value=''></option>
+												<?php for ($i = 1; $i <= 40; $i++) { ?>
                                                     <option value="<?= $i; ?>" <?php if ($qso->COL_CQZ == $i) echo "selected=\"selected\""; ?>><?= $i; ?></option>
                                                 <?php } ?>
                                             </select>
@@ -358,7 +359,7 @@
                                             </select>
                                         </div>
                                         <div style="display: none;" class="mb-3 col-sm-6" id="location_us_county_edit">
-                                            <label for="stationCntyInput"><?= __("USA County"); ?></label>
+                                            <label for="stationCntyInput"><?= __("Station County"); ?></label>
                                             <input class="form-control" id="stationCntyInputEdit" type="text" name="usa_county" value="<?php echo $qso->COL_CNTY; ?>" />
                                         </div>
                                     </div>
@@ -389,11 +390,11 @@
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-sm-6">
-                                            <label for="sig"><?= __("Sig"); ?></label>
+                                            <label for="sig"><?= __("SIG"); ?></label>
                                             <input type="text" class="form-control text-uppercase" id="sig" name="sig" value="<?php echo $qso->COL_SIG; ?>">
                                         </div>
                                         <div class="mb-3 col-sm-6">
-                                            <label for="sig_info"><?= __("Sig Info"); ?></label>
+                                            <label for="sig_info"><?= __("SIG Info"); ?></label>
                                             <input type="text" class="form-control text-uppercase" id="sig_info" name="sig_info" value="<?php echo $qso->COL_SIG_INFO; ?>">
                                         </div>
                                     </div>
@@ -427,8 +428,11 @@
                                         <li class="nav-item">
                                             <a class="nav-link" id="qrz-tab" data-bs-toggle="tab" href="#qrz-edit" role="tab" aria-controls="qrz" aria-selected="false"><?= __("QRZ"); ?></a>
                                         </li>
-										<li class="nav-item">
+					<li class="nav-item">
                                             <a class="nav-link" id="clublog-tab" data-bs-toggle="tab" href="#clublog-edit" role="tab" aria-controls="clublog" aria-selected="false"><?= __("Clublog"); ?></a>
+                                        </li>
+					<li class="nav-item">
+                                            <a class="nav-link" id="dcl-tab" data-bs-toggle="tab" href="#dcl-edit" role="tab" aria-controls="dcl" aria-selected="false"><?= __("DCL"); ?></a>
                                         </li>
                                     </ul>
                                     <div class="tab-content" id="qsl_edit_tabs">
@@ -595,7 +599,33 @@
                                                 </div>
                                             </div>
                                         </div>
-										<div class="tab-pane fade" id="clublog-edit" role="tabpanel" aria-labelledby="clublog-tab">
+                                        <div class="tab-pane fade" id="dcl-edit" role="tabpanel" aria-labelledby="dcl-tab">
+                                            <div class="mt-3 mb-3 row">
+                                                <label for="sent" class="col-sm-3 col-form-label"><?= __("Sent"); ?></label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-select" id="clublog_sent" name="dcl_sent">
+                                                        <option value="N" <?php if ($qso->COL_DCL_QSL_SENT == "N") echo "selected=\"selected\""; ?>><?= __("No"); ?></option>
+                                                        <option value="Y" <?php if ($qso->COL_DCL_QSL_SENT == "Y") echo "selected=\"selected\""; ?>><?= __("Yes"); ?></option>
+                                                        <option value="R" <?php if ($qso->COL_DCL_QSL_SENT == "R") echo "selected=\"selected\""; ?>><?= __("Requested"); ?></option>
+                                                        <option value="Q" <?php if ($qso->COL_DCL_QSL_SENT == "Q") echo "selected=\"selected\""; ?>><?= __("Queued"); ?></option>
+                                                        <option value="I" <?php if ($qso->COL_DCL_QSL_SENT == "I") echo "selected=\"selected\""; ?>><?= __("Invalid (Ignore)"); ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="sent" class="col-sm-3 col-form-label"><?= __("Received"); ?></label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-select" id="clublog_rcvd" name="dcl_rcvd">
+                                                        <option value="N" <?php if ($qso->COL_DCL_QSL_RCVD == "N") echo "selected=\"selected\""; ?>><?= __("No"); ?></option>
+                                                        <option value="Y" <?php if ($qso->COL_DCL_QSL_RCVD == "Y") echo "selected=\"selected\""; ?>><?= __("Yes"); ?></option>
+                                                        <option value="R" <?php if ($qso->COL_DCL_QSL_RCVD == "R") echo "selected=\"selected\""; ?>><?= __("Requested"); ?></option>
+                                                        <option value="I" <?php if ($qso->COL_DCL_QSL_RCVD == "I") echo "selected=\"selected\""; ?>><?= __("Invalid (Ignore)"); ?></option>
+                                                        <option value="V" <?php if ($qso->COL_DCL_QSL_RCVD == "V") echo "selected=\"selected\""; ?>><?= __("Verified (Match)"); ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="clublog-edit" role="tabpanel" aria-labelledby="clublog-tab">
                                             <div class="mt-3 mb-3 row">
                                                 <label for="sent" class="col-sm-3 col-form-label"><?= __("Sent"); ?></label>
                                                 <div class="col-sm-9">
@@ -608,7 +638,6 @@
                                                     </select>
                                                 </div>
                                             </div>
-
                                             <div class="mb-3 row">
                                                 <label for="sent" class="col-sm-3 col-form-label"><?= __("Received"); ?></label>
                                                 <div class="col-sm-9">

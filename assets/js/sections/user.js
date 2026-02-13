@@ -83,17 +83,17 @@ function convert_user(user_id, convert_to) {
         },
         success: function(result) {
             if (result) {
-                $('#user_converted_message').show().text(lang_account_conversion_processed).addClass('alert-success');
+                $('#user_converted_message').show().html(lang_account_conversion_processed).addClass('alert-success');
                 $('#convert_user_btn').removeClass('running btn-danger').addClass('btn-secondary');
                 $('#user_converted').show().addClass('fa-check text-success');
             } else {
-                $('#user_converted_message').show().text(lang_account_conversion_failed).addClass('alert-danger');
+                $('#user_converted_message').show().html(lang_account_conversion_failed).addClass('alert-danger');
                 $('#convert_user_btn').prop('disabled', false).removeClass('running');
                 $('#user_converted').show().addClass('fa-times text-danger');
             }
         },
         error: function() {
-            $('#user_converted_message').show().text(lang_account_conversion_failed).addClass('alert-danger');
+            $('#user_converted_message').show().html(lang_account_conversion_failed).addClass('alert-danger');
             $('#convert_user_btn').prop('disabled', false).removeClass('running');
             $('#user_converted').show().addClass('fa-times text-danger');
         }
@@ -204,10 +204,10 @@ $(document).ready(function(){
 			success: function(res) {
 				if(res.status == 'OK') {
 					btn_div.addClass('alert-success').removeClass('running').prop('disabled', false);
-					msg_div.addClass('alert-success').text(res.details).show();
+					msg_div.addClass('alert-success').text(decodeHtml(res.details)).show();
 				} else {
 					btn_div.addClass('alert-danger').removeClass('running').prop('disabled', false);
-					msg_div.addClass('alert-danger').text('Error: '+res.details).show();
+					msg_div.addClass('alert-danger').text('Error: '+decodeHtml(res.details)).show();
 				}
 			},
 			error: function(res) {

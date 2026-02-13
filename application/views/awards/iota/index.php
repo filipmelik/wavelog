@@ -1,4 +1,6 @@
-
+<script>
+   let user_map_custom = JSON.parse('<?php echo $user_map_custom; ?>');
+</script>
 <style>
     #iotamap {
 	height: calc(100vh - 500px) !important;
@@ -17,6 +19,7 @@
             var lang_award_info_ln2 = "<?= __("IOTA is an exciting and innovative activity program that has captured the interest of thousands of radio amateurs worldwide. Established in 1964, it promotes radio contacts with stations located on islands around the world to enhance the experience of all those active on the amateur bands. To achieve this, it draws on the widespread mystique surrounding islands."); ?>";
             var lang_award_info_ln3 = "<?= __("It is administered by Islands On The Air (IOTA) Ltd (referred to as IOTA Management) in partnership with the Radio Society of Great Britain (RSGB). IOTA Management has grouped the world's islands into approximately 1200 'IOTA groups,' each having varying numbers of 'counters,' which are qualifying islands. These listings are published in the IOTA Directory and on the IOTA website. The objective for the IOTA Island Chaser is to make radio contact with at least one counter in as many of these groups as possible. The program has a well-defined set of rules and encourages friendly competition among chasers by publishing participant performance in an Honor Roll and annual listings, as well as recognizing it with certificates and prestigious awards."); ?>";
             var lang_award_info_ln4 = "<?= sprintf(__("You can also find this information on %s."), "<a href='https://www.iota-world.org/' target='_blank'>" . __("here") . "</a>"); ?>";
+            var lang_award_info_ln5 = "<?= __("Fields taken for this Award: IOTA (ADIF: IOTA) must contain valid IOTA-Reference"); ?>";
             </script>
             <h2><?php echo $page_title; ?></h2>
             <button type="button" class="btn btn-sm btn-primary me-1" id="displayAwardInfo"><?= __("Award Info"); ?></button>
@@ -49,6 +52,32 @@
                     <div class="form-check-inline">
                         <input class="form-check-input" type="checkbox" name="notworked" id="notworked" value="1" <?php if ($this->input->post('notworked') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
                         <label class="form-check-label" for="notworked"><?= __("Show not worked"); ?></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col-md-2"><?= __("Show QSO with QSL Type"); ?></div>
+                <div class="col-md-10">
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="qsl" value="1" id="qsl" <?php if ($this->input->post('qsl') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
+                        <label class="form-check-label" for="qsl"><?= __("QSL Card"); ?></label>
+                    </div>
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="lotw" value="1" id="lotw" <?php if ($this->input->post('lotw') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
+                        <label class="form-check-label" for="lotw"><?= __("LoTW"); ?></label>
+                    </div>
+                   <div class="form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="eqsl" value="1" id="eqsl" <?php if ($this->input->post('eqsl')) echo ' checked="checked"'; ?> >
+                        <label class="form-check-label" for="eqsl"><?= __("eQSL"); ?></label>
+                    </div>
+                   <div class="form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="qrz" value="1" id="qrz" <?php if ($this->input->post('qrz')) echo ' checked="checked"'; ?> >
+                        <label class="form-check-label" for="qrz"><?= __("QRZ.com"); ?></label>
+                    </div>
+                     <div class="form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="clublog" value="1" id="clublog" <?php if ($this->input->post('clublog')) echo ' checked="checked"'; ?> >
+                        <label class="form-check-label" for="clublog"><?= __("Clublog"); ?></label>
                     </div>
                 </div>
             </div>
@@ -88,10 +117,10 @@
             </div>
 
             <div class="mb-3 row">
-                <label class="col-md-2 control-label" for="band"><?= __("Band"); ?></label>
+                <label class="col-md-2 control-label" for="band2"><?= __("Band"); ?></label>
                 <div class="col-md-2">
                     <select id="band2" name="band" class="form-select form-select-sm">
-                        <option value="All" <?php if ($this->input->post('band') == "All" || $this->input->method() !== 'post') echo ' selected'; ?> ><?= __("Every band"); ?></option>
+                        <option value="All" <?php if ($this->input->post('band') == "All" || $this->input->method() !== 'post') echo ' selected'; ?> ><?= __("Every band (w/o SAT)"); ?></option>
                         <?php foreach($worked_bands as $band) {
                             echo '<option value="' . $band . '"';
                             if ($this->input->post('band') == $band) echo ' selected';
@@ -173,6 +202,9 @@
             echo '      <td>' . __("Deleted") . '</td>';
 
         foreach($bands as $band) {
+	    if (($posted_band != 'SAT') && ($band == 'SAT')) {
+		   continue;
+	    }
             echo '<td>' . $band . '</td>';
         }
         echo '</tr>
@@ -194,26 +226,72 @@
         <table class="table-sm tablesummary table table-bordered table-hover table-striped table-condensed text-center">
         <thead>
         <tr><td></td>';
-
-        foreach($bands as $band) {
-            echo '<td>' . $band . '</td>';
-        }
-        echo '<td>' . __("Total") . '</td></tr>';
-
+	$addsat='';
+	foreach($bands as $band) {
+		if ($band != 'SAT') {
+			echo '<td>' . $band . '</td>';
+		} else {
+			$addsat='<td>' . $band . '</td>';
+		}
+	}
+	echo '<td><b>' . __("Total") . '</b></td>';
+	if (count($bands) > 1) {
+		echo '<td class="spacingcell"></td>';
+	}
+	echo $addsat;
         echo '</thead>
         <tbody>
 
         <tr><td>' . __("Total worked") . '</td>';
 
-        foreach ($iota_summary['worked'] as $dxcc) {      // Fills the table with the data
-            echo '<td style="text-align: center">' . $dxcc . '</td>';
-        }
+	$addsat='';
+	foreach ($iota_summary['worked'] as $band => $iota) {      // Fills the table with the data
+		if ($band != 'SAT') {
+			echo '<td style="text-align: center">';
+			if ($band == 'Total') {
+				echo '<b>'.$iota.'</b>';
+			} else {
+				echo $iota;
+			}
+			echo '</td>';
+		} else {
+			$addsat='<td style="text-align: center">' . $iota . '</td>';
+		}
+	}
 
-        echo '</tr><tr>
-        <td>' . __("Total confirmed") . '</td>';
-        foreach ($iota_summary['confirmed'] as $dxcc) {      // Fills the table with the data
-            echo '<td style="text-align: center">' . $dxcc . '</td>';
-        }
+	if (count($bands) > 1) {
+		echo '<td class="spacingcell"></td>';
+	}
+
+	if ($addsat != '' && count($iota_summary['worked']) > 1) {
+		echo $addsat;
+	}
+
+	echo '</tr><tr>
+	<td>' . __("Total confirmed") . '</td>';
+
+	$addsat='';
+	foreach ($iota_summary['confirmed'] as $band => $iota) {      // Fills the table with the data
+		if ($band != 'SAT') {
+			echo '<td style="text-align: center">';
+			if ($band == 'Total') {
+				echo '<b>'.$iota.'</b>';
+			} else {
+				echo $iota;
+			}
+			echo '</td>';
+		} else {
+			$addsat='<td style="text-align: center">' . $iota . '</td>';
+		}
+	}
+
+	if (count($bands) > 1) {
+		echo '<td class="spacingcell"></td>';
+	}
+
+	if ($addsat != '' && count($iota_summary['confirmed']) > 1) {
+		echo $addsat;
+	}
 
         echo '</tr>
         </table>

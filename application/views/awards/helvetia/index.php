@@ -3,6 +3,9 @@
     var lang_switzerland_canton = "<?= _pgettext("Switzerland Canton", "Canton"); ?>";
     var lang_hover_over_a_canton = "<?= __("Hover over a canton"); ?>";
 </script>
+<script>
+	let user_map_custom = JSON.parse('<?php echo $user_map_custom; ?>');
+</script>
 
 <style>
     #helvetiamap {
@@ -21,6 +24,7 @@
                 var lang_award_info_ln2 = "<?= __("The USKA (Union of Swiss Shortwave Amateurs) sponsors two awards, the HELVETIA 26 (H26) Award and the SWITZERLAND Award, aimed at promoting activities on the bands by encouraging contacts across as many Swiss cantons as possible on multiple bands."); ?>";
                 var lang_award_info_ln3 = "<?= __("These awards come in two versions: one for HF bands and the other for VHF (including SHF and UHF) bands. Valid connections for these awards date back to January 1, 1980"); ?>";
                 var lang_award_info_ln4 = "<?= sprintf(__("For more information, please visit: %s."), "<a href='https://www.uska.ch/contest/uska-diplome/' target='_blank'>https://www.uska.ch/contest/uska-diplome/</a>"); ?>";
+				var lang_award_info_ln5 = "<?= __("Fields taken for this Award: DXCC (Must be Switzerland) and STATE (Must contain a valid state abbreviation!)"); ?>";
             </script>
             <h2><?php echo $page_title; ?></h2>
             <button type="button" class="btn btn-sm btn-primary me-1" id="displayAwardInfo"><?= __("Award Info"); ?></button>
@@ -70,7 +74,7 @@
             </div>
 
             <div class="mb-3 row">
-                <label class="col-md-2 control-label" for="band"><?= __("Band"); ?></label>
+                <label class="col-md-2 control-label" for="band2"><?= __("Band"); ?></label>
                 <div class="col-md-2">
                     <select id="band2" name="band" class="form-select form-select-sm">
                         <option value="All" <?php if ($this->input->post('band') == "All" || $this->input->method() !== 'post') echo ' selected'; ?> ><?= __("Every band"); ?></option>

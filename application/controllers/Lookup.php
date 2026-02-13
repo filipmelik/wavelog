@@ -58,18 +58,38 @@ class Lookup extends CI_Controller {
 			$data['dxcc'] = xss_clean($this->input->post('dxcc'));
 			$data['was']  = xss_clean($this->input->post('was'));
 			$data['sota'] = xss_clean($this->input->post('sota'));
+			$data['pota'] = xss_clean($this->input->post('pota'));
 			$data['grid'] = xss_clean($this->input->post('grid'));
 			$data['iota'] = xss_clean($this->input->post('iota'));
 			$data['cqz']  = xss_clean($this->input->post('cqz'));
 			$data['wwff'] = xss_clean($this->input->post('wwff'));
 			$data['ituz'] = xss_clean($this->input->post('ituz'));
+			$data['dok'] = xss_clean($this->input->post('dok'));
 			$data['continent'] = xss_clean($this->input->post('continent'));
 			$data['location_list'] = $location_list;
+			$data['user_map_custom'] = $this->optionslib->get_map_custom();
+
+			if ($data['type'] == 'vucc') {
+				$data['vuccdxcc'] = $this->lookup_model->getDxccForVucc($data['grid']);
+			}
 
 			$data['result'] = $this->lookup_model->getSearchResult($data);
 			$this->load->view('lookup/result', $data);
 		}
 
+	}
+
+	public function sat() {
+		$this->load->model('lookup_model');
+		$this->load->model('bands');
+		$this->load->model('logbooks_model');
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
+		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
+		$data['location_list'] = "'".implode("','",$logbooks_locations_array)."'";
+		$data['callsign'] = xss_clean($this->input->post('callsign'));
+		$data['sats'] = $this->bands->get_worked_sats();
+		$data['result'] = $this->lookup_model->getSatResult($data);
+		$this->load->view('lookup/satresult', $data);
 	}
 
 	public function scp() {
@@ -156,6 +176,25 @@ class Lookup extends CI_Controller {
 		}
 	}
 
+	public function ham_of_note($call = '') {
+		session_write_close();
+
+		if($call != '') {
+			$call = str_replace("-","/",$call);
+			$uppercase_callsign = strtoupper($call);
+			$this->load->model('Pota');
+			$query = $this->Pota->ham_of_note($uppercase_callsign);
+			if ($query->row()) {
+				header('Content-Type: application/json');
+				echo json_encode($query->row());
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+
 	public function get_state_list() {
 		$this->load->library('subdivisions');
 
@@ -182,7 +221,7 @@ class Lookup extends CI_Controller {
     public function get_county() {
         $json = [];
 
-        if(!empty($this->security->xss_clean($this->input->get("query")))) {
+        if(!empty($this->security->xss_clean($this->input->get("state")))) {
             $county = $this->security->xss_clean($this->input->get("state"));
             $cleanedcounty = explode('(', $county);
             $cleanedcounty = trim($cleanedcounty[0]);

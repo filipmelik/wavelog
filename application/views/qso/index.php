@@ -1,13 +1,83 @@
 <div class="container qso_panel">
+<?php
+// Get Date format
+if($this->session->userdata('user_date_format')) {
+    // If Logged in and session exists
+    $date_format = $this->session->userdata('user_date_format');
+} else {
+    // Get Default date format from /config/wavelog.php
+    $date_format = $this->config->item('qso_date_format');
+}
+
+// Convert PHP date format to appropriate input pattern for validation
+switch ($date_format) {
+    case "d/m/y": $current_pattern = '[0-3][0-9]/[0-1][0-9]/[0-9]{2}'; break;
+    case "d/m/Y": $current_pattern = '[0-3][0-9]/[0-1][0-9]/[0-9]{4}'; break;
+    case "m/d/y": $current_pattern = '[0-1][0-9]/[0-3][0-9]/[0-9]{2}'; break;
+    case "m/d/Y": $current_pattern = '[0-1][0-9]/[0-3][0-9]/[0-9]{4}'; break;
+    case "d.m.Y": $current_pattern = '[0-3][0-9]\.[0-1][0-9]\.[0-9]{4}'; break;
+    case "y/m/d": $current_pattern = '[0-9]{2}/[0-1][0-9]/[0-3][0-9]'; break;
+    case "Y-m-d": $current_pattern = '[0-9]{4}-[0-1][0-9]-[0-3][0-9]'; break;
+    case "M d, Y": $current_pattern = '[A-Za-z]{3}\s[0-3][0-9],\s[0-9]{4}'; break;
+    case "M d, y": $current_pattern = '[A-Za-z]{3}\s[0-3][0-9],\s[0-9]{2}'; break;
+    case "d M y": $current_pattern = '[0-3][0-9]\s[A-Za-z]{3}\s[0-9]{2}'; break;
+    default: $current_pattern = '[0-3][0-9]-[0-1][0-9]-[0-9]{4}'; $date_format = 'd-m-Y';
+}
+?>
+
 <script language="javascript">
   var qso_manual  = "<?php echo $manual_mode; ?>";
   var text_error_timeoff_less_timeon = "<?= __("TimeOff is less than TimeOn"); ?>";
   var lang_qso_title_previous_contacts = "<?= __("Previous Contacts"); ?>";
   var lang_qso_title_times_worked_before = "<?= __("times worked before"); ?>";
   var lang_qso_title_not_worked_before = "<?= __("Not worked before"); ?>";
-  var lang_dxccsummary_for = "<?= __("DXCC Summary for "); ?>";
+  var lang_qso_more = "<?= __("more"); ?>";
+  var lang_qso_less = "<?= __("less"); ?>";
   var lang_lotw_upload_day_ago = "<?= __("LoTW User. Last upload was 1 day ago."); ?>";
   var lang_lotw_upload_days_ago = "<?= __("LoTW User. Last upload was %x days ago."); ?>"; // due to the way the string is built (PHP to JS), %x is replaced with the number of days
+  var lang_invalid_ant_el = "<?= __("Invalid value for antenna elevation:"); ?>";
+  var lang_qso_wait_before_saving = "<?= __("Please wait before saving another QSO"); ?>";
+  var latlng=[<?php echo $lat.','.$lng;?>];
+  var user_date_format = "<?php echo $date_format; ?>"; // Pass the user's date format to JavaScript
+  var lang_qso_sat_lotw_support_not_found = "<?= __("Satellite not found"); ?>";
+  var lang_qso_sat_lotw_supported = "<?= __("Supported by LoTW"); ?>";
+  var lang_qso_sat_lotw_not_supported = "<?= __("Not supported by LoTW"); ?>";
+  var lang_general_word_info = "<?= __("Info"); ?>";
+  var lang_qso_you_already_filled_an_qso = "<?= __("You have already filled in a callsign. First finish this QSO before filling the last spot from DXcluster."); ?>";
+  var lang_qso_no_spots_found = "<?= __("No spots found in this frequency.") ?>";
+</script>
+
+<!--- DX Waterfall --->
+<?php $this->load->view('components/dxwaterfall'); ?>
+
+<script>
+// DX Waterfall Field Mapping Configuration
+// This maps the dxwaterfall.js expected field IDs to the actual form fields on this page
+// Required for dxwaterfall.js to interact with the QSO form
+if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
+    window.DX_WATERFALL_FIELD_MAP = {
+        // REQUIRED FIELDS - These must exist for dxwaterfall.js to function
+        required: {
+            callsign: 'callsign',           // Callsign input field
+            freq_calculated: 'freq_calculated', // Displayed frequency field (kHz)
+            qrg_unit: 'qrg_unit',           // Frequency unit label (MHz/kHz display)
+            band: 'band',                    // Band selector dropdown
+            mode: 'mode',                    // Mode selector dropdown
+            frequency: 'frequency'           // Hidden frequency field (Hz) - used for internal frequency storage and radio control
+        },
+
+        // OPTIONAL FIELDS - These are used if present, but won't cause errors if missing
+        optional: {
+            frequency_rx: 'frequency_rx',   // RX frequency field (for split operation)
+            sota_ref: 'sota_ref',           // SOTA reference field (Summits on the Air)
+            pota_ref: 'pota_ref',           // POTA reference field (Parks on the Air)
+            iota_ref: 'iota_ref',           // IOTA reference field (Islands on the Air)
+            wwff_ref: 'wwff_ref',           // WWFF reference field (World Wide Flora Fauna)
+            btn_reset: 'btn_reset'          // QSO form reset/clear button
+        }
+    };
+}
+
 </script>
 
 <div class="row qsopane">
@@ -20,7 +90,7 @@
       <div class="card-header">
         <ul style="font-size: 15px;" class="nav nav-tabs card-header-tabs pull-right"  id="myTab" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="qsp-tab" data-bs-toggle="tab" href="#qso" role="tab" aria-controls="qso" aria-selected="true"><?= __("QSO"); ?><?php if ($manual_mode == 0) { echo " <span class=\"badge text-bg-success\">" . __("LIVE") . "</span>"; }; if ($manual_mode == 1) { echo " <span class=\"badge text-bg-danger\">" . __("POST") . "</span>"; } ?></a>
+            <a class="nav-link active" id="qso-tab" data-bs-toggle="tab" href="#qso" role="tab" aria-controls="qso" aria-selected="true"><?= __("QSO"); ?><?php if ($manual_mode == 0) { echo " <span class=\"badge text-bg-success\">" . __("LIVE") . "</span>"; }; if ($manual_mode == 1) { echo " <span class=\"badge text-bg-danger\">" . __("POST") . "</span>"; } ?></a>
           </li>
 
           <li class="nav-item">
@@ -60,12 +130,29 @@
       <div class="card-body">
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="qso" role="tabpanel" aria-labelledby="qso-tab">
+
+	<?php if ($user_station_to_qso_tab ?? false) { ?>
+	<div class="row">
+              <div class="mb-3 col-md-12">
+              <label class="col-sm-3 col-form-label" for="stationProfile"><?= __("Station Location"); ?></label>
+              <select id="stationProfile" class="form-select form-control form-control-sm" name="station_profile" onChange="panMap(this.value);">
+                <?php
+                   $power = '';
+                      foreach ($stations->result() as $stationrow) {
+                ?>
+                <option value="<?php echo $stationrow->station_id; ?>" <?php if($active_station_profile == $stationrow->station_id) { echo "selected=\"selected\""; $power = $stationrow->station_power; $station_callsign = $stationrow->station_callsign; } ?>><?php echo $stationrow->station_profile_name; ?></option>
+                <?php } ?>
+              </select>
+            </div>
+	</div>
+              <?php } ?>
+
                       <!-- HTML for Date/Time -->
               <?php if ($this->session->userdata('user_qso_end_times')  == 1) { ?>
               <div class="row">
                 <div class="mb-3 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-4">
                   <label for="start_date"><?= __("Date"); ?></label>
-                  <input type="text" class="form-control form-control-sm input_date" name="start_date" id="start_date" tabindex="4" value="<?php echo date('d-m-Y'); ?>" <?php echo ($manual_mode == 0 ? "disabled" : "");  ?> required pattern="[0-3][0-9]-[0-1][0-9]-[0-9]{4}">
+                  <input type="text" class="form-control form-control-sm input_date" name="start_date" id="start_date" tabindex="4" value="<?php echo date($date_format); ?>" <?php echo ($manual_mode == 0 ? "disabled" : ""); ?> required pattern="<?php echo $current_pattern; ?>">
                 </div>
 
                 <div class="mb-3 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-4 ps-0 pe-0">
@@ -93,7 +180,7 @@
                 <?php if ( $manual_mode == 0 ) { ?>
                   <input class="input_start_time" type="hidden" id="start_time"  name="start_time"value="<?php echo date('H:i:s'); ?>" />
                   <input class="input_end_time" type="hidden" id="end_time"  name="end_time"value="<?php echo date('H:i:s'); ?>" />
-                  <input class="input_date" type="hidden" id="start_date" name="start_date" value="<?php echo date('d-m-Y'); ?>" />
+                  <input class="input_date" type="hidden" id="start_date" name="start_date" value="<?php echo date($date_format); ?>" />
                 <?php } ?>
               </div>
 
@@ -101,7 +188,7 @@
               <div class="row">
                 <div class="mb-3 col-6">
                   <label for="start_date"><?= __("Date"); ?></label>
-                  <input type="text" class="form-control form-control-sm input_date" name="start_date" id="start_date" tabindex="4" value="<?php echo date('d-m-Y'); ?>" <?php echo ($manual_mode == 0 ? "disabled" : "");  ?> required pattern="[0-3][0-9]-[0-1][0-9]-[0-9]{4}">
+                  <input type="text" class="form-control form-control-sm input_date" name="start_date" id="start_date" tabindex="4" value="<?php echo date($date_format); ?>" <?php echo ($manual_mode == 0 ? "disabled" : ""); ?> required pattern="<?php echo $current_pattern; ?>">
                 </div>
 
                 <div class="mb-3 col-6">
@@ -116,7 +203,7 @@
 
                 <?php if ( $manual_mode == 0 ) { ?>
                   <input class="input_start_time" type="hidden" id="start_time"  name="start_time"value="<?php echo date('H:i:s'); ?>" />
-                  <input class="input_date" type="hidden" id="start_date" name="start_date" value="<?php echo date('d-m-Y'); ?>" />
+                  <input class="input_date" type="hidden" id="start_date" name="start_date" value="<?php echo date($date_format); ?>" />
                 <?php } ?>
               </div>
               <?php } ?>
@@ -124,13 +211,16 @@
               <!-- Callsign Input -->
               <div class="row">
                 <div class="mb-3 col-md-12">
-                  <label for="callsign"><?= __("Callsign"); ?></label>&nbsp;<i id="check_cluster" data-bs-toggle="tooltip" title="<?= __("Search DXCluster for latest Spot"); ?>" class="fas fa-search"></i>
+                  <label for="callsign"><?= __("Callsign"); ?></label>&nbsp;<i id="check_cluster" data-bs-toggle="tooltip" title="<?= __("Search DXCluster for latest Spot"); ?>" class="fas fa-search"></i><i id="fetch_status" class="fas fa-spinner fa-spin ms-1" style="display: none;"></i></label>
                   <div class="input-group">
                     <input tabindex="7" type="text" class="form-control uppercase" id="callsign" name="callsign" autocomplete="off" required>
                     <span id="qrz_info" class="input-group-text btn-included-on-field d-none py-0"></span>
                     <span id="hamqth_info" class="input-group-text btn-included-on-field d-none py-0"></span>
                   </div>
-                  <small id="callsign_info" class="badge text-bg-secondary"></small> <a id="lotw_link"><small id="lotw_info" class="badge text-bg-success"></small></a>
+                  <div style="min-height: 24px;">
+                    <small id="callsign_info" class="badge text-bg-secondary"></small> <a id="lotw_link"><small id="lotw_info" class="badge text-bg-success"></small></a>
+                  </div>
+                  <p id="ham_of_note_line" style="margin-top: 5px; display: none"><small id="ham_of_note_info"></small><small><a id="ham_of_note_link" target="_blank"></a></small></p>
                 </div>
               </div>
 
@@ -139,7 +229,7 @@
                   <label for="mode"><?= __("Mode"); ?></label>
                   <select id="mode" tabindex="1" class="form-select mode form-select-sm" name="mode">
                   <?php
-                      foreach($modes->result() as $mode){
+                      foreach($modes as $mode){
                         if ($mode->submode == null) {
                           printf("<option value=\"%s\" %s>%s</option>", $mode->mode, $this->session->userdata('mode')==$mode->mode?"selected=\"selected\"":"",$mode->mode);
                         } else {
@@ -252,14 +342,14 @@
 
               <?php if ($user_sig_to_qso_tab ?? false) { ?>
               <div class="mb-3 row">
-                <label class="col-sm-3 col-form-label" for="sig"><?= __("Sig"); ?></label>
+                <label class="col-sm-3 col-form-label" for="sig"><?= __("SIG"); ?></label>
                 <div class="col-sm-9">
                   <input class="form-control text-uppercase" id="sig" tabindex="15" type="text" name="sig" value="" />
                 </div>
               </div>
 
               <div class="mb-3 row">
-                <label class="col-sm-3 col-form-label" for="sig_info"><?= __("Sig Info"); ?></label>
+                <label class="col-sm-3 col-form-label" for="sig_info"><?= __("SIG Info"); ?></label>
                 <div class="col-sm-9">
                   <input class="form-control text-uppercase" id="sig_info" tabindex="16" type="text" name="sig_info" value="" />
                 </div>
@@ -286,7 +376,7 @@
                   <label for="locator" class="col-sm-3 col-form-label"><?= __("Gridsquare"); ?></label>
                   <div class="col-sm-9">
                     <input tabindex="19" type="text" class="form-control form-control-sm uppercase" name="locator" id="locator" value="">
-                    <small id="locator_info" class="form-text text-muted"></small>
+                    <small id="locator_info" class="form-text text-muted" style="min-height: 20px; display: block;">&nbsp;</small>
                 </div>
               </div>
 
@@ -303,26 +393,30 @@
 
           <!-- Station Panel Data -->
           <div class="tab-pane fade" id="station" role="tabpanel" aria-labelledby="station-tab">
+            <?php if (!$user_station_to_qso_tab ?? false) { ?>
             <div class="mb-3">
               <label for="stationProfile"><?= __("Station Location"); ?></label>
-              <select id="stationProfile" class="form-select" name="station_profile">
+              <select id="stationProfile" class="form-select" name="station_profile" onChange="panMap(this.value);">
                 <?php
                    $power = '';
                       foreach ($stations->result() as $stationrow) {
                 ?>
-                <option value="<?php echo $stationrow->station_id; ?>" <?php if($active_station_profile == $stationrow->station_id) { echo "selected=\"selected\""; $power = $stationrow->station_power; } ?>><?php echo $stationrow->station_profile_name; ?></option>
+                <option value="<?php echo $stationrow->station_id; ?>" <?php if($active_station_profile == $stationrow->station_id) { echo "selected=\"selected\""; $power = $stationrow->station_power; $station_callsign = $stationrow->station_callsign; } ?>><?php echo $stationrow->station_profile_name; ?></option>
                 <?php } ?>
               </select>
             </div>
+		<?php } ?>
 
             <div class="mb-3">
               <label for="radio"><?= __("Radio"); ?></label>
               <select class="form-select radios" id="radio" name="radio">
                 <option value="0" selected="selected"><?= __("None"); ?></option>
+		            <option value="ws"<?php if ($this->session->userdata('radio') == 'ws' && $manual_mode == '0') { echo ' selected="selected"'; } ?>><?= __("Live - WebSocket"); ?></option>
                 <?php foreach ($radios->result() as $row) { ?>
-                  <option value="<?php echo $row->id; ?>" <?php if($this->session->userdata('radio') == $row->id) { echo "selected=\"selected\""; } ?>><?php echo $row->radio; ?> <?php if ($radio_last_updated->id == $row->id) { echo "(".__("last updated").")"; } else { echo ''; } ?></option>
+                  <option value="<?php echo $row->id; ?>" <?php if($this->session->userdata('radio') == $row->id && $manual_mode == '0') { echo "selected=\"selected\""; } ?>><?= __("Polling - ") . $row->radio; ?> <?php if ($radio_last_updated->id == $row->id) { echo "(".__("last updated").")"; } else { echo ''; } ?></option>
                 <?php } ?>
                 </select>
+                <input type="hidden" id="radio_ws_name" name="radio_ws_name" value="" />
             </div>
 
             <div class="mb-3">
@@ -368,7 +462,7 @@
           <div class="tab-pane fade" id="general" role="tabpanel" aria-labelledby="general-tab">
               <div class="mb-3">
                   <label for="dxcc_id"><?= __("DXCC"); ?></label>
-                  <select class="form-control" id="dxcc_id" name="dxcc_id" required>
+                  <select class="form-control" id="dxcc_id" name="dxcc_id">
                       <?php
                       foreach($dxcc as $d) {
                           if ($d->adif == '0') {
@@ -417,7 +511,7 @@
 			  <div class="row">
 				  <div class="mb-3 col">
 					  <label for="cqz"><?= __("CQ Zone"); ?></label>
-					  <select class="form-select" id="cqz" name="cqz" required>
+					  <select class="form-select" id="cqz" name="cqz">
 						  <?php
 						  for ($i = 0; $i<=40; $i++) {
 							  echo '<option value="'. $i . '">'. $i .'</option>';
@@ -484,7 +578,7 @@
             </div>
 
             <div class="mb-3" id="location_us_county">
-                <label for="stationCntyInputQso"><?= __("USA County"); ?></label>
+                <label for="stationCntyInputQso"><?= __("Station County"); ?></label>
                 <input class="form-control" id="stationCntyInputQso" type="text" name="county" value="" />
             </div>
 
@@ -545,13 +639,13 @@
 
             <?php if (!$user_sig_to_qso_tab ?? false) { ?>
             <div class="mb-3">
-              <label for="sig"><?= __("Sig"); ?></label>
+              <label for="sig"><?= __("SIG"); ?></label>
               <input class="form-control text-uppercase" id="sig" type="text" name="sig" value="" />
               <small id="sigHelp" class="form-text text-muted"><?= __("For example: GMA"); ?></small>
             </div>
 
             <div class="mb-3">
-              <label for="sig_info"><?= __("Sig Info"); ?></label>
+              <label for="sig_info"><?= __("SIG Info"); ?></label>
               <input class="form-control text-uppercase" id="sig_info" type="text" name="sig_info" value="" />
               <small id="sigInfoHelp" class="form-text text-muted"><?= __("For example: DA/NW-357"); ?></small>
             </div>
@@ -567,11 +661,12 @@
 
             <div class="mb-3">
               <label for="email"><?= __("E-mail"); ?></label>
-              <input class="form-control" id="email" type="text" name="email" value="" />
+              <div class="input-group">
+                <input class="form-control" id="email" type="text" name="email" value="" />
+                <span id="email_info" class="input-group-text btn-included-on-field d-none py-0"></span>
+              </div>
               <small id="MailHelp" class="form-text text-muted"><?= __("E-mail address of QSO-partner"); ?></small>
             </div>
-
-
           </div>
 
           <!-- Satellite Panel -->
@@ -580,7 +675,9 @@
               <label for="sat_name"><?= __("Satellite Name"); ?></label>
 
               <input list="satellite_names" id="sat_name" type="text" name="sat_name" class="form-control" value="<?php echo $this->session->userdata('sat_name'); ?>">
-
+              <div style="min-height: 24px;">
+                 <small id="lotw_support" class="form-text text-muted" style="min-height: 20px;">&nbsp;</small>
+              </div>
               <datalist id="satellite_names" class="satellite_names_list"></datalist>
             </div>
 
@@ -600,15 +697,15 @@
 
             <div class="mb-3">
               <label for="ant_el"><?= __("Antenna Elevation (°)"); ?></label>
-              <input type="number" inputmode="decimal" step="0.1" min="0" max="90" class="form-control" id="ant_el" name="ant_el" />
+              <input type="number" inputmode="decimal" step="0.1" min="-5" max="90" class="form-control" id="ant_el" name="ant_el" onInvalid="invalidAntEl()" />
               <small id="elHelp" class="form-text text-muted"><?= __("Antenna elevation in decimal degrees."); ?></small>
             </div>
           </div>
 
-          <!-- Notes Panel Contents -->
+          <!-- QSO Note Panel Contents -->
           <div class="tab-pane fade" id="nav-notes" role="tabpanel" aria-labelledby="notes-tab">
            <div class="mb-3">
-              <label for="notes"><?= __("Notes"); ?></label>
+              <label for="notes"><?= __("QSO Note"); ?></label>
               <textarea  type="text" class="form-control" id="notes" name="notes" rows="10"></textarea>
               <div class="small form-text text-muted"><?= __("Note: Gets exported to third-party services.") ?></div>
             </div>
@@ -678,12 +775,35 @@
       </div>
     </form>
     </div>
+
+	<!--- Notes --->
+	<script>
+		var user_show_notes = <?php echo ($this->session->userdata('user_show_notes')) ? 'true' : 'false'; ?>;
+	</script>
+
+	<div class="card callsign-notes" id="callsign-notes" style="display: none;">
+        <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#callsign-notes-body" aria-expanded="false" aria-controls="callsign-notes-body" style="cursor: pointer;">
+          <h4 style="font-size: 16px; font-weight: bold;" class="card-title mb-0">
+            <?= __("Callsign Notes"); ?>
+            <span class="ms-1" data-bs-toggle="tooltip" title="<?= __("Store private information about your QSO partner. These notes are never shared or exported to external services.") ?>">
+              <i class="fa fa-question-circle"></i>
+            </span>
+          </h4>
+          <span>
+            <i class="fas fa-up-down"></i>
+          </span>
+        </div>
+		<div class="card-body collapse" id="callsign-notes-body">
+				<textarea id="callsign_note_content" class="form-control" rows="6"></textarea>
+				<input type="hidden" id="callsign-note-id" value="" />
+				<button id="callsign-note-edit-btn" class="btn btn-primary mt-2" style="display:none;"><i class="fas fa-edit"></i> <?= __("Edit Note"); ?></button>
+				<button id="callsign-note-save-btn" class="btn btn-primary mt-2" style="display:none;"><i class="fas fa-save"></i> <?= __("Save Note"); ?></button>
+		</div>
+	</div>
+
   </div>
-
-
   <div class="col-sm-7">
 
-<div id="noticer" role="alert"></div>
 <?php if($notice) { ?>
 <div id="notice-alerts" class="alert alert-info" role="alert">
   <?php echo $notice; ?>
@@ -696,12 +816,15 @@
 </div>
 <?php } ?>
 
+	<!-- Radio status -->
+	<div id="radio_status"></div>
+
     <!-- QSO Map -->
     <div class="card qso-map">
             <div id="qsomap" class="map-leaflet" style="width: 100%; height: 200px;"></div>
     </div>
 
-    <div id="radio_status"></div>
+
 
     <!-- Winkey Starts -->
 
@@ -720,26 +843,44 @@
 			</h4>
         </div>
 
-        <div id="winkey_buttons" class="card-body">
-			<div class="form-inline d-flex align-items-center mb-2">
-				<button onclick="stop_cw_sending()" class="btn btn-sm btn-danger" style="margin-left: 2px; margin-right: 2px;"><?= __("Stop"); ?></button>
-				<button onclick="send_carrier()" id="send_carrier" class="btn btn-sm btn-danger" style="margin-left: 2px; margin-right: 2px;"><?= __("Tune"); ?></button>
-				<button hidden id="stop_carrier" onclick="stop_carrier()" class="btn btn-sm btn-danger" style="margin-left: 2px; margin-right: 2px;"><?= __("Stop Tune"); ?></button>
-				<button id="morsekey_func1" onclick="morsekey_func1()" class="btn btn-sm btn-warning" style="margin-left: 2px; margin-right: 2px;">F1</button>
-				<button id="morsekey_func2" onclick="morsekey_func2()" class="btn btn-sm btn-warning" style="margin-left: 2px; margin-right: 2px;">F2</button>
-				<button id="morsekey_func3" onclick="morsekey_func3()" class="btn btn-sm btn-warning" style="margin-left: 2px; margin-right: 2px;">F3</button>
-				<button id="morsekey_func4" onclick="morsekey_func4()" class="btn btn-sm btn-warning" style="margin-left: 2px; margin-right: 2px;">F4</button>
-				<button id="morsekey_func5" onclick="morsekey_func5()" class="btn btn-sm btn-warning" style="margin-left: 2px; margin-right: 2px;">F5</button>
-				<label class="mx-2 mb-1 w-auto" for="cwspeed"><?= __("CW Speed"); ?></label>
-				<input class="w-auto form-control form-control-sm" type="number" id="winkeycwspeed" name="cwspeed" min="1" max="100" value="20" step="1">
+		<div id="winkey_buttons" class="card-body">
+			<!-- Function buttons -->
+			<div class="d-flex flex-wrap flex-column gap-2 mb-3">
+				<div class="d-flex flex-wrap gap-2">
+				<button id="morsekey_func1" onclick="morsekey_func1()" class="btn btn-sm btn-warning">F1</button>
+				<button id="morsekey_func2" onclick="morsekey_func2()" class="btn btn-sm btn-warning">F2</button>
+				<button id="morsekey_func3" onclick="morsekey_func3()" class="btn btn-sm btn-warning">F3</button>
+				<button id="morsekey_func4" onclick="morsekey_func4()" class="btn btn-sm btn-warning">F4</button>
+				<button id="morsekey_func5" onclick="morsekey_func5()" class="btn btn-sm btn-warning">F5</button>
+				</div>
+				<div class="d-flex flex-wrap gap-2">
+				<button id="morsekey_func6" onclick="morsekey_func6()" class="btn btn-sm btn-warning">F6</button>
+				<button id="morsekey_func7" onclick="morsekey_func7()" class="btn btn-sm btn-warning">F7</button>
+				<button id="morsekey_func8" onclick="morsekey_func8()" class="btn btn-sm btn-warning">F8</button>
+				<button id="morsekey_func9" onclick="morsekey_func9()" class="btn btn-sm btn-warning">F9</button>
+				<button id="morsekey_func10" onclick="morsekey_func10()" class="btn btn-sm btn-warning">F10</button>
+				</div>
 			</div>
 
-			<input id="sendText" type="text" class="form-control mb-1">
-			<button id="sendButton" type="button" class="btn btn-sm btn-success"><?= __("Send"); ?></button>
+			<!-- CW Speed and control buttons -->
+			<div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+				<label for="cwspeed" class="form-label mb-0"><?= __("CW Speed"); ?></label>
+				<input class="form-control form-control-sm w-auto" type="number" id="winkeycwspeed" name="cwspeed" min="1" max="100" value="20" step="1">
+				<button onclick="stop_cw_sending()" class="btn btn-sm btn-danger"><?= __("Stop"); ?></button>
+				<button onclick="send_carrier()" id="send_carrier" class="btn btn-sm btn-danger"><?= __("Tune"); ?></button>
+				<button hidden id="stop_carrier" onclick="stop_carrier()" class="btn btn-sm btn-danger"><?= __("Stop Tune"); ?></button>
+			</div>
 
-			<span id="statusBar"></span>
+			<!-- Text send input -->
+			<div class="input-group mb-2">
+				<input id="sendText" type="text" class="form-control form-control-sm" placeholder="<?= __('Enter text...'); ?>">
+				<button id="sendButton" type="button" class="btn btn-sm btn-success"><?= __("Send"); ?></button>
+			</div>
 
-        </div>
+			<!-- Status bar -->
+			<span id="statusBar" class="small text-muted"></span>
+		</div>
+
     </div>
     <?php } // end of isWinkeyEnabled if statement ?>
     <!-- Winkey Ends -->
@@ -752,10 +893,19 @@
 
     <?php if ($this->session->userdata('user_show_profile_image')) { ?>
     <div class="card callsign-image" id="callsign-image" style="display: none;">
-        <div class="card-header"><h4 style="font-size: 16px; font-weight: bold;" class="card-title"><?= __("Profile Picture"); ?></h4></div>
+        <div class="card-header">
+            <h4 style="font-size: 16px; font-weight: bold;" class="card-title mb-0">
+                <?= __("QSO Partner's Profile"); ?>
+                <span class="ms-1" data-bs-toggle="tooltip" title="<?= __("Profile picture and data fetched from third-party services. This information is not stored on your Wavelog instance.") ?>">
+                    <i class="fa fa-question-circle"></i>
+                </span>
+            </h4>
+        </div>
 
-        <div class="card-body callsign-image">
-            <div class="callsign-image-content" id="callsign-image-content">
+        <div class="card-body callsign-image d-flex gap-3">
+            <div class="callsign-image-content" id="callsign-image-content" style="flex-shrink: 0;">
+            </div>
+            <div class="callsign-image-info" id="callsign-image-info" style="flex-grow: 1; min-width: 0; display: none;">
             </div>
         </div>
     </div>
@@ -769,7 +919,7 @@
 		<?php
 		$result = $this->optionslib->get_option('disable_refresh_past_contacts');
 		if($result === null) { ?>
-			<div id="qso-last-table" hx-get="<?php echo site_url('/qso/component_past_contacts'); ?>" hx-trigger="load, qso_event, every 5s">
+			<div id="qso-last-table" hx-get="<?php echo site_url('/qso/component_past_contacts'); ?>" hx-trigger="load, qso_event, every 15s">
 		<?php } else { ?>
 			<div id="qso-last-table" hx-get="<?php echo site_url('/qso/component_past_contacts'); ?>" hx-trigger="load, qso_event">
 		<?php } ?>
@@ -783,3 +933,7 @@
 </div>
 
 </div>
+
+<script>
+	var station_callsign = "<?php echo $station_callsign; ?>";
+</script>

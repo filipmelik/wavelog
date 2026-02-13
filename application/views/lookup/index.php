@@ -6,13 +6,15 @@
 			<option value="vucc"><?= __("Gridsquare"); ?></option>
 			<option value="iota"><?= __("IOTA"); ?></option>
 			<option value="itu"><?= __("ITU Zone"); ?></option>
+			<option value="pota"><?= __("POTA"); ?></option>
 			<option value="sota"><?= __("SOTA"); ?></option>
 			<option value="was"><?= __("US State"); ?></option>
 			<option value="wwff"><?= __("WWFF"); ?></option>
 			<option value="lotw"><?= __("LoTW user"); ?></option>
+			<option value="dok"><?= __("DOK"); ?></option>
 		</select>
 		<div>&nbsp;</div>
-		<input style="display:none" class="form-control input-group-sm w-auto" id="quicklookuptext" type="text" name="searchfield" placeholder="" aria-label="Search">
+		<input style="display:none" class="form-control input-group-sm w-auto uppercase" id="quicklookuptext" type="text" name="searchfield" placeholder="" aria-label="Search">
 
 		<!-- CQ Zone -->
 		<select class="form-select w-auto" id="quicklookupcqz" name="cqz" required>

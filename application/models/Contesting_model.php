@@ -8,14 +8,52 @@ class Contesting_model extends CI_Model {
 		$this->load->model('Stations');
 		$station_id = $this->Stations->find_active();
 
+		if ($this->session->userdata('user_date_format')) {
+			$date_format = $this->session->userdata('user_date_format');
+		} else {
+			$date_format = $this->config->item('qso_date_format');
+		}
+
+
 		$qsoarray = explode(',', $this->security->xss_clean($qso));
 
 		$contestid = $qsoarray[2];
-		$date = DateTime::createFromFormat('d-m-Y H:i:s', $qsoarray[0]);
-		if ($date == false) $date = DateTime::createFromFormat('d-m-Y H:i', $qsoarray[0]);
+		$date = DateTime::createFromFormat('Y-m-d H:i:s', $qsoarray[0]);				// Date is stored in ISO-Format, so convert it -- live contesting uses seconds
+		if ($date == false) $date = DateTime::createFromFormat('Y-m-d H:i', $qsoarray[0]); // post contesting
+		if ($date == false) $date = DateTime::createFromFormat($date_format.' H:i', $qsoarray[0]);	// Failed? Try local-format
+
 		$date = $date->format('Y-m-d H:i:s');
 
-		$sql = "SELECT col_primary_key, date_format(col_time_on, '%d-%m-%Y %H:%i:%s') as col_time_on, col_call, col_band, col_mode,
+		$php2sqldate_search = array(
+			'/([a-zA-Z])/',		//bulk replacement, add %
+			'/M/',				//short month
+			'/F/',				//full month
+			'/D/',				//short day
+			'/j/',				//day without leading zeros
+			'/l/',				//full day
+			'/z/',				//day of year
+			'/W/',				//ISO week number
+			'/n/',				//month without leading zeros
+			'/[aA]/',			//am/pm
+			'/g/',				//12-hour format without leading zeros
+			'/G/',				//24-hour format without leading zeros
+		);
+		$php2sqldate_replace = array(
+			'%$1',				//bulk replacement, add %
+			'b',				//short month
+			'M',				//full month
+			'a',				//short day
+			'e',				//day without leading zeros
+			'w',				//full day
+			'j',				//day of year
+			'u',				//ISO week number
+			'c',				//month without leading zeros
+			'p',				//am/pm
+			'l',				//12-hour format without leading zeros
+			'k',				//24-hour format without leading zeros
+		);
+		$sql_date_format=preg_replace($php2sqldate_search, $php2sqldate_replace, $date_format);   // handle PHP to SQL date format conversion
+		$sql = "SELECT col_primary_key, date_format(col_time_on,'".$sql_date_format." %H:%i:%s') as col_time_on, col_call, col_band, col_mode,
 			col_submode, col_rst_sent, col_rst_rcvd, coalesce(col_srx, '') col_srx, coalesce(col_srx_string, '') col_srx_string,
 			coalesce(col_stx, '') col_stx, coalesce(col_stx_string, '') col_stx_string, coalesce(col_gridsquare, '') col_gridsquare,
 			coalesce(col_vucc_grids, '') col_vucc_grids FROM " .
@@ -56,12 +94,19 @@ class Contesting_model extends CI_Model {
 		$this->load->model('Stations');
 		$station_id = $this->Stations->find_active();
 
+		if ($this->session->userdata('user_date_format')) {
+			$date_format = $this->session->userdata('user_date_format');
+		} else {
+			$date_format = $this->config->item('qso_date_format');
+		}
+		$qso_date=DateTime::createFromFormat($date_format, $this->input->post('start_date', true));
+
 		$qso = "";
 
 		if ($this->input->post('callsign', true) ?? '' != '') {
-			$qso = $this->input->post('start_date', true) . ' ' . $this->input->post('start_time', true) . ',' . $this->input->post('callsign', true) . ',' . $this->input->post('contestname', true);
+			$qso = $qso_date->format('Y-m-d') . ' ' . $this->input->post('start_time', true) . ',' . $this->input->post('callsign', true) . ',' . $this->input->post('contestname', true);
 		} else {
-			$qso = $this->input->post('start_date', true) . ' ' . $this->input->post('start_time', true) . ',,' . $this->input->post('contestname', true);
+			$qso = $qso_date->format('Y-m-d') . ' ' . $this->input->post('start_time', true) . ',,' . $this->input->post('contestname', true);
 		}
 
 		$settings = array(
@@ -239,11 +284,18 @@ class Contesting_model extends CI_Model {
 
 		$contest_session = $this->getSession();
 
+		if ($this->session->userdata('user_date_format')) {
+			$date_format = $this->session->userdata('user_date_format');
+		} else {
+			$date_format = $this->config->item('qso_date_format');
+		}
+
 		if ($contest_session && $contest_session->qso != "") {
 			$qsoarray = explode(',', $contest_session->qso);
 
-			$date = DateTime::createFromFormat('d-m-Y H:i:s', $qsoarray[0]);
-			if ($date == false) $date = DateTime::createFromFormat('d-m-Y H:i', $qsoarray[0]);
+			$date = DateTime::createFromFormat('Y-m-d H:i:s', $qsoarray[0]);				// Date is stored in ISO-Format, so convert it -- live contesting uses seconds
+			if ($date == false) $date = DateTime::createFromFormat('Y-m-d H:i', $qsoarray[0]); // post contesting
+			if ($date == false) $date = DateTime::createFromFormat($date_format.' H:i', $qsoarray[0]);	// Failed? Try local-format
 			$date = $date->format('Y-m-d H:i:s');
 
 			$this->db->select('timediff(UTC_TIMESTAMP(),col_time_off) b4, COL_TIME_OFF');
@@ -273,12 +325,12 @@ class Contesting_model extends CI_Model {
 		if ($from != 0) {
 			$from = DateTime::createFromFormat('Y-m-d', $this->security->xss_clean($from));
 			$from = $from->format('Y-m-d');
-			$this->db->where("date(" . $this->config->item('table_name') . ".COL_TIME_ON) >= '" . $from . "'");
+			$this->db->where($this->config->item('table_name') . ".COL_TIME_ON >= '" . $from . " 00:00:00'");
 		}
 		if ($to != 0) {
 			$to = DateTime::createFromFormat('Y-m-d', $this->security->xss_clean($to));
 			$to = $to->format('Y-m-d');
-			$this->db->where("date(" . $this->config->item('table_name') . ".COL_TIME_ON) <= '" . $to . "'");
+			$this->db->where($this->config->item('table_name') . ".COL_TIME_ON <= '" . $to . " 23:59:59'");
 		}
 
 		// If band is set, we only load contacts for that band
@@ -384,13 +436,13 @@ class Contesting_model extends CI_Model {
 		$binding = [];
 		$sql = "select distinct COL_BAND band
 			from " . $this->config->item('table_name') . "
-			where date(" . $this->config->item('table_name') . ".COL_TIME_ON) >= ?
-			and date(" . $this->config->item('table_name') . ".COL_TIME_ON) <= ?
+			where COL_TIME_ON >= ?
+			and COL_TIME_ON <= ?
 			and station_id = ? and COL_CONTEST_ID = ?";
 
-		//add data to bindings
-		$binding[] = $from;
-		$binding[] = $to;
+		//add data to bindings - convert dates to datetime for index usage
+		$binding[] = $from . ' 00:00:00';
+		$binding[] = $to . ' 23:59:59';
 		$binding[] = $station_id;
 		$binding[] = $contestid;
 

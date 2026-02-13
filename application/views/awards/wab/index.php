@@ -1,7 +1,8 @@
 <div class="container">
 <script>
-	var tileUrl="<?php echo $this->optionslib->get_option('option_map_tile_server');?>";
-	var attributionInfo='<?php echo $this->optionslib->get_option('option_map_tile_server_copyright'); ?>';
+	let tileUrl="<?php echo $this->optionslib->get_option('option_map_tile_server');?>";
+	let attributionInfo='<?php echo $this->optionslib->get_option('option_map_tile_server_copyright'); ?>';
+	let user_map_custom = JSON.parse('<?php echo $user_map_custom; ?>');
 </script>
 
     <!-- Award Info Box -->
@@ -13,6 +14,7 @@
             var lang_award_info_ln2 = "<?= __("WAB, Worked All Britain squares in Amateur Radio, encourages licensed ham radio operators to work all the squares in Great Britain."); ?>";
             var lang_award_info_ln3 = "<?= __("May be claimed for having contacted an amateur station located in the required amount of squares, described on the page linked below."); ?>";
             var lang_award_info_ln4 = "<?= sprintf(__("For more information, please visit: %s."), "<a href='https://wab.intermip.net/default.php' target='_blank'>https://wab.intermip.net/default.php</a>"); ?>";
+            var lang_award_info_ln5 = "<?= __("Fields taken for this Award: SIG (Has to be 'WAB') and SIG_INFO (should contain valid WAB-Grid)"); ?>";
         </script>
         <h2><?php echo $page_title; ?></h2>
         <button type="button" class="btn btn-sm btn-primary me-1" id="displayAwardInfo"><?= __("Award Info"); ?></button>
@@ -31,7 +33,7 @@
                 } ?>
             </select>
             <?php if (count($sats_available) != 0) { ?>
-                <label class="my-1 me-2" id="satslabel" for="distplot_sats" <?php if ($user_default_band != "SAT") { ?>style="display: none;"<?php } ?>><?= __("Satellite"); ?></label>
+                <label class="my-1 me-2" id="satslabel" for="sats" <?php if ($user_default_band != "SAT") { ?>style="display: none;"<?php } ?>><?= __("Satellite"); ?></label>
                 <select class="form-select my-1 me-sm-2 w-auto"  id="sats" <?php if ($user_default_band != "SAT") { ?>style="display: none;"<?php } ?>>
                     <option value="All"><?= __("All")?></option>
                     <?php foreach($sats_available as $sat) {
@@ -61,7 +63,7 @@
                     }
                     ?>
             </select>
-			<label class="my-1 me-2"><?= __("Confirmation"); ?></label>
+			<label class="my-1 me-2" for="qsl"><?= __("Confirmation"); ?></label>
                 <div>
                     <div class="form-check-inline">
                     <?php echo '<input class="form-check-input" value="1" type="checkbox" name="qsl" id="qsl"';

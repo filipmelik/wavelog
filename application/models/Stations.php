@@ -5,18 +5,6 @@ class Stations extends CI_Model {
 	public function __construct() {
 	}
 
-    function all_with_count() {
-		$this->db->select('station_profile.*, dxcc_entities.name as station_country, dxcc_entities.end as dxcc_end, count('.$this->config->item('table_name').'.station_id) as qso_total, exists(select 1 from station_logbooks_relationship where station_location_id = station_profile.station_id and station_logbook_id = '.($this->session->userdata('active_station_logbook') ?? 0).') as linked');
-        $this->db->from('station_profile');
-        $this->db->join($this->config->item('table_name'),'station_profile.station_id = '.$this->config->item('table_name').'.station_id','left');
-        $this->db->join('dxcc_entities','station_profile.station_dxcc = dxcc_entities.adif','left outer');
-		$this->db->group_by('station_profile.station_id');
-		$this->db->where('station_profile.user_id', $this->session->userdata('user_id'));
-		$this->db->or_where('station_profile.user_id =', NULL);
-
-		return $this->db->get();
-	}
-
 	// Returns ALL station profiles regardless of user logged in
 	// This is also used by LoTW sync so must not be changed.
 	function all() {
@@ -49,7 +37,7 @@ class Stations extends CI_Model {
 			foreach ($query->result() as $row) {
 				array_push($a_station_ids, $row->station_id);
 			}
-			$station_ids=implode(', ', $a_station_ids);	
+			$station_ids=implode(', ', $a_station_ids);
 			return $station_ids;
 		} else {
 			return '';
@@ -114,11 +102,28 @@ class Stations extends CI_Model {
 			$state = xss_clean($this->input->post('station_state', true));
 		}
 
-		// Check if DXCC is USA, Alaska or Hawaii. If not true, we clear the County field due to complex adif specs
-		if (($this->input->post('dxcc') == 291 || $this->input->post('dxcc') == 006 || $this->input->post('dxcc') == 110) && $this->input->post('station_cnty') !="") {
-			$county = xss_clean($this->input->post('station_cnty', true));
-		} else {
-			$county = '';
+		// Check if DXCC is USA, Alaska or Hawaii, RU, UR, and others with subareas.
+		// If not true, we clear the County field due to complex adif specs
+		switch ($this->input->post('dxcc')) {
+			case 6:
+			case 110:
+			case 291:
+			case 15:
+			case 54:
+			case 61:
+			case 126:
+			case 151:
+			case 288:
+			case 339:
+			case 170:
+			case 21:
+			case 29:
+			case 32:
+			case 281:
+				$county = xss_clean($this->input->post('station_cnty', true));
+				break;
+			default:
+				$county = '';
 		}
 
 		// Create data array with field values
@@ -134,7 +139,7 @@ class Stations extends CI_Model {
 			'station_pota' =>  xss_clean(strtoupper($this->input->post('pota', true))),
 			'station_sig' =>  xss_clean(strtoupper($this->input->post('sig', true))),
 			'station_sig_info' =>  xss_clean(strtoupper($this->input->post('sig_info', true))),
-			'station_callsign' =>  xss_clean(strtoupper($this->input->post('station_callsign', true))),
+			'station_callsign' =>  str_replace('Ø', '0', trim(xss_clean(strtoupper($this->input->post('station_callsign', true))))),
 			'station_power' => is_numeric(xss_clean($this->input->post('station_power', true))) ? xss_clean($this->input->post('station_power', true)) : NULL,
 			'station_dxcc' =>  xss_clean($this->input->post('dxcc', true)),
 			'station_cnty' =>  $county,
@@ -155,6 +160,7 @@ class Stations extends CI_Model {
 			'webadifapikey' => xss_clean($this->input->post('webadifapikey', true)),
 			'webadifapiurl' => 'https://qo100dx.club/api',
 			'webadifrealtime' => xss_clean($this->input->post('webadifrealtime', true)),
+			'station_uuid' => $this->db->query("SELECT UUID() as uuid")->row()->uuid,
 		);
 
 		// Insert Records & return insert id //
@@ -179,11 +185,28 @@ class Stations extends CI_Model {
 			$state = xss_clean($this->input->post('station_state', true));
 		}
 
-		// Check if DXCC is USA, Alaska or Hawaii. If not true, we clear the County field due to complex adif specs
-		if (($this->input->post('dxcc') == 291 || $this->input->post('dxcc') == 006 || $this->input->post('dxcc') == 110) && $this->input->post('station_cnty') !="") {
-			$county = xss_clean($this->input->post('station_cnty', true));
-		} else {
-			$county = '';
+		// Check if DXCC is USA, Alaska or Hawaii, RU, UR, and others with subareas.
+		// If not true, we clear the County field due to complex adif specs
+		switch ($this->input->post('dxcc')) {
+			case 6:
+			case 110:
+			case 291:
+			case 15:
+			case 54:
+			case 61:
+			case 126:
+			case 151:
+			case 288:
+			case 339:
+			case 170:
+			case 21:
+			case 29:
+			case 32:
+			case 281:
+				$county = xss_clean($this->input->post('station_cnty', true));
+				break;
+			default:
+				$county = '';
 		}
 
 		$data = array(
@@ -196,7 +219,7 @@ class Stations extends CI_Model {
 			'station_pota' => xss_clean(strtoupper($this->input->post('pota', true))),
 			'station_sig' => xss_clean(strtoupper($this->input->post('sig', true))),
 			'station_sig_info' => xss_clean(strtoupper($this->input->post('sig_info', true))),
-			'station_callsign' => xss_clean(strtoupper($this->input->post('station_callsign', true))),
+			'station_callsign' => str_replace('Ø', '0', trim(xss_clean(strtoupper($this->input->post('station_callsign', true))))),
 			'station_power' => is_numeric(xss_clean($this->input->post('station_power', true))) ? xss_clean($this->input->post('station_power', true)) : NULL,
 			'station_dxcc' => xss_clean($this->input->post('dxcc', true)),
 			'station_cnty' =>  $county,
@@ -263,7 +286,7 @@ class Stations extends CI_Model {
 		}
 		// Delete QSOs
 		$this->db->query("DELETE FROM ".$this->config->item('table_name')." WHERE station_id = ?",$clean_id);
-		
+
 		// Also clean up static map images
 		if (!$this->load->is_loaded('staticmap_model')) {
 			$this->load->model('staticmap_model');
@@ -556,17 +579,28 @@ class Stations extends CI_Model {
 	}
 
 	public function get_station_power($id) {
-		$this->db->select('station_power');
+		$this->db->select('station_power, station_callsign');
 		$this->db->where('user_id', $this->session->userdata('user_id'));
 		$this->db->where('station_id', $id);
 		$query = $this->db->get('station_profile');
 		if($query->num_rows() >= 1) {
-			foreach ($query->result() as $row)
-			{
-				return $row->station_power;
-			}
+			$row = $query->row(); // only one result expected
+			return [
+				'station_power' => $row->station_power,
+				'station_callsign' => $row->station_callsign
+			];
 		} else {
 			return null;
+		}
+	}
+
+	public function get_user_from_station($stationid) {
+		if (($stationid ?? '') != '') {
+			$sql="select u.* from users u inner join station_profile sp on (u.user_id=sp.user_id) where sp.station_id = ?";
+			$query = $this->db->query($sql, $stationid);
+			return $query->row();
+		} else {
+			return false;
 		}
 	}
 
@@ -600,6 +634,21 @@ class Stations extends CI_Model {
 		if (!empty($station_active)) { list($station_lat, $station_lng) = $this->qra->qra2latlong($station_active->station_gridsquare); }
 		if (($station_lat!=0)&&($station_lng!=0)) { $_jsonresult = array('lat'=>$station_lat,'lng'=>$station_lng,'html'=>$station_active->station_gridsquare,'label'=>$station_active->station_profile_name,'icon'=>'stationIcon'); }
 		return (count($_jsonresult)>0)?(array('station'=>$_jsonresult)):array();
+	}
+
+	public function lookupProfileCoords($stationid) {
+		$sql = "SELECT station_gridsquare FROM station_profile WHERE station_id = ?;";
+		$query = $this->db->query($sql, $stationid);
+		if ($query->num_rows() == 1) {
+			$row = $query->row();
+			if ($row->station_gridsquare != '') {
+				if (!$this->load->is_loaded('Qra')) {
+					$this->load->library('Qra');
+				}
+				return $this->qra->qra2latlong($row->station_gridsquare);
+			}
+		}
+		return false;
 	}
 }
 
