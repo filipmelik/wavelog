@@ -369,7 +369,8 @@ class Timeline_model extends CI_Model {
 		foreach ($col_gridsquare as $grid) {
 			$timeline[] = array(
 				'gridsquare' => $grid->gridsquare,
-				'date'       => $grid->date);
+				'date'       => $grid->date,
+				'sat_name'   => $grid->sat_name ?? '');
 		}
 
 		$col_vucc_grids = $this->get_vucc_grids($band, $mode, $propmode, $location_list, $qsl, $lotw, $eqsl, $clublog, $year, $qrz, $onlynew);
@@ -383,7 +384,8 @@ class Timeline_model extends CI_Model {
 					// Doesn't exist, add new entry
 					$timeline[] = array(
 						'gridsquare' => $grid_four,
-						'date'       => $gridSplit->date
+						'date'       => $gridSplit->date,
+						'sat_name'   => $gridSplit->sat_name ?? ''
 					);
 				} else {
 					// Exists, check the date
@@ -403,8 +405,11 @@ class Timeline_model extends CI_Model {
 
 	public function get_gridsquare($band, $mode, $propmode, $location_list, $qsl, $lotw, $eqsl, $clublog, $year, $qrz, $onlynew) {
 		$binding = [];
-		$sql = "select min(COL_TIME_ON) date, upper(substring(col_gridsquare, 1, 4)) gridsquare from "
-			.$this->config->item('table_name'). " thcv
+		$sql = "select min(COL_TIME_ON) date, upper(substring(col_gridsquare, 1, 4)) gridsquare ";
+		if ($propmode == 'SAT') {
+			$sql .= ", COL_SAT_NAME as sat_name ";
+		}
+		$sql .= "from ".$this->config->item('table_name'). " thcv
 			where station_id in (" . $location_list . ")";
 
 		if ($band == 'SAT') {				// Left for compatibility reasons
@@ -440,8 +445,11 @@ class Timeline_model extends CI_Model {
 
 		$sql .= $this->addQslToQuery($qsl, $lotw, $eqsl, $clublog, $qrz);
 
-		$sql .= " and col_gridsquare <> '' group by upper(substring(col_gridsquare, 1, 4))
-			order by date desc";
+		$sql .= " and col_gridsquare <> '' group by upper(substring(col_gridsquare, 1, 4)) ";
+		if ($propmode == 'SAT') {
+			$sql .= ", sat_name ";
+		}
+		$sql .= "order by date desc";
 
 		$query = $this->db->query($sql, $binding);
 
@@ -450,8 +458,11 @@ class Timeline_model extends CI_Model {
 
 	public function get_vucc_grids($band, $mode, $propmode, $location_list, $qsl, $lotw, $eqsl, $clublog, $year, $qrz, $onlynew) {
 		$binding = [];
-		$sql = "select COL_TIME_ON as date, upper(col_vucc_grids) gridsquare from "
-			.$this->config->item('table_name'). " thcv
+		$sql = "select COL_TIME_ON as date, upper(col_vucc_grids) gridsquare ";
+		if ($propmode == 'SAT') {
+			$sql .= ", COL_SAT_NAME as sat_name ";
+		}
+		$sql .= "from ".$this->config->item('table_name'). " thcv
 			where station_id in (" . $location_list . ")";
 
 		if ($band == 'SAT') {				// Left for compatibility reasons

@@ -343,7 +343,7 @@ function write_waz_timeline($timeline_array, $custom_date_format, $bandselect, $
     echo '</tfoot></table></div>';
 }
 
-function write_vucc_timeline($timeline_array, $custom_date_format, $bandselect, $modeselect,  $propmode,$award, $selectedyear, $onlynew) {
+function write_vucc_timeline($timeline_array, $custom_date_format, $bandselect, $modeselect,  $propmode, $award, $selectedyear, $onlynew) {
     // Apply filtering to the timeline array
     $filtered_timeline = filter_timeline_array_vucc($timeline_array, $selectedyear, $onlynew);
     $i = count($filtered_timeline); // General counter for all entries
@@ -353,8 +353,11 @@ function write_vucc_timeline($timeline_array, $custom_date_format, $bandselect, 
                         <td>#</td>
                         <td>'.__("Date").'</td>
                         <td>'.__("Time").'</td>
-                        <td>'.__("Gridsquare").'</td>
-                        <td>'.__("Show QSOs").'</td>
+                        <td>'.__("Gridsquare").'</td>';
+    if ($propmode == 'SAT') {
+        echo '          <td>'.__("Satellite").'</td>';
+    }
+    echo '              <td>'.__("Show QSOs").'</td>
                     </tr>
                 </thead>
                 <tbody>';
@@ -366,8 +369,11 @@ function write_vucc_timeline($timeline_array, $custom_date_format, $bandselect, 
                 <td>' . $i-- . '</td>
                 <td>' . date($custom_date_format, $date_as_timestamp) . '</td>
                 <td>' . date('H:i', $date_as_timestamp) . '</td>
-                <td>' . $line['gridsquare'] . '</td>
-                <td><a href=javascript:displayTimelineContacts("' . $line['gridsquare'] . '","'. $bandselect . '","'. $modeselect. '","' . $propmode . '","' . $award .'")>'.__("Show").'</a></td>
+                <td>' . $line['gridsquare'] . '</td>';
+        if ($propmode == 'SAT') {
+            echo '<td>'.$line['sat_name'].'</td>';
+        }
+        echo '  <td><a href=javascript:displayTimelineContacts("' . $line['gridsquare'] . '","'. $bandselect . '","'. $modeselect. '","' . $propmode . '","' . $award .'")>'.__("Show").'</a></td>
                </tr>';
     }
     echo '</tfoot></table></div>';
