@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-08 18:45+0000\n"
+"POT-Creation-Date: 2026-02-13 08:13+0000\n"
 "PO-Revision-Date: 2026-02-11 19:47+0000\n"
 "Last-Translator: Viliam Petrik <tatralom@gmail.com>\n"
 "Language-Team: Slovak <https://translate.wavelog.org/projects/wavelog/main-"
@@ -1950,13 +1950,11 @@ msgstr "Zrušené DXCC"
 msgid "Advanced logbook"
 msgstr "Pokročilý denník"
 
-#: application/controllers/Logbookadvanced.php:925
 #: application/controllers/Logbookadvanced.php:932
 #, php-format
 msgid "DXCC updated for %d QSO(s)."
 msgstr "DXCC aktualizované pre %d spojenie/í."
 
-#: application/controllers/Logbookadvanced.php:941
 #: application/controllers/Logbookadvanced.php:948
 #, php-format
 msgid "Map for DXCC %s and gridsquare %s."
@@ -2660,6 +2658,7 @@ msgstr "Upraviť polohu stanice "
 #: application/views/calltester/index.php:5 application/views/csv/index.php:19
 #: application/views/dxatlas/index.php:19
 #: application/views/labels/index.php:124
+#: application/views/logbookadvanced/dbtoolsdialog.php:16
 #: application/views/logbookadvanced/edit.php:18
 #: application/views/logbookadvanced/showMissingDxccQsos.php:26
 #: application/views/qslprint/index.php:20 application/views/qso/index.php:137
@@ -2672,7 +2671,6 @@ msgstr "Upraviť polohu stanice "
 #: application/views/view_log/qso.php:9 application/views/webadif/export.php:75
 #: application/views/webadif/export.php:115
 #: application/views/zonechecker/index.php:5
-#: application/views/logbookadvanced/dbtoolsdialog.php:16
 msgid "Station Location"
 msgstr "Poloha stanice"
 
@@ -3653,7 +3651,6 @@ msgstr "QSO aktualizované"
 msgid "Bearing"
 msgstr "Smerovanie"
 
-#: application/models/Logbookadvanced_model.php:1709
 #: application/models/Logbookadvanced_model.php:1723
 msgid "VuccGrids table is empty. Please import the VUCC grids data first."
 msgstr ""
@@ -4439,6 +4436,7 @@ msgstr "Nič sa nenašlo!"
 #: application/views/logbookadvanced/checkresult.php:240
 #: application/views/logbookadvanced/checkresult.php:316
 #: application/views/logbookadvanced/checkresult.php:387
+#: application/views/logbookadvanced/dbtoolsdialog.php:22
 #: application/views/logbookadvanced/qslcarousel.php:30
 #: application/views/logbookadvanced/showUpdateResult.php:43
 #: application/views/lotw_views/index.php:32
@@ -4464,7 +4462,6 @@ msgstr "Nič sa nenašlo!"
 #: application/views/user/index.php:153 application/views/user/profile.php:29
 #: application/views/view_log/qso.php:83 application/views/view_log/qso.php:672
 #: application/views/zonechecker/result.php:50
-#: application/views/logbookadvanced/dbtoolsdialog.php:22
 msgid "Callsign"
 msgstr "Volacia značka"
 
@@ -6771,9 +6768,8 @@ msgid "Band Categories"
 msgstr "Kategórie pásiem"
 
 #: application/views/awards/pl_polska/index.php:372
-#: application/views/logbookadvanced/dbtoolsdialog.php:56
-#: application/views/logbookadvanced/index.php:819
 #: application/views/logbookadvanced/dbtoolsdialog.php:77
+#: application/views/logbookadvanced/index.php:819
 msgid "Fix State"
 msgstr "Opraviť štát"
 
@@ -7267,8 +7263,8 @@ msgid ""
 "State (ADIF: DXCC and STATE)"
 msgstr ""
 "Pre tento diplom sa používajú oblasti: DXCC (musí byť jedno z Čína/318, "
-"HongKong/321, Macao/152, Taiwan/386, Pratas Isl./505 alebo Scarborough Reef/"
-"506) a platný štát (ADIF: DXCC a STATE)"
+"HongKong/321, Macao/152, Taiwan/386, Pratas Isl./505 alebo Scarborough "
+"Reef/506) a platný štát (ADIF: DXCC a STATE)"
 
 #: application/views/awards/was/index.php:3
 msgctxt "USA State"
@@ -13013,25 +13009,18 @@ msgstr ""
 "Upozornenie. Tento nástroj môže byť nebezpečný pre vaše dáta a mal by sa "
 "používať len v prípade, že viete, čo robíte."
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:12
+#: application/views/logbookadvanced/dbtoolsdialog.php:19
+msgid "All Station Locations"
+msgstr ""
+
 #: application/views/logbookadvanced/dbtoolsdialog.php:33
 msgid "Check all QSOs in the logbook for incorrect CQ Zones"
 msgstr "Skontroluj všetky spojenia v logbooku na nesprávne CQ zóny"
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:13
 #: application/views/logbookadvanced/dbtoolsdialog.php:34
 msgid "Use Wavelog to determine CQ Zone for all QSOs."
 msgstr "Pomocou Wavelog zisti CQ zónu pre všetky spojenia."
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:17
-#: application/views/logbookadvanced/dbtoolsdialog.php:28
-#: application/views/logbookadvanced/dbtoolsdialog.php:39
-#: application/views/logbookadvanced/dbtoolsdialog.php:50
-#: application/views/logbookadvanced/dbtoolsdialog.php:61
-#: application/views/logbookadvanced/dbtoolsdialog.php:72
-#: application/views/logbookadvanced/dbtoolsdialog.php:83
-#: application/views/logbookadvanced/dbtoolsdialog.php:96
-#: application/views/logbookadvanced/dbtoolsdialog.php:108
 #: application/views/logbookadvanced/dbtoolsdialog.php:38
 #: application/views/logbookadvanced/dbtoolsdialog.php:49
 #: application/views/logbookadvanced/dbtoolsdialog.php:60
@@ -13044,83 +13033,67 @@ msgstr "Pomocou Wavelog zisti CQ zónu pre všetky spojenia."
 msgid "Check"
 msgstr "Skontroluj"
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:23
 #: application/views/logbookadvanced/dbtoolsdialog.php:44
 msgid "Check all QSOs in the logbook for incorrect ITU Zones"
 msgstr "Skontroluj všetky spojenia v denníku pre nesprávne ITU zóny"
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:24
 #: application/views/logbookadvanced/dbtoolsdialog.php:45
 msgid "Use Wavelog to determine ITU Zone for all QSOs."
 msgstr "Použi Wavelog na určenie ITU zóny pre všetky spojenia."
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:34
 #: application/views/logbookadvanced/dbtoolsdialog.php:55
 msgid "Check Gridsquares"
 msgstr "Skontroluj lokátorové štvorce"
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:35
 #: application/views/logbookadvanced/dbtoolsdialog.php:56
 msgid "Check gridsquares that does not match the DXCC"
 msgstr "Skontroluj lokátory, ktoré nezodpovedajú DXCC"
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:45
 #: application/views/logbookadvanced/dbtoolsdialog.php:66
 msgid "Fix Continent"
 msgstr "Oprav kontinent"
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:46
 #: application/views/logbookadvanced/dbtoolsdialog.php:67
 msgid "Update missing or incorrect continent information"
 msgstr "Aktualizovať chýbajúce alebo nesprávne informácie o kontinente"
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:57
 #: application/views/logbookadvanced/dbtoolsdialog.php:78
 msgid "Update missing state/province information"
 msgstr "Aktualizovať chýbajúce informácie o štáte/provincii"
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:67
-#: application/views/logbookadvanced/index.php:68
 #: application/views/logbookadvanced/dbtoolsdialog.php:88
+#: application/views/logbookadvanced/index.php:68
 msgid "Update Distances"
 msgstr "Aktualizuj vzdialeností"
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:68
 #: application/views/logbookadvanced/dbtoolsdialog.php:89
 msgid "Calculate and update distance information for QSOs"
 msgstr "Vypočítaj a aktualizuj informácie o vzdialenosti pre spojenia"
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:78
 #: application/views/logbookadvanced/dbtoolsdialog.php:99
 msgid "Check all QSOs in the logbook for incorrect DXCC"
 msgstr "Skontroluj všetky spojenia v denníku na nesprávne DXCC"
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:79
 #: application/views/logbookadvanced/dbtoolsdialog.php:100
 msgid "Use Wavelog to determine DXCC for all QSOs."
 msgstr "Použi Wavelog na určenie DXCC pre všetky spojenia."
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:90
 #: application/views/logbookadvanced/dbtoolsdialog.php:111
 msgid "Lookup QSOs with missing grid in callbook"
 msgstr "Náhľad spojení s chýbajúcim lokátorom v callbooku"
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:91
 #: application/views/logbookadvanced/dbtoolsdialog.php:112
 msgid "Use callbook lookup to set gridsquare"
 msgstr "Použi callbook na určenie lokátora"
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:92
 #: application/views/logbookadvanced/dbtoolsdialog.php:113
 msgid "This is limited to 150 callsigns for each run!"
 msgstr "Toto je obmedzené na 150 volacích znakov pre každé spustenie!"
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:103
 #: application/views/logbookadvanced/dbtoolsdialog.php:124
 msgid "Check IOTA against DXCC"
 msgstr "Skontrolovať IOTA voči DXCC"
 
-#: application/views/logbookadvanced/dbtoolsdialog.php:104
 #: application/views/logbookadvanced/dbtoolsdialog.php:125
 msgid "Use Wavelog to check IOTA against DXCC"
 msgstr "Použi Wavelog na kontrolu IOTA voči DXCC"
@@ -19286,10 +19259,6 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
-
-#: application/views/logbookadvanced/dbtoolsdialog.php:19
-msgid "All Station Locations"
-msgstr ""
 
 #~ msgid "Incorrectly logged CQ zones"
 #~ msgstr "Nesprávne zaznamenané CQ zóny"
