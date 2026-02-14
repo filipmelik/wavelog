@@ -181,7 +181,7 @@
 <?php
 $local_code = $language['locale'];
 $lang_code = $language['code'];
-$file_path = base_url() . "assets/json/datatables_languages/" . $local_code . ".json";
+$file_path = $this->paths->cache_buster('/assets/json/datatables_languages/' . $local_code . '.json');
 
 // Check if the file exists
 if ($lang_code != 'en' && !file_exists(FCPATH . "assets/json/datatables_languages/" . $local_code . ".json")) {
@@ -372,19 +372,19 @@ function stopImpersonate_modal() {
 
 <?php if ($this->uri->segment(1) == "qso" ) { ?>
     <!-- Javascript used for QSO Notes Area -->
-    <script src="<?php echo base_url() ;?>assets/plugins/easymde/easymde.min.js"></script>
+    <script src="<?php echo $this->paths->cache_buster('/assets/plugins/easymde/easymde.min.js'); ?>"></script>
 	<?php if(($this->session->userdata('user_dxwaterfall_enable') == 'E' ||  $this->session->userdata('user_dxwaterfall_enable') == 'Y') && isset($manual_mode) && $manual_mode == 0) { ?>
 		<script>
 			var dxwaterfall_enable='<?php echo $this->session->userdata('user_dxwaterfall_enable'); ?>';
 		</script>
-		<script type="text/javascript" src="<?php echo base_url() ;?>assets/js/dxwaterfall.js?v=<?php echo floor(time() / 3600); ?>"></script>
+		<script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/dxwaterfall.js'); ?>"></script>
 	<?php } ?>
 <?php } ?>
 
 <?php if ($this->uri->segment(1) == "notes" && ($this->uri->segment(2) == "view") ) { ?>
     <!-- Javascript used for Notes Area -->
-    <script src="<?php echo base_url() ;?>assets/plugins/easymde/easymde.min.js"></script>
-    <script src="<?php echo base_url() ;?>assets/js/sections/notes_view.js"></script>
+    <script src="<?php echo $this->paths->cache_buster('/assets/plugins/easymde/easymde.min.js'); ?>"></script>
+    <script src="<?php echo $this->paths->cache_buster('/assets/js/sections/notes_view.js'); ?>"></script>
 <?php } ?>
 
 <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/datatables.min.js'); ?>"></script>
@@ -436,7 +436,7 @@ $(function () {
 <?php } ?>
 
 <?php if ($this->uri->segment(1) == "api") { ?>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/sections/api.js"></script>
+<script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/sections/api.js'); ?>"></script>
 <script type="text/javascript">
    // Pass PHP variable to JavaScript
    var apiSiteUrl = "<?php echo site_url(); ?>";
@@ -1349,7 +1349,7 @@ mymap.on('mousemove', onQsoMapMove);
 		var dxwaterfall_cat_state = "none";
 	</script>
 	<?php } ?>
-	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/cat.js"></script>
+	<script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/cat.js'); ?>"></script>
 
 <?php } ?>
 
@@ -2279,7 +2279,7 @@ $('#sats').change(function(){
 
 
     <?php if ($this->uri->segment(1) == "usermode") { ?>
-		<script src="<?php echo base_url(); ?>assets/js/sections/usermode.js"></script>
+		<script src="<?php echo $this->paths->cache_buster('/assets/js/sections/usermode.js'); ?>"></script>
     <?php } ?>
 
     <?php if ($this->uri->segment(1) == "mode") { ?>
