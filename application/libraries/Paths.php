@@ -37,11 +37,20 @@ class Paths
         // make sure $filepath starts with a slash
         if (substr($filepath, 0, 1) !== '/') $filepath = '/' . $filepath;
 
-        $fullpath = $_SERVER['DOCUMENT_ROOT'] . $filepath;
+        // These files are not existent on purpose and should not trigger error logs
+        $err_exceptions = [
+            '/assets/json/datatables_languages/en-US.json',
+        ];
+    
+        // Use DIRECTORY_SEPARATOR for cross-platform compatibility (aka Windows may needs special handling)
+        $fullpath = rtrim($_SERVER['DOCUMENT_ROOT'], '/\\') . str_replace('/', DIRECTORY_SEPARATOR, $filepath);
+        
         if (file_exists($fullpath)) {
             return base_url($filepath) . '?v=' . filemtime($fullpath);
         } else {
-            log_message('error', 'CACHE BUSTER: File does not exist: ' . $fullpath);
+            if (!in_array($filepath, $err_exceptions)) {
+                log_message('error', 'CACHE BUSTER: File does not exist: ' . $fullpath);
+            }
         }
         return base_url($filepath);
     }
