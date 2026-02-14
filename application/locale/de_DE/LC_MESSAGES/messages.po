@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-13 08:13+0000\n"
-"PO-Revision-Date: 2026-02-06 07:35+0000\n"
-"Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
+"PO-Revision-Date: 2026-02-13 15:34+0000\n"
+"Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
 "Language: de_DE\n"
@@ -13135,7 +13135,7 @@ msgstr ""
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:19
 msgid "All Station Locations"
-msgstr ""
+msgstr "Alle Stationsstandorte"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:33
 msgid "Check all QSOs in the logbook for incorrect CQ Zones"
