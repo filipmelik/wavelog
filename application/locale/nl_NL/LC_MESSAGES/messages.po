@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-15 11:32+0000\n"
-"PO-Revision-Date: 2026-02-06 23:01+0000\n"
+"PO-Revision-Date: 2026-02-15 15:14+0000\n"
 "Last-Translator: Alexander <alexander@pa8s.nl>\n"
 "Language-Team: Dutch <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/nl/>\n"
@@ -8272,15 +8272,15 @@ msgstr "DX Kaart"
 
 #: application/views/bandmap/list.php:544
 msgid "Search Column"
-msgstr ""
+msgstr "Zoekkolom"
 
 #: application/views/bandmap/list.php:545
 msgid "All Columns"
-msgstr ""
+msgstr "Alle kolommen"
 
 #: application/views/bandmap/list.php:546
 msgid "Spot Info"
-msgstr ""
+msgstr "Spot Info"
 
 #: application/views/bandmap/list.php:551
 #: application/views/bandmap/list.php:591
@@ -8291,7 +8291,7 @@ msgstr "Submodus"
 
 #: application/views/bandmap/list.php:553
 msgid "DX Station"
-msgstr ""
+msgstr "DX-station"
 
 #: application/views/bandmap/list.php:557
 #: application/views/bandmap/list.php:596
@@ -13094,7 +13094,7 @@ msgstr ""
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:19
 msgid "All Station Locations"
-msgstr ""
+msgstr "Alle stationslocaties"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:33
 msgid "Check all QSOs in the logbook for incorrect CQ Zones"
