@@ -133,7 +133,7 @@ class Radio extends CI_Controller {
 		} else {
 			// No radios found - show WebSocket button
 			if ($default_user_radio === 'ws') {
-				$websocket_button = '<button id="default_radio_btn_ws" type="button" class="btn btn-sm btn-primary mt-2 ld-ext-right d-block mx-auto" onclick="release_default_radio(\'ws\')">' . __("WebSocket ist currently default (click to release)") . '<div class="ld ld-ring ld-spin"></div></button>';
+				$websocket_button = '<button id="default_radio_btn_ws" type="button" class="btn btn-sm btn-primary mt-2 ld-ext-right d-block mx-auto" onclick="release_default_radio(\'ws\')">' . __("WebSocket is currently default (click to release)") . '<div class="ld ld-ring ld-spin"></div></button>';
 			} else {
 				$websocket_button = '<button id="default_radio_btn_ws" type="button" class="btn btn-sm btn-primary mt-2 ld-ext-right d-block mx-auto" onclick="set_default_radio(\'ws\')">' . __("Set WebSocket as default radio") . '<div class="ld ld-ring ld-spin"></div></button>';
 			}
