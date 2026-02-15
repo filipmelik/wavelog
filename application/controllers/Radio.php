@@ -315,7 +315,7 @@ class Radio extends CI_Controller {
 	function set_default_radio() {
 
 		// get the radio_id from POST
-		$clean_radio_id = $this->security->xss_clean($this->input->post('radio_id'));
+		$clean_radio_id = $this->input->post('radio_id', TRUE);
 
 		// Check Auth
 		$this->load->model('user_model');
