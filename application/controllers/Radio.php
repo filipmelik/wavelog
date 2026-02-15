@@ -381,7 +381,7 @@ class Radio extends CI_Controller {
 	}
 
 	private function _get_optionname() {
-		if ($this->_is_clubstation()) {
+		if ($this->_is_clubstation() && ($this->session->userdata('source_uid') ?? '') != '') {
 			return 'default_clubradio_' . $this->session->userdata('user_id');
 		} else {
 			return 'default_radio';
