@@ -1334,7 +1334,6 @@ class API extends CI_Controller {
 			return;
 		}
 
-		$this->load->model('club_model');
 		$memberlist = $this->club_model->get_club_members($userid);
 		if (!empty($memberlist)) {
 			foreach($memberlist as $member) {
