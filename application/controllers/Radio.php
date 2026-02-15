@@ -140,7 +140,7 @@ class Radio extends CI_Controller {
 			echo "<thead><tr>";
 			echo "<td colspan=\"6\"><div class=\"alert alert-info text-center\">";
 			echo __("No CAT interfaced radios found.");
-			echo "<p>" . __("You can still set a default radio using the WebSocket option.") . "</p>";
+			echo "<p>" . __("You can still set the WebSocket option as your default radio.") . "</p>";
 			echo $websocket_button;
 			echo "</div></td>";
 			echo "</tr></thead>";
@@ -329,7 +329,7 @@ class Radio extends CI_Controller {
 			$this->release_default_radio();
 		}
 
-		$this->session->set_flashdata('message', __("Radio Profile Deleted"));
+		$this->session->set_flashdata('message', __("Radio removed successfully"));
 
 		session_write_close();
 		redirect('radio');
