@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-13 08:13+0000\n"
+"POT-Creation-Date: 2026-02-15 18:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,8 +82,8 @@ msgstr ""
 #: application/controllers/Qso.php:22 application/controllers/Qso.php:288
 #: application/controllers/Qso.php:419 application/controllers/Qso.php:440
 #: application/controllers/Qso.php:463 application/controllers/Qso.php:763
-#: application/controllers/Radio.php:32 application/controllers/Radio.php:297
-#: application/controllers/Radio.php:323 application/controllers/Radio.php:339
+#: application/controllers/Radio.php:32 application/controllers/Radio.php:320
+#: application/controllers/Radio.php:346 application/controllers/Radio.php:362
 #: application/controllers/Reg1test.php:17
 #: application/controllers/Reg1test.php:60
 #: application/controllers/Reg1test.php:99
@@ -1433,7 +1433,7 @@ msgid "All callbook lookups failed or provided no results."
 msgstr ""
 
 #: application/controllers/Logbook.php:1454
-#: application/controllers/Radio.php:46
+#: application/controllers/Radio.php:49
 #: application/views/accumulate/index.php:31
 #: application/views/activated_gridmap/index.php:43
 #: application/views/adif/dcl_success.php:33
@@ -1460,7 +1460,8 @@ msgstr ""
 #: application/views/awards/wpx/wpx_details.php:23
 #: application/views/bandmap/list.php:99 application/views/bandmap/list.php:167
 #: application/views/bandmap/list.php:301
-#: application/views/bandmap/list.php:568
+#: application/views/bandmap/list.php:550
+#: application/views/bandmap/list.php:590
 #: application/views/bands/bandedges.php:31
 #: application/views/callstats/index.php:49
 #: application/views/components/hamsat/table.php:30
@@ -1782,7 +1783,8 @@ msgstr ""
 #: application/views/awards/wwff/index.php:36
 #: application/views/bandmap/list.php:98 application/views/bandmap/list.php:168
 #: application/views/bandmap/list.php:363
-#: application/views/bandmap/list.php:566 application/views/bands/create.php:24
+#: application/views/bandmap/list.php:548
+#: application/views/bandmap/list.php:588 application/views/bands/create.php:24
 #: application/views/bands/edit.php:7 application/views/bands/index.php:47
 #: application/views/callstats/index.php:7
 #: application/views/contesting/index.php:131
@@ -1846,8 +1848,9 @@ msgid "Band"
 msgstr ""
 
 #: application/controllers/Logbook.php:1466
-#: application/controllers/Radio.php:45 application/views/bandmap/list.php:166
-#: application/views/bandmap/list.php:567
+#: application/controllers/Radio.php:48 application/views/bandmap/list.php:166
+#: application/views/bandmap/list.php:549
+#: application/views/bandmap/list.php:589
 #: application/views/contesting/index.php:148
 #: application/views/dashboard/index.php:16
 #: application/views/logbookadvanced/index.php:918
@@ -1873,7 +1876,7 @@ msgid "Frequency"
 msgstr ""
 
 #: application/controllers/Logbook.php:1467
-#: application/controllers/Radio.php:43
+#: application/controllers/Radio.php:46
 #: application/views/dashboard/index.php:17
 #: application/views/logbookadvanced/edit.php:13
 #: application/views/logbookadvanced/index.php:478
@@ -2380,17 +2383,17 @@ msgstr ""
 msgid "Hardware Interfaces"
 msgstr ""
 
-#: application/controllers/Radio.php:41 application/views/bandmap/list.php:20
+#: application/controllers/Radio.php:44 application/views/bandmap/list.php:20
 #: application/views/contesting/index.php:157
 #: application/views/qso/index.php:411 application/views/view_log/qso.php:714
 msgid "Radio"
 msgstr ""
 
-#: application/controllers/Radio.php:47
+#: application/controllers/Radio.php:50
 msgid "Timestamp"
 msgstr ""
 
-#: application/controllers/Radio.php:49
+#: application/controllers/Radio.php:52
 #: application/views/logbookadvanced/index.php:867
 #: application/views/lotw_views/index.php:40
 #: application/views/simplefle/index.php:20
@@ -2399,30 +2402,34 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
-#: application/controllers/Radio.php:50 application/views/debug/index.php:321
+#: application/controllers/Radio.php:53 application/views/debug/index.php:321
 #: application/views/qso/index.php:841
 msgid "Settings"
 msgstr ""
 
-#: application/controllers/Radio.php:63
+#: application/controllers/Radio.php:59
+msgid "WebSocket"
+msgstr ""
+
+#: application/controllers/Radio.php:65 application/controllers/Radio.php:124
+msgid "Default (click to release)"
+msgstr ""
+
+#: application/controllers/Radio.php:67 application/controllers/Radio.php:126
+msgid "Set as default radio"
+msgstr ""
+
+#: application/controllers/Radio.php:83
 msgid "UNKNOWN"
 msgstr ""
 
-#: application/controllers/Radio.php:98 application/views/bandmap/list.php:242
+#: application/controllers/Radio.php:118 application/views/bandmap/list.php:242
 #: application/views/contesting/index.php:162
 #: application/views/qso/index.php:416
 msgid "last updated"
 msgstr ""
 
-#: application/controllers/Radio.php:106 application/controllers/Radio.php:109
-msgid "Set as default radio"
-msgstr ""
-
-#: application/controllers/Radio.php:111
-msgid "Default (click to release)"
-msgstr ""
-
-#: application/controllers/Radio.php:115
+#: application/controllers/Radio.php:128
 #: application/controllers/Stationsetup.php:402
 #: application/views/api/index.php:74 application/views/bands/bandedges.php:32
 #: application/views/club/permissions.php:274
@@ -2441,7 +2448,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: application/controllers/Radio.php:116
+#: application/controllers/Radio.php:129
 #: application/controllers/Stationsetup.php:415
 #: application/views/api/index.php:81 application/views/bands/bandedges.php:33
 #: application/views/club/permissions.php:331
@@ -2470,12 +2477,28 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: application/controllers/Radio.php:122
+#: application/controllers/Radio.php:136
+msgid "WebSocket is currently default (click to release)"
+msgstr ""
+
+#: application/controllers/Radio.php:138
+msgid "Set WebSocket as default radio"
+msgstr ""
+
+#: application/controllers/Radio.php:142
 msgid "No CAT interfaced radios found."
 msgstr ""
 
-#: application/controllers/Radio.php:137 application/views/radio/index.php:2
+#: application/controllers/Radio.php:143
+msgid "You can still set the WebSocket option as your default radio."
+msgstr ""
+
+#: application/controllers/Radio.php:160 application/views/radio/index.php:2
 msgid "Edit CAT Settings"
+msgstr ""
+
+#: application/controllers/Radio.php:332
+msgid "Radio removed successfully"
 msgstr ""
 
 #: application/controllers/Reg1test.php:22
@@ -2556,7 +2579,7 @@ msgstr ""
 msgid "Satellite Timers"
 msgstr ""
 
-#: application/controllers/Search.php:15 application/views/bandmap/list.php:544
+#: application/controllers/Search.php:15 application/views/bandmap/list.php:566
 #: application/views/continents/index.php:49
 #: application/views/interface_assets/footer.php:42
 #: application/views/interface_assets/header.php:392
@@ -4332,6 +4355,7 @@ msgstr ""
 #: application/views/awards/wpx/wpx_details.php:20
 #: application/views/awards/wwff/index.php:35
 #: application/views/bandmap/list.php:27 application/views/bandmap/list.php:165
+#: application/views/bandmap/list.php:554
 #: application/views/cabrillo/index.php:31
 #: application/views/callstats/index.php:147
 #: application/views/calltester/comparison_result.php:60
@@ -5073,7 +5097,7 @@ msgstr ""
 #: application/views/api/index.php:20 application/views/dxcalendar/index.php:15
 #: application/views/eqsl/export.php:33
 #: application/views/interface_assets/footer.php:39
-#: application/views/qso/index.php:45 application/views/radio/index.php:26
+#: application/views/qso/index.php:45 application/views/radio/index.php:30
 #: application/views/sattimers/index.php:67
 #: application/views/sattimers/index.php:69
 #: application/views/sattimers/index.php:71
@@ -5334,7 +5358,8 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:3
 #: application/views/awards/cq/index.php:193
-#: application/views/bandmap/list.php:572 application/views/csv/index.php:80
+#: application/views/bandmap/list.php:556
+#: application/views/bandmap/list.php:594 application/views/csv/index.php:80
 #: application/views/dxatlas/index.php:80
 #: application/views/gridmap/index.php:236 application/views/kml/index.php:65
 #: application/views/logbookadvanced/checkresult.php:246
@@ -6752,7 +6777,8 @@ msgstr ""
 
 #: application/views/awards/wac/index.php:152
 #: application/views/bandmap/list.php:100
-#: application/views/bandmap/list.php:571
+#: application/views/bandmap/list.php:555
+#: application/views/bandmap/list.php:593
 #: application/views/continents/index.php:62
 #: application/views/logbookadvanced/edit.php:23
 #: application/views/logbookadvanced/index.php:486
@@ -7347,7 +7373,7 @@ msgid "Worked on %s with %s"
 msgstr ""
 
 #: application/views/bandmap/list.php:102
-#: application/views/bandmap/list.php:575
+#: application/views/bandmap/list.php:597
 msgid "de"
 msgstr ""
 
@@ -7464,6 +7490,8 @@ msgid "(requires CAT connection)"
 msgstr ""
 
 #: application/views/bandmap/list.php:133
+#: application/views/bandmap/list.php:560
+#: application/views/bandmap/list.php:561
 msgid "Spotter"
 msgstr ""
 
@@ -7481,6 +7509,7 @@ msgid "Comment"
 msgstr ""
 
 #: application/views/bandmap/list.php:135
+#: application/views/bandmap/list.php:547
 #: application/views/contesting/index.php:65
 msgid "Age"
 msgstr ""
@@ -7778,7 +7807,7 @@ msgid "Toggle DX Spot filter (spotted continent ≠ spotter continent)"
 msgstr ""
 
 #: application/views/bandmap/list.php:491
-#: application/views/bandmap/list.php:570
+#: application/views/bandmap/list.php:592
 msgid "DX"
 msgstr ""
 
@@ -7835,73 +7864,94 @@ msgid "DX Map"
 msgstr ""
 
 #: application/views/bandmap/list.php:544
-msgid "Search spots..."
+msgid "Search Column"
 msgstr ""
 
-#: application/views/bandmap/list.php:557
-msgid "Note: Map shows DXCC entity locations, not actual spot locations"
+#: application/views/bandmap/list.php:545
+msgid "All Columns"
 msgstr ""
 
-#: application/views/bandmap/list.php:565
-msgid "Age in minutes"
+#: application/views/bandmap/list.php:546
+msgid "Spot Info"
 msgstr ""
 
-#: application/views/bandmap/list.php:567
-msgid "Freq"
-msgstr ""
-
-#: application/views/bandmap/list.php:569
+#: application/views/bandmap/list.php:551
+#: application/views/bandmap/list.php:591
 #: application/views/eqsl/analysis.php:40
 #: application/views/eqsl/download.php:40 application/views/eqsl/result.php:37
 msgid "Submode"
 msgstr ""
 
-#: application/views/bandmap/list.php:570
-msgid "Spotted Callsign"
+#: application/views/bandmap/list.php:553
+msgid "DX Station"
 msgstr ""
 
-#: application/views/bandmap/list.php:573
-msgid "Flag"
-msgstr ""
-
-#: application/views/bandmap/list.php:574
-msgid "DXCC Entity"
-msgstr ""
-
-#: application/views/bandmap/list.php:574
+#: application/views/bandmap/list.php:557
+#: application/views/bandmap/list.php:596
 msgid "Entity"
 msgstr ""
 
-#: application/views/bandmap/list.php:575
-msgid "Spotter Callsign"
-msgstr ""
-
-#: application/views/bandmap/list.php:576
-msgid "Spotter Continent"
-msgstr ""
-
-#: application/views/bandmap/list.php:577
-msgid "Spotter CQ Zone"
-msgstr ""
-
-#: application/views/bandmap/list.php:578
-msgid "Last QSO Date"
-msgstr ""
-
-#: application/views/bandmap/list.php:579
-msgid "Special"
-msgstr ""
-
-#: application/views/bandmap/list.php:579
-msgid "Special Flags"
-msgstr ""
-
-#: application/views/bandmap/list.php:580
+#: application/views/bandmap/list.php:558
+#: application/views/bandmap/list.php:602
 #: application/views/oqrs/notinlogform.php:28
 #: application/views/oqrs/request.php:54
 #: application/views/oqrs/request_grouped.php:57
 #: application/views/oqrs/status_info.php:5
 msgid "Message"
+msgstr ""
+
+#: application/views/bandmap/list.php:562
+#: application/views/bandmap/list.php:598
+msgid "Spotter Continent"
+msgstr ""
+
+#: application/views/bandmap/list.php:563
+#: application/views/bandmap/list.php:599
+msgid "Spotter CQ Zone"
+msgstr ""
+
+#: application/views/bandmap/list.php:566
+msgid "Search spots..."
+msgstr ""
+
+#: application/views/bandmap/list.php:579
+msgid "Note: Map shows DXCC entity locations, not actual spot locations"
+msgstr ""
+
+#: application/views/bandmap/list.php:587
+msgid "Age in minutes"
+msgstr ""
+
+#: application/views/bandmap/list.php:589
+msgid "Freq"
+msgstr ""
+
+#: application/views/bandmap/list.php:592
+msgid "Spotted Callsign"
+msgstr ""
+
+#: application/views/bandmap/list.php:595
+msgid "Flag"
+msgstr ""
+
+#: application/views/bandmap/list.php:596
+msgid "DXCC Entity"
+msgstr ""
+
+#: application/views/bandmap/list.php:597
+msgid "Spotter Callsign"
+msgstr ""
+
+#: application/views/bandmap/list.php:600
+msgid "Last QSO Date"
+msgstr ""
+
+#: application/views/bandmap/list.php:601
+msgid "Special"
+msgstr ""
+
+#: application/views/bandmap/list.php:601
+msgid "Special Flags"
 msgstr ""
 
 #: application/views/bands/bandedges.php:2
@@ -15313,22 +15363,32 @@ msgstr ""
 msgid "Below is a list of active radios that are connected to Wavelog."
 msgstr ""
 
-#: application/views/radio/index.php:24
+#: application/views/radio/index.php:23
 msgid ""
 "If you haven't connected any radios yet, see the API page to generate API "
 "keys."
 msgstr ""
 
-#: application/views/radio/index.php:26 application/views/search/filter.php:66
+#: application/views/radio/index.php:25
+msgid ""
+"As a clubstation operator, you can set a default radio which applies only to "
+"you. This allows you to have a default radio that is automatically selected "
+"when you log in, while still being able to use other radios if you want."
+msgstr ""
+
+#: application/views/radio/index.php:27
+msgid ""
+"As a normal user, you can set a default radio for yourself. This allows you "
+"to have a default radio that is automatically selected when you log in, "
+"while still being able to use other radios if you want."
+msgstr ""
+
+#: application/views/radio/index.php:30
 #, php-format
-msgid "You can find out how to use the %s in the wiki."
+msgid "You can find out how to use the %sradio functions%s in the wiki."
 msgstr ""
 
-#: application/views/radio/index.php:26
-msgid "radio functions"
-msgstr ""
-
-#: application/views/radio/index.php:31
+#: application/views/radio/index.php:35
 msgid "Please wait..."
 msgstr ""
 
@@ -15772,6 +15832,11 @@ msgstr ""
 
 #: application/views/search/filter.php:47
 msgid "Stored queries"
+msgstr ""
+
+#: application/views/search/filter.php:66
+#, php-format
+msgid "You can find out how to use the %s in the wiki."
 msgstr ""
 
 #: application/views/search/filter.php:66
