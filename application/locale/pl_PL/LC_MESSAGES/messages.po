@@ -1559,7 +1559,8 @@ msgstr ""
 #: application/views/view_log/partial/log.php:9
 #: application/views/view_log/partial/log_ajax.php:4
 #: application/views/view_log/qso.php:114 application/views/visitor/index.php:6
-#: application/views/widgets/qsos.php:18
+#: application/views/widgets/qsos.php:18 application/views/bandmap/list.php:550
+#: application/views/bandmap/list.php:590
 msgid "Mode"
 msgstr "Emisja"
 
@@ -1874,7 +1875,8 @@ msgstr "Odległość"
 #: application/views/view_log/partial/log.php:12
 #: application/views/view_log/partial/log_ajax.php:15
 #: application/views/view_log/qso.php:94 application/views/visitor/index.php:33
-#: application/views/widgets/qsos.php:21
+#: application/views/widgets/qsos.php:21 application/views/bandmap/list.php:548
+#: application/views/bandmap/list.php:588
 msgid "Band"
 msgstr "Pasmo"
 
@@ -1902,6 +1904,8 @@ msgstr "Pasmo"
 #: application/views/view_log/partial/log_ajax.php:16
 #: application/views/view_log/qso.php:101
 #: application/views/visitor/index.php:36
+#: application/views/bandmap/list.php:549
+#: application/views/bandmap/list.php:589
 msgid "Frequency"
 msgstr "Częstotliwość"
 
@@ -2632,6 +2636,7 @@ msgstr "Timery satelitarne"
 #: application/views/visitor/layout/footer.php:13
 #: application/views/visitor/layout/header.php:97
 #: application/views/visitor/layout/header.php:98
+#: application/views/bandmap/list.php:566
 msgid "Search"
 msgstr "Szukaj"
 
@@ -4486,6 +4491,7 @@ msgstr "Nie znaleziono!"
 #: application/views/user/index.php:153 application/views/user/profile.php:29
 #: application/views/view_log/qso.php:83 application/views/view_log/qso.php:672
 #: application/views/zonechecker/result.php:50
+#: application/views/bandmap/list.php:554
 msgid "Callsign"
 msgstr "Znak"
 
@@ -5544,6 +5550,8 @@ msgstr "Razem"
 #: application/views/timeplotter/index.php:44
 #: application/views/user/modals/first_login_wizard.php:74
 #: application/views/zonechecker/index.php:17
+#: application/views/bandmap/list.php:556
+#: application/views/bandmap/list.php:594
 msgid "CQ Zone"
 msgstr "Strefa CQ"
 
@@ -7125,6 +7133,8 @@ msgstr "Nagrody – Worked All Continents (WAC)"
 #: application/views/lookup/index.php:4 application/views/qso/award_tabs.php:37
 #: application/views/qso/edit_ajax.php:262 application/views/qso/index.php:484
 #: application/views/view_log/qso.php:348
+#: application/views/bandmap/list.php:555
+#: application/views/bandmap/list.php:593
 msgid "Continent"
 msgstr "Kontynent"
 
@@ -7309,8 +7319,8 @@ msgid ""
 "State (ADIF: DXCC and STATE)"
 msgstr ""
 "Pola brane pod uwagę przy tej nagrodzie: DXCC (musi być jednym z: Chiny/318, "
-"Hongkong/321, Makau/152, Tajwan/386, Wyspa Pratas/505 lub Rafa "
-"Scarborough/506) oraz ważny stan (ADIF: DXCC i STATE)"
+"Hongkong/321, Makau/152, Tajwan/386, Wyspa Pratas/505 lub Rafa Scarborough/"
+"506) oraz ważny stan (ADIF: DXCC i STATE)"
 
 #: application/views/awards/was/index.php:3
 msgctxt "USA State"
@@ -7792,6 +7802,7 @@ msgstr "Zaliczono dnia %s emisją %s"
 
 #: application/views/bandmap/list.php:102
 #: application/views/bandmap/list.php:575
+#: application/views/bandmap/list.php:597
 msgid "de"
 msgstr "de"
 
@@ -7910,6 +7921,8 @@ msgid "(requires CAT connection)"
 msgstr "(wymaga połączenia CAT)"
 
 #: application/views/bandmap/list.php:133
+#: application/views/bandmap/list.php:560
+#: application/views/bandmap/list.php:561
 msgid "Spotter"
 msgstr "Spoter"
 
@@ -7928,6 +7941,7 @@ msgstr "Komentarz"
 
 #: application/views/bandmap/list.php:135
 #: application/views/contesting/index.php:65
+#: application/views/bandmap/list.php:547
 msgid "Age"
 msgstr "Wiek"
 
@@ -8227,6 +8241,7 @@ msgstr ""
 
 #: application/views/bandmap/list.php:491
 #: application/views/bandmap/list.php:570
+#: application/views/bandmap/list.php:592
 msgid "DX"
 msgstr "DX"
 
@@ -8283,66 +8298,85 @@ msgid "DX Map"
 msgstr "Mapa DX"
 
 #: application/views/bandmap/list.php:544
+#: application/views/bandmap/list.php:566
 msgid "Search spots..."
 msgstr "Szukaj spotów..."
 
 #: application/views/bandmap/list.php:557
+#: application/views/bandmap/list.php:579
 msgid "Note: Map shows DXCC entity locations, not actual spot locations"
 msgstr ""
 "Uwaga: mapa pokazuje lokalizacje jednostek DXCC, a nie rzeczywiste "
 "lokalizacje spotów"
 
 #: application/views/bandmap/list.php:565
+#: application/views/bandmap/list.php:587
 msgid "Age in minutes"
 msgstr "Wiek w minutach"
 
 #: application/views/bandmap/list.php:567
+#: application/views/bandmap/list.php:589
 msgid "Freq"
 msgstr "Częs"
 
 #: application/views/bandmap/list.php:569
 #: application/views/eqsl/analysis.php:40
 #: application/views/eqsl/download.php:40 application/views/eqsl/result.php:37
+#: application/views/bandmap/list.php:551
+#: application/views/bandmap/list.php:591
 msgid "Submode"
 msgstr "Podemisja"
 
 #: application/views/bandmap/list.php:570
+#: application/views/bandmap/list.php:592
 msgid "Spotted Callsign"
 msgstr "Spotowany znak"
 
 #: application/views/bandmap/list.php:573
+#: application/views/bandmap/list.php:595
 msgid "Flag"
 msgstr "Flaga"
 
 #: application/views/bandmap/list.php:574
+#: application/views/bandmap/list.php:596
 msgid "DXCC Entity"
 msgstr "Podmiot"
 
 #: application/views/bandmap/list.php:574
+#: application/views/bandmap/list.php:557
+#: application/views/bandmap/list.php:596
 msgid "Entity"
 msgstr "Podmiot"
 
 #: application/views/bandmap/list.php:575
+#: application/views/bandmap/list.php:597
 msgid "Spotter Callsign"
 msgstr "Znak spotera"
 
 #: application/views/bandmap/list.php:576
+#: application/views/bandmap/list.php:562
+#: application/views/bandmap/list.php:598
 msgid "Spotter Continent"
 msgstr "Kontynent spotera"
 
 #: application/views/bandmap/list.php:577
+#: application/views/bandmap/list.php:563
+#: application/views/bandmap/list.php:599
 msgid "Spotter CQ Zone"
 msgstr "Strefa CQ Spotera"
 
 #: application/views/bandmap/list.php:578
+#: application/views/bandmap/list.php:600
 msgid "Last QSO Date"
 msgstr "Ostatnie QSO"
 
 #: application/views/bandmap/list.php:579
+#: application/views/bandmap/list.php:601
 msgid "Special"
 msgstr "Specjalne"
 
 #: application/views/bandmap/list.php:579
+#: application/views/bandmap/list.php:601
 msgid "Special Flags"
 msgstr "Flagi specjalne"
 
@@ -8351,6 +8385,8 @@ msgstr "Flagi specjalne"
 #: application/views/oqrs/request.php:54
 #: application/views/oqrs/request_grouped.php:57
 #: application/views/oqrs/status_info.php:5
+#: application/views/bandmap/list.php:558
+#: application/views/bandmap/list.php:602
 msgid "Message"
 msgstr "Wiadomość"
 
@@ -10760,8 +10796,8 @@ msgid ""
 "Go to your application/config Folder and compare config.sample.php with your "
 "config.php"
 msgstr ""
-"Należy przejść do folderu application/config i porównać plik config.sample."
-"php z plikiem config.php"
+"Należy przejść do folderu application/config i porównać plik "
+"config.sample.php z plikiem config.php"
 
 #: application/views/debug/index.php:206
 #, php-format
@@ -19397,6 +19433,22 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#: application/views/bandmap/list.php:544
+msgid "Search Column"
+msgstr ""
+
+#: application/views/bandmap/list.php:545
+msgid "All Columns"
+msgstr ""
+
+#: application/views/bandmap/list.php:546
+msgid "Spot Info"
+msgstr ""
+
+#: application/views/bandmap/list.php:553
+msgid "DX Station"
+msgstr ""
 
 #~ msgid "Incorrectly logged CQ zones"
 #~ msgstr "Niepoprawnie zapisane strefy CQ"
