@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-16 07:40+0000\n"
+"POT-Creation-Date: 2026-02-16 07:52+0000\n"
 "PO-Revision-Date: 2026-02-13 15:32+0000\n"
 "Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
@@ -650,8 +650,7 @@ msgstr "Skapa trafiksätt"
 msgid "Edit Band"
 msgstr "Redigera band"
 
-#: application/controllers/Bandmap.php:28
-#: application/controllers/Bandmap.php:77
+#: application/controllers/Bandmap.php:56
 #: application/controllers/Options.php:144
 #: application/controllers/Options.php:155
 #: application/views/options/sidebar.php:7
