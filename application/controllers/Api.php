@@ -1314,19 +1314,28 @@ class API extends CI_Controller {
 	* API key needs to be of a club officer (permission level 9)
 	* returns array of club member details
 	*/
-	function list_clubmembers($key = '') {
+	function list_clubmembers() {
 		header('Content-type: application/json');
 
 		$this->load->model('api_model');
-		if ($this->api_model->access($key) == "No Key Found" || $this->api_model->access($key) == "Key Disabled") {
+
+		// Decode JSON and store
+		$obj = json_decode(file_get_contents("php://input"), true);
+		if ($obj === NULL) {
+		    http_response_code(400);
+			echo json_encode(['status' => 'failed', 'reason' => "wrong JSON"]);
+			return;
+		}
+
+		if ($this->api_model->access($obj['key']) == "No Key Found" || $this->api_model->access($obj['key']) == "Key Disabled") {
 			http_response_code(401);
 			echo json_encode(['status' => 'error', 'message' => 'Auth Error, invalid key']);
 			return;
 		}
 
 		$this->load->model('club_model');
-		$userid = $this->api_model->key_userid($key);
-		$created_by = $this->api_model->key_created_by($key);
+		$userid = $this->api_model->key_userid($obj['key']);
+		$created_by = $this->api_model->key_created_by($obj['key']);
 		$club_perm = $this->club_model->get_permission_noui($userid,$created_by);
 		if (($userid == $created_by) || (($club_perm ?? 0) != 9)) { // not club officer
 			http_response_code(401);
@@ -1339,10 +1348,7 @@ class API extends CI_Controller {
 			foreach($memberlist as $member) {
 				$members[] = [
 					'callsign' => $member->user_callsign,
-					'first_name' => $member->user_firstname,
-					'last_name' => $member->user_lastname,
 					'user_name' => $member->user_name,
-					'email' => $member->user_email,
 					'p_level' => $member->p_level
 				];
 			}
