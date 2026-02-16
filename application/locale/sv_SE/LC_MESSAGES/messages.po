@@ -660,6 +660,7 @@ msgstr "Redigera band"
 #: application/controllers/Options.php:155
 #: application/views/options/sidebar.php:7
 #: application/controllers/Bandmap.php:77
+#: application/controllers/Bandmap.php:56
 msgid "DXCluster"
 msgstr "DX-kluster"
 
