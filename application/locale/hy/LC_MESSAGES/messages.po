@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-17 12:40+0000\n"
+"POT-Creation-Date: 2026-02-17 17:26+0000\n"
 "PO-Revision-Date: 2025-08-23 15:21+0000\n"
 "Last-Translator: Matthias Jung <jungma@eit.uni-kl.de>\n"
 "Language-Team: Armenian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -2898,103 +2898,103 @@ msgstr ""
 msgid "Preparing DXCC Prefixes: "
 msgstr ""
 
-#: application/controllers/Update.php:275
+#: application/controllers/Update.php:277
 msgid "DONE"
 msgstr ""
 
-#: application/controllers/Update.php:304
+#: application/controllers/Update.php:326
 msgid "Updating..."
 msgstr ""
 
-#: application/controllers/Update.php:307
+#: application/controllers/Update.php:329
 msgid "Dxcc Entities:"
 msgstr ""
 
-#: application/controllers/Update.php:308
+#: application/controllers/Update.php:330
 msgid "Dxcc Exceptions:"
 msgstr ""
 
-#: application/controllers/Update.php:309
+#: application/controllers/Update.php:331
 msgid "Dxcc Prefixes:"
 msgstr ""
 
-#: application/controllers/Update.php:340
+#: application/controllers/Update.php:362
 msgid "SCP Update complete. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:342
+#: application/controllers/Update.php:364
 msgid "SCP Update failed. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:379
+#: application/controllers/Update.php:401
 msgid "LoTW Users Update complete. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:381
+#: application/controllers/Update.php:403
 msgid "LoTW Users Update failed. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:416
+#: application/controllers/Update.php:438
 msgid "DOK Update complete. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:418
+#: application/controllers/Update.php:440
 msgid "DOK Update failed. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:451
+#: application/controllers/Update.php:473
 msgid "SOTA Update complete. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:453
+#: application/controllers/Update.php:475
 msgid "SOTA Update failed. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:486
+#: application/controllers/Update.php:508
 msgid "WWFF Update complete. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:488
+#: application/controllers/Update.php:510
 msgid "WWFF Update failed. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:522
+#: application/controllers/Update.php:544
 msgid "HAMqsl Update complete. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:524
+#: application/controllers/Update.php:546
 msgid "HAMqsl Update failed. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:557
+#: application/controllers/Update.php:579
 msgid "POTA Update complete. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:559
+#: application/controllers/Update.php:581
 msgid "POTA Update failed. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:588
+#: application/controllers/Update.php:610
 msgid "TLE Update complete. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:590
+#: application/controllers/Update.php:612
 msgid "TLE Update failed. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:617
+#: application/controllers/Update.php:639
 msgid "LoTW SAT Update"
 msgstr ""
 
-#: application/controllers/Update.php:645
+#: application/controllers/Update.php:667
 msgid "Update of Hams of Note"
 msgstr ""
 
-#: application/controllers/Update.php:685
+#: application/controllers/Update.php:707
 msgid "VUCC Grid file update complete. Result: "
 msgstr ""
 
-#: application/controllers/Update.php:687
+#: application/controllers/Update.php:709
 msgid "VUCC Grid file update failed. Result: "
 msgstr ""
 

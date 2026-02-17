@@ -26,7 +26,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-17 12:40+0000\n"
+"POT-Creation-Date: 2026-02-17 17:26+0000\n"
 "PO-Revision-Date: 2026-02-09 22:54+0000\n"
 "Last-Translator: Jerry <jerry19980425@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
@@ -2926,103 +2926,103 @@ msgstr "正在准备 DXCC 例外名单： "
 msgid "Preparing DXCC Prefixes: "
 msgstr "正在准备 DXCC 前缀： "
 
-#: application/controllers/Update.php:275
+#: application/controllers/Update.php:277
 msgid "DONE"
 msgstr "完成"
 
-#: application/controllers/Update.php:304
+#: application/controllers/Update.php:326
 msgid "Updating..."
 msgstr "更新中…"
 
-#: application/controllers/Update.php:307
+#: application/controllers/Update.php:329
 msgid "Dxcc Entities:"
 msgstr "DXCC 实体："
 
-#: application/controllers/Update.php:308
+#: application/controllers/Update.php:330
 msgid "Dxcc Exceptions:"
 msgstr "DXCC 例外："
 
-#: application/controllers/Update.php:309
+#: application/controllers/Update.php:331
 msgid "Dxcc Prefixes:"
 msgstr "DXCC 前缀："
 
-#: application/controllers/Update.php:340
+#: application/controllers/Update.php:362
 msgid "SCP Update complete. Result: "
 msgstr "SCP 更新已完成。结果为： "
 
-#: application/controllers/Update.php:342
+#: application/controllers/Update.php:364
 msgid "SCP Update failed. Result: "
 msgstr "SCP 更新失败。结果为： "
 
-#: application/controllers/Update.php:379
+#: application/controllers/Update.php:401
 msgid "LoTW Users Update complete. Result: "
 msgstr "LoTW 用户更新完成。结果为： "
 
-#: application/controllers/Update.php:381
+#: application/controllers/Update.php:403
 msgid "LoTW Users Update failed. Result: "
 msgstr "LoTW 用户更新失败。结果为： "
 
-#: application/controllers/Update.php:416
+#: application/controllers/Update.php:438
 msgid "DOK Update complete. Result: "
 msgstr "DOK 更新完成。结果为： "
 
-#: application/controllers/Update.php:418
+#: application/controllers/Update.php:440
 msgid "DOK Update failed. Result: "
 msgstr "DOK 更新失败。结果为： "
 
-#: application/controllers/Update.php:451
+#: application/controllers/Update.php:473
 msgid "SOTA Update complete. Result: "
 msgstr "SOTA 更新完成。结果为： "
 
-#: application/controllers/Update.php:453
+#: application/controllers/Update.php:475
 msgid "SOTA Update failed. Result: "
 msgstr "SOTA 更新失败。结果为： "
 
-#: application/controllers/Update.php:486
+#: application/controllers/Update.php:508
 msgid "WWFF Update complete. Result: "
 msgstr "WWFF 更新成功。结果为： "
 
-#: application/controllers/Update.php:488
+#: application/controllers/Update.php:510
 msgid "WWFF Update failed. Result: "
 msgstr "WWFF 更新失败。结果为： "
 
-#: application/controllers/Update.php:522
+#: application/controllers/Update.php:544
 msgid "HAMqsl Update complete. Result: "
 msgstr "HAMqsl 更新完成。结果： "
 
-#: application/controllers/Update.php:524
+#: application/controllers/Update.php:546
 msgid "HAMqsl Update failed. Result: "
 msgstr "HAMqsl 更新失败。结果： "
 
-#: application/controllers/Update.php:557
+#: application/controllers/Update.php:579
 msgid "POTA Update complete. Result: "
 msgstr "POTA 更新完成。结果为： "
 
-#: application/controllers/Update.php:559
+#: application/controllers/Update.php:581
 msgid "POTA Update failed. Result: "
 msgstr "POTA 更新失败。结果为： "
 
-#: application/controllers/Update.php:588
+#: application/controllers/Update.php:610
 msgid "TLE Update complete. Result: "
 msgstr "TLE 更新完成。结果为： "
 
-#: application/controllers/Update.php:590
+#: application/controllers/Update.php:612
 msgid "TLE Update failed. Result: "
 msgstr "TLE 更新失败。结果为： "
 
-#: application/controllers/Update.php:617
+#: application/controllers/Update.php:639
 msgid "LoTW SAT Update"
 msgstr "LoTW 卫星数据更新"
 
-#: application/controllers/Update.php:645
+#: application/controllers/Update.php:667
 msgid "Update of Hams of Note"
 msgstr "Hams of Note 更新"
 
-#: application/controllers/Update.php:685
+#: application/controllers/Update.php:707
 msgid "VUCC Grid file update complete. Result: "
 msgstr "VUCC 网格文件更新完成。结果： "
 
-#: application/controllers/Update.php:687
+#: application/controllers/Update.php:709
 msgid "VUCC Grid file update failed. Result: "
 msgstr "VUCC 网格文件更新失败。结果： "
 
