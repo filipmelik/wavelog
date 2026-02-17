@@ -373,9 +373,11 @@ class Stationsetup_model extends CI_Model {
 			if ($optiondata['link_active_logbook'] === 'true') {
 				$this->load->model('logbooks_model');
 				$active_logbook = $this->logbooks_model->find_active_station_logbook_from_userid($dbdata['user_id']);
-				// Can't use create_logbook_location_link if coming from API (No session->user_id, fails access check)
-				$data = array('station_logbook_id' => $active_logbook, 'station_location_id' =>  $location_id);
-				$this->db->insert('station_logbooks_relationship', $data);
+				if(!empty($active_logbook)) {
+					// Can't use create_logbook_location_link if coming from API (No session->user_id, fails access check)
+					$data = array('station_logbook_id' => $active_logbook, 'station_location_id' =>  $location_id);
+					$this->db->insert('station_logbooks_relationship', $data);
+				}
 			}
 		}
 
