@@ -183,7 +183,7 @@
                         <td>
                         <?php
                            if (!str_contains($row->COL_VUCC_GRIDS, ',')) {
-                              echo "<span class='fw-bolder text-danger'>";
+                              echo "<span class='fw-bolder text-warning'>";
                            }
                            echo $row->COL_VUCC_GRIDS;
                            if (!str_contains($row->COL_VUCC_GRIDS, ',')) {
