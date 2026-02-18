@@ -180,7 +180,18 @@
                     <?php if($row->COL_VUCC_GRIDS != null) { ?>
                     <tr>
                         <td>Gridsquare (Multi):</td>
-                        <td><?php echo $row->COL_VUCC_GRIDS; ?> <a href="javascript:spawnQrbCalculator('<?php echo $row->station_gridsquare . '\',\'' . $row->COL_VUCC_GRIDS; ?>')"><i class="fas fa-globe"></i></a></td>
+                        <td>
+                        <?php
+                           if (!str_contains($row->COL_VUCC_GRIDS, ',')) {
+                              echo "<span class='fw-bolder text-danger'>";
+                           }
+                           echo $row->COL_VUCC_GRIDS;
+                           if (!str_contains($row->COL_VUCC_GRIDS, ',')) {
+                              echo "</span>";
+                           }
+                           echo " <a href='javascript:spawnQrbCalculator('".$row->station_gridsquare."\',\'".$row->COL_VUCC_GRIDS.")'><i class='fas fa-globe'></i></a>";
+                        ?>
+                        </td>
                             <?php
                                 // Cacluate Distance
                                 $distance = $this->qra->distance($row->station_gridsquare, $row->COL_VUCC_GRIDS, $measurement_base, $row->COL_ANT_PATH ?? null);
