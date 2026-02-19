@@ -187,6 +187,7 @@
                            }
                            echo $row->COL_VUCC_GRIDS;
                            if (!str_contains($row->COL_VUCC_GRIDS, ',')) {
+                              echo " <i class='fa fa-question-circle' aria-hidden='true' data-bs-toggle='tooltip' title='".__("A single gridsquare was entered into the VUCC gridsquares field which should contain two or four gridsquares instead of a single grid.")."'></i>";
                               echo "</span>";
                            }
                            echo " <a href='javascript:spawnQrbCalculator('".$row->station_gridsquare."\',\'".$row->COL_VUCC_GRIDS.")'><i class='fas fa-globe'></i></a>";
