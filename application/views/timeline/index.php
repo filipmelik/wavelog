@@ -336,8 +336,11 @@ function write_waz_timeline($timeline_array, $custom_date_format, $bandselect, $
                     <tr>
                         <td>#</td>
                         <td>'.__("Date").'</td>
-                        <td>'.__("CQ Zone").'</td>
-                        <td>'.__("Show QSOs").'</td>
+                        <td>'.__("CQ Zone").'</td>';
+    if ($propmode == 'SAT' || $propmode == 'All') {
+        echo '          <td>'.__("Satellite").'</td>';
+    }
+    echo '              <td>'.__("Show QSOs").'</td>
                     </tr>
                 </thead>
                 <tbody>';
@@ -348,8 +351,11 @@ function write_waz_timeline($timeline_array, $custom_date_format, $bandselect, $
         echo '<tr>
                 <td>' . $i-- . '</td>
                 <td>' . date($custom_date_format, $date_as_timestamp) . '</td>
-                <td>' . $line->col_cqz . '</td>
-                <td><a href=javascript:displayTimelineContacts("' . $line->col_cqz . '","'. $bandselect . '","'. $modeselect. '","' . $propmode . '","' . $award .'")>'.__("Show").'</a></td>
+                <td>' . $line->col_cqz . '</td>';
+        if ($propmode == 'SAT' || $propmode == 'All') {
+           echo '<td>' . $line->sat_name . '</td>';
+        }
+        echo '  <td><a href=javascript:displayTimelineContacts("' . $line->col_cqz . '","'. $bandselect . '","'. $modeselect. '","' . $propmode . '","' . $award .'")>'.__("Show").'</a></td>
                </tr>';
     }
     echo '</tfoot></table></div>';
