@@ -240,8 +240,11 @@ function write_waja_timeline($timeline_array, $custom_date_format, $bandselect, 
                     <tr>
                         <td>#</td>
                         <td>'.__("Date").'</td>
-                        <td>'.__("Prefecture").'</td>
-                        <td>'.__("Show QSOs").'</td>
+                        <td>'.__("Prefecture").'</td>';
+    if ($propmode == 'SAT' || $propmode == 'All') {
+        echo '          <td>'.__("Satellite").'</td>';
+    }
+    echo '              <td>'.__("Show QSOs").'</td>
                     </tr>
                 </thead>
                 <tbody>';
@@ -252,8 +255,11 @@ function write_waja_timeline($timeline_array, $custom_date_format, $bandselect, 
         echo '<tr>
                 <td>' . $i-- . '</td>
                 <td>' . date($custom_date_format, $date_as_timestamp) . '</td>
-                <td>' . $CI->Waja->jaPrefectures[$line->col_state] . ' ('.$line->col_state.')</td>
-                <td><a href=javascript:displayTimelineContacts("' . $line->col_state . '","'. $bandselect . '","'. $modeselect. '","' . $propmode . '","' . $award .'")>'.__("Show").'</a></td>
+                <td>' . $CI->Waja->jaPrefectures[$line->col_state] . ' ('.$line->col_state.')</td>';
+        if ($propmode == 'SAT' || $propmode == 'All') {
+            echo '<td>'.$line->sat_name.'</td>';
+        }
+        echo '  <td><a href=javascript:displayTimelineContacts("' . $line->col_state . '","'. $bandselect . '","'. $modeselect. '","' . $propmode . '","' . $award .'")>'.__("Show").'</a></td>
                </tr>';
     }
     echo '</tfoot></table></div>';

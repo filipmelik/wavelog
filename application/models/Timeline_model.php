@@ -77,8 +77,11 @@ class Timeline_model extends CI_Model {
 
 	public function get_timeline_waja($band, $mode, $propmode, $location_list, $qsl, $lotw, $eqsl, $clublog, $year, $qrz, $onlynew) {
 		$binding = [];
-		$sql = "select min(date(COL_TIME_ON)) date, col_state from "
-			.$this->config->item('table_name'). " thcv
+		$sql = "SELECT * FROM (";
+		$sql .= "SELECT COL_TIME_ON AS date, col_state, ";
+		$sql .= "COL_SAT_NAME AS sat_name, ";
+		$sql .= "ROW_NUMBER() OVER (PARTITION BY COL_STATE ORDER BY COL_TIME_ON ASC) AS rn ";
+		$sql .= "FROM ".$this->config->item('table_name'). " thcv
 			where station_id in (" . $location_list . ")";
 
 		if ($band == 'SAT') {				// Left for compatibility reasons
@@ -117,8 +120,10 @@ class Timeline_model extends CI_Model {
 
 		$sql .= $this->addQslToQuery($qsl, $lotw, $eqsl, $clublog, $qrz);
 
-		$sql .= " group by col_state
-			order by date desc";
+		$sql .= ") ranked ";
+		$sql .= "WHERE rn = 1 ";
+
+		$sql .= "ORDER BY date DESC;";
 
 		$query = $this->db->query($sql, $binding);
 
