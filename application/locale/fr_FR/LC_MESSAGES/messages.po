@@ -1676,6 +1676,7 @@ msgstr "Pays"
 #: application/views/user/edit.php:317 application/views/user/edit.php:341
 #: application/views/view_log/partial/log_ajax.php:8
 #: application/views/visitor/index.php:18
+#: application/views/timeline/index.php:313
 msgid "IOTA"
 msgstr "IOTA"
 
@@ -1707,6 +1708,7 @@ msgstr "IOTA"
 #: application/views/user/edit.php:321 application/views/user/edit.php:345
 #: application/views/view_log/partial/log_ajax.php:12
 #: application/views/visitor/index.php:24
+#: application/views/timeline/index.php:277
 msgid "State"
 msgstr "Etat"
 
@@ -1757,6 +1759,7 @@ msgstr "Etat"
 #: application/views/view_log/qso.php:692
 #: application/views/visitor/index.php:27
 #: application/views/zonechecker/result.php:53
+#: application/views/timeline/index.php:386
 msgid "Gridsquare"
 msgstr "Locator"
 
@@ -1962,6 +1965,7 @@ msgstr "Opérateur"
 #: application/views/view_log/partial/log_ajax.php:31
 #: application/views/view_log/qso.php:353
 #: application/views/view_log/qso.php:706
+#: application/views/timeline/index.php:222
 msgid "Deleted DXCC"
 msgstr "DXCC Supprimé"
 
@@ -3313,8 +3317,8 @@ msgid ""
 "encryption_key in your config.php file first!"
 msgstr ""
 "Vous ne pouvez actuellement pas usurper l'identité d'un autre utilisateur. "
-"Veuillez d'abord changer la clé de chiffrement dans votre fichier config."
-"php !"
+"Veuillez d'abord changer la clé de chiffrement dans votre fichier "
+"config.php !"
 
 #: application/controllers/User.php:1612
 msgid "Invalid Hash"
@@ -4323,6 +4327,11 @@ msgstr "Tropospheric ducting"
 #: application/views/timeline/index.php:340
 #: application/views/timeline/index.php:370
 #: application/views/timeplotter/index.php:59
+#: application/views/timeline/index.php:225
+#: application/views/timeline/index.php:262
+#: application/views/timeline/index.php:296
+#: application/views/timeline/index.php:336
+#: application/views/timeline/index.php:406
 msgid "Show"
 msgstr "Afficher"
 
@@ -4350,6 +4359,12 @@ msgstr "Afficher"
 #: application/views/satellite/skedtable.php:35
 #: application/views/sattimers/index.php:38
 #: application/views/statistics/index.php:27
+#: application/views/timeline/index.php:202
+#: application/views/timeline/index.php:245
+#: application/views/timeline/index.php:279
+#: application/views/timeline/index.php:317
+#: application/views/timeline/index.php:353
+#: application/views/timeline/index.php:388
 msgid "Satellite"
 msgstr "Satellite"
 
@@ -4544,6 +4559,12 @@ msgstr "Nombre"
 #: application/views/timeline/index.php:298
 #: application/views/timeline/index.php:328
 #: application/views/timeline/index.php:357
+#: application/views/timeline/index.php:206
+#: application/views/timeline/index.php:247
+#: application/views/timeline/index.php:281
+#: application/views/timeline/index.php:319
+#: application/views/timeline/index.php:355
+#: application/views/timeline/index.php:390
 msgid "Show QSOs"
 msgstr "Afficher les QSOs"
 
@@ -4643,6 +4664,11 @@ msgstr ""
 #: application/views/view_log/partial/log_ajax.php:196
 #: application/views/visitor/index.php:151
 #: application/views/widgets/qsos.php:16
+#: application/views/timeline/index.php:242
+#: application/views/timeline/index.php:276
+#: application/views/timeline/index.php:312
+#: application/views/timeline/index.php:350
+#: application/views/timeline/index.php:384
 msgid "Date"
 msgstr "Date"
 
@@ -4677,6 +4703,7 @@ msgstr "Date"
 #: application/views/view_log/partial/log.php:6
 #: application/views/view_log/partial/log_ajax.php:198
 #: application/views/visitor/index.php:154
+#: application/views/timeline/index.php:385
 msgid "Time"
 msgstr "Heure"
 
@@ -5219,6 +5246,7 @@ msgstr "REF POTA en ADIF"
 #: application/views/stationsetup/stationsetup.php:34
 #: application/views/timeline/index.php:201
 #: application/views/usermode/index.php:41
+#: application/views/timeline/index.php:204
 msgid "Status"
 msgstr "Statut"
 
@@ -5602,6 +5630,7 @@ msgstr "Total"
 #: application/views/timeplotter/index.php:44
 #: application/views/user/modals/first_login_wizard.php:74
 #: application/views/zonechecker/index.php:17
+#: application/views/timeline/index.php:351
 msgid "CQ Zone"
 msgstr "Zone CQ"
 
@@ -6268,6 +6297,7 @@ msgstr "Nom DXCC"
 #: application/views/logbookadvanced/statecheckresult.php:10
 #: application/views/timeline/index.php:199
 #: application/views/timeline/index.php:297
+#: application/views/timeline/index.php:315
 msgid "Prefix"
 msgstr "Préfix"
 
@@ -6562,6 +6592,7 @@ msgstr "Afficher la carte IOTA"
 #: application/views/view_log/partial/log_ajax.php:19
 #: application/views/view_log/qso.php:232
 #: application/views/view_log/qso.php:688
+#: application/views/timeline/index.php:314
 msgid "Name"
 msgstr "Nom"
 
@@ -7275,6 +7306,7 @@ msgstr "Afficher la carte WAJA"
 
 #: application/views/awards/waja/index.php:158
 #: application/views/timeline/index.php:237
+#: application/views/timeline/index.php:243
 msgid "Prefecture"
 msgstr "Préfecture"
 
@@ -10516,6 +10548,7 @@ msgstr "Date début"
 #: application/views/dayswithqso/index.php:182
 #: application/views/lotw/satupdate.php:7
 #: application/views/timeline/index.php:202
+#: application/views/timeline/index.php:205
 msgid "End Date"
 msgstr "Date fin"
 
@@ -11635,8 +11668,8 @@ msgstr ""
 #: application/views/eqsl/export.php:37
 msgid "Clicking 'Upload QSOs' will send QSO information to eQSL.cc."
 msgstr ""
-"Cliquer sur 'Téléverser les QSOs' enverra les informations de QSO vers eQSL."
-"cc."
+"Cliquer sur 'Téléverser les QSOs' enverra les informations de QSO vers "
+"eQSL.cc."
 
 #: application/views/eqsl/export.php:46
 msgid "The following QSOs were sent to eQSL."
@@ -15040,8 +15073,8 @@ msgid ""
 "The hostname of the mail server, e.g. 'mail.example.com' (without 'ssl://' "
 "or 'tls://')"
 msgstr ""
-"Le nom d'hôte du serveur de messagerie, par exemple « mail.example."
-"com » (sans « ssl:// » ou « tls:// »)"
+"Le nom d'hôte du serveur de messagerie, par exemple « mail.example.com » "
+"(sans « ssl:// » ou « tls:// »)"
 
 #: application/views/options/email.php:88
 msgid "SMTP Port"
@@ -17182,8 +17215,8 @@ msgid ""
 msgstr ""
 "Pour commencer, assurez-vous d'avoir rempli le formulaire sur la gauche avec "
 "la date, l'indicatif de la station et l'indicatif de l'opérateur. Les "
-"données principales incluent la bande (ou QRG en MHz, par exemple « 7.145 "
-"»), le mode et l'heure. Après l'heure, indiquez le premier QSO, qui "
+"données principales incluent la bande (ou QRG en MHz, par exemple "
+"« 7.145 »), le mode et l'heure. Après l'heure, indiquez le premier QSO, qui "
 "correspond essentiellement à l'indicatif."
 
 #: application/views/simplefle/syntax_help.php:9

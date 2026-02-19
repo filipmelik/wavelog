@@ -1662,6 +1662,7 @@ msgstr "国"
 #: application/views/user/edit.php:317 application/views/user/edit.php:341
 #: application/views/view_log/partial/log_ajax.php:8
 #: application/views/visitor/index.php:18
+#: application/views/timeline/index.php:313
 msgid "IOTA"
 msgstr "IOTA"
 
@@ -1693,6 +1694,7 @@ msgstr "IOTA"
 #: application/views/user/edit.php:321 application/views/user/edit.php:345
 #: application/views/view_log/partial/log_ajax.php:12
 #: application/views/visitor/index.php:24
+#: application/views/timeline/index.php:277
 msgid "State"
 msgstr "州"
 
@@ -1743,6 +1745,7 @@ msgstr "州"
 #: application/views/view_log/qso.php:692
 #: application/views/visitor/index.php:27
 #: application/views/zonechecker/result.php:53
+#: application/views/timeline/index.php:386
 msgid "Gridsquare"
 msgstr "グリッドスクエア"
 
@@ -1948,6 +1951,7 @@ msgstr "オペレーター"
 #: application/views/view_log/partial/log_ajax.php:31
 #: application/views/view_log/qso.php:353
 #: application/views/view_log/qso.php:706
+#: application/views/timeline/index.php:222
 msgid "Deleted DXCC"
 msgstr "DXCCを削除しました"
 
@@ -4285,6 +4289,11 @@ msgstr "対流圏ダクト"
 #: application/views/timeline/index.php:340
 #: application/views/timeline/index.php:370
 #: application/views/timeplotter/index.php:59
+#: application/views/timeline/index.php:225
+#: application/views/timeline/index.php:262
+#: application/views/timeline/index.php:296
+#: application/views/timeline/index.php:336
+#: application/views/timeline/index.php:406
 msgid "Show"
 msgstr "表示"
 
@@ -4312,6 +4321,12 @@ msgstr "表示"
 #: application/views/satellite/skedtable.php:35
 #: application/views/sattimers/index.php:38
 #: application/views/statistics/index.php:27
+#: application/views/timeline/index.php:202
+#: application/views/timeline/index.php:245
+#: application/views/timeline/index.php:279
+#: application/views/timeline/index.php:317
+#: application/views/timeline/index.php:353
+#: application/views/timeline/index.php:388
 msgid "Satellite"
 msgstr "衛星"
 
@@ -4506,6 +4521,12 @@ msgstr "カウント"
 #: application/views/timeline/index.php:298
 #: application/views/timeline/index.php:328
 #: application/views/timeline/index.php:357
+#: application/views/timeline/index.php:206
+#: application/views/timeline/index.php:247
+#: application/views/timeline/index.php:281
+#: application/views/timeline/index.php:319
+#: application/views/timeline/index.php:355
+#: application/views/timeline/index.php:390
 msgid "Show QSOs"
 msgstr "QSOを表示"
 
@@ -4604,6 +4625,11 @@ msgstr ""
 #: application/views/view_log/partial/log_ajax.php:196
 #: application/views/visitor/index.php:151
 #: application/views/widgets/qsos.php:16
+#: application/views/timeline/index.php:242
+#: application/views/timeline/index.php:276
+#: application/views/timeline/index.php:312
+#: application/views/timeline/index.php:350
+#: application/views/timeline/index.php:384
 msgid "Date"
 msgstr "日付"
 
@@ -4638,6 +4664,7 @@ msgstr "日付"
 #: application/views/view_log/partial/log.php:6
 #: application/views/view_log/partial/log_ajax.php:198
 #: application/views/visitor/index.php:154
+#: application/views/timeline/index.php:385
 msgid "Time"
 msgstr "時間"
 
@@ -5161,6 +5188,7 @@ msgstr "ADIFにおけるPOTA参照"
 #: application/views/stationsetup/stationsetup.php:34
 #: application/views/timeline/index.php:201
 #: application/views/usermode/index.php:41
+#: application/views/timeline/index.php:204
 msgid "Status"
 msgstr "状態"
 
@@ -5540,6 +5568,7 @@ msgstr "合計"
 #: application/views/timeplotter/index.php:44
 #: application/views/user/modals/first_login_wizard.php:74
 #: application/views/zonechecker/index.php:17
+#: application/views/timeline/index.php:351
 msgid "CQ Zone"
 msgstr "CQゾーン"
 
@@ -6199,6 +6228,7 @@ msgstr "DXCC 名称"
 #: application/views/logbookadvanced/statecheckresult.php:10
 #: application/views/timeline/index.php:199
 #: application/views/timeline/index.php:297
+#: application/views/timeline/index.php:315
 msgid "Prefix"
 msgstr "Prefix"
 
@@ -6481,6 +6511,7 @@ msgstr "IOTAマップを表示"
 #: application/views/view_log/partial/log_ajax.php:19
 #: application/views/view_log/qso.php:232
 #: application/views/view_log/qso.php:688
+#: application/views/timeline/index.php:314
 msgid "Name"
 msgstr "名前"
 
@@ -7174,6 +7205,7 @@ msgstr "WAJAマップを表示"
 
 #: application/views/awards/waja/index.php:158
 #: application/views/timeline/index.php:237
+#: application/views/timeline/index.php:243
 msgid "Prefecture"
 msgstr "県"
 
@@ -10359,6 +10391,7 @@ msgstr "開始日"
 #: application/views/dayswithqso/index.php:182
 #: application/views/lotw/satupdate.php:7
 #: application/views/timeline/index.php:202
+#: application/views/timeline/index.php:205
 msgid "End Date"
 msgstr "終了日"
 
@@ -19420,9 +19453,9 @@ msgstr "CQz geojson"
 #~ "processed. %s Please make sure you export the LoTW certificate from tqsl "
 #~ "application without password! %s"
 #~ msgstr ""
-#~ "ファイル %s 内の証明書にはパスワードが含まれており、処理できませ"
-#~ "ん。%stqsl アプリケーションから LoTW 証明書をエクスポートする際は、パス"
-#~ "ワードなしで実行してください！%s"
+#~ "ファイル %s 内の証明書にはパスワードが含まれており、処理できません。"
+#~ "%stqsl アプリケーションから LoTW 証明書をエクスポートする際は、パスワード"
+#~ "なしで実行してください！%s"
 
 #~ msgid "Column"
 #~ msgstr "カラム"
@@ -19756,8 +19789,8 @@ msgstr "CQz geojson"
 #~ "Your active Station Location isn't linked to your Logbook. Click %shere%s "
 #~ "to do it."
 #~ msgstr ""
-#~ "現在のステーション位置がログブックとリンクされていません。リンクするに"
-#~ "は、%shere%s をクリックしてください。"
+#~ "現在のステーション位置がログブックとリンクされていません。リンクするには、"
+#~ "%shere%s をクリックしてください。"
 
 #, php-format
 #~ msgctxt "Dashboard Warning"

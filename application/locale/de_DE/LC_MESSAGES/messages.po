@@ -1683,6 +1683,7 @@ msgstr "Land"
 #: application/views/user/edit.php:317 application/views/user/edit.php:341
 #: application/views/view_log/partial/log_ajax.php:8
 #: application/views/visitor/index.php:18
+#: application/views/timeline/index.php:313
 msgid "IOTA"
 msgstr "IOTA"
 
@@ -1714,6 +1715,7 @@ msgstr "IOTA"
 #: application/views/user/edit.php:321 application/views/user/edit.php:345
 #: application/views/view_log/partial/log_ajax.php:12
 #: application/views/visitor/index.php:24
+#: application/views/timeline/index.php:277
 msgid "State"
 msgstr "Staat"
 
@@ -1764,6 +1766,7 @@ msgstr "Staat"
 #: application/views/view_log/qso.php:692
 #: application/views/visitor/index.php:27
 #: application/views/zonechecker/result.php:53
+#: application/views/timeline/index.php:386
 msgid "Gridsquare"
 msgstr "Locator"
 
@@ -1969,6 +1972,7 @@ msgstr "Operator"
 #: application/views/view_log/partial/log_ajax.php:31
 #: application/views/view_log/qso.php:353
 #: application/views/view_log/qso.php:706
+#: application/views/timeline/index.php:222
 msgid "Deleted DXCC"
 msgstr "Gelöschtes DXCC"
 
@@ -4323,6 +4327,11 @@ msgstr "troposphärisches Ducting"
 #: application/views/timeline/index.php:340
 #: application/views/timeline/index.php:370
 #: application/views/timeplotter/index.php:59
+#: application/views/timeline/index.php:225
+#: application/views/timeline/index.php:262
+#: application/views/timeline/index.php:296
+#: application/views/timeline/index.php:336
+#: application/views/timeline/index.php:406
 msgid "Show"
 msgstr "Anzeigen"
 
@@ -4350,6 +4359,12 @@ msgstr "Anzeigen"
 #: application/views/satellite/skedtable.php:35
 #: application/views/sattimers/index.php:38
 #: application/views/statistics/index.php:27
+#: application/views/timeline/index.php:202
+#: application/views/timeline/index.php:245
+#: application/views/timeline/index.php:279
+#: application/views/timeline/index.php:317
+#: application/views/timeline/index.php:353
+#: application/views/timeline/index.php:388
 msgid "Satellite"
 msgstr "Satellit"
 
@@ -4544,6 +4559,12 @@ msgstr "Zähler"
 #: application/views/timeline/index.php:298
 #: application/views/timeline/index.php:328
 #: application/views/timeline/index.php:357
+#: application/views/timeline/index.php:206
+#: application/views/timeline/index.php:247
+#: application/views/timeline/index.php:281
+#: application/views/timeline/index.php:319
+#: application/views/timeline/index.php:355
+#: application/views/timeline/index.php:390
 msgid "Show QSOs"
 msgstr "QSOs anzeigen"
 
@@ -4643,6 +4664,11 @@ msgstr ""
 #: application/views/view_log/partial/log_ajax.php:196
 #: application/views/visitor/index.php:151
 #: application/views/widgets/qsos.php:16
+#: application/views/timeline/index.php:242
+#: application/views/timeline/index.php:276
+#: application/views/timeline/index.php:312
+#: application/views/timeline/index.php:350
+#: application/views/timeline/index.php:384
 msgid "Date"
 msgstr "Datum"
 
@@ -4677,6 +4703,7 @@ msgstr "Datum"
 #: application/views/view_log/partial/log.php:6
 #: application/views/view_log/partial/log_ajax.php:198
 #: application/views/visitor/index.php:154
+#: application/views/timeline/index.php:385
 msgid "Time"
 msgstr "Zeit"
 
@@ -5213,6 +5240,7 @@ msgstr "POTA-Referenzen im ADIF"
 #: application/views/stationsetup/stationsetup.php:34
 #: application/views/timeline/index.php:201
 #: application/views/usermode/index.php:41
+#: application/views/timeline/index.php:204
 msgid "Status"
 msgstr "Status"
 
@@ -5596,6 +5624,7 @@ msgstr "Gesamt"
 #: application/views/timeplotter/index.php:44
 #: application/views/user/modals/first_login_wizard.php:74
 #: application/views/zonechecker/index.php:17
+#: application/views/timeline/index.php:351
 msgid "CQ Zone"
 msgstr "CQ-Zone"
 
@@ -6258,6 +6287,7 @@ msgstr "DXCC Name"
 #: application/views/logbookadvanced/statecheckresult.php:10
 #: application/views/timeline/index.php:199
 #: application/views/timeline/index.php:297
+#: application/views/timeline/index.php:315
 msgid "Prefix"
 msgstr "Präfix"
 
@@ -6552,6 +6582,7 @@ msgstr "Zeige IOTA Karte"
 #: application/views/view_log/partial/log_ajax.php:19
 #: application/views/view_log/qso.php:232
 #: application/views/view_log/qso.php:688
+#: application/views/timeline/index.php:314
 msgid "Name"
 msgstr "Name"
 
@@ -7260,6 +7291,7 @@ msgstr "Zeige WAJA-Karte"
 
 #: application/views/awards/waja/index.php:158
 #: application/views/timeline/index.php:237
+#: application/views/timeline/index.php:243
 msgid "Prefecture"
 msgstr "Präfektur"
 
@@ -10480,6 +10512,7 @@ msgstr "Startdatum"
 #: application/views/dayswithqso/index.php:182
 #: application/views/lotw/satupdate.php:7
 #: application/views/timeline/index.php:202
+#: application/views/timeline/index.php:205
 msgid "End Date"
 msgstr "Enddatum"
 
@@ -11591,8 +11624,8 @@ msgstr ""
 #: application/views/eqsl/export.php:37
 msgid "Clicking 'Upload QSOs' will send QSO information to eQSL.cc."
 msgstr ""
-"Wenn du auf 'QSOs hochladen' klickst, sendest du QSO-Informationen an eQSL."
-"cc."
+"Wenn du auf 'QSOs hochladen' klickst, sendest du QSO-Informationen an "
+"eQSL.cc."
 
 #: application/views/eqsl/export.php:46
 msgid "The following QSOs were sent to eQSL."
@@ -14967,8 +15000,8 @@ msgstr "E-Mail Adresse"
 msgid ""
 "The email address from which the emails are sent, e.g. 'wavelog@example.com'"
 msgstr ""
-"Die E-Mail Adresse von der die Mails versendet werden, z.B. 'wavelog@example."
-"com'"
+"Die E-Mail Adresse von der die Mails versendet werden, z.B. "
+"'wavelog@example.com'"
 
 #: application/views/options/email.php:80
 msgid "SMTP Host"
@@ -17109,9 +17142,9 @@ msgid ""
 msgstr ""
 "Um zu beginnen, stelle sicher, dass du die Felder auf der linken Seite "
 "bereits mit Datum, Stationsrufzeichen/-standort und Rufzeichen des Operators "
-"ausgefüllt hast. Die wichtigsten Daten umfassen das Band (oder QRG in MHz, z."
-"B. '7.145'), Mode und Zeit. Nach der Zeit gibst du das erste QSO an, was im "
-"wesentlichen das Rufzeichen ist."
+"ausgefüllt hast. Die wichtigsten Daten umfassen das Band (oder QRG in MHz, "
+"z.B. '7.145'), Mode und Zeit. Nach der Zeit gibst du das erste QSO an, was "
+"im wesentlichen das Rufzeichen ist."
 
 #: application/views/simplefle/syntax_help.php:9
 msgid "For example, a QSO that started at 21:34 (UTC) with 4W7EST on 20m SSB."
@@ -17985,9 +18018,9 @@ msgid ""
 "Create a new folder in 'assets/css/' and upload a 'bootstrap.min.css' file "
 "which contains basic styling rules. We use the themes from %s"
 msgstr ""
-"Erstelle einen neuen Ordner in 'assets/css/' und lade eine 'bootstrap.min."
-"css' Datei hoch, welche die grundlegende Styling-Regeln enthält. Wir "
-"verwenden die Themes von %s"
+"Erstelle einen neuen Ordner in 'assets/css/' und lade eine "
+"'bootstrap.min.css' Datei hoch, welche die grundlegende Styling-Regeln "
+"enthält. Wir verwenden die Themes von %s"
 
 #: application/views/themes/index.php:50
 msgid "2. Step"
