@@ -198,7 +198,7 @@ function write_dxcc_timeline($timeline_array, $custom_date_format, $bandselect, 
                         <td>' . __("Date") . '</td>
                         <td>' . __("Prefix") . '</td>
                         <td>' . __("Country") . '</td>';
-    if ($propmode == 'SAT') {
+    if ($propmode == 'SAT' || $propmode == 'All') {
         echo '          <td>'.__("Satellite").'</td>';
     }
     echo '              <td>' . __("Status") . '</td>
@@ -215,7 +215,7 @@ function write_dxcc_timeline($timeline_array, $custom_date_format, $bandselect, 
                 <td>' . date($custom_date_format, $date_as_timestamp) . '</td>
                 <td>' . $line->prefix . '</td>
                 <td>' . ucwords(strtolower($line->dxcc_name)) . '</td>';
-        if ($propmode == 'SAT') {
+        if ($propmode == 'SAT' || $propmode == 'All') {
             echo '<td>'.$line->sat_name.'</td>';
         }
         echo '  <td>';
@@ -360,7 +360,7 @@ function write_vucc_timeline($timeline_array, $custom_date_format, $bandselect, 
                         <td>'.__("Date").'</td>
                         <td>'.__("Time").'</td>
                         <td>'.__("Gridsquare").'</td>';
-    if ($propmode == 'SAT') {
+    if ($propmode == 'SAT' || $propmode == 'All') {
         echo '          <td>'.__("Satellite").'</td>';
     }
     echo '              <td>'.__("Show QSOs").'</td>
@@ -376,7 +376,7 @@ function write_vucc_timeline($timeline_array, $custom_date_format, $bandselect, 
                 <td>' . date($custom_date_format, $date_as_timestamp) . '</td>
                 <td>' . date('H:i', $date_as_timestamp) . '</td>
                 <td>' . $line['gridsquare'] . '</td>';
-        if ($propmode == 'SAT') {
+        if ($propmode == 'SAT' || $propmode == 'All') {
             echo '<td>'.$line['sat_name'].'</td>';
         }
         echo '  <td><a href=javascript:displayTimelineContacts("' . $line['gridsquare'] . '","'. $bandselect . '","'. $modeselect. '","' . $propmode . '","' . $award .'")>'.__("Show").'</a></td>
