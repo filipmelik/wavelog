@@ -445,7 +445,7 @@ class Timeline_model extends CI_Model {
 
 		$sql .= $this->addQslToQuery($qsl, $lotw, $eqsl, $clublog, $qrz);
 
-		$sql .= " and col_gridsquare <> ''";
+		$sql .= " AND COL_GRIDSQUARE <> ''";
 		$sql .= ") ranked ";
 		$sql .= "WHERE rn = 1 ";
 		$sql .= "ORDER BY date DESC;";
@@ -457,12 +457,12 @@ class Timeline_model extends CI_Model {
 
 	public function get_vucc_grids($band, $mode, $propmode, $location_list, $qsl, $lotw, $eqsl, $clublog, $year, $qrz, $onlynew) {
 		$binding = [];
-		$sql = "select COL_TIME_ON as date, upper(col_vucc_grids) gridsquare ";
-		if ($propmode == 'SAT') {
-			$sql .= ", COL_SAT_NAME as sat_name ";
-		}
-		$sql .= "from ".$this->config->item('table_name'). " thcv
-			where station_id in (" . $location_list . ")";
+		$sql = "SELECT * FROM (";
+		$sql .= "SELECT COL_TIME_ON AS date, upper(COL_VUCC_GRIDS) AS gridsquare, ";
+		$sql .= "COL_SAT_NAME AS sat_name, ";
+		$sql .= "ROW_NUMBER() OVER (PARTITION BY upper(COL_VUCC_GRIDS) ORDER BY COL_TIME_ON ASC) AS rn ";
+		$sql .= "FROM ".$this->config->item('table_name'). " thcv
+			WHERE station_id IN (" . $location_list . ")";
 
 		if ($band == 'SAT') {				// Left for compatibility reasons
 			$sql .= " and col_prop_mode = ?";
@@ -497,7 +497,10 @@ class Timeline_model extends CI_Model {
 
 		$sql .= $this->addQslToQuery($qsl, $lotw, $eqsl, $clublog, $qrz);
 
-		$sql .= " and col_vucc_grids <> ''";
+		$sql .= " AND COL_VUCC_GRIDS <> ''";
+		$sql .= ") ranked ";
+		$sql .= "WHERE rn = 1 ";
+		$sql .= "ORDER BY date DESC;";
 
 		$query = $this->db->query($sql, $binding);
 		return $query->result();
