@@ -405,12 +405,12 @@ class Timeline_model extends CI_Model {
 
 	public function get_gridsquare($band, $mode, $propmode, $location_list, $qsl, $lotw, $eqsl, $clublog, $year, $qrz, $onlynew) {
 		$binding = [];
-		$sql = "select min(COL_TIME_ON) date, upper(substring(col_gridsquare, 1, 4)) gridsquare ";
-		if ($propmode == 'SAT') {
-			$sql .= ", COL_SAT_NAME as sat_name ";
-		}
-		$sql .= "from ".$this->config->item('table_name'). " thcv
-			where station_id in (" . $location_list . ")";
+		$sql = "SELECT * FROM (";
+		$sql .= "SELECT COL_TIME_ON AS date, upper(substring(COL_GRIDSQUARE, 1, 4)) AS gridsquare, ";
+		$sql .= "COL_SAT_NAME AS sat_name, ";
+		$sql .= "ROW_NUMBER() OVER (PARTITION BY upper(substring(COL_GRIDSQUARE, 1, 4)) ORDER BY COL_TIME_ON ASC) AS rn ";
+		$sql .= "FROM ".$this->config->item('table_name'). " thcv
+			WHERE station_id IN (" . $location_list . ")";
 
 		if ($band == 'SAT') {				// Left for compatibility reasons
 			$sql .= " and col_prop_mode = ?";
@@ -445,11 +445,10 @@ class Timeline_model extends CI_Model {
 
 		$sql .= $this->addQslToQuery($qsl, $lotw, $eqsl, $clublog, $qrz);
 
-		$sql .= " and col_gridsquare <> '' group by upper(substring(col_gridsquare, 1, 4)) ";
-		if ($propmode == 'SAT') {
-			$sql .= ", sat_name ";
-		}
-		$sql .= "order by date desc";
+		$sql .= " and col_gridsquare <> ''";
+		$sql .= ") ranked ";
+		$sql .= "WHERE rn = 1 ";
+		$sql .= "ORDER BY date DESC;";
 
 		$query = $this->db->query($sql, $binding);
 
