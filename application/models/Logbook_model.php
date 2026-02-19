@@ -3344,38 +3344,28 @@ class Logbook_model extends CI_Model {
 			$logbooks_locations_array = $StationLocationsArray;
 		}
 
-		switch ($cnfm) {
-			case 'qsl':
-				$this->db->select('COL_QSL_RCVD as gridorcnfm');
-				$this->db->group_by('COL_QSL_RCVD');
-				break;
-			case 'lotw':
-				$this->db->select('COL_LOTW_QSL_RCVD as gridorcnfm');
-				$this->db->group_by('COL_LOTW_QSL_RCVD');
-				break;
-			case 'eqsl':
-				$this->db->select('COL_EQSL_QSL_RCVD as gridorcnfm');
-				$this->db->group_by('COL_EQSL_QSL_RCVD');
-				break;
-			default:
-				$this->db->select('SUBSTR(COL_GRIDSQUARE,1 ,4) as gridorcnfm');
-				$this->db->group_by('gridorcnfm');
-				break;
-		}
-		$this->db->order_by('gridorcnfm');
-		$this->db->where_in('station_id', $logbooks_locations_array);
-
+      $bindings = [];
+		$sql = 'SELECT DISTINCT UPPER(SUBSTR(COL_GRIDSQUARE, 1, 4)) AS gridsquare FROM ' . $this->config->item('table_name') . ' thcv ';
+		$sql .= ' WHERE COL_GRIDSQUARE <> "" AND station_id IN ('.implode(',', $logbooks_locations_array).')';
 		$band = ($band == 'All') ? null : $band;
 		if ($band != null && $band != 'SAT') {
-			$this->db->where('COL_BAND', $band);
+			$sql .= ' AND COL_BAND = ? AND COL_PROP_MODE != "SAT"';
+			$bindings[] = $band;
 		} else if ($band == 'SAT') {
-			$this->db->where('COL_SAT_NAME !=', '');
+			$sql .= ' AND COL_SAT_NAME != ""';
 		}
-		$this->db->having('gridorcnfm !=', '');
-		$this->db->having('gridorcnfm is not null');
-
-		$query = $this->db->get($this->config->item('table_name'));
-
+		switch ($cnfm) {
+			case 'qsl':
+				$sql .= ' AND COL_QSL_RCVD = "Y"';
+				break;
+			case 'lotw':
+				$sql .= ' AND COL_LOTW_QSL_RCVD = "Y"';
+				break;
+			case 'eqsl':
+				$sql .= ' AND COL_EQSL_QSL_RCVD = "Y"';
+				break;
+		}
+		$query = $this->db->query($sql,$bindings);
 		return $query;
 	}
 

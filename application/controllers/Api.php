@@ -774,7 +774,7 @@ class API extends CI_Controller {
 				$query = $this->logbook_model->get_grids_worked_in_logbook($logbooks_locations_array, $band, $cnfm);
 				http_response_code(201);
 				foreach($query->result() as $line) {
-					$arr[] = $line->gridorcnfm;
+					$arr[] = $line->gridsquare;
 				}
 				echo json_encode($arr);
 
