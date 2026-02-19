@@ -186,8 +186,11 @@ class Timeline_model extends CI_Model {
 
 	public function get_timeline_iota($band, $mode, $propmode, $location_list, $qsl, $lotw, $eqsl, $clublog, $year, $qrz, $onlynew) {
 		$binding = [];
-		$sql = "select min(date(COL_TIME_ON)) date,  col_iota, name, prefix from "
-			.$this->config->item('table_name'). " thcv
+		$sql = "SELECT * FROM (";
+		$sql .= "SELECT COL_TIME_ON AS date, col_iota, name, prefix, ";
+		$sql .= "COL_SAT_NAME AS sat_name, ";
+		$sql .= "ROW_NUMBER() OVER (PARTITION BY col_iota ORDER BY COL_TIME_ON ASC) AS rn ";
+		$sql .= "FROM ".$this->config->item('table_name'). " thcv
 			join iota on thcv.col_iota = iota.tag
 			where station_id in (" . $location_list . ")";
 
@@ -225,8 +228,10 @@ class Timeline_model extends CI_Model {
 
 		$sql .= $this->addQslToQuery($qsl, $lotw, $eqsl, $clublog, $qrz);
 
-		$sql .= " and col_iota <> '' group by col_iota, name, prefix
-			order by date desc";
+		$sql .= " and col_iota <> ''";
+		$sql .= ") ranked ";
+		$sql .= "WHERE rn = 1 ";
+		$sql .= "ORDER BY date DESC;";
 
 		$query = $this->db->query($sql, $binding);
 

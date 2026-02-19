@@ -312,8 +312,11 @@ function write_iota_timeline($timeline_array, $custom_date_format, $bandselect, 
                         <td>'.__("Date").'</td>
                         <td>'.__("IOTA").'</td>
                         <td>'.__("Name").'</td>
-                        <td>'.__("Prefix").'</td>
-                        <td>'.__("Show QSOs").'</td>
+                        <td>'.__("Prefix").'</td>';
+    if ($propmode == 'SAT' || $propmode == 'All') {
+        echo '          <td>'.__("Satellite").'</td>';
+    }
+    echo '              <td>'.__("Show QSOs").'</td>
                     </tr>
                 </thead>
                 <tbody>';
@@ -326,8 +329,11 @@ function write_iota_timeline($timeline_array, $custom_date_format, $bandselect, 
                 <td>' . date($custom_date_format, $date_as_timestamp) . '</td>
                 <td>' . $line->col_iota . '</td>
                 <td>' . $line->name . '</td>
-                <td>' . $line->prefix . '</td>
-                <td><a href=javascript:displayTimelineContacts("' . $line->col_iota . '","'. $bandselect . '","'. $modeselect. '","' . $propmode . '","' . $award .'")>'.__("Show").'</a></td>
+                <td>' . $line->prefix . '</td>';
+        if ($propmode == 'SAT' || $propmode == 'All') {
+           echo '<td>' . $line->sat_name . '</td>';
+        }
+        echo '  <td><a href=javascript:displayTimelineContacts("' . $line->col_iota . '","'. $bandselect . '","'. $modeselect. '","' . $propmode . '","' . $award .'")>'.__("Show").'</a></td>
                </tr>';
     }
     echo '</tfoot></table></div>';
