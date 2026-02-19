@@ -1486,7 +1486,7 @@ $("#callsign").on("focusout", function () {
 						eqsl_member: result.eqsl_member,
 						qsl_manager: result.qsl_manager,
 						slot_confirmed: result.dxcc_confirmed_on_band_mode,
-						darc_dok: result.darc_dok
+						darc_dok: result.callsign_darc_dok
 					};
 					window.broadcastLookupResult(broadcastData);
 				}
