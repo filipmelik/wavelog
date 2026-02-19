@@ -26,8 +26,11 @@ class Timeline_model extends CI_Model {
 
 	public function get_timeline_dxcc($band, $mode, $propmode, $location_list, $qsl, $lotw, $eqsl, $clublog, $year, $qrz, $onlynew) {
 		$binding = [];
-		$sql = "select min(date(COL_TIME_ON)) date, prefix, dxcc_entities.name as dxcc_name, end, adif from "
-			.$this->config->item('table_name'). " thcv
+		$sql = "SELECT * FROM (";
+		$sql .= "SELECT COL_TIME_ON AS date, prefix, dxcc_entities.name as dxcc_name, end, adif, ";
+		$sql .= "COL_SAT_NAME AS sat_name, ";
+		$sql .= "ROW_NUMBER() OVER (PARTITION BY adif ORDER BY COL_TIME_ON ASC) AS rn ";
+		$sql .= "FROM ".$this->config->item('table_name'). " thcv
 			join dxcc_entities on thcv.col_dxcc = dxcc_entities.adif
 			where station_id in (" . $location_list . ") and col_dxcc > 0 ";
 
@@ -64,8 +67,9 @@ class Timeline_model extends CI_Model {
 
 		$sql .= $this->addQslToQuery($qsl, $lotw, $eqsl, $clublog, $qrz);
 
-		$sql .= " group by col_dxcc
-			order by date desc";
+		$sql .= ") ranked ";
+		$sql .= "WHERE rn = 1 ";
+		$sql .= "ORDER BY date DESC;";
 
 		$query = $this->db->query($sql, $binding);
 		return $query->result();

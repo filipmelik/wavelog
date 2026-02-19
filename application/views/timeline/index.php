@@ -197,8 +197,11 @@ function write_dxcc_timeline($timeline_array, $custom_date_format, $bandselect, 
                         <td>#</td>
                         <td>' . __("Date") . '</td>
                         <td>' . __("Prefix") . '</td>
-                        <td>' . __("Country") . '</td>
-                        <td>' . __("Status") . '</td>
+                        <td>' . __("Country") . '</td>';
+    if ($propmode == 'SAT') {
+        echo '          <td>'.__("Satellite").'</td>';
+    }
+    echo '              <td>' . __("Status") . '</td>
                         <td>' . __("End Date") . '</td>
                         <td>' . __("Show QSOs") . '</td>
                     </tr>
@@ -211,8 +214,11 @@ function write_dxcc_timeline($timeline_array, $custom_date_format, $bandselect, 
                 <td>' . $i-- . '</td>
                 <td>' . date($custom_date_format, $date_as_timestamp) . '</td>
                 <td>' . $line->prefix . '</td>
-                <td>' . ucwords(strtolower($line->dxcc_name)) . '</td>
-                <td>';
+                <td>' . ucwords(strtolower($line->dxcc_name)) . '</td>';
+        if ($propmode == 'SAT') {
+            echo '<td>'.$line->sat_name.'</td>';
+        }
+        echo '  <td>';
         if (!empty($line->end)) echo '<span class="badge text-bg-danger">' . __("Deleted DXCC") . '</span>';
         echo '</td>
                 <td>' . $line->end . '</td>
