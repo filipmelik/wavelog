@@ -106,16 +106,16 @@ class Callbook {
 	function queryCallbook($callsign, $source) {
 		switch ($source) {
 			case 'qrz':
-				$callbook = $this->qrz($callsign, $this->ci->config->item('use_fullname'));
+				$callbook = $this->_qrz($callsign, $this->ci->config->item('use_fullname'));
 				break;
 			case 'qrzcq':
-				$callbook = $this->qrzcq($callsign);
+				$callbook = $this->_qrzcq($callsign);
 				break;
 			case 'hamqth':
-				$callbook = $this->hamqth($callsign);
+				$callbook = $this->_hamqth($callsign);
 				break;
 			case 'qrzru':
-				$callbook = $this->qrzru($callsign);
+				$callbook = $this->_qrzru($callsign);
 				break;
 			default:
 				$callbook['error'] = 'No callbook defined. Please review configuration.';
@@ -125,7 +125,7 @@ class Callbook {
 		return $callbook;
 	}
 
-	function qrz($callsign, $fullname) {
+	private function _qrz($callsign, $fullname) {
 		$this->ci->load->is_loaded('qrz') ?: $this->ci->load->library('qrz');
 
 		$callbook['source'] = $this->ci->qrz->sourcename();
@@ -159,7 +159,7 @@ class Callbook {
 		return $callbook;
 	}
 
-	function qrzcq($callsign) {
+	private function _qrzcq($callsign) {
 		$this->ci->load->is_loaded('qrzcq') ?: $this->ci->load->library('qrzcq');
 
 		$callbook['source'] = $this->ci->qrzcq->sourcename();
@@ -198,7 +198,7 @@ class Callbook {
 		return $callbook;
 	}
 
-	function hamqth($callsign) {
+	private function _hamqth($callsign) {
 		$this->ci->load->is_loaded('hamqth') ?: $this->ci->load->library('hamqth');
 
 		$callbook['source'] = $this->ci->hamqth->sourcename();
@@ -238,7 +238,7 @@ class Callbook {
 		return $callbook;
 	}
 
-	function qrzru($callsign) {
+	private function _qrzru($callsign) {
 		$this->ci->load->is_loaded('qrzru') ?: $this->ci->load->library('qrzru');
 
 		$callbook['source'] = $this->ci->qrzru->sourcename();
