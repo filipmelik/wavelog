@@ -3335,42 +3335,6 @@ class Logbook_model extends CI_Model {
 		return $query;
 	}
 
-	function get_grids_worked_in_logbook($StationLocationsArray = null, $band = null, $cnfm = null) {
-
-		if ($StationLocationsArray == null) {
-			$this->load->model('logbooks_model');
-			$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
-		} else {
-			$logbooks_locations_array = $StationLocationsArray;
-		}
-
-      $bindings = [];
-		$sql = 'SELECT DISTINCT UPPER(SUBSTR(COL_GRIDSQUARE, 1, 4)) AS gridsquare FROM ' . $this->config->item('table_name') . ' thcv ';
-		$sql .= ' WHERE COL_GRIDSQUARE <> "" AND CHAR_LENGTH(COL_GRIDSQUARE) >= 4';
-		$sql .= ' AND station_id IN ('.implode(',', $logbooks_locations_array).')';
-		$band = ($band == 'All') ? null : $band;
-		if ($band != null && $band != 'SAT') {
-			$sql .= ' AND COL_BAND = ? AND COL_PROP_MODE != "SAT"';
-			$bindings[] = $band;
-		} else if ($band == 'SAT') {
-			$sql .= ' AND COL_SAT_NAME != ""';
-		}
-		switch ($cnfm) {
-			case 'qsl':
-				$sql .= ' AND COL_QSL_RCVD = "Y"';
-				break;
-			case 'lotw':
-				$sql .= ' AND COL_LOTW_QSL_RCVD = "Y"';
-				break;
-			case 'eqsl':
-				$sql .= ' AND COL_EQSL_QSL_RCVD = "Y"';
-				break;
-		}
-		$sql .= ' ORDER BY gridsquare ASC;';
-		$query = $this->db->query($sql,$bindings);
-		return $query;
-	}
-
 	/* Get all QSOs with a valid grid for use in the KML export */
 	function kml_get_all_qsos($band, $mode, $dxcc, $cqz, $propagation, $fromdate, $todate) {
 		$this->load->model('logbooks_model');
