@@ -52,7 +52,7 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
 
   build-arm64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     needs: prepare
     permissions:
       contents: read
@@ -72,8 +72,6 @@ jobs:
       uses: docker/metadata-action@v5
       with:
         images: ${{ env.REGISTRY }}/${{ needs.prepare.outputs.image_name }}
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
     - name: Build and push (arm64)
@@ -86,7 +84,7 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
 
   build-armv7:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     needs: prepare
     permissions:
       contents: read
