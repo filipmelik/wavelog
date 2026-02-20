@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-19 10:15+0000\n"
+"POT-Creation-Date: 2026-02-20 08:59+0000\n"
 "PO-Revision-Date: 2026-02-19 14:38+0000\n"
 "Last-Translator: JONCOUX Philippe <joncoux@free.fr>\n"
 "Language-Team: French <https://translate.wavelog.org/projects/wavelog/main-"
@@ -1671,12 +1671,11 @@ msgstr "Pays"
 #: application/views/search/search_result_ajax.php:8
 #: application/views/station_profile/create.php:184
 #: application/views/station_profile/edit.php:209
-#: application/views/timeline/index.php:295 application/views/user/edit.php:248
+#: application/views/timeline/index.php:313 application/views/user/edit.php:248
 #: application/views/user/edit.php:271 application/views/user/edit.php:294
 #: application/views/user/edit.php:317 application/views/user/edit.php:341
 #: application/views/view_log/partial/log_ajax.php:8
 #: application/views/visitor/index.php:18
-#: application/views/timeline/index.php:313
 msgid "IOTA"
 msgstr "IOTA"
 
@@ -1703,12 +1702,11 @@ msgstr "IOTA"
 #: application/views/qso/components/previous_contacts.php:85
 #: application/views/search/search_result_ajax.php:12
 #: application/views/statistics/initialresult.php:21
-#: application/views/timeline/index.php:265 application/views/user/edit.php:252
+#: application/views/timeline/index.php:277 application/views/user/edit.php:252
 #: application/views/user/edit.php:275 application/views/user/edit.php:298
 #: application/views/user/edit.php:321 application/views/user/edit.php:345
 #: application/views/view_log/partial/log_ajax.php:12
 #: application/views/visitor/index.php:24
-#: application/views/timeline/index.php:277
 msgid "State"
 msgstr "Etat"
 
@@ -1751,7 +1749,7 @@ msgstr "Etat"
 #: application/views/simplefle/index.php:161
 #: application/views/stationsetup/stationsetup.php:130
 #: application/views/statistics/initialresult.php:20
-#: application/views/timeline/index.php:356 application/views/user/edit.php:144
+#: application/views/timeline/index.php:386 application/views/user/edit.php:144
 #: application/views/user/edit.php:253 application/views/user/edit.php:276
 #: application/views/user/edit.php:299 application/views/user/edit.php:322
 #: application/views/user/edit.php:346 application/views/user/profile.php:34
@@ -1759,7 +1757,6 @@ msgstr "Etat"
 #: application/views/view_log/qso.php:692
 #: application/views/visitor/index.php:27
 #: application/views/zonechecker/result.php:53
-#: application/views/timeline/index.php:386
 msgid "Gridsquare"
 msgstr "Locator"
 
@@ -1959,13 +1956,12 @@ msgstr "Opérateur"
 #: application/views/stationsetup/linkedlocations.php:45
 #: application/views/stationsetup/locationlist.php:67
 #: application/views/stationsetup/stationsetup.php:156
-#: application/views/timeline/index.php:216
+#: application/views/timeline/index.php:222
 #: application/views/timeplotter/index.php:33
 #: application/views/user/modals/first_login_wizard.php:52
 #: application/views/view_log/partial/log_ajax.php:31
 #: application/views/view_log/qso.php:353
 #: application/views/view_log/qso.php:706
-#: application/views/timeline/index.php:222
 msgid "Deleted DXCC"
 msgstr "DXCC Supprimé"
 
@@ -3317,8 +3313,8 @@ msgid ""
 "encryption_key in your config.php file first!"
 msgstr ""
 "Vous ne pouvez actuellement pas usurper l'identité d'un autre utilisateur. "
-"Veuillez d'abord changer la clé de chiffrement dans votre fichier "
-"config.php !"
+"Veuillez d'abord changer la clé de chiffrement dans votre fichier config."
+"php !"
 
 #: application/controllers/User.php:1612
 msgid "Invalid Hash"
@@ -3432,14 +3428,18 @@ msgstr "Plusieurs utilisateurs trouvés par slug"
 msgid "Gridsquare Zone finder"
 msgstr "Localisateur de zones de la grille"
 
-#: application/libraries/Callbook.php:139
+#: application/libraries/Callbook.php:60
+msgid "Lookup not configured. Please review configuration."
+msgstr ""
+
+#: application/libraries/Callbook.php:61
+#, php-format
+msgid "Error obtaining a session key for callbook. Error: %s"
+msgstr ""
+
 #: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
 msgstr "Erreur QRZCQ"
-
-#: application/libraries/Callbook.php:179
-msgid "Error obtaining a session key for HamQTH query"
-msgstr "Erreur lors de l'obtention d'une clé de session pour la requête HamQTH"
 
 #: application/libraries/Cbr_parser.php:111
 #: application/libraries/Cbr_parser.php:160
@@ -3722,7 +3722,6 @@ msgstr "QSO mis à jour"
 msgid "Bearing"
 msgstr "Azimut"
 
-#: application/models/Logbookadvanced_model.php:1723
 #: application/models/Logbookadvanced_model.php:1727
 msgid "VuccGrids table is empty. Please import the VUCC grids data first."
 msgstr ""
@@ -4322,18 +4321,13 @@ msgstr "Tropospheric ducting"
 #: application/views/statistics/antennaanalytics.php:110
 #: application/views/statistics/initials.php:30
 #: application/views/timeline/index.php:128
-#: application/views/timeline/index.php:219
-#: application/views/timeline/index.php:250
-#: application/views/timeline/index.php:278
-#: application/views/timeline/index.php:312
-#: application/views/timeline/index.php:340
-#: application/views/timeline/index.php:370
-#: application/views/timeplotter/index.php:59
 #: application/views/timeline/index.php:225
 #: application/views/timeline/index.php:262
 #: application/views/timeline/index.php:296
 #: application/views/timeline/index.php:336
+#: application/views/timeline/index.php:370
 #: application/views/timeline/index.php:406
+#: application/views/timeplotter/index.php:59
 msgid "Show"
 msgstr "Afficher"
 
@@ -4555,12 +4549,6 @@ msgstr "Nombre"
 
 #: application/views/activators/index.php:101
 #: application/views/callstats/index.php:151
-#: application/views/timeline/index.php:203
-#: application/views/timeline/index.php:238
-#: application/views/timeline/index.php:266
-#: application/views/timeline/index.php:298
-#: application/views/timeline/index.php:328
-#: application/views/timeline/index.php:357
 #: application/views/timeline/index.php:206
 #: application/views/timeline/index.php:247
 #: application/views/timeline/index.php:281
@@ -4657,20 +4645,15 @@ msgstr ""
 #: application/views/simplefle/index.php:154
 #: application/views/statistics/initialresult.php:15
 #: application/views/timeline/index.php:198
-#: application/views/timeline/index.php:236
-#: application/views/timeline/index.php:264
-#: application/views/timeline/index.php:294
-#: application/views/timeline/index.php:326
-#: application/views/timeline/index.php:354
-#: application/views/view_log/partial/log.php:4
-#: application/views/view_log/partial/log_ajax.php:196
-#: application/views/visitor/index.php:151
-#: application/views/widgets/qsos.php:16
 #: application/views/timeline/index.php:242
 #: application/views/timeline/index.php:276
 #: application/views/timeline/index.php:312
 #: application/views/timeline/index.php:350
 #: application/views/timeline/index.php:384
+#: application/views/view_log/partial/log.php:4
+#: application/views/view_log/partial/log_ajax.php:196
+#: application/views/visitor/index.php:151
+#: application/views/widgets/qsos.php:16
 msgid "Date"
 msgstr "Date"
 
@@ -4700,12 +4683,11 @@ msgstr "Date"
 #: application/views/search/search_result_ajax.php:91
 #: application/views/simplefle/index.php:155
 #: application/views/statistics/initialresult.php:16
-#: application/views/timeline/index.php:355
+#: application/views/timeline/index.php:385
 #: application/views/timeplotter/index.php:5
 #: application/views/view_log/partial/log.php:6
 #: application/views/view_log/partial/log_ajax.php:198
 #: application/views/visitor/index.php:154
-#: application/views/timeline/index.php:385
 msgid "Time"
 msgstr "Heure"
 
@@ -5246,9 +5228,8 @@ msgstr "REF POTA en ADIF"
 #: application/views/oqrs/status_info.php:4
 #: application/views/sattimers/index.php:39
 #: application/views/stationsetup/stationsetup.php:34
-#: application/views/timeline/index.php:201
-#: application/views/usermode/index.php:41
 #: application/views/timeline/index.php:204
+#: application/views/usermode/index.php:41
 msgid "Status"
 msgstr "Statut"
 
@@ -5628,11 +5609,10 @@ msgstr "Total"
 #: application/views/qso/edit_ajax.php:308 application/views/qso/index.php:513
 #: application/views/station_profile/create.php:128
 #: application/views/station_profile/edit.php:153
-#: application/views/timeline/index.php:327
+#: application/views/timeline/index.php:351
 #: application/views/timeplotter/index.php:44
 #: application/views/user/modals/first_login_wizard.php:74
 #: application/views/zonechecker/index.php:17
-#: application/views/timeline/index.php:351
 msgid "CQ Zone"
 msgstr "Zone CQ"
 
@@ -6298,7 +6278,6 @@ msgstr "Nom DXCC"
 #: application/views/awards/wae/index.php:163
 #: application/views/logbookadvanced/statecheckresult.php:10
 #: application/views/timeline/index.php:199
-#: application/views/timeline/index.php:297
 #: application/views/timeline/index.php:315
 msgid "Prefix"
 msgstr "Préfix"
@@ -6588,13 +6567,12 @@ msgstr "Afficher la carte IOTA"
 #: application/views/search/search_result_ajax.php:19
 #: application/views/stationsetup/stationsetup.php:33
 #: application/views/themes/index.php:82
-#: application/views/timeline/index.php:296 application/views/user/edit.php:256
+#: application/views/timeline/index.php:314 application/views/user/edit.php:256
 #: application/views/user/edit.php:279 application/views/user/edit.php:302
 #: application/views/user/edit.php:325 application/views/user/edit.php:349
 #: application/views/view_log/partial/log_ajax.php:19
 #: application/views/view_log/qso.php:232
 #: application/views/view_log/qso.php:688
-#: application/views/timeline/index.php:314
 msgid "Name"
 msgstr "Nom"
 
@@ -7307,7 +7285,6 @@ msgid "Show WAJA Map"
 msgstr "Afficher la carte WAJA"
 
 #: application/views/awards/waja/index.php:158
-#: application/views/timeline/index.php:237
 #: application/views/timeline/index.php:243
 msgid "Prefecture"
 msgstr "Préfecture"
@@ -10549,7 +10526,6 @@ msgstr "Date début"
 #: application/views/dayswithqso/index.php:160
 #: application/views/dayswithqso/index.php:182
 #: application/views/lotw/satupdate.php:7
-#: application/views/timeline/index.php:202
 #: application/views/timeline/index.php:205
 msgid "End Date"
 msgstr "Date fin"
@@ -11670,8 +11646,8 @@ msgstr ""
 #: application/views/eqsl/export.php:37
 msgid "Clicking 'Upload QSOs' will send QSO information to eQSL.cc."
 msgstr ""
-"Cliquer sur 'Téléverser les QSOs' enverra les informations de QSO vers "
-"eQSL.cc."
+"Cliquer sur 'Téléverser les QSOs' enverra les informations de QSO vers eQSL."
+"cc."
 
 #: application/views/eqsl/export.php:46
 msgid "The following QSOs were sent to eQSL."
@@ -15075,8 +15051,8 @@ msgid ""
 "The hostname of the mail server, e.g. 'mail.example.com' (without 'ssl://' "
 "or 'tls://')"
 msgstr ""
-"Le nom d'hôte du serveur de messagerie, par exemple « mail.example.com » "
-"(sans « ssl:// » ou « tls:// »)"
+"Le nom d'hôte du serveur de messagerie, par exemple « mail.example."
+"com » (sans « ssl:// » ou « tls:// »)"
 
 #: application/views/options/email.php:88
 msgid "SMTP Port"
@@ -17217,8 +17193,8 @@ msgid ""
 msgstr ""
 "Pour commencer, assurez-vous d'avoir rempli le formulaire sur la gauche avec "
 "la date, l'indicatif de la station et l'indicatif de l'opérateur. Les "
-"données principales incluent la bande (ou QRG en MHz, par exemple "
-"« 7.145 »), le mode et l'heure. Après l'heure, indiquez le premier QSO, qui "
+"données principales incluent la bande (ou QRG en MHz, par exemple « 7.145 "
+"»), le mode et l'heure. Après l'heure, indiquez le premier QSO, qui "
 "correspond essentiellement à l'indicatif."
 
 #: application/views/simplefle/syntax_help.php:9
@@ -19680,14 +19656,9 @@ msgstr "CQz"
 msgid "CQz geojson"
 msgstr "CQz geojson"
 
-#: application/libraries/Callbook.php:60
-msgid "Lookup not configured. Please review configuration."
-msgstr ""
-
-#: application/libraries/Callbook.php:61
-#, php-format
-msgid "Error obtaining a session key for callbook. Error: %s"
-msgstr ""
+#~ msgid "Error obtaining a session key for HamQTH query"
+#~ msgstr ""
+#~ "Erreur lors de l'obtention d'une clé de session pour la requête HamQTH"
 
 #~ msgid "radio functions"
 #~ msgstr "Fonctions radio"
