@@ -737,7 +737,7 @@ class API extends CI_Controller {
 		   echo json_encode(['status' => 'failed', 'reason' => "missing api key"]);
 		}
 		if(!isset($obj['logbook_public_slug'])) {
-		   http_response_code(401);
+		   http_response_code(400);
 		   echo json_encode(['status' => 'failed', 'reason' => "missing fields"]);
 			return;
 		}
