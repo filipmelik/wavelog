@@ -147,6 +147,7 @@ class Callbook {
 				$qrz_session_key = $this->ci->qrz->session($username, $password);
 				if (!$this->_validate_sessionkey($qrz_session_key)) {
 					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $qrz_session_key);
+					$this->ci->cache->delete($this->qrz_session_cachekey);
 					return $callbook;
 				}
 				$this->ci->cache->save($this->qrz_session_cachekey, $qrz_session_key, self::QRZ_SESSION_DURATION);
@@ -158,6 +159,7 @@ class Callbook {
 				$qrz_session_key = $this->ci->qrz->session($username, $password);
 				if (!$this->_validate_sessionkey($qrz_session_key)) {
 					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $qrz_session_key);
+					$this->ci->cache->delete($this->qrz_session_cachekey);
 					return $callbook;
 				}
 				$this->ci->cache->save($this->qrz_session_cachekey, $qrz_session_key, self::QRZ_SESSION_DURATION);
@@ -189,6 +191,7 @@ class Callbook {
 				$result = $this->ci->qrzcq->session($username, $password);
 				if (!$this->_validate_sessionkey($result[1])) {
 					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $result[1]);
+					$this->ci->cache->delete($this->qrzcq_session_cachekey);
 					return $callbook;
 				}
 				if ($result[0] == 0) {
@@ -205,6 +208,7 @@ class Callbook {
 				$qrzcq_session_key = $this->ci->qrzcq->session($username, $password);
 				if (!$this->_validate_sessionkey($qrzcq_session_key[1])) {
 					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $qrzcq_session_key[1]);
+					$this->ci->cache->delete($this->qrzcq_session_cachekey);
 					return $callbook;
 				}
 				$this->ci->cache->save($this->qrzcq_session_cachekey, $qrzcq_session_key[1], self::QRZCQ_SESSION_DURATION);
@@ -236,6 +240,7 @@ class Callbook {
 				$hamqth_session_key = $this->ci->hamqth->session($username, $password);
 				if (!$this->_validate_sessionkey($hamqth_session_key)) {
 					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $hamqth_session_key);
+					$this->ci->cache->delete($this->hamqth_session_cachekey);
 					return $callbook;
 				} else {
 					$this->ci->cache->save($this->hamqth_session_cachekey, $hamqth_session_key, self::HAMQTH_SESSION_DURATION);
@@ -249,6 +254,7 @@ class Callbook {
 				$hamqth_session_key = $this->ci->hamqth->session($username, $password);
 				if (!$this->_validate_sessionkey($hamqth_session_key)) {
 					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $hamqth_session_key);
+					$this->ci->cache->delete($this->hamqth_session_cachekey);
 					return $callbook;
 				}
 				$this->ci->cache->save($this->hamqth_session_cachekey, $hamqth_session_key, self::HAMQTH_SESSION_DURATION);
@@ -280,6 +286,7 @@ class Callbook {
 				$result = $this->ci->qrzru->session($username, $password);
 				if (!$this->_validate_sessionkey($result)) {
 					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $result);
+					$this->ci->cache->delete($this->qrzru_session_cachekey);
 					return $callbook;
 				}
 				$this->ci->cache->save($this->qrzru_session_cachekey, $result, self::QRZRU_SESSION_DURATION);
@@ -291,6 +298,7 @@ class Callbook {
 				$qrzru_session_key = $this->ci->qrzru->session($username, $password);
 				if (!$this->_validate_sessionkey($qrzru_session_key)) {
 					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $qrzru_session_key);
+					$this->ci->cache->delete($this->qrzru_session_cachekey);
 					return $callbook;
 				}
 				$this->ci->cache->save($this->qrzru_session_cachekey, $qrzru_session_key, self::QRZRU_SESSION_DURATION);
