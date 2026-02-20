@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-19 10:15+0000\n"
-"PO-Revision-Date: 2026-02-19 11:55+0000\n"
-"Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
+"PO-Revision-Date: 2026-02-20 09:05+0000\n"
+"Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
 "Language: de_DE\n"
@@ -19598,12 +19598,12 @@ msgstr "CQz geojson"
 
 #: application/libraries/Callbook.php:60
 msgid "Lookup not configured. Please review configuration."
-msgstr ""
+msgstr "Lookup nicht konfiguriert. Bitte Konfiguration überprüfen."
 
 #: application/libraries/Callbook.php:61
 #, php-format
 msgid "Error obtaining a session key for callbook. Error: %s"
-msgstr ""
+msgstr "Fehler beim Abrufen eines Sessionkeys für das Callbook. Fehler: %s"
 
 #~ msgid "radio functions"
 #~ msgstr "Funkgerät-Funktionen"
