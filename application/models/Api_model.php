@@ -182,7 +182,7 @@ class API_Model extends CI_Model {
 	}
 
 	function get_grids_worked_in_logbook($StationLocationsArray = null, $band = null, $cnfm = null) {
-
+		$grid_array = [];
 		if ($StationLocationsArray == null) {
 			$this->load->model('logbooks_model');
 			$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
@@ -190,7 +190,7 @@ class API_Model extends CI_Model {
 			$logbooks_locations_array = $StationLocationsArray;
 		}
 
-      $bindings = [];
+		$bindings = [];
 		$sql = 'SELECT DISTINCT UPPER(SUBSTR(COL_GRIDSQUARE, 1, 4)) AS gridsquare FROM ' . $this->config->item('table_name') . ' thcv ';
 		$sql .= ' WHERE COL_GRIDSQUARE <> "" AND CHAR_LENGTH(COL_GRIDSQUARE) >= 4';
 		$sql .= ' AND station_id IN ('.implode(',', $logbooks_locations_array).')';
@@ -214,6 +214,9 @@ class API_Model extends CI_Model {
 		}
 		$sql .= ' ORDER BY gridsquare ASC;';
 		$query = $this->db->query($sql,$bindings);
-		return $query;
+		foreach($query->result() as $line) {
+			$grid_array[] = $line->gridsquare;
+		}
+		return $grid_array;
 	}
 }
