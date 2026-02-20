@@ -5,15 +5,15 @@
 # Fabian Berg <hb9hil@wavelog.org>, 2024.
 # "Francisco (F4VSE)" <kikosgc@gmail.com>, 2024.
 # "Francisco (F4VSE)" <kikosgc@users.noreply.github.com>, 2024, 2025.
-# David Quental <ct1drb72@gmail.com>, 2024, 2025.
+# David Quental <ct1drb72@gmail.com>, 2024, 2025, 2026.
 # Fabian Berg <fabian.berg@hb9hil.org>, 2025.
 # CS7AFM <sergio.t.mata@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-20 13:16+0000\n"
-"PO-Revision-Date: 2026-01-07 05:25+0000\n"
-"Last-Translator: CS7AFM <sergio.t.mata@gmail.com>\n"
+"PO-Revision-Date: 2026-02-20 14:54+0000\n"
+"Last-Translator: David Quental <ct1drb72@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) <https://translate.wavelog.org/projects/"
 "wavelog/main-translation/pt_PT/>\n"
 "Language: pt_PT\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.16\n"
 
 #: application/controllers/Accumulated.php:12
 #: application/controllers/Activators.php:13
@@ -691,11 +691,11 @@ msgstr " e satélite "
 
 #: application/controllers/Calltester.php:32
 msgid "Call Tester"
-msgstr ""
+msgstr "Chamada de quem testa"
 
 #: application/controllers/Calltester.php:971
 msgid "Callsign Tester"
-msgstr ""
+msgstr "Indicativo de chamada de quem testa"
 
 #: application/controllers/Club.php:23
 msgid "Club Officer"
@@ -703,7 +703,7 @@ msgstr "Responsável do Clube"
 
 #: application/controllers/Club.php:24
 msgid "Club Member ADIF"
-msgstr ""
+msgstr "Membro do Clube ADIF"
 
 #: application/controllers/Club.php:25
 msgid "Club Member"
@@ -967,7 +967,7 @@ msgstr "Chave(s) eliminada(s)."
 
 #: application/controllers/Debug.php:114
 msgid "(empty)"
-msgstr ""
+msgstr "(vazio)"
 
 #: application/controllers/Debug.php:132
 msgid "Debug"
@@ -1057,7 +1057,7 @@ msgstr "Cartões eQSL"
 #: application/controllers/Eqsl.php:56
 #, php-format
 msgid "Showing %d to %d of %d entries"
-msgstr ""
+msgstr "A mostrar de %d a %d de %d entradas"
 
 #: application/controllers/Eqsl.php:83 application/controllers/Eqsl.php:173
 msgid "eQSL Nicknames in Station Profiles aren't defined!"
@@ -1090,31 +1090,31 @@ msgstr "Nenhuma abreviatura de QTH eQSL: %s"
 
 #: application/controllers/Eqsl.php:335
 msgid "QSO not found or not accessible"
-msgstr ""
+msgstr "QSO não encontrado ou não acessível"
 
 #: application/controllers/Eqsl.php:353
 msgid "User not found"
-msgstr ""
+msgstr "Utilizador não encontrado!"
 
 #: application/controllers/Eqsl.php:362
 msgid "eQSL password not configured for this user"
-msgstr ""
+msgstr "Senha eQSL não configurada para este utilizador"
 
 #: application/controllers/Eqsl.php:379
 msgid "Failed to fetch eQSL image data"
-msgstr ""
+msgstr "Falha ao buscar dados de imagem eQSL"
 
 #: application/controllers/Eqsl.php:398
 msgid "eQSL image not available"
-msgstr ""
+msgstr "Imagem eQSL não disponível"
 
 #: application/controllers/Eqsl.php:416
 msgid "Failed to download eQSL image"
-msgstr ""
+msgstr "Falha ao transferir imagem eQSL"
 
 #: application/controllers/Eqsl.php:441
 msgid "Failed to load cached eQSL image"
-msgstr ""
+msgstr "Falha ao carregar imagem eQSL em cache"
 
 #: application/controllers/Eqsl.php:588
 msgid "eQSL Tools"
@@ -1123,6 +1123,7 @@ msgstr "Ferramentas eQSL"
 #: application/controllers/Eqsl.php:618
 msgid "Limited to first 150 QSOs for this request. Please run again."
 msgstr ""
+"Limite para os primeiros 150 QSOs para este pedido. Por favor peça novamente."
 
 #: application/controllers/Eqsl.php:624
 msgid " / Errors: "
@@ -1135,6 +1136,8 @@ msgstr "Descarregado com sucesso: "
 #: application/controllers/Eqsl.php:631
 msgid "eQSL rate limit reached. Please wait before running again."
 msgstr ""
+"O limite de taxa do eQSL foi atingido. Por favor, aguarde antes de tentar "
+"novamente."
 
 #: application/controllers/Eqsl.php:643
 msgid "eQSL Card Image Download"
@@ -1142,7 +1145,7 @@ msgstr "Descarregar Imagem do cartão eQSL"
 
 #: application/controllers/Eqsl.php:667
 msgid "All eQSLs marked as uploaded"
-msgstr ""
+msgstr "Todos os eQSLs marcados como carregados"
 
 #: application/controllers/Generic_qsl.php:18
 msgid "Confirmations"
@@ -1455,7 +1458,7 @@ msgstr "eQSL"
 
 #: application/controllers/Logbook.php:990
 msgid "All callbook lookups failed or provided no results."
-msgstr ""
+msgstr "Todas as consultas ao callbook falharam ou não forneceram resultados."
 
 #: application/controllers/Logbook.php:1455
 #: application/controllers/Radio.php:49
@@ -1961,12 +1964,12 @@ msgstr "Logbook avançado"
 #: application/controllers/Logbookadvanced.php:932
 #, php-format
 msgid "DXCC updated for %d QSO(s)."
-msgstr ""
+msgstr "DXCC atualizado para %d QSO(s)."
 
 #: application/controllers/Logbookadvanced.php:948
 #, php-format
 msgid "Map for DXCC %s and gridsquare %s."
-msgstr ""
+msgstr "Mapa para DXCC %s e quadrícula %s."
 
 #: application/controllers/Lookup.php:22
 msgid "Quick Lookup"
@@ -2002,6 +2005,10 @@ msgid ""
 "application without password!%s For further information please visit the "
 "%sLoTW FAQ page%s in the Wavelog Wiki."
 msgstr ""
+"O certificado encontrado no ficheiro %s contém uma palavra-passe e não pode "
+"ser processado. %sPor favor, certifique-se de exportar o certificado LoTW a "
+"partir da aplicação tqsl sem palavra-passe!%s Para mais informações, "
+"consulte a %spágina de FAQ do LoTW%s no Wiki do Wavelog."
 
 #: application/controllers/Lotw.php:446
 #, php-format
@@ -2010,16 +2017,19 @@ msgid ""
 "contains 'key-only' this is typically a certificate request which has not "
 "been processed by LoTW yet."
 msgstr ""
+"Erro genérico ao extrair o certificado do ficheiro %s. Se o nome do ficheiro "
+"contiver 'key-only', geralmente trata-se de um pedido de certificado que "
+"ainda não foi processado pelo LoTW."
 
 #: application/controllers/Lotw.php:453
 #, php-format
 msgid "Generic error processing the certificate in file %s."
-msgstr ""
+msgstr "Erro genérico ao processar o certificado no ficheiro %s."
 
 #: application/controllers/Lotw.php:465
 #, php-format
 msgid "Generic error extracting the private key from certificate in file %s."
-msgstr ""
+msgstr "Erro genérico ao extrair a chave privada do certificado no ficheiro %s."
 
 #: application/controllers/Lotw.php:681
 msgid "LoTW ADIF Information"
@@ -2027,7 +2037,7 @@ msgstr "Informações sobre o ADIF LoTW"
 
 #: application/controllers/Lotw.php:977
 msgid "Connection to LoTW failed."
-msgstr ""
+msgstr "Falha na conexão com o LoTW."
 
 #: application/controllers/Lotw.php:982
 #, php-format
@@ -2060,7 +2070,7 @@ msgstr "Não definiu as suas credenciais LoTW da ARRL !"
 
 #: application/controllers/Map.php:48
 msgid "QSO Map"
-msgstr ""
+msgstr "Mapa de QSO"
 
 #: application/controllers/Mode.php:25 application/controllers/Usermode.php:23
 #: application/views/interface_assets/header.php:328
@@ -2102,42 +2112,44 @@ msgid ""
 "Duplicate note title for this category and user - not allowed for Contacts "
 "category."
 msgstr ""
+"Título de nota duplicado para esta categoria e utilizador - não permitido "
+"para a categoria de Contactos."
 
 #: application/controllers/Notes.php:286
 msgid "Not found or not allowed"
-msgstr ""
+msgstr "Não encontrado ou não permitido"
 
 #: application/controllers/Notes.php:301
 msgid "Not found"
-msgstr ""
+msgstr "Não encontrado"
 
 #: application/controllers/Notes.php:317
 msgid "Category and title are required"
-msgstr ""
+msgstr "Categoria e título são obrigatórios"
 
 #: application/controllers/Notes.php:331
 msgid "Note not found or not allowed"
-msgstr ""
+msgstr "Nota não encontrada ou não permitida"
 
 #: application/controllers/Notes.php:338
 msgid "Note deleted"
-msgstr ""
+msgstr "Nota eliminada"
 
 #: application/controllers/Notes.php:342
 msgid "Note updated"
-msgstr ""
+msgstr "Nota atualizada"
 
 #: application/controllers/Notes.php:347
 msgid "Cannot create empty note"
-msgstr ""
+msgstr "Não é possível criar uma nota vazia"
 
 #: application/controllers/Notes.php:355
 msgid "A note with this callsign already exists"
-msgstr ""
+msgstr "Uma nota com este indicativo de chamada já existe"
 
 #: application/controllers/Notes.php:365
 msgid "Note created"
-msgstr ""
+msgstr "Nota criada"
 
 #: application/controllers/Notes.php:379 application/controllers/Notes.php:403
 #, php-format
@@ -2445,7 +2457,7 @@ msgstr "Configurações"
 
 #: application/controllers/Radio.php:59
 msgid "WebSocket"
-msgstr ""
+msgstr "WebSocket"
 
 #: application/controllers/Radio.php:65 application/controllers/Radio.php:124
 msgid "Default (click to release)"
@@ -2515,11 +2527,11 @@ msgstr "Apagar"
 
 #: application/controllers/Radio.php:136
 msgid "WebSocket is currently default (click to release)"
-msgstr ""
+msgstr "WebSocket é atualmente padrão (clique para liberar)"
 
 #: application/controllers/Radio.php:138
 msgid "Set WebSocket as default radio"
-msgstr ""
+msgstr "Definir WebSocket como rádio padrão"
 
 #: application/controllers/Radio.php:142
 msgid "No CAT interfaced radios found."
@@ -2527,7 +2539,7 @@ msgstr "Não foram encontrados rádios com interface CAT."
 
 #: application/controllers/Radio.php:143
 msgid "You can still set the WebSocket option as your default radio."
-msgstr ""
+msgstr "Ainda pode definir a opção WebSocket como o seu rádio padrão."
 
 #: application/controllers/Radio.php:160 application/views/radio/index.php:2
 msgid "Edit CAT Settings"
@@ -2535,7 +2547,7 @@ msgstr "Editar definições do CAT"
 
 #: application/controllers/Radio.php:332
 msgid "Radio removed successfully"
-msgstr ""
+msgstr "Rádio removido com sucesso"
 
 #: application/controllers/Reg1test.php:22
 msgid "Export EDI"
@@ -2787,6 +2799,9 @@ msgid ""
 "Are you sure you want to delete the station logbook %s? You must re-link any "
 "locations linked here to another logbook."
 msgstr ""
+"Tens a certeza de que queres eliminar o livro de registos da estação %s? "
+"Tens de voltar a ligar qualquer localização aqui ligada a outro livro de "
+"registos."
 
 #: application/controllers/Stationsetup.php:306
 #: application/views/stationsetup/stationsetup.php:70
@@ -2803,6 +2818,7 @@ msgstr "Tem a certeza de que pretende eliminar o slug público?"
 msgid ""
 "Are you sure you want to make the station profile %s the active station?"
 msgstr ""
+"Tem a certeza de que quer tornar o perfil da estação %s a estação ativa?"
 
 #: application/controllers/Stationsetup.php:392
 #: application/views/stationsetup/stationsetup.php:163
@@ -2868,7 +2884,7 @@ msgstr "Editar opções do mapa de exportação"
 
 #: application/controllers/Stationsetup.php:527
 msgid "Station location list"
-msgstr ""
+msgstr "Lista da localização da estação"
 
 #: application/controllers/Statistics.php:23
 #: application/views/interface_assets/header.php:154
@@ -3031,11 +3047,11 @@ msgstr "Atualização dos radioamadores nas notas"
 
 #: application/controllers/Update.php:707
 msgid "VUCC Grid file update complete. Result: "
-msgstr ""
+msgstr "Atualização do ficheiro VUCC Grid concluída. Resultado: "
 
 #: application/controllers/Update.php:709
 msgid "VUCC Grid file update failed. Result: "
-msgstr ""
+msgstr "Falha na atualização do arquivo da grelha VUCC. Resultado: "
 
 #: application/controllers/User.php:50
 #: application/views/interface_assets/header.php:324
@@ -3111,15 +3127,15 @@ msgstr "Apagar Utilizador"
 
 #: application/controllers/User.php:1087
 msgid "User deleted"
-msgstr ""
+msgstr "Utilizador eliminado"
 
 #: application/controllers/User.php:1090
 msgid "Could not delete user!"
-msgstr ""
+msgstr "Não foi possível eliminar o utilizador!"
 
 #: application/controllers/User.php:1090
 msgid "Database error:"
-msgstr ""
+msgstr "Erro de base de dados:"
 
 #: application/controllers/User.php:1115
 msgid ""
@@ -3398,16 +3414,16 @@ msgstr "Vários utilizadores encontrados pelo slug"
 
 #: application/controllers/Zonechecker.php:26
 msgid "Gridsquare Zone finder"
-msgstr ""
+msgstr "Localizador de Quadrícula"
 
 #: application/libraries/Callbook.php:60
 msgid "Lookup not configured. Please review configuration."
-msgstr ""
+msgstr "Consulta não configurada. Por favor, reveja a configuração."
 
 #: application/libraries/Callbook.php:61
 #, php-format
 msgid "Error obtaining a session key for callbook. Error: %s"
-msgstr ""
+msgstr "Erro ao obter uma chave de sessão para o callbook. Erro: %s"
 
 #: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
@@ -3416,15 +3432,15 @@ msgstr "Erro QRZCQ"
 #: application/libraries/Cbr_parser.php:111
 #: application/libraries/Cbr_parser.php:160
 msgid "Broken CBR file - no valid exchange or callsigns found"
-msgstr ""
+msgstr "Arquivo CBR danificado - sem troca válida ou indicativos encontrados"
 
 #: application/libraries/Cbr_parser.php:137
 msgid "Broken CBR file - no QSO data found."
-msgstr ""
+msgstr "Ficheiro CBR corrompido - nenhum dado QSO encontrado."
 
 #: application/libraries/Cbr_parser.php:147
 msgid "Broken CBR file - incomplete header found."
-msgstr ""
+msgstr "Arquivo CBR corrompido - cabeçalho incompleto encontrado."
 
 #: application/libraries/Subdivisions.php:31
 msgctxt "Division Name (States in various countries)."
@@ -3569,7 +3585,7 @@ msgstr ""
 
 #: application/models/Logbook_model.php:311
 msgid "Station not accessible"
-msgstr ""
+msgstr "Estação inacessível"
 
 #: application/models/Logbook_model.php:1299
 msgid "Station ID not allowed"
@@ -3595,6 +3611,8 @@ msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
 msgstr ""
+"Tentaste importar um QSO sem data válida. Este QSO não foi importado. É "
+"inválido"
 
 #: application/models/Logbook_model.php:4838
 msgid "QSO on"
@@ -3691,6 +3709,8 @@ msgstr "Direção"
 #: application/models/Logbookadvanced_model.php:1727
 msgid "VuccGrids table is empty. Please import the VUCC grids data first."
 msgstr ""
+"A tabela VuccGrids está vazia. Por favor, importa primeiro os dados das "
+"grelhas VUCC."
 
 #: application/models/Note.php:7
 msgid "Contacts"
