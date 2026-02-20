@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-20 13:16+0000\n"
 "PO-Revision-Date: 2026-02-20 14:54+0000\n"
-"Last-Translator: David Quental <ct1drb72@gmail.com>\n"
+"Last-Translator: Juan Pablo Tamayo <hj3kos@gmail.com>\n"
 "Language-Team: Spanish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/es/>\n"
 "Language: es_ES\n"
@@ -1173,7 +1173,7 @@ msgstr "Hamsat - Operación de satélites en movimiento"
 
 #: application/controllers/Hrdlog.php:70 application/controllers/Hrdlog.php:71
 msgid "HRD Log upload for this station is disabled."
-msgstr "La subida a HRD Log para esta estación está deshabilitada."
+msgstr "La carga a HRD Log para esta estación está deshabilitada."
 
 #: application/controllers/Hrdlog.php:93
 #, php-format
