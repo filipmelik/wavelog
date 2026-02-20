@@ -733,6 +733,10 @@ class API extends CI_Controller {
 		    echo json_encode(['status' => 'failed', 'reason' => "wrong JSON"]);
 		    die();
 		}
+		// Check rate limit
+		$identifier = isset($obj['key']) ? $obj['key'] : null;
+		$this->check_rate_limit('logbook_get_worked_grids', $identifier);
+
 		if(!isset($obj['key']) || $this->api_model->authorize($obj['key']) == 0) {
 		   http_response_code(401);
 		   echo json_encode(['status' => 'failed', 'reason' => "missing api key"]);
