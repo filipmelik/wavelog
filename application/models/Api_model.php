@@ -190,6 +190,7 @@ class API_Model extends CI_Model {
 			$logbooks_locations_array = $StationLocationsArray;
 		}
 
+		$bindings = [];
 		$subsql = '';
 		$band = ($band == 'All') ? null : $band;
 		if ($band != null && $band != 'SAT') {
@@ -210,7 +211,6 @@ class API_Model extends CI_Model {
 				break;
 		}
 
-		$bindings = [];
 		$ids = array_map('intval', $logbooks_locations_array);
 		$sql = 'SELECT DISTINCT UPPER(SUBSTR(COL_GRIDSQUARE, 1, 4)) AS gridsquare FROM ' . $this->config->item('table_name') . ' thcv ';
 		$sql .= ' WHERE COL_GRIDSQUARE <> "" AND CHAR_LENGTH(COL_GRIDSQUARE) >= 4';
