@@ -39,6 +39,9 @@ class Callbook {
 	const QRZRU_SESSION_DURATION = 3300; // 55 minutes
 	private $qrzru_session_cachekey = null;
 
+	// Some generic stuff
+	private $logbook_not_configured;
+
 	public function __construct() {
 		$this->ci = & get_instance();
 
@@ -52,6 +55,8 @@ class Callbook {
 		$this->qrzcq_session_cachekey = 'qrzcq_session_key_'.$this->ci->config->item('qrzcq_username');
 		$this->hamqth_session_cachekey = 'hamqth_session_key_'.$this->ci->config->item('hamqth_username');
 		$this->qrzru_session_cachekey = 'qrzru_session_key_'.$this->ci->config->item('qrzru_username');
+
+		$this->logbook_not_configured = __("Lookup not configured. Please review configuration.");
 	}
 
 	// TODO:
@@ -118,7 +123,7 @@ class Callbook {
 				$callbook = $this->_qrzru($callsign);
 				break;
 			default:
-				$callbook['error'] = 'No callbook defined. Please review configuration.';
+				$callbook['error'] = $this->logbook_not_configured;
 		}
 
 		log_message('debug', 'Callbook lookup for '.$callsign.' using '.$source.': '.((($callbook['error'] ?? '' ) != '') ? $callbook['error'] : 'Success'));
@@ -133,7 +138,7 @@ class Callbook {
 		$password = trim($this->ci->config->item('qrz_password') ?? '');
 		
 		if ($username == '' || $password == '') {
-			$callbook['error'] = 'Lookup not configured. Please review configuration.';
+			$callbook['error'] = $this->logbook_not_configured;
 		} else {
 			
 			if (!$this->ci->cache->get($this->qrz_session_cachekey)) {
@@ -167,7 +172,7 @@ class Callbook {
 		$password = trim($this->ci->config->item('qrzcq_password') ?? '');
 
 		if ($username == '' || $password == '') {
-			$callbook['error'] = 'Lookup not configured. Please review configuration.';
+			$callbook['error'] = $this->logbook_not_configured;
 		} else {
 
 			if (!$this->ci->cache->get($this->qrzcq_session_cachekey)) {
@@ -207,7 +212,7 @@ class Callbook {
 		$password = trim($this->ci->config->item('hamqth_password') ?? '');
 
 		if ($username == '' || $password == '') {
-			$callbook['error'] = 'Lookup not configured. Please review configuration.';
+			$callbook['error'] = $this->logbook_not_configured;
 		} else {
 
 			if (!$this->ci->cache->get($this->hamqth_session_cachekey)) {
@@ -248,7 +253,7 @@ class Callbook {
 		$password = trim($this->ci->config->item('qrzru_password') ?? '');
 
 		if ($username == '' || $password == '') {
-			$callbook['error'] = 'Lookup not configured. Please review configuration.';
+			$callbook['error'] = $this->logbook_not_configured;
 		} else {
 
 			if (!$this->ci->cache->get($this->qrzru_session_cachekey)) {
