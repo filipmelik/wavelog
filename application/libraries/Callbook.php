@@ -10,8 +10,48 @@ class Callbook {
 
 	private $ci;
 
+	// Duration of session keys
+
+	// QRZ.com 
+	// They write that session keys have no guaranteed lifetime. We should cache it to reuse it, but also be prepared 
+	// to get a new one if the session key is invalid.
+	// Older documents showed that the duration was between 12-24 hours. So we set it to 4 hours to be on the safe side.
+	// Ref.: https://www.qrz.com/docs/xml/current_spec.html
+	const QRZ_SESSION_DURATION = 14400; // 4 hours
+	private $qrz_session_cachekey = null;
+
+	// QRZCQ.com
+	// I could not find any information about session key duration on their website. Let's cache it for at least 55 minutes.
+	// In code we are prepared for an invalid session key, so if the session key is invalid we will get a new one and retry the search.
+	// Ref.: https://www.qrzcq.com/docs/api/xml/
+	const QRZCQ_SESSION_DURATION = 3300; // 55 minutes
+	private $qrzcq_session_cachekey = null;
+
+	// HamQTH.com
+	// Session Key is valid for 1 hour according to their documentation. We set it just a few moments below that to 55 Minutes. 
+	// Ref.: https://www.hamqth.com/developers.php
+	const HAMQTH_SESSION_DURATION = 3300; // 55 minutes
+	private $hamqth_session_cachekey = null;
+
+	// QRZRU.com
+	// Session Key is valid for 1 hour according to their documentation. We set it just a few moments below that to 55 Minutes. 
+	// Ref.: https://www.qrz.ru/help/api/xml
+	const QRZRU_SESSION_DURATION = 3300; // 55 minutes
+	private $qrzru_session_cachekey = null;
+
 	public function __construct() {
 		$this->ci = & get_instance();
+
+		$this->ci->load->is_loaded('cache') ?: $this->ci->load->driver('cache', [
+			'adapter' => $this->ci->config->item('cache_adapter') ?? 'file', 
+			'backup' => $this->ci->config->item('cache_backup') ?? 'file',
+			'key_prefix' => $this->ci->config->item('cache_key_prefix') ?? ''
+		]);
+
+		$this->qrz_session_cachekey = 'qrz_session_key_'.$this->ci->config->item('qrz_username');
+		$this->qrzcq_session_cachekey = 'qrzcq_session_key_'.$this->ci->config->item('qrzcq_username');
+		$this->hamqth_session_cachekey = 'hamqth_session_key_'.$this->ci->config->item('hamqth_username');
+		$this->qrzru_session_cachekey = 'qrzru_session_key_'.$this->ci->config->item('qrzru_username');
 	}
 
 	// TODO:
@@ -95,24 +135,24 @@ class Callbook {
 		} else {
 			$username = $this->ci->config->item('qrz_username');
 			$password = $this->ci->config->item('qrz_password');
-
-			if (!$this->ci->session->userdata('qrz_session_key')) {
+			
+			if (!$this->ci->cache->get($this->qrz_session_cachekey)) {
 				$qrz_session_key = $this->ci->qrz->session($username, $password);
-				$this->ci->session->set_userdata('qrz_session_key', $qrz_session_key);
+				$this->ci->cache->save($this->qrz_session_cachekey, $qrz_session_key, self::QRZ_SESSION_DURATION);
 			}
 
-			$callbook = $this->ci->qrz->search($callsign, $this->ci->session->userdata('qrz_session_key'), $fullname);
+			$callbook = $this->ci->qrz->search($callsign, $this->ci->cache->get($this->qrz_session_cachekey), $fullname);
 
 			if ($callbook['error'] ?? '' == 'Invalid session key') {
 				$qrz_session_key = $this->ci->qrz->session($username, $password);
-				$this->ci->session->set_userdata('qrz_session_key', $qrz_session_key);
-				$callbook = $this->ci->qrz->search($callsign, $this->ci->session->userdata('qrz_session_key'), $fullname);
+				$this->ci->cache->save($this->qrz_session_cachekey, $qrz_session_key, self::QRZ_SESSION_DURATION);
+				$callbook = $this->ci->qrz->search($callsign, $this->ci->cache->get($this->qrz_session_cachekey), $fullname);
 			}
 
 			if (strpos($callbook['error'] ?? '', 'Not found') !== false && strpos($callsign, "/") !== false) {
 				$plaincall = $this->get_plaincall($callsign);
 				// Now try again but give back reduced data, as we can't validate location and stuff (true at the end)
-				$callbook = $this->ci->qrz->search($plaincall, $this->ci->session->userdata('qrz_session_key'), $fullname, true);
+				$callbook = $this->ci->qrz->search($plaincall, $this->ci->cache->get($this->qrz_session_cachekey), $fullname, true);
 			}
 		}
 		$callbook['source'] = $this->ci->qrz->sourcename();
@@ -131,10 +171,10 @@ class Callbook {
 			$username = $this->ci->config->item('qrzcq_username');
 			$password = $this->ci->config->item('qrzcq_password');
 
-			if (!$this->ci->session->userdata('qrzcq_session_key')) {
+			if (!$this->ci->cache->get($this->qrzcq_session_cachekey)) {
 				$result = $this->ci->qrzcq->session($username, $password);
 				if ($result[0] == 0) {
-					$this->ci->session->set_userdata('qrzcq_session_key', $result[1]);
+					$this->ci->cache->save($this->qrzcq_session_cachekey, $result[1], self::QRZCQ_SESSION_DURATION);
 				} else {
 					$data['error'] = __("QRZCQ Error").": ".$result[1];
 					$data['source'] = $this->ci->qrzcq->sourcename();
@@ -142,18 +182,18 @@ class Callbook {
 				}
 			}
 
-			$callbook = $this->ci->qrzcq->search($callsign, $this->ci->session->userdata('qrzcq_session_key'));
+			$callbook = $this->ci->qrzcq->search($callsign, $this->ci->cache->get($this->qrzcq_session_cachekey));
 
 			if ($callbook['error'] ?? '' == 'Invalid session key') {
 				$qrzcq_session_key = $this->ci->qrzcq->session($username, $password);
-				$this->ci->session->set_userdata('qrzcq_session_key', $qrzcq_session_key);
-				$callbook = $this->ci->qrzcq->search($callsign, $this->ci->session->userdata('qrzcq_session_key'));
+				$this->ci->cache->save($this->qrzcq_session_cachekey, $qrzcq_session_key, self::QRZCQ_SESSION_DURATION);
+				$callbook = $this->ci->qrzcq->search($callsign, $this->ci->cache->get($this->qrzcq_session_cachekey));
 			}
 
 			if (strpos($callbook['error'] ?? '', 'Not found') !== false && strpos($callsign, "/") !== false) {
 				$plaincall = $this->get_plaincall($callsign);
 				// Now try again but give back reduced data, as we can't validate location and stuff (true at the end)
-				$callbook = $this->ci->qrzcq->search($plaincall, $this->ci->session->userdata('qrzcq_session_key'), true);
+				$callbook = $this->ci->qrzcq->search($plaincall, $this->ci->cache->get($this->qrzcq_session_cachekey), true);
 			}
 		}
 		$callbook['source'] = $this->ci->qrzcq->sourcename();
@@ -173,30 +213,30 @@ class Callbook {
 			$username = $this->ci->config->item('hamqth_username');
 			$password = $this->ci->config->item('hamqth_password');
 
-			if (!$this->ci->session->userdata('hamqth_session_key')) {
+			if (!$this->ci->cache->get($this->hamqth_session_cachekey)) {
 				$hamqth_session_key = $this->ci->hamqth->session($username, $password);
 				if ($hamqth_session_key == false) {
 					$callbook['error'] = __("Error obtaining a session key for HamQTH query");
 					$callbook['source'] = $this->ci->hamqth->sourcename();
 					return $callbook;
 				} else {
-					$this->ci->session->set_userdata('hamqth_session_key', $hamqth_session_key);
+					$this->ci->cache->save($this->hamqth_session_cachekey, $hamqth_session_key, self::HAMQTH_SESSION_DURATION);
 				}
 			}
 
-			$callbook = $this->ci->hamqth->search($callsign, $this->ci->session->userdata('hamqth_session_key'));
+			$callbook = $this->ci->hamqth->search($callsign, $this->ci->cache->get($this->hamqth_session_cachekey));
 
 			// If HamQTH session has expired, start a new session and retry the search.
 			if ($callbook['error'] == "Session does not exist or expired") {
 				$hamqth_session_key = $this->ci->hamqth->session($username, $password);
-				$this->ci->session->set_userdata('hamqth_session_key', $hamqth_session_key);
-				$callbook = $this->ci->hamqth->search($callsign, $this->ci->session->userdata('hamqth_session_key'));
+				$this->ci->cache->save($this->hamqth_session_cachekey, $hamqth_session_key, self::HAMQTH_SESSION_DURATION);
+				$callbook = $this->ci->hamqth->search($callsign, $this->ci->cache->get($this->hamqth_session_cachekey));
 			}
 
 			if (strpos($callbook['error'] ?? '', 'Not found') !== false && strpos($callsign, "/") !== false) {
 				$plaincall = $this->get_plaincall($callsign);
 				// Now try again but give back reduced data, as we can't validate location and stuff (true at the end)
-				$callbook = $this->ci->hamqth->search($plaincall, $this->ci->session->userdata('hamqth_session_key'), true);
+				$callbook = $this->ci->hamqth->search($plaincall, $this->ci->cache->get($this->hamqth_session_cachekey), true);
 			}
 		}
 		$callbook['source'] = $this->ci->hamqth->sourcename();
@@ -215,23 +255,23 @@ class Callbook {
 			$username = $this->ci->config->item('qrzru_username');
 			$password = $this->ci->config->item('qrzru_password');
 
-			if (!$this->ci->session->userdata('qrzru_session_key')) {
+			if (!$this->ci->cache->get($this->qrzru_session_cachekey)) {
 				$result = $this->ci->qrzru->session($username, $password);
-				$this->ci->session->set_userdata('qrzru_session_key', $result);
+				$this->ci->cache->save($this->qrzru_session_cachekey, $result, self::QRZRU_SESSION_DURATION);
 			}
 
-			$callbook = $this->ci->qrzru->search($callsign, $this->ci->session->userdata('qrzru_session_key'));
+			$callbook = $this->ci->qrzru->search($callsign, $this->ci->cache->get($this->qrzru_session_cachekey));
 
 			if ($callbook['error'] ?? '' == 'Session does not exist or expired') {
 				$qrzru_session_key = $this->ci->qrzru->session($username, $password);
-				$this->ci->session->set_userdata('qrzru_session_key', $qrzru_session_key);
-				$callbook = $this->ci->qrzru->search($callsign, $this->ci->session->userdata('qrzru_session_key'));
+				$this->ci->cache->save($this->qrzru_session_cachekey, $qrzru_session_key, self::QRZRU_SESSION_DURATION);
+				$callbook = $this->ci->qrzru->search($callsign, $this->ci->cache->get($this->qrzru_session_cachekey));
 			}
 
 			if (strpos($callbook['error'] ?? '', 'Callsign not found') !== false && strpos($callsign, "/") !== false) {
 				$plaincall = $this->get_plaincall($callsign);
 				// Now try again but give back reduced data, as we can't validate location and stuff (true at the end)
-				$callbook = $this->ci->qrzru->search($plaincall, $this->ci->session->userdata('qrzru_session_key'), true);
+				$callbook = $this->ci->qrzru->search($plaincall, $this->ci->cache->get($this->qrzru_session_cachekey), true);
 			}
 		}
 		$callbook['source'] = $this->ci->qrzru->sourcename();
