@@ -41,6 +41,7 @@ class Callbook {
 
 	// Some generic stuff
 	private $logbook_not_configured;
+	private $error_obtaining_sessionkey;
 
 	public function __construct() {
 		$this->ci = & get_instance();
@@ -57,6 +58,7 @@ class Callbook {
 		$this->qrzru_session_cachekey = 'qrzru_session_key_'.$this->ci->config->item('qrzru_username');
 
 		$this->logbook_not_configured = __("Lookup not configured. Please review configuration.");
+		$this->error_obtaining_sessionkey = __("Error obtaining a session key for callbook. Error: %s");
 	}
 
 	// TODO:
@@ -143,6 +145,10 @@ class Callbook {
 			
 			if (!$this->ci->cache->get($this->qrz_session_cachekey)) {
 				$qrz_session_key = $this->ci->qrz->session($username, $password);
+				if (!$this->_validate_sessionkey($qrz_session_key)) {
+					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $qrz_session_key);
+					return $callbook;
+				}
 				$this->ci->cache->save($this->qrz_session_cachekey, $qrz_session_key, self::QRZ_SESSION_DURATION);
 			}
 
@@ -150,6 +156,10 @@ class Callbook {
 
 			if ($callbook['error'] ?? '' == 'Invalid session key') {
 				$qrz_session_key = $this->ci->qrz->session($username, $password);
+				if (!$this->_validate_sessionkey($qrz_session_key)) {
+					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $qrz_session_key);
+					return $callbook;
+				}
 				$this->ci->cache->save($this->qrz_session_cachekey, $qrz_session_key, self::QRZ_SESSION_DURATION);
 				$callbook = $this->ci->qrz->search($callsign, $this->ci->cache->get($this->qrz_session_cachekey), $fullname);
 			}
@@ -177,6 +187,10 @@ class Callbook {
 
 			if (!$this->ci->cache->get($this->qrzcq_session_cachekey)) {
 				$result = $this->ci->qrzcq->session($username, $password);
+				if (!$this->_validate_sessionkey($result[1])) {
+					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $result[1]);
+					return $callbook;
+				}
 				if ($result[0] == 0) {
 					$this->ci->cache->save($this->qrzcq_session_cachekey, $result[1], self::QRZCQ_SESSION_DURATION);
 				} else {
@@ -189,6 +203,10 @@ class Callbook {
 
 			if ($callbook['error'] ?? '' == 'Invalid session key') {
 				$qrzcq_session_key = $this->ci->qrzcq->session($username, $password);
+				if (!$this->_validate_sessionkey($qrzcq_session_key[1])) {
+					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $qrzcq_session_key[1]);
+					return $callbook;
+				}
 				$this->ci->cache->save($this->qrzcq_session_cachekey, $qrzcq_session_key[1], self::QRZCQ_SESSION_DURATION);
 				$callbook = $this->ci->qrzcq->search($callsign, $this->ci->cache->get($this->qrzcq_session_cachekey));
 			}
@@ -207,7 +225,6 @@ class Callbook {
 		$this->ci->load->is_loaded('hamqth') ?: $this->ci->load->library('hamqth');
 
 		$callbook['source'] = $this->ci->hamqth->sourcename();
-
 		$username = trim($this->ci->config->item('hamqth_username') ?? '');
 		$password = trim($this->ci->config->item('hamqth_password') ?? '');
 
@@ -217,8 +234,8 @@ class Callbook {
 
 			if (!$this->ci->cache->get($this->hamqth_session_cachekey)) {
 				$hamqth_session_key = $this->ci->hamqth->session($username, $password);
-				if ($hamqth_session_key == false) {
-					$callbook['error'] = __("Error obtaining a session key for HamQTH query");
+				if (!$this->_validate_sessionkey($hamqth_session_key)) {
+					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $hamqth_session_key);
 					return $callbook;
 				} else {
 					$this->ci->cache->save($this->hamqth_session_cachekey, $hamqth_session_key, self::HAMQTH_SESSION_DURATION);
@@ -230,6 +247,10 @@ class Callbook {
 			// If HamQTH session has expired, start a new session and retry the search.
 			if ($callbook['error'] == "Session does not exist or expired") {
 				$hamqth_session_key = $this->ci->hamqth->session($username, $password);
+				if (!$this->_validate_sessionkey($hamqth_session_key)) {
+					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $hamqth_session_key);
+					return $callbook;
+				}
 				$this->ci->cache->save($this->hamqth_session_cachekey, $hamqth_session_key, self::HAMQTH_SESSION_DURATION);
 				$callbook = $this->ci->hamqth->search($callsign, $this->ci->cache->get($this->hamqth_session_cachekey));
 			}
@@ -248,7 +269,6 @@ class Callbook {
 		$this->ci->load->is_loaded('qrzru') ?: $this->ci->load->library('qrzru');
 
 		$callbook['source'] = $this->ci->qrzru->sourcename();
-
 		$username = trim($this->ci->config->item('qrzru_username') ?? '');
 		$password = trim($this->ci->config->item('qrzru_password') ?? '');
 
@@ -258,6 +278,10 @@ class Callbook {
 
 			if (!$this->ci->cache->get($this->qrzru_session_cachekey)) {
 				$result = $this->ci->qrzru->session($username, $password);
+				if (!$this->_validate_sessionkey($result)) {
+					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $result);
+					return $callbook;
+				}
 				$this->ci->cache->save($this->qrzru_session_cachekey, $result, self::QRZRU_SESSION_DURATION);
 			}
 
@@ -265,6 +289,10 @@ class Callbook {
 
 			if ($callbook['error'] ?? '' == 'Session does not exist or expired') {
 				$qrzru_session_key = $this->ci->qrzru->session($username, $password);
+				if (!$this->_validate_sessionkey($qrzru_session_key)) {
+					$callbook['error'] = sprintf($this->error_obtaining_sessionkey, $qrzru_session_key);
+					return $callbook;
+				}
 				$this->ci->cache->save($this->qrzru_session_cachekey, $qrzru_session_key, self::QRZRU_SESSION_DURATION);
 				$callbook = $this->ci->qrzru->search($callsign, $this->ci->cache->get($this->qrzru_session_cachekey));
 			}
@@ -277,6 +305,23 @@ class Callbook {
 		}
 
 		return $callbook;
+	}
+
+	private function _validate_sessionkey($key) {
+		// Session key must be a non-empty string
+		if ($key == false || $key == '' || !is_string($key)) {
+			return false;
+		}
+		
+		// All session keys should be at least 10 characters. Regarding to their documentation all keys have aprox. the same format
+		// "2331uf894c4bd29f3923f3bacf02c532d7bd9"
+		// Since it can differ and we want to don't overcomplicate things we simply check if the key is at least 10 characters long. 
+		// If not, we consider it as invalid.
+		if (strlen($key) < 10) {
+			return false;
+		}
+		
+		return true;
 	}
 
 	function get_plaincall($callsign) {
