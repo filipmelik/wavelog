@@ -211,9 +211,10 @@ class API_Model extends CI_Model {
 		}
 
 		$bindings = [];
+		$ids = array_map('intval', $logbooks_locations_array);
 		$sql = 'SELECT DISTINCT UPPER(SUBSTR(COL_GRIDSQUARE, 1, 4)) AS gridsquare FROM ' . $this->config->item('table_name') . ' thcv ';
 		$sql .= ' WHERE COL_GRIDSQUARE <> "" AND CHAR_LENGTH(COL_GRIDSQUARE) >= 4';
-		$sql .= ' AND station_id IN ('.implode(',', $logbooks_locations_array).')';
+		$sql .= ' AND station_id IN (' . implode(',', $ids) . ')';
 		$sql .= $subsql;
 		$sql .= ' ORDER BY gridsquare ASC;';
 		$query = $this->db->query($sql,$bindings);
@@ -223,7 +224,7 @@ class API_Model extends CI_Model {
 		// Get and add VUCC grids
 		$sql = 'SELECT DISTINCT UPPER(COL_VUCC_GRIDS) AS vuccgrids FROM ' . $this->config->item('table_name') . ' thcv ';
 		$sql .= ' WHERE COL_VUCC_GRIDS <> ""';
-		$sql .= ' AND station_id IN ('.implode(',', $logbooks_locations_array).')';
+		$sql .= ' AND station_id IN (' . implode(',', $ids) . ')';
 		$sql .= $subsql;
 		$sql .= ' ORDER BY vuccgrids ASC;';
 		$query = $this->db->query($sql,$bindings);
