@@ -129,12 +129,12 @@ class Callbook {
 		$this->ci->load->is_loaded('qrz') ?: $this->ci->load->library('qrz');
 
 		$callbook['source'] = $this->ci->qrz->sourcename();
+		$username = trim($this->ci->config->item('qrz_username') ?? '');
+		$password = trim($this->ci->config->item('qrz_password') ?? '');
 		
-		if ($this->ci->config->item('qrz_username') == null || $this->ci->config->item('qrz_password') == null) {
+		if ($username == '' || $password == '') {
 			$callbook['error'] = 'Lookup not configured. Please review configuration.';
 		} else {
-			$username = $this->ci->config->item('qrz_username');
-			$password = $this->ci->config->item('qrz_password');
 			
 			if (!$this->ci->cache->get($this->qrz_session_cachekey)) {
 				$qrz_session_key = $this->ci->qrz->session($username, $password);
@@ -163,12 +163,12 @@ class Callbook {
 		$this->ci->load->is_loaded('qrzcq') ?: $this->ci->load->library('qrzcq');
 
 		$callbook['source'] = $this->ci->qrzcq->sourcename();
+		$username = trim($this->ci->config->item('qrzcq_username') ?? '');
+		$password = trim($this->ci->config->item('qrzcq_password') ?? '');
 
-		if ($this->ci->config->item('qrzcq_username') == null || $this->ci->config->item('qrzcq_password') == null) {
+		if ($username == '' || $password == '') {
 			$callbook['error'] = 'Lookup not configured. Please review configuration.';
 		} else {
-			$username = $this->ci->config->item('qrzcq_username');
-			$password = $this->ci->config->item('qrzcq_password');
 
 			if (!$this->ci->cache->get($this->qrzcq_session_cachekey)) {
 				$result = $this->ci->qrzcq->session($username, $password);
@@ -203,11 +203,12 @@ class Callbook {
 
 		$callbook['source'] = $this->ci->hamqth->sourcename();
 
-		if ($this->ci->config->item('hamqth_username') == null || $this->ci->config->item('hamqth_password') == null) {
+		$username = trim($this->ci->config->item('hamqth_username') ?? '');
+		$password = trim($this->ci->config->item('hamqth_password') ?? '');
+
+		if ($username == '' || $password == '') {
 			$callbook['error'] = 'Lookup not configured. Please review configuration.';
 		} else {
-			$username = $this->ci->config->item('hamqth_username');
-			$password = $this->ci->config->item('hamqth_password');
 
 			if (!$this->ci->cache->get($this->hamqth_session_cachekey)) {
 				$hamqth_session_key = $this->ci->hamqth->session($username, $password);
@@ -243,11 +244,12 @@ class Callbook {
 
 		$callbook['source'] = $this->ci->qrzru->sourcename();
 
-		if ($this->ci->config->item('qrzru_username') == null || $this->ci->config->item('qrzru_password') == null) {
+		$username = trim($this->ci->config->item('qrzru_username') ?? '');
+		$password = trim($this->ci->config->item('qrzru_password') ?? '');
+
+		if ($username == '' || $password == '') {
 			$callbook['error'] = 'Lookup not configured. Please review configuration.';
 		} else {
-			$username = $this->ci->config->item('qrzru_username');
-			$password = $this->ci->config->item('qrzru_password');
 
 			if (!$this->ci->cache->get($this->qrzru_session_cachekey)) {
 				$result = $this->ci->qrzru->session($username, $password);
