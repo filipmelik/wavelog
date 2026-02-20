@@ -3711,6 +3711,7 @@ msgid "Bearing"
 msgstr "Dirección"
 
 #: application/models/Logbookadvanced_model.php:1723
+#: application/models/Logbookadvanced_model.php:1727
 msgid "VuccGrids table is empty. Please import the VUCC grids data first."
 msgstr ""
 "La tabla VuccGrids esta vacía. Por favor importe la información de "
@@ -6702,9 +6703,9 @@ msgid ""
 "(RTTY/PSK/FSK), and individual bands (160M-2M). Classes: Basic (1 QSO/voiv), "
 "Bronze (3), Silver (7), Gold (12). All 16 voivodeships required."
 msgstr ""
-"Categorías de premios: MIXTO (todos los modos/bandas), PHONE (SSB/AM/FM/SSTV)"
-", CW, DIGI (RTTY/PSK/FSK), y bandas individuales (160M-2M). Clases: Básico "
-"(1 QSO/voiv), Bronce (3), Plata (7), Oro (12). Se requieren los 16 "
+"Categorías de premios: MIXTO (todos los modos/bandas), PHONE (SSB/AM/FM/"
+"SSTV), CW, DIGI (RTTY/PSK/FSK), y bandas individuales (160M-2M). Clases: "
+"Básico (1 QSO/voiv), Bronce (3), Plata (7), Oro (12). Se requieren los 16 "
 "voivodatos."
 
 #: application/views/awards/pl_polska/index.php:40
@@ -6721,8 +6722,8 @@ msgid ""
 "Requirements: COL_STATE (voivodeship code), COL_DXCC=269 (Poland), QSO date "
 ">= 1999-01-01. No cross-band/cross-mode/repeater contacts."
 msgstr ""
-"Requisitos: COL_STATE (código voivodeship), COL_DXCC=269 (Poland), QSO "
-"fecha >= 1999-01-01. No cross-band/cross-mode/repeater contacts."
+"Requisitos: COL_STATE (código voivodeship), COL_DXCC=269 (Poland), QSO fecha "
+">= 1999-01-01. No cross-band/cross-mode/repeater contacts."
 
 #: application/views/awards/pl_polska/index.php:54
 msgid "Station Logbook"
@@ -7367,9 +7368,9 @@ msgid ""
 "Macao/152, Taiwan/386, Pratas Isl./505 or Scarborough Reef/506) and valid "
 "State (ADIF: DXCC and STATE)"
 msgstr ""
-"Campos tomados para este Premio: DXCC (Debe ser uno de China/318, "
-"HongKong/321, Macao/152, Taiwán/386, Islas Pratas/505 o Arrecife "
-"Scarborough/506) y Estado válido (ADIF: DXCC y STATE)"
+"Campos tomados para este Premio: DXCC (Debe ser uno de China/318, HongKong/"
+"321, Macao/152, Taiwán/386, Islas Pratas/505 o Arrecife Scarborough/506) y "
+"Estado válido (ADIF: DXCC y STATE)"
 
 #: application/views/awards/was/index.php:3
 msgctxt "USA State"
@@ -7430,8 +7431,8 @@ msgid ""
 "and STATE (Must contain a valid U.S. state abbreviation!)"
 msgstr ""
 "Campos tomados para este premio: DXCC (Debe ser uno de EE.UU., Alaska o "
-"Hawái) y ESTADO (¡Debe contener una abreviatura válida de un estado de EE."
-"UU.!)"
+"Hawái) y ESTADO (¡Debe contener una abreviatura válida de un estado de "
+"EE.UU.!)"
 
 #: application/views/awards/was/index.php:120
 msgid "Show WAS Map"
@@ -7633,7 +7634,8 @@ msgstr "Bloqueo de banda"
 
 #: application/views/bandmap/list.php:36
 msgid "Band lock enabled - band filter will track radio band"
-msgstr "Bloqueo de banda activado: el filtro de banda seguirá la banda de radio"
+msgstr ""
+"Bloqueo de banda activado: el filtro de banda seguirá la banda de radio"
 
 #: application/views/bandmap/list.php:37
 msgid "Band filter changed to"
@@ -10859,8 +10861,8 @@ msgid ""
 "Go to your application/config Folder and compare config.sample.php with your "
 "config.php"
 msgstr ""
-"Ve a tu carpeta application/config y compara config.sample.php con tu config."
-"php"
+"Ve a tu carpeta application/config y compara config.sample.php con tu "
+"config.php"
 
 #: application/views/debug/index.php:206
 #, php-format
@@ -12152,7 +12154,8 @@ msgstr "No se pudo sintonizar la radio a"
 
 #: application/views/interface_assets/footer.php:130
 msgid "CAT interface not responding. Please check your radio connection."
-msgstr "La interfaz CAT no responde. Por favor, revisa la conexión de tu radio."
+msgstr ""
+"La interfaz CAT no responde. Por favor, revisa la conexión de tu radio."
 
 #: application/views/interface_assets/footer.php:131
 msgid "No CAT URL configured for this radio"
@@ -13151,7 +13154,8 @@ msgstr ""
 
 #: application/views/logbookadvanced/checkresult.php:305
 msgid "Force update even if DXCC covers multiple ITU zones"
-msgstr "Forzar la actualización incluso si DXCC cubre múltiples zonas de la UIT"
+msgstr ""
+"Forzar la actualización incluso si DXCC cubre múltiples zonas de la UIT"
 
 #: application/views/logbookadvanced/checkresult.php:306
 msgid ""
@@ -13751,7 +13755,8 @@ msgstr "Omitido"
 #: application/views/logbookadvanced/index.php:40
 #, php-format
 msgid "Skipped: %s, see details for skipped rows below"
-msgstr "Omitido: %s, consulta los detalles de las filas omitidas a continuación"
+msgstr ""
+"Omitido: %s, consulta los detalles de las filas omitidas a continuación"
 
 #: application/views/logbookadvanced/index.php:41
 msgid "State Fix Complete"
@@ -18007,8 +18012,9 @@ msgid ""
 "Create a new folder in 'assets/css/' and upload a 'bootstrap.min.css' file "
 "which contains basic styling rules. We use the themes from %s"
 msgstr ""
-"Crea una nueva carpeta en 'assets/css/' y sube un archivo 'bootstrap.min."
-"css' que contenga reglas de estilo básicas. Usamos los temas de %s"
+"Crea una nueva carpeta en 'assets/css/' y sube un archivo "
+"'bootstrap.min.css' que contenga reglas de estilo básicas. Usamos los temas "
+"de %s"
 
 #: application/views/themes/index.php:50
 msgid "2. Step"
@@ -18057,8 +18063,8 @@ msgid ""
 "filenames for the logos %swithout%s the file extension '.png'"
 msgstr ""
 "Haz clic aquí en 'Agregar un tema' y escribe los datos necesarios. Escribe "
-"los nombres de archivo para los logotipos %ssin%s la extensión de archivo '."
-"png'"
+"los nombres de archivo para los logotipos %ssin%s la extensión de archivo "
+"'.png'"
 
 #: application/views/themes/index.php:83
 msgid "Foldername"
