@@ -3402,6 +3402,7 @@ msgid "Gridsquare Zone finder"
 msgstr "Locator Zon sökare"
 
 #: application/libraries/Callbook.php:139
+#: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
 msgstr "QRZCQ-fel"
 
@@ -19360,6 +19361,15 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#: application/libraries/Callbook.php:60
+msgid "Lookup not configured. Please review configuration."
+msgstr ""
+
+#: application/libraries/Callbook.php:61
+#, php-format
+msgid "Error obtaining a session key for callbook. Error: %s"
+msgstr ""
 
 #~ msgid "radio functions"
 #~ msgstr "radiofunktioner"
