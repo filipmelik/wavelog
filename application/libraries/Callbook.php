@@ -126,12 +126,12 @@ class Callbook {
 	}
 
 	function qrz($callsign, $fullname) {
-		if (!$this->ci->load->is_loaded('qrz')) {
-			$this->ci->load->library('qrz');
-		}
+		$this->ci->load->is_loaded('qrz') ?: $this->ci->load->library('qrz');
+
+		$callbook['source'] = $this->ci->qrz->sourcename();
+		
 		if ($this->ci->config->item('qrz_username') == null || $this->ci->config->item('qrz_password') == null) {
 			$callbook['error'] = 'Lookup not configured. Please review configuration.';
-			$callbook['source'] = $this->ci->qrz->sourcename();
 		} else {
 			$username = $this->ci->config->item('qrz_username');
 			$password = $this->ci->config->item('qrz_password');
@@ -155,18 +155,17 @@ class Callbook {
 				$callbook = $this->ci->qrz->search($plaincall, $this->ci->cache->get($this->qrz_session_cachekey), $fullname, true);
 			}
 		}
-		$callbook['source'] = $this->ci->qrz->sourcename();
 
 		return $callbook;
 	}
 
 	function qrzcq($callsign) {
-		if (!$this->ci->load->is_loaded('qrzcq')) {
-			$this->ci->load->library('qrzcq');
-		}
+		$this->ci->load->is_loaded('qrzcq') ?: $this->ci->load->library('qrzcq');
+
+		$callbook['source'] = $this->ci->qrzcq->sourcename();
+
 		if ($this->ci->config->item('qrzcq_username') == null || $this->ci->config->item('qrzcq_password') == null) {
 			$callbook['error'] = 'Lookup not configured. Please review configuration.';
-			$callbook['source'] = $this->ci->qrzcq->sourcename();
 		} else {
 			$username = $this->ci->config->item('qrzcq_username');
 			$password = $this->ci->config->item('qrzcq_password');
@@ -176,9 +175,8 @@ class Callbook {
 				if ($result[0] == 0) {
 					$this->ci->cache->save($this->qrzcq_session_cachekey, $result[1], self::QRZCQ_SESSION_DURATION);
 				} else {
-					$data['error'] = __("QRZCQ Error").": ".$result[1];
-					$data['source'] = $this->ci->qrzcq->sourcename();
-					return $data;
+					$callbook['error'] = __("QRZCQ Error").": ".$result[1];
+					return $callbook;
 				}
 			}
 
@@ -196,19 +194,17 @@ class Callbook {
 				$callbook = $this->ci->qrzcq->search($plaincall, $this->ci->cache->get($this->qrzcq_session_cachekey), true);
 			}
 		}
-		$callbook['source'] = $this->ci->qrzcq->sourcename();
 
 		return $callbook;
 	}
 
 	function hamqth($callsign) {
-		// Load the HamQTH library
-		if (!$this->ci->load->is_loaded('hamqth')) {
-			$this->ci->load->library('hamqth');
-		}
+		$this->ci->load->is_loaded('hamqth') ?: $this->ci->load->library('hamqth');
+
+		$callbook['source'] = $this->ci->hamqth->sourcename();
+
 		if ($this->ci->config->item('hamqth_username') == null || $this->ci->config->item('hamqth_password') == null) {
 			$callbook['error'] = 'Lookup not configured. Please review configuration.';
-			$callbook['source'] = $this->ci->hamqth->sourcename();
 		} else {
 			$username = $this->ci->config->item('hamqth_username');
 			$password = $this->ci->config->item('hamqth_password');
@@ -217,7 +213,6 @@ class Callbook {
 				$hamqth_session_key = $this->ci->hamqth->session($username, $password);
 				if ($hamqth_session_key == false) {
 					$callbook['error'] = __("Error obtaining a session key for HamQTH query");
-					$callbook['source'] = $this->ci->hamqth->sourcename();
 					return $callbook;
 				} else {
 					$this->ci->cache->save($this->hamqth_session_cachekey, $hamqth_session_key, self::HAMQTH_SESSION_DURATION);
@@ -239,18 +234,17 @@ class Callbook {
 				$callbook = $this->ci->hamqth->search($plaincall, $this->ci->cache->get($this->hamqth_session_cachekey), true);
 			}
 		}
-		$callbook['source'] = $this->ci->hamqth->sourcename();
 
 		return $callbook;
 	}
 
 	function qrzru($callsign) {
-		if (!$this->ci->load->is_loaded('qrzru')) {
-			$this->ci->load->library('qrzru');
-		}
+		$this->ci->load->is_loaded('qrzru') ?: $this->ci->load->library('qrzru');
+
+		$callbook['source'] = $this->ci->qrzru->sourcename();
+
 		if ($this->ci->config->item('qrzru_username') == null || $this->ci->config->item('qrzru_password') == null) {
 			$callbook['error'] = 'Lookup not configured. Please review configuration.';
-			$callbook['source'] = $this->ci->qrzru->sourcename();
 		} else {
 			$username = $this->ci->config->item('qrzru_username');
 			$password = $this->ci->config->item('qrzru_password');
@@ -274,7 +268,6 @@ class Callbook {
 				$callbook = $this->ci->qrzru->search($plaincall, $this->ci->cache->get($this->qrzru_session_cachekey), true);
 			}
 		}
-		$callbook['source'] = $this->ci->qrzru->sourcename();
 
 		return $callbook;
 	}
