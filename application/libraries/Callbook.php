@@ -186,7 +186,7 @@ class Callbook {
 
 			if ($callbook['error'] ?? '' == 'Invalid session key') {
 				$qrzcq_session_key = $this->ci->qrzcq->session($username, $password);
-				$this->ci->cache->save($this->qrzcq_session_cachekey, $qrzcq_session_key, self::QRZCQ_SESSION_DURATION);
+				$this->ci->cache->save($this->qrzcq_session_cachekey, $qrzcq_session_key[1], self::QRZCQ_SESSION_DURATION);
 				$callbook = $this->ci->qrzcq->search($callsign, $this->ci->cache->get($this->qrzcq_session_cachekey));
 			}
 
