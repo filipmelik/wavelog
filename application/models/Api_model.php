@@ -238,7 +238,7 @@ class API_Model extends CI_Model {
 				}
 			}
 		}
-		asort ($grid_array);
+		sort ($grid_array);
 		return $grid_array;
 	}
 }
