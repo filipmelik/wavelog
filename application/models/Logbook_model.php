@@ -3346,7 +3346,8 @@ class Logbook_model extends CI_Model {
 
       $bindings = [];
 		$sql = 'SELECT DISTINCT UPPER(SUBSTR(COL_GRIDSQUARE, 1, 4)) AS gridsquare FROM ' . $this->config->item('table_name') . ' thcv ';
-		$sql .= ' WHERE COL_GRIDSQUARE <> "" AND station_id IN ('.implode(',', $logbooks_locations_array).')';
+		$sql .= ' WHERE COL_GRIDSQUARE <> "" AND CHAR_LENGTH(COL_GRIDSQUARE) >= 4';
+		$sql .= ' AND station_id IN ('.implode(',', $logbooks_locations_array).')';
 		$band = ($band == 'All') ? null : $band;
 		if ($band != null && $band != 'SAT') {
 			$sql .= ' AND COL_BAND = ? AND COL_PROP_MODE != "SAT"';
