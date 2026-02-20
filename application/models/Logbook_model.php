@@ -3365,6 +3365,7 @@ class Logbook_model extends CI_Model {
 				$sql .= ' AND COL_EQSL_QSL_RCVD = "Y"';
 				break;
 		}
+		$sql .= ' ORDER BY gridsquare ASC;';
 		$query = $this->db->query($sql,$bindings);
 		return $query;
 	}
