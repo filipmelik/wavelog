@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-20 13:16+0000\n"
-"PO-Revision-Date: 2026-02-19 14:38+0000\n"
+"PO-Revision-Date: 2026-02-21 10:16+0000\n"
 "Last-Translator: JONCOUX Philippe <joncoux@free.fr>\n"
 "Language-Team: French <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/fr/>\n"
@@ -3430,12 +3430,13 @@ msgstr "Localisateur de zones de la grille"
 
 #: application/libraries/Callbook.php:60
 msgid "Lookup not configured. Please review configuration."
-msgstr ""
+msgstr "La recherche n'est pas configurée. Veuillez vérifier la configuration."
 
 #: application/libraries/Callbook.php:61
 #, php-format
 msgid "Error obtaining a session key for callbook. Error: %s"
 msgstr ""
+"Erreur lors de l'obtention d'une clé de session pour l'annuaire. Erreur : %s"
 
 #: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
