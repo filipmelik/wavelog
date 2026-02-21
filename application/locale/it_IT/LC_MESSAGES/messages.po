@@ -6,12 +6,13 @@
 # "Francisco (F4VSE)" <kikosgc@users.noreply.github.com>, 2024, 2025.
 # Fabian Berg <fabian.berg@hb9hil.org>, 2024.
 # "Erkin Mercan (TA4AQG-SP9AQG)" <ekomeko066@gmail.com>, 2025.
+# iv3cvn <ricentis@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-20 13:16+0000\n"
-"PO-Revision-Date: 2026-01-24 15:29+0000\n"
-"Last-Translator: Luca <lucabennati1996@gmail.com>\n"
+"PO-Revision-Date: 2026-02-21 10:16+0000\n"
+"Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/it/>\n"
 "Language: it_IT\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #: application/controllers/Accumulated.php:12
 #: application/controllers/Activators.php:13
@@ -964,7 +965,7 @@ msgstr "Chiave/i eliminata/e."
 
 #: application/controllers/Debug.php:114
 msgid "(empty)"
-msgstr ""
+msgstr "(vuoto)"
 
 #: application/controllers/Debug.php:132
 msgid "Debug"
@@ -2453,8 +2454,9 @@ msgid "Settings"
 msgstr "Impostazioni"
 
 #: application/controllers/Radio.php:59
+#, fuzzy
 msgid "WebSocket"
-msgstr ""
+msgstr "WebSocket"
 
 #: application/controllers/Radio.php:65 application/controllers/Radio.php:124
 msgid "Default (click to release)"
@@ -2528,7 +2530,7 @@ msgstr ""
 
 #: application/controllers/Radio.php:138
 msgid "Set WebSocket as default radio"
-msgstr ""
+msgstr "Imposta WebSocket come radio predefinita"
 
 #: application/controllers/Radio.php:142
 msgid "No CAT interfaced radios found."
