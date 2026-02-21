@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-20 13:16+0000\n"
-"PO-Revision-Date: 2026-02-20 07:13+0000\n"
+"PO-Revision-Date: 2026-02-22 03:17+0000\n"
 "Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/sv/>\n"
@@ -3403,12 +3403,12 @@ msgstr "Locator Zon sökare"
 
 #: application/libraries/Callbook.php:60
 msgid "Lookup not configured. Please review configuration."
-msgstr ""
+msgstr "Uppslagning inte konfigurerad. Vänligen granska konfigurationen."
 
 #: application/libraries/Callbook.php:61
 #, php-format
 msgid "Error obtaining a session key for callbook. Error: %s"
-msgstr ""
+msgstr "Fel vid erhållande av sessionsnyckel för callbook. Fel: %s"
 
 #: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
