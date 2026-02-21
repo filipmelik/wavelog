@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-20 13:16+0000\n"
-"PO-Revision-Date: 2026-02-19 11:45+0000\n"
+"PO-Revision-Date: 2026-02-21 10:16+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
@@ -3401,12 +3401,12 @@ msgstr "グリッドスクエアゾーンファインダー"
 
 #: application/libraries/Callbook.php:60
 msgid "Lookup not configured. Please review configuration."
-msgstr ""
+msgstr "ルックアップが設定されていません。設定を確認してください。"
 
 #: application/libraries/Callbook.php:61
 #, php-format
 msgid "Error obtaining a session key for callbook. Error: %s"
-msgstr ""
+msgstr "コールブックのセッションキーの取得中にエラーが発生しました。エラー: %s"
 
 #: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
