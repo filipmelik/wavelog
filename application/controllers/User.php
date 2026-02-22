@@ -313,7 +313,7 @@ class User extends CI_Controller {
 				$this->input->post('oqrs_grouped_search_show_station_name') ?? 'off',
 				$this->input->post('oqrs_auto_matching') ?? 'on',
 				$this->input->post('oqrs_direct_auto_matching') ?? 'on',
-        $this->input->post('user_dxwaterfall_enable') ?? 'N',
+        			$this->input->post('user_dxwaterfall_enable') ?? 'N',
 				$this->input->post('user_qso_show_map') ?? 1,
 				$this->input->post('clubstation') == '1' ? true : false)
 			) {
@@ -716,7 +716,7 @@ class User extends CI_Controller {
 			}
 
 			if($this->input->post('user_dashboard_map')) {
-				$data['user_dashboard_map'] = $this->input->post('user_dashboard_map', false);
+				$data['user_dashboard_map'] = $this->input->post('user_dashboard_map', true);
 			} else {
 				$dkey_opt=$this->user_options_model->get_options('dashboard',array('option_name'=>'show_map','option_key'=>'boolean'), $this->uri->segment(3))->result();
 				if (count($dkey_opt)>0) {
@@ -825,7 +825,7 @@ class User extends CI_Controller {
 			}
 
 			if ($this->input->post('user_qso_show_map') !== false) {
-				$data['user_qso_show_map'] = $this->input->post('user_qso_show_map', false);
+				$data['user_qso_show_map'] = $this->input->post('user_qso_show_map', true);
 			} else {
 				$qkey_opt = $this->user_options_model->get_options('qso_tab', array('option_name' => 'map', 'option_key' => 'show'), $this->uri->segment(3))->result();
 				if (count($qkey_opt) > 0) {
