@@ -79,6 +79,7 @@
 
 	let lang_gen_advanced_logbook_confirmedLabel = '<?= __("Gridsquares for"); ?>';
 	let lang_gen_advanced_logbook_workedLabel = '<?= __("Non DXCC matching gridsquare"); ?>';
+	let lang_label_print_options = "<?= __("Label Print Options"); ?>";
 
     let homegrid ='<?php echo strtoupper($homegrid[0]); ?>';
     <?php
