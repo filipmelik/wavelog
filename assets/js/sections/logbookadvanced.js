@@ -771,7 +771,8 @@ $(document).ready(function () {
 				qrzReceived: this.qrzReceived.value,
 				distance: this.distance.value,
 				sortcolumn: this.sortcolumn.value,
-				sortdirection: this.sortdirection.value
+				sortdirection: this.sortdirection.value,
+				duration: this.duration.value,
 			},
 			dataType: 'json',
 			success: function (data) {
