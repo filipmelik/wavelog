@@ -239,6 +239,7 @@ class User extends CI_Controller {
 				$data['user_sig_to_qso_tab'] = $this->input->post('user_sig_to_qso_tab');
 				$data['user_dok_to_qso_tab'] = $this->input->post('user_dok_to_qso_tab');
 				$data['user_station_to_qso_tab'] = $this->input->post('user_station_to_qso_tab');
+				$data['user_qso_show_map'] = $this->input->post('user_qso_show_map') ?? 1;
 				$data['user_language'] = $this->input->post('user_language');
 				$data['global_oqrs_text'] = $this->input->post('global_oqrs_text') ?? '';
 				$data['oqrs_grouped_search'] = $this->input->post('oqrs_grouped_search') ?? 'off';
@@ -313,6 +314,7 @@ class User extends CI_Controller {
 				$this->input->post('oqrs_auto_matching') ?? 'on',
 				$this->input->post('oqrs_direct_auto_matching') ?? 'on',
         $this->input->post('user_dxwaterfall_enable') ?? 'N',
+				$this->input->post('user_qso_show_map') ?? 1,
 				$this->input->post('clubstation') == '1' ? true : false)
 			) {
 				// Check for errors
@@ -819,6 +821,17 @@ class User extends CI_Controller {
 				$qkey_opt=$this->user_options_model->get_options('qso_tab',array('option_name'=>'station','option_key'=>'show'), $this->uri->segment(3))->result();
 				if (count($qkey_opt)>0) {
 					$data['user_station_to_qso_tab'] = $qkey_opt[0]->option_value;
+				}
+			}
+
+			if ($this->input->post('user_qso_show_map') !== false) {
+				$data['user_qso_show_map'] = $this->input->post('user_qso_show_map', false);
+			} else {
+				$qkey_opt = $this->user_options_model->get_options('qso_tab', array('option_name' => 'map', 'option_key' => 'show'), $this->uri->segment(3))->result();
+				if (count($qkey_opt) > 0) {
+					$data['user_qso_show_map'] = $qkey_opt[0]->option_value;
+				} else {
+					$data['user_qso_show_map'] = 1; // default: show
 				}
 			}
 
