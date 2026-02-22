@@ -1962,6 +1962,7 @@ msgstr "Opérateur"
 #: application/views/view_log/partial/log_ajax.php:31
 #: application/views/view_log/qso.php:353
 #: application/views/view_log/qso.php:706
+#: application/views/stationsetup/locationlist.php:75
 msgid "Deleted DXCC"
 msgstr "DXCC Supprimé"
 
@@ -2790,6 +2791,7 @@ msgstr "Erreur. Le lien est déjà utilisé !"
 #: application/views/user/edit.php:452 application/views/user/edit.php:503
 #: application/views/user/edit.php:512 application/views/user/edit.php:669
 #: application/views/user/edit.php:679
+#: application/views/stationsetup/locationlist.php:54
 msgid "Disabled"
 msgstr "Désactivé"
 
@@ -3313,8 +3315,8 @@ msgid ""
 "encryption_key in your config.php file first!"
 msgstr ""
 "Vous ne pouvez actuellement pas usurper l'identité d'un autre utilisateur. "
-"Veuillez d'abord changer la clé de chiffrement dans votre fichier config."
-"php !"
+"Veuillez d'abord changer la clé de chiffrement dans votre fichier "
+"config.php !"
 
 #: application/controllers/User.php:1612
 msgid "Invalid Hash"
@@ -8917,6 +8919,7 @@ msgstr ""
 #: application/views/user/edit.php:1002 application/views/user/edit.php:1010
 #: application/views/user/edit.php:1030 application/views/user/edit.php:1059
 #: application/views/user/edit.php:1091 application/views/user/edit.php:1116
+#: application/views/stationsetup/locationlist.php:58
 msgid "Yes"
 msgstr "Oui"
 
@@ -8987,6 +8990,7 @@ msgstr "Oui"
 #: application/views/user/edit.php:1001 application/views/user/edit.php:1029
 #: application/views/user/edit.php:1060 application/views/user/edit.php:1090
 #: application/views/user/edit.php:1115
+#: application/views/stationsetup/locationlist.php:56
 msgid "No"
 msgstr "Non"
 
@@ -11648,8 +11652,8 @@ msgstr ""
 #: application/views/eqsl/export.php:37
 msgid "Clicking 'Upload QSOs' will send QSO information to eQSL.cc."
 msgstr ""
-"Cliquer sur 'Téléverser les QSOs' enverra les informations de QSO vers eQSL."
-"cc."
+"Cliquer sur 'Téléverser les QSOs' enverra les informations de QSO vers "
+"eQSL.cc."
 
 #: application/views/eqsl/export.php:46
 msgid "The following QSOs were sent to eQSL."
@@ -15053,8 +15057,8 @@ msgid ""
 "The hostname of the mail server, e.g. 'mail.example.com' (without 'ssl://' "
 "or 'tls://')"
 msgstr ""
-"Le nom d'hôte du serveur de messagerie, par exemple « mail.example."
-"com » (sans « ssl:// » ou « tls:// »)"
+"Le nom d'hôte du serveur de messagerie, par exemple « mail.example.com » "
+"(sans « ssl:// » ou « tls:// »)"
 
 #: application/views/options/email.php:88
 msgid "SMTP Port"
@@ -17195,8 +17199,8 @@ msgid ""
 msgstr ""
 "Pour commencer, assurez-vous d'avoir rempli le formulaire sur la gauche avec "
 "la date, l'indicatif de la station et l'indicatif de l'opérateur. Les "
-"données principales incluent la bande (ou QRG en MHz, par exemple « 7.145 "
-"»), le mode et l'heure. Après l'heure, indiquez le premier QSO, qui "
+"données principales incluent la bande (ou QRG en MHz, par exemple "
+"« 7.145 »), le mode et l'heure. Après l'heure, indiquez le premier QSO, qui "
 "correspond essentiellement à l'indicatif."
 
 #: application/views/simplefle/syntax_help.php:9

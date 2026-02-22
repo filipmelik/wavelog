@@ -1951,6 +1951,7 @@ msgstr "Operatore"
 #: application/views/view_log/partial/log_ajax.php:31
 #: application/views/view_log/qso.php:353
 #: application/views/view_log/qso.php:706
+#: application/views/stationsetup/locationlist.php:75
 msgid "Deleted DXCC"
 msgstr "DXCC eliminati"
 
@@ -2538,7 +2539,8 @@ msgstr "Nessuna radio interfacciata via CAT trovata."
 
 #: application/controllers/Radio.php:143
 msgid "You can still set the WebSocket option as your default radio."
-msgstr "Puoi comunque impostare l'opzione WebSocket come tua radio predefinita."
+msgstr ""
+"Puoi comunque impostare l'opzione WebSocket come tua radio predefinita."
 
 #: application/controllers/Radio.php:160 application/views/radio/index.php:2
 msgid "Edit CAT Settings"
@@ -2776,6 +2778,7 @@ msgstr "Errore. Collegamento già in uso!"
 #: application/views/user/edit.php:452 application/views/user/edit.php:503
 #: application/views/user/edit.php:512 application/views/user/edit.php:669
 #: application/views/user/edit.php:679
+#: application/views/stationsetup/locationlist.php:54
 msgid "Disabled"
 msgstr "Disabilitato"
 
@@ -7407,8 +7410,8 @@ msgid ""
 "Fields taken for this Award: DXCC (Must be one of U.S.A., Alaska or Hawaii) "
 "and STATE (Must contain a valid U.S. state abbreviation!)"
 msgstr ""
-"Campi presi in considerazione per questo premio: DXCC (Deve essere uno tra U."
-"S.A., Alaska o Hawaii) e STATE (Deve contenere una valida abbreviazione di "
+"Campi presi in considerazione per questo premio: DXCC (Deve essere uno tra "
+"U.S.A., Alaska o Hawaii) e STATE (Deve contenere una valida abbreviazione di "
 "uno stato U.S.A.!)"
 
 #: application/views/awards/was/index.php:120
@@ -8871,6 +8874,7 @@ msgstr ""
 #: application/views/user/edit.php:1002 application/views/user/edit.php:1010
 #: application/views/user/edit.php:1030 application/views/user/edit.php:1059
 #: application/views/user/edit.php:1091 application/views/user/edit.php:1116
+#: application/views/stationsetup/locationlist.php:58
 msgid "Yes"
 msgstr "Si"
 
@@ -8941,6 +8945,7 @@ msgstr "Si"
 #: application/views/user/edit.php:1001 application/views/user/edit.php:1029
 #: application/views/user/edit.php:1060 application/views/user/edit.php:1090
 #: application/views/user/edit.php:1115
+#: application/views/stationsetup/locationlist.php:56
 msgid "No"
 msgstr "No"
 
@@ -17964,8 +17969,9 @@ msgid ""
 "Create a new folder in 'assets/css/' and upload a 'bootstrap.min.css' file "
 "which contains basic styling rules. We use the themes from %s"
 msgstr ""
-"Crea una nuova cartella in 'assets/css/' e carica un file 'bootstrap.min."
-"css' che contiene regole di stile di base. Utilizziamo i temi di %s"
+"Crea una nuova cartella in 'assets/css/' e carica un file "
+"'bootstrap.min.css' che contiene regole di stile di base. Utilizziamo i temi "
+"di %s"
 
 #: application/views/themes/index.php:50
 msgid "2. Step"

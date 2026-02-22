@@ -1954,6 +1954,7 @@ msgstr "Operador"
 #: application/views/view_log/partial/log_ajax.php:31
 #: application/views/view_log/qso.php:353
 #: application/views/view_log/qso.php:706
+#: application/views/stationsetup/locationlist.php:75
 msgid "Deleted DXCC"
 msgstr "DXCC cancelada"
 
@@ -2029,7 +2030,8 @@ msgstr "Erro genérico ao processar o certificado no ficheiro %s."
 #: application/controllers/Lotw.php:465
 #, php-format
 msgid "Generic error extracting the private key from certificate in file %s."
-msgstr "Erro genérico ao extrair a chave privada do certificado no ficheiro %s."
+msgstr ""
+"Erro genérico ao extrair a chave privada do certificado no ficheiro %s."
 
 #: application/controllers/Lotw.php:681
 msgid "LoTW ADIF Information"
@@ -2777,6 +2779,7 @@ msgstr "Erro. A ligação já está a ser utilizada!"
 #: application/views/user/edit.php:452 application/views/user/edit.php:503
 #: application/views/user/edit.php:512 application/views/user/edit.php:669
 #: application/views/user/edit.php:679
+#: application/views/stationsetup/locationlist.php:54
 msgid "Disabled"
 msgstr "Desativado"
 
@@ -6679,8 +6682,8 @@ msgid ""
 "(provinces). Valid from January 1, 1999."
 msgstr ""
 "O Prémio Polska é emitido pela União de Radioamadores da Polónia (PZK) por "
-"contactos com estações a operar em todos as 16 voivodias polacos (províncias)"
-". Válido a partir de 1 de janeiro de 1999."
+"contactos com estações a operar em todos as 16 voivodias polacos "
+"(províncias). Válido a partir de 1 de janeiro de 1999."
 
 #: application/views/awards/pl_polska/index.php:39
 msgid ""
@@ -6688,10 +6691,10 @@ msgid ""
 "(RTTY/PSK/FSK), and individual bands (160M-2M). Classes: Basic (1 QSO/voiv), "
 "Bronze (3), Silver (7), Gold (12). All 16 voivodeships required."
 msgstr ""
-"Categorias de prémios: MISTA (todos os modos/bandas), FONIA (SSB/AM/FM/SSTV)"
-", CW, DIGI (RTTY/PSK/FSK) e bandas individuais (160M-2M). Classes: Básico (1 "
-"QSO/voiv), Bronze (3), Prata (7), Ouro (12). Todas as 16 voivodias são "
-"necessárias."
+"Categorias de prémios: MISTA (todos os modos/bandas), FONIA (SSB/AM/FM/"
+"SSTV), CW, DIGI (RTTY/PSK/FSK) e bandas individuais (160M-2M). Classes: "
+"Básico (1 QSO/voiv), Bronze (3), Prata (7), Ouro (12). Todas as 16 voivodias "
+"são necessárias."
 
 #: application/views/awards/pl_polska/index.php:40
 #, php-format
@@ -7413,8 +7416,8 @@ msgid ""
 "and STATE (Must contain a valid U.S. state abbreviation!)"
 msgstr ""
 "Campos considerados para este diploma: DXCC (Deve ser um dos E.U.A., Alasca "
-"ou Havai) e ESTADO (Deve conter uma abreviatura válida de um estado dos E.U."
-"A.!)"
+"ou Havai) e ESTADO (Deve conter uma abreviatura válida de um estado dos "
+"E.U.A.!)"
 
 #: application/views/awards/was/index.php:120
 msgid "Show WAS Map"
@@ -8268,7 +8271,8 @@ msgstr "utilizadores de LoTW"
 
 #: application/views/bandmap/list.php:491
 msgid "Toggle DX Spot filter (spotted continent ≠ spotter continent)"
-msgstr "Alternar filtro de DX Spot (continente spotted ≠ continente do spotter)"
+msgstr ""
+"Alternar filtro de DX Spot (continente spotted ≠ continente do spotter)"
 
 #: application/views/bandmap/list.php:492
 #: application/views/bandmap/list.php:593
@@ -8868,6 +8872,7 @@ msgstr ""
 #: application/views/user/edit.php:1002 application/views/user/edit.php:1010
 #: application/views/user/edit.php:1030 application/views/user/edit.php:1059
 #: application/views/user/edit.php:1091 application/views/user/edit.php:1116
+#: application/views/stationsetup/locationlist.php:58
 msgid "Yes"
 msgstr "Sim"
 
@@ -8938,6 +8943,7 @@ msgstr "Sim"
 #: application/views/user/edit.php:1001 application/views/user/edit.php:1029
 #: application/views/user/edit.php:1060 application/views/user/edit.php:1090
 #: application/views/user/edit.php:1115
+#: application/views/stationsetup/locationlist.php:56
 msgid "No"
 msgstr "Não"
 
@@ -14953,8 +14959,8 @@ msgid ""
 "The hostname of the mail server, e.g. 'mail.example.com' (without 'ssl://' "
 "or 'tls://')"
 msgstr ""
-"O nome do anfitrião do servidor de correio, por exemplo, “mail.example."
-"com” (sem 'ssl://' ou 'tls://')"
+"O nome do anfitrião do servidor de correio, por exemplo, “mail.example.com” "
+"(sem 'ssl://' ou 'tls://')"
 
 #: application/views/options/email.php:88
 msgid "SMTP Port"
@@ -17960,8 +17966,9 @@ msgid ""
 "Create a new folder in 'assets/css/' and upload a 'bootstrap.min.css' file "
 "which contains basic styling rules. We use the themes from %s"
 msgstr ""
-"Crie uma nova pasta em 'assets/css/' e carregue um ficheiro 'bootstrap.min."
-"css' que contém regras de estilo básicas. Utilizamos os temas de %s"
+"Crie uma nova pasta em 'assets/css/' e carregue um ficheiro "
+"'bootstrap.min.css' que contém regras de estilo básicas. Utilizamos os temas "
+"de %s"
 
 #: application/views/themes/index.php:50
 msgid "2. Step"
@@ -18270,8 +18277,8 @@ msgid ""
 "Show profile picture of QSO partner from qrz.com/hamqth.com profile in the "
 "log QSO section."
 msgstr ""
-"Mostrar a imagem de perfil do parceiro de contacto do perfil QRZ.com/HamQTH."
-"com na secção de registo de contacto."
+"Mostrar a imagem de perfil do parceiro de contacto do perfil QRZ.com/"
+"HamQTH.com na secção de registo de contacto."
 
 #: application/views/user/edit.php:392
 msgid ""
