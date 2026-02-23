@@ -838,7 +838,7 @@ $(document).ready(function () {
 					buttons: [
 					{
 						label: lang_admin_close,
-						cssClass: 'btn-sm btn-secondary',
+						cssClass: 'btn btn-sm btn-secondary',
 						id: 'closeButton',
 						action: function (dialogItself) {
 							dialogItself.close();
@@ -846,7 +846,7 @@ $(document).ready(function () {
 					},
 					{
 						label: 'Update',
-						cssClass: 'btn-sm btn-primary',
+						cssClass: 'btn btn-sm btn-primary',
 						id: 'updateButton',
 						action: function (dialogItself) {
 							startProcessingCallbook(nElements, $('[name="gridsquareaccuracycheck"]').is(":checked"));
@@ -1627,7 +1627,7 @@ $(document).ready(function () {
 			type: 'post',
 			success: function (html) {
 				BootstrapDialog.show({
-					title: lang_gen_advanced_logbook_start_printing_at_which_label,
+					title: '<i class="fas fa-print me-2"></i>'+lang_label_print_options,
 					size: BootstrapDialog.SIZE_NORMAL,
 					cssClass: 'qso-dialog',
 					nl2br: false,
@@ -1636,7 +1636,7 @@ $(document).ready(function () {
 					},
 					buttons: [{
 						label: 'Print',
-						cssClass: 'btn-primary btn-sm',
+						cssClass: 'btn btn-primary btn-sm',
 						action: function (dialogItself) {
 							printlabel(id_list);
 							dialogItself.close();
@@ -1644,6 +1644,7 @@ $(document).ready(function () {
 					},
 						{
 						label: lang_admin_close,
+						cssClass: 'btn btn-secondary btn-sm',
 						action: function (dialogItself) {
 							$('#printLabel').prop("disabled", false);
 							dialogItself.close();
@@ -1771,7 +1772,8 @@ function printlabel(id_list) {
 				'via': $('#via')[0].checked,
 				'tnxmsg': $('#tnxmsg')[0].checked,
 				'qslmsg': $('#qslmsg')[0].checked,
-				'reference': $('#reference')[0].checked
+				'reference': $('#reference')[0].checked,
+				'mycall': $('#mycall')[0].checked
 			},
 		xhr:function(){
 			var xhr = new XMLHttpRequest();
