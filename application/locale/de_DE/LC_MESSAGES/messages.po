@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-23 07:44+0000\n"
-"PO-Revision-Date: 2026-02-23 07:52+0000\n"
-"Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
+"PO-Revision-Date: 2026-02-23 10:47+0000\n"
+"Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
 "Language: de_DE\n"
@@ -10987,6 +10987,9 @@ msgid ""
 "unavailable. Check your file permissions, php-extensions and/or if you are "
 "using redis/memcached your network connection to the services."
 msgstr ""
+"Der Cache verwendet derzeit den Backup-Adapter, weil der primäre nicht "
+"verfügbar ist. Überprüfe Dateiberechtigungen, PHP-Erweiterungen und – wenn "
+"du Redis/Memcached verwendest – die Netzwerkverbindung zu den Diensten."
 
 #: application/views/debug/index.php:518
 #, php-format
@@ -10996,6 +10999,11 @@ msgid ""
 "your network connection to the services. You can continue using Wavelog, but "
 "no values will be cached (which is bad)."
 msgstr ""
+"Cache funktioniert nicht! Zurzeit verwendet das System einen %s Adapter. "
+"Überprüfe deine Datei-Berechtigungen, PHP-Erweiterungen und- wenn du Redis/"
+"Memcached verwendest - deine Netzwerkverbindung zu den Diensten. Du kannst "
+"Wavelog weiter nutzen, aber es werden keine Werte zwischengespeichert (was "
+"schlecht ist)."
 
 #: application/views/debug/index.php:526
 msgid "Available Adapters"
@@ -18575,7 +18583,7 @@ msgstr "Zeige Karte bei der QSO-Eingabe"
 
 #: application/views/user/edit.php:696
 msgid "Don't show"
-msgstr ""
+msgstr "Nicht anzeigen"
 
 #: application/views/user/edit.php:701
 msgid ""
@@ -19632,7 +19640,7 @@ msgstr "CQz geojson"
 #: application/controllers/Calltester.php:240
 #: application/controllers/Calltester.php:300
 msgid "CSV Call Tester"
-msgstr ""
+msgstr "CSV-Rufzeichentester"
 
 #: application/views/debug/index.php:514
 msgid ""
@@ -19640,6 +19648,10 @@ msgid ""
 "unavailable. Check your file permissions, PHP extensions, and/or your "
 "network connection to the services (if using redis/memcached)."
 msgstr ""
+"Der Cache verwendet derzeit den Backup-Adapter, da der primäre nicht "
+"verfügbar ist. Überprüf deine Dateiberechtigungen, PHP-Erweiterungen und/"
+"oder deine Netzwerkverbindung zu den Diensten (wenn du Redis/Memcached "
+"verwendest)."
 
 #: application/views/debug/index.php:518
 #, php-format
@@ -19649,6 +19661,11 @@ msgid ""
 "services (if using redis/memcached). You can continue using Wavelog, but no "
 "values will be cached (which is bad)."
 msgstr ""
+"Cache funktioniert nicht! Zurzeit verwendet das System einen %s Adapter. "
+"Überprüfe deine Datei-Berechtigungen, PHP-Erweiterungen und- wenn du Redis/"
+"Memcached verwendest - deine Netzwerkverbindung zu den Diensten. Du kannst "
+"Wavelog weiter nutzen, aber es werden keine Werte zwischengespeichert (was "
+"schlecht ist)."
 
 #~ msgid ""
 #~ "Cache is currently using the backup adapter because the primary is "
