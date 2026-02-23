@@ -3723,6 +3723,7 @@ msgstr "QSO aktualisiert"
 #: application/views/user/edit.php:280 application/views/user/edit.php:303
 #: application/views/user/edit.php:326 application/views/user/edit.php:351
 #: application/views/view_log/partial/log_ajax.php:20
+#: application/models/Logbook_model.php:6168
 msgid "Bearing"
 msgstr "Peilung"
 
