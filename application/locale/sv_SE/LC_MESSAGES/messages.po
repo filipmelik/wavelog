@@ -709,10 +709,12 @@ msgid " and sat "
 msgstr " och sat "
 
 #: application/controllers/Calltester.php:32
+#: application/controllers/Calltester.php:31
 msgid "Call Tester"
 msgstr "Anropssignals testare"
 
 #: application/controllers/Calltester.php:971
+#: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
 msgstr "Anropssignals Testare"
 
@@ -19891,6 +19893,11 @@ msgstr ""
 msgid ""
 "Duration in minutes. Search will look for durations greater than or equal to "
 "this value."
+msgstr ""
+
+#: application/controllers/Calltester.php:240
+#: application/controllers/Calltester.php:300
+msgid "CSV Call Tester"
 msgstr ""
 
 #~ msgid "Error obtaining a session key for HamQTH query"

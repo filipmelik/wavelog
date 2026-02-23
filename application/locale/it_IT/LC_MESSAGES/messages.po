@@ -714,6 +714,7 @@ msgid "Call Tester"
 msgstr "Call Tester"
 
 #: application/controllers/Calltester.php:971
+#: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
 msgstr ""
 
@@ -20062,6 +20063,11 @@ msgstr ""
 msgid ""
 "Duration in minutes. Search will look for durations greater than or equal to "
 "this value."
+msgstr ""
+
+#: application/controllers/Calltester.php:240
+#: application/controllers/Calltester.php:300
+msgid "CSV Call Tester"
 msgstr ""
 
 #~ msgid "Error obtaining a session key for HamQTH query"

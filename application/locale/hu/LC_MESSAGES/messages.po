@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 07:44+0000\n"
+"POT-Creation-Date: 2026-02-23 07:46+0000\n"
 "PO-Revision-Date: 2025-11-28 09:48+0000\n"
 "Last-Translator: Mathias Regner <mabregner@gmail.com>\n"
 "Language-Team: Hungarian <https://translate.wavelog.org/projects/wavelog/"
@@ -685,11 +685,16 @@ msgstr "Hívójel-statisztikák"
 msgid " and sat "
 msgstr " és sat "
 
-#: application/controllers/Calltester.php:32
+#: application/controllers/Calltester.php:31
 msgid "Call Tester"
 msgstr ""
 
-#: application/controllers/Calltester.php:971
+#: application/controllers/Calltester.php:240
+#: application/controllers/Calltester.php:300
+msgid "CSV Call Tester"
+msgstr ""
+
+#: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
 msgstr ""
 

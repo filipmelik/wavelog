@@ -20019,6 +20019,11 @@ msgid ""
 "this value."
 msgstr ""
 
+#: application/controllers/Calltester.php:240
+#: application/controllers/Calltester.php:300
+msgid "CSV Call Tester"
+msgstr ""
+
 #~ msgid "radio functions"
 #~ msgstr "funções do rádio"
 

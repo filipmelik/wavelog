@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 07:44+0000\n"
+"POT-Creation-Date: 2026-02-23 07:46+0000\n"
 "PO-Revision-Date: 2026-02-11 19:47+0000\n"
 "Last-Translator: Viliam Petrik <tatralom@gmail.com>\n"
 "Language-Team: Slovak <https://translate.wavelog.org/projects/wavelog/main-"
@@ -686,11 +686,16 @@ msgstr "Štatistiky volacích znakov"
 msgid " and sat "
 msgstr " a sat "
 
-#: application/controllers/Calltester.php:32
+#: application/controllers/Calltester.php:31
 msgid "Call Tester"
 msgstr "Overovanie značky"
 
-#: application/controllers/Calltester.php:971
+#: application/controllers/Calltester.php:240
+#: application/controllers/Calltester.php:300
+msgid "CSV Call Tester"
+msgstr ""
+
+#: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
 msgstr "Overovač značiek"
 
