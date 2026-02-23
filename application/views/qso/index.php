@@ -220,7 +220,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
                   <div style="min-height: 24px;">
                     <small id="callsign_info" class="badge text-bg-secondary"></small> <a id="lotw_link"><small id="lotw_info" class="badge text-bg-success"></small></a>
                   </div>
-                  <p id="ham_of_note_line" style="margin-top: 5px; display: none"><small id="ham_of_note_info"></small><small><a id="ham_of_note_link" target="_blank"></a></small></p>
+                  <div id="ham_of_note_line" style="margin-top: 5px; display: none"></div>
                 </div>
               </div>
 
@@ -411,7 +411,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
               <label for="radio"><?= __("Radio"); ?></label>
               <select class="form-select radios" id="radio" name="radio">
                 <option value="0" selected="selected"><?= __("None"); ?></option>
-		            <option value="ws"<?php if ($this->session->userdata('radio') == 'ws' && $manual_mode == '0') { echo ' selected="selected"'; } ?>><?= __("Live - ") . __("WebSocket (Requires WLGate>=1.1.10)"); ?></option>
+		            <option value="ws"<?php if ($this->session->userdata('radio') == 'ws' && $manual_mode == '0') { echo ' selected="selected"'; } ?>><?= __("Live - WebSocket"); ?></option>
                 <?php foreach ($radios->result() as $row) { ?>
                   <option value="<?php echo $row->id; ?>" <?php if($this->session->userdata('radio') == $row->id && $manual_mode == '0') { echo "selected=\"selected\""; } ?>><?= __("Polling - ") . $row->radio; ?> <?php if ($radio_last_updated->id == $row->id) { echo "(".__("last updated").")"; } else { echo ''; } ?></option>
                 <?php } ?>
@@ -820,7 +820,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
 	<div id="radio_status"></div>
 
     <!-- QSO Map -->
-    <div class="card qso-map">
+    <div class="card qso-map"<?php if (!($user_qso_show_map ?? true)) { echo ' style="display:none;"'; } ?>>
             <div id="qsomap" class="map-leaflet" style="width: 100%; height: 200px;"></div>
     </div>
 
