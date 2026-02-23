@@ -63,6 +63,9 @@ function updateRow(qso) {
 	if ((user_options.datetime.show ?? 'true') == "true"){
 		cells.eq(c++).text(qso.qsoDateTime);
 	}
+	if ((user_options.duration.show ?? 'true') == "true"){
+		cells.eq(c++).text(qso.duration);
+	}
 	if ((user_options.last_modification.show ?? 'true') == "true"){
 		cells.eq(c++).text(qso.last_modified);
 	}
@@ -282,6 +285,9 @@ function loadQSOTable(rows) {
 			} else {
 				data.push(qso.qsoDateTime);
 			}
+		}
+		if ((user_options.duration.show ?? 'true') == "true"){
+			data.push(qso.duration);
 		}
 		if ((user_options.last_modification.show ?? 'true') == "true"){
 			data.push(qso.last_modified);
@@ -765,7 +771,8 @@ $(document).ready(function () {
 				qrzReceived: this.qrzReceived.value,
 				distance: this.distance.value,
 				sortcolumn: this.sortcolumn.value,
-				sortdirection: this.sortdirection.value
+				sortdirection: this.sortdirection.value,
+				duration: this.duration.value,
 			},
 			dataType: 'json',
 			success: function (data) {
@@ -1816,6 +1823,7 @@ function saveOptions() {
 			type: 'post',
 			data: {
 				datetime: $('input[name="datetime"]').is(':checked') ? true : false,
+				duration: $('input[name="duration"]').is(':checked') ? true : false,
 				last_modification: $('input[name="last_modification"]').is(':checked') ? true : false,
 				de: $('input[name="de"]').is(':checked') ? true : false,
 				dx: $('input[name="dx"]').is(':checked') ? true : false,

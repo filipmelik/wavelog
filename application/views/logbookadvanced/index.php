@@ -128,6 +128,7 @@
             \"frequency\":{\"show\":\"true\"},
             \"dcl\":{\"show\":\"true\"},
             \"last_modification\":{\"show\":\"false\"},
+            \"duration\":{\"show\":\"false\"},
         }";
     }
     $current_opts = json_decode($options);
@@ -238,6 +239,10 @@
     }
     if (!isset($current_opts->last_modification)) {
         echo "\nvar o_template = { last_modification: {show: 'false'}};";
+        echo "\nuser_options={...user_options, ...o_template};";
+    }
+	if (!isset($current_opts->duration)) {
+        echo "\nvar o_template = { duration: {show: 'false'}};";
         echo "\nuser_options={...user_options, ...o_template};";
     }
 
@@ -506,6 +511,10 @@ $options = json_decode($options);
 									<div <?php if (($options->distance->show ?? "true") == "false") { echo 'style="display:none"'; } ?> class="mb-3 col-lg-2 col-md-2 col-sm-3 col-xl">
                                         <label class="form-label" for="distance"><?= __("Distance"); ?> <i class="fa fa-question-circle" aria-hidden="true" data-bs-toggle="tooltip" title="<?= __("Distance in kilometers. Search will look for distances greater than or equal to this value."); ?>"></i></label>
                                         <input onclick="this.select()" type="text" name="distance" class="form-control form-control-sm border border-secondary" value="*" placeholder="<?= __("Empty"); ?>">
+                                    </div>
+									<div <?php if (($options->duration->show ?? "true") == "false") { echo 'style="display:none"'; } ?> class="mb-3 col-lg-2 col-md-2 col-sm-3 col-xl">
+                                        <label class="form-label" for="duration"><?= __("Duration"); ?> <i class="fa fa-question-circle" aria-hidden="true" data-bs-toggle="tooltip" title="<?= __("Duration in minutes. Search will look for durations greater than or equal to this value."); ?>"></i></label>
+                                        <input onclick="this.select()" type="text" name="duration" class="form-control form-control-sm border border-secondary" value="*" placeholder="<?= __("Empty"); ?>">
                                     </div>
                                 </div>
 								<div class="row">
@@ -892,6 +901,9 @@ $options = json_decode($options);
                     </th>
                     <?php if (($options->datetime->show ?? "true") == "true") {
                         echo '<th>' . __("Date/Time") . '</th>';
+                    } ?>
+					 <?php if (($options->duration->show ?? "false") == "true") {
+                        echo '<th>' . __("Duration") . '</th>';
                     } ?>
                     <?php if (($options->last_modification->show ?? "false") == "true") {
                         echo '<th>' . __("Last modified") . '</th>';
