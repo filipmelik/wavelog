@@ -26,8 +26,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 08:16+0000\n"
-"PO-Revision-Date: 2026-02-20 09:05+0000\n"
+"POT-Creation-Date: 2026-02-23 07:44+0000\n"
+"PO-Revision-Date: 2026-02-23 10:47+0000\n"
 "Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
@@ -704,15 +704,12 @@ msgstr "Rufzeichenstatistik"
 msgid " and sat "
 msgstr " und Sat "
 
+#: application/controllers/Calltester.php:32
 #: application/controllers/Calltester.php:31
 msgid "Call Tester"
 msgstr "Rufzeichentester"
 
-#: application/controllers/Calltester.php:240
-#: application/controllers/Calltester.php:300
-msgid "CSV Call Tester"
-msgstr ""
-
+#: application/controllers/Calltester.php:971
 #: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
 msgstr "Rufzeichen Tester"
@@ -3715,7 +3712,7 @@ msgstr "POTA Referenz bereits im Log"
 msgid "QSO updated"
 msgstr "QSO aktualisiert"
 
-#: application/models/Logbook_model.php:6168
+#: application/models/Logbook_model.php:6165
 #: application/views/activated_gridmap/index.php:114
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:58
@@ -3726,6 +3723,7 @@ msgstr "QSO aktualisiert"
 #: application/views/user/edit.php:280 application/views/user/edit.php:303
 #: application/views/user/edit.php:326 application/views/user/edit.php:351
 #: application/views/view_log/partial/log_ajax.php:20
+#: application/models/Logbook_model.php:6168
 msgid "Bearing"
 msgstr "Peilung"
 
@@ -4334,6 +4332,7 @@ msgstr "troposphärisches Ducting"
 #: application/views/timeline/index.php:370
 #: application/views/timeline/index.php:406
 #: application/views/timeplotter/index.php:59
+#: application/views/user/edit.php:695
 msgid "Show"
 msgstr "Anzeigen"
 
@@ -8892,11 +8891,11 @@ msgstr ""
 #: application/views/user/edit.php:410 application/views/user/edit.php:420
 #: application/views/user/edit.php:430 application/views/user/edit.php:471
 #: application/views/user/edit.php:482 application/views/user/edit.php:603
-#: application/views/user/edit.php:657 application/views/user/edit.php:695
-#: application/views/user/edit.php:994 application/views/user/edit.php:1010
-#: application/views/user/edit.php:1018 application/views/user/edit.php:1038
-#: application/views/user/edit.php:1067 application/views/user/edit.php:1099
-#: application/views/user/edit.php:1124
+#: application/views/user/edit.php:657 application/views/user/edit.php:994
+#: application/views/user/edit.php:1010 application/views/user/edit.php:1018
+#: application/views/user/edit.php:1038 application/views/user/edit.php:1067
+#: application/views/user/edit.php:1099 application/views/user/edit.php:1124
+#: application/views/user/edit.php:695
 msgid "Yes"
 msgstr "Ja"
 
@@ -8964,10 +8963,10 @@ msgstr "Ja"
 #: application/views/user/edit.php:431 application/views/user/edit.php:472
 #: application/views/user/edit.php:483 application/views/user/edit.php:574
 #: application/views/user/edit.php:578 application/views/user/edit.php:604
-#: application/views/user/edit.php:659 application/views/user/edit.php:696
-#: application/views/user/edit.php:993 application/views/user/edit.php:1009
-#: application/views/user/edit.php:1037 application/views/user/edit.php:1068
-#: application/views/user/edit.php:1098 application/views/user/edit.php:1123
+#: application/views/user/edit.php:659 application/views/user/edit.php:993
+#: application/views/user/edit.php:1009 application/views/user/edit.php:1037
+#: application/views/user/edit.php:1068 application/views/user/edit.php:1098
+#: application/views/user/edit.php:1123 application/views/user/edit.php:696
 msgid "No"
 msgstr "Nein"
 
@@ -10985,18 +10984,26 @@ msgstr "Der Cache funktioniert einwandfrei. Alles in Ordnung!"
 #: application/views/debug/index.php:514
 msgid ""
 "Cache is currently using the backup adapter because the primary is "
-"unavailable. Check your file permissions, PHP extensions, and/or your "
-"network connection to the services (if using redis/memcached)."
+"unavailable. Check your file permissions, php-extensions and/or if you are "
+"using redis/memcached your network connection to the services."
 msgstr ""
+"Der Cache verwendet derzeit den Backup-Adapter, weil der primäre nicht "
+"verfügbar ist. Überprüfe Dateiberechtigungen, PHP-Erweiterungen und – wenn "
+"du Redis/Memcached verwendest – die Netzwerkverbindung zu den Diensten."
 
 #: application/views/debug/index.php:518
 #, php-format
 msgid ""
 "Cache does not work! Currently the system is using a %s adapter. Check your "
-"file permissions, PHP extensions and/or your network connection to the "
-"services (if using redis/memcached). You can continue using Wavelog, but no "
-"values will be cached (which is bad)."
+"file permissions, php-extensions and/or if you are using redis/memcached "
+"your network connection to the services. You can continue using Wavelog, but "
+"no values will be cached (which is bad)."
 msgstr ""
+"Cache funktioniert nicht! Zurzeit verwendet das System einen %s Adapter. "
+"Überprüfe deine Datei-Berechtigungen, PHP-Erweiterungen und- wenn du Redis/"
+"Memcached verwendest - deine Netzwerkverbindung zu den Diensten. Du kannst "
+"Wavelog weiter nutzen, aber es werden keine Werte zwischengespeichert (was "
+"schlecht ist)."
 
 #: application/views/debug/index.php:526
 msgid "Available Adapters"
@@ -11625,8 +11632,8 @@ msgstr ""
 #: application/views/eqsl/export.php:37
 msgid "Clicking 'Upload QSOs' will send QSO information to eQSL.cc."
 msgstr ""
-"Wenn du auf 'QSOs hochladen' klickst, sendest du QSO-Informationen an eQSL."
-"cc."
+"Wenn du auf 'QSOs hochladen' klickst, sendest du QSO-Informationen an "
+"eQSL.cc."
 
 #: application/views/eqsl/export.php:46
 msgid "The following QSOs were sent to eQSL."
@@ -12879,7 +12886,7 @@ msgstr "Drucken"
 #: application/views/labels/index.php:4
 #: application/views/logbookadvanced/index.php:82
 msgid "Label Print Options"
-msgstr ""
+msgstr "Optionen für den Labeldruck"
 
 #: application/views/labels/index.php:34
 msgid "Create New Label Type"
@@ -12944,7 +12951,7 @@ msgstr "QSOs ansehen"
 #: application/views/labels/startatform.php:21
 #: application/views/logbookadvanced/startatform.php:20
 msgid "Include my call?"
-msgstr ""
+msgstr "Mein Rufzeichen drucken?"
 
 #: application/views/labels/startatform.php:33
 #: application/views/logbookadvanced/startatform.php:32
@@ -12979,7 +12986,7 @@ msgstr "Druck starten bei?"
 #: application/views/labels/startatform.php:100
 #: application/views/logbookadvanced/startatform.php:111
 msgid "Enter the starting position for label printing"
-msgstr ""
+msgstr "Gib die Startposition für den Labeldruck an"
 
 #: application/views/logbookadvanced/callbookdialog.php:5
 msgid ""
@@ -13951,6 +13958,8 @@ msgid ""
 "Duration in minutes. Search will look for durations greater than or equal to "
 "this value."
 msgstr ""
+"Dauer in Minuten. Die Suche zeigt Ergebnisse mit einer Dauer größer als oder "
+"gleich dieses Wertes."
 
 #: application/views/logbookadvanced/index.php:523
 msgid "Sort column"
@@ -15033,8 +15042,8 @@ msgstr "E-Mail Adresse"
 msgid ""
 "The email address from which the emails are sent, e.g. 'wavelog@example.com'"
 msgstr ""
-"Die E-Mail Adresse von der die Mails versendet werden, z.B. 'wavelog@example."
-"com'"
+"Die E-Mail Adresse von der die Mails versendet werden, z.B. "
+"'wavelog@example.com'"
 
 #: application/views/options/email.php:80
 msgid "SMTP Host"
@@ -17168,9 +17177,9 @@ msgid ""
 msgstr ""
 "Um zu beginnen, stelle sicher, dass du die Felder auf der linken Seite "
 "bereits mit Datum, Stationsrufzeichen/-standort und Rufzeichen des Operators "
-"ausgefüllt hast. Die wichtigsten Daten umfassen das Band (oder QRG in MHz, z."
-"B. '7.145'), Mode und Zeit. Nach der Zeit gibst du das erste QSO an, was im "
-"wesentlichen das Rufzeichen ist."
+"ausgefüllt hast. Die wichtigsten Daten umfassen das Band (oder QRG in MHz, "
+"z.B. '7.145'), Mode und Zeit. Nach der Zeit gibst du das erste QSO an, was "
+"im wesentlichen das Rufzeichen ist."
 
 #: application/views/simplefle/syntax_help.php:9
 msgid "For example, a QSO that started at 21:34 (UTC) with 4W7EST on 20m SSB."
@@ -18044,9 +18053,9 @@ msgid ""
 "Create a new folder in 'assets/css/' and upload a 'bootstrap.min.css' file "
 "which contains basic styling rules. We use the themes from %s"
 msgstr ""
-"Erstelle einen neuen Ordner in 'assets/css/' und lade eine 'bootstrap.min."
-"css' Datei hoch, welche die grundlegende Styling-Regeln enthält. Wir "
-"verwenden die Themes von %s"
+"Erstelle einen neuen Ordner in 'assets/css/' und lade eine "
+"'bootstrap.min.css' Datei hoch, welche die grundlegende Styling-Regeln "
+"enthält. Wir verwenden die Themes von %s"
 
 #: application/views/themes/index.php:50
 msgid "2. Step"
@@ -18570,7 +18579,11 @@ msgstr "Zeige Felder auf QSO-Reiter"
 
 #: application/views/user/edit.php:692
 msgid "Show map at QSO-Window"
-msgstr ""
+msgstr "Zeige Karte bei der QSO-Eingabe"
+
+#: application/views/user/edit.php:696
+msgid "Don't show"
+msgstr "Nicht anzeigen"
 
 #: application/views/user/edit.php:701
 msgid ""
@@ -19623,6 +19636,36 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#: application/controllers/Calltester.php:240
+#: application/controllers/Calltester.php:300
+msgid "CSV Call Tester"
+msgstr "CSV-Rufzeichentester"
+
+#: application/views/debug/index.php:514
+msgid ""
+"Cache is currently using the backup adapter because the primary is "
+"unavailable. Check your file permissions, PHP extensions, and/or your "
+"network connection to the services (if using redis/memcached)."
+msgstr ""
+"Der Cache verwendet derzeit den Backup-Adapter, da der primäre nicht "
+"verfügbar ist. Überprüf deine Dateiberechtigungen, PHP-Erweiterungen und/"
+"oder deine Netzwerkverbindung zu den Diensten (wenn du Redis/Memcached "
+"verwendest)."
+
+#: application/views/debug/index.php:518
+#, php-format
+msgid ""
+"Cache does not work! Currently the system is using a %s adapter. Check your "
+"file permissions, PHP extensions and/or your network connection to the "
+"services (if using redis/memcached). You can continue using Wavelog, but no "
+"values will be cached (which is bad)."
+msgstr ""
+"Cache funktioniert nicht! Zurzeit verwendet das System einen %s Adapter. "
+"Überprüfe deine Datei-Berechtigungen, PHP-Erweiterungen und- wenn du Redis/"
+"Memcached verwendest - deine Netzwerkverbindung zu den Diensten. Du kannst "
+"Wavelog weiter nutzen, aber es werden keine Werte zwischengespeichert (was "
+"schlecht ist)."
 
 #~ msgid ""
 #~ "Cache is currently using the backup adapter because the primary is "
