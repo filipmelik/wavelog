@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 07:46+0000\n"
+"POT-Creation-Date: 2026-02-23 07:48+0000\n"
 "PO-Revision-Date: 2026-02-14 18:19+0000\n"
 "Last-Translator: Szymon <sp9spm@cqops.com>\n"
 "Language-Team: Polish <https://translate.wavelog.org/projects/wavelog/main-"
@@ -3696,7 +3696,7 @@ msgstr "Referencja POTA już znajduje się w dzienniku"
 msgid "QSO updated"
 msgstr "QSO zaktualizowane"
 
-#: application/models/Logbook_model.php:6165
+#: application/models/Logbook_model.php:6168
 #: application/views/activated_gridmap/index.php:114
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:58
