@@ -110,7 +110,7 @@ class Debug extends CI_Controller
 		$data['cache_available_adapters'] = $cache_info['adapters'];
 		$data['cache_path'] = $cache_info['config']['cache_path'] ?: 'application/cache';
 		$data['cache_adapter'] = strtolower($cache_info['config']['cache_adapter'] ?? 'file');
-		$data['cache_backup'] = strtolower($cache_info['config']['cache_backup']) ?? 'file';
+		$data['cache_backup'] = strtolower($cache_info['config']['cache_backup'] ?? 'file');
 		$data['cache_key_prefix'] = $cache_info['config']['cache_key_prefix'] ?: __("(empty)");
 		$data['active_adapter'] = strtolower($cache_info['active']['adapter'] ?? ($cache_info['config']['cache_adapter'] ?? 'file'));
 		$data['using_backup'] = !empty($cache_info['active']['using_backup']);
