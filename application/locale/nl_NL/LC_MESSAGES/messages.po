@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 07:44+0000\n"
+"POT-Creation-Date: 2026-02-23 07:46+0000\n"
 "PO-Revision-Date: 2026-02-16 13:29+0000\n"
 "Last-Translator: PE1PQX <Andre@pe1pqx.eu>\n"
 "Language-Team: Dutch <https://translate.wavelog.org/projects/wavelog/main-"
@@ -688,11 +688,16 @@ msgstr "Roepnaam statistieken"
 msgid " and sat "
 msgstr " en satelliet "
 
-#: application/controllers/Calltester.php:32
+#: application/controllers/Calltester.php:31
 msgid "Call Tester"
 msgstr "Roepnaam tester"
 
-#: application/controllers/Calltester.php:971
+#: application/controllers/Calltester.php:240
+#: application/controllers/Calltester.php:300
+msgid "CSV Call Tester"
+msgstr ""
+
+#: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
 msgstr "Call tester"
 

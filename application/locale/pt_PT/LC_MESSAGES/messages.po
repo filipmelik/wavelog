@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 07:44+0000\n"
+"POT-Creation-Date: 2026-02-23 07:46+0000\n"
 "PO-Revision-Date: 2026-01-07 05:25+0000\n"
 "Last-Translator: CS7AFM <sergio.t.mata@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) <https://translate.wavelog.org/projects/"
@@ -689,11 +689,16 @@ msgstr "Estatísticas de indicativos de chamada"
 msgid " and sat "
 msgstr " e satélite "
 
-#: application/controllers/Calltester.php:32
+#: application/controllers/Calltester.php:31
 msgid "Call Tester"
 msgstr ""
 
-#: application/controllers/Calltester.php:971
+#: application/controllers/Calltester.php:240
+#: application/controllers/Calltester.php:300
+msgid "CSV Call Tester"
+msgstr ""
+
+#: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
 msgstr ""
 
