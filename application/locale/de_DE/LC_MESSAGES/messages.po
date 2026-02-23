@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-23 07:44+0000\n"
-"PO-Revision-Date: 2026-02-23 07:46+0000\n"
+"PO-Revision-Date: 2026-02-23 07:52+0000\n"
 "Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
@@ -12877,7 +12877,7 @@ msgstr "Drucken"
 #: application/views/labels/index.php:4
 #: application/views/logbookadvanced/index.php:82
 msgid "Label Print Options"
-msgstr ""
+msgstr "Optionen für den Labeldruck"
 
 #: application/views/labels/index.php:34
 msgid "Create New Label Type"
@@ -12977,7 +12977,7 @@ msgstr "Druck starten bei?"
 #: application/views/labels/startatform.php:100
 #: application/views/logbookadvanced/startatform.php:111
 msgid "Enter the starting position for label printing"
-msgstr ""
+msgstr "Gib die Startposition für den Labeldruck an"
 
 #: application/views/logbookadvanced/callbookdialog.php:5
 msgid ""
@@ -13949,6 +13949,8 @@ msgid ""
 "Duration in minutes. Search will look for durations greater than or equal to "
 "this value."
 msgstr ""
+"Dauer in Minuten. Die Suche zeigt Ergebnisse mit einer Dauer größer als oder "
+"gleich dieses Wertes."
 
 #: application/views/logbookadvanced/index.php:523
 msgid "Sort column"
@@ -18568,7 +18570,7 @@ msgstr "Zeige Felder auf QSO-Reiter"
 
 #: application/views/user/edit.php:692
 msgid "Show map at QSO-Window"
-msgstr ""
+msgstr "Zeige Karte bei der QSO-Eingabe"
 
 #: application/views/user/edit.php:696
 msgid "Don't show"
