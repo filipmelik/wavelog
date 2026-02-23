@@ -113,13 +113,17 @@
 							<input class="form-check-input" type="checkbox" name="lotw" value="1" id="lotw" <?php if ($this->input->post('lotw', TRUE) || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
 							<label class="form-check-label" for="lotw"><?= __("LoTW"); ?></label>
 						</div>
-					   <div class="form-check-inline">
+						<div class="form-check-inline">
 							<input class="form-check-input" type="checkbox" name="eqsl" value="1" id="eqsl" <?php if ($this->input->post('eqsl', TRUE)) echo ' checked="checked"'; ?> >
 							<label class="form-check-label" for="eqsl"><?= __("eQSL"); ?></label>
 						</div>
-					   <div class="form-check-inline">
+						<div class="form-check-inline">
 							<input class="form-check-input" type="checkbox" name="qrz" value="1" id="qrz" <?php if ($this->input->post('qrz', TRUE)) echo ' checked="checked"'; ?> >
 							<label class="form-check-label" for="qrz"><?= __("QRZ.com"); ?></label>
+						</div>
+						<div class="form-check-inline">
+							<input class="form-check-input" type="checkbox" name="clublog" value="1" id="clublog" <?php if ($this->input->post('clublog', TRUE)) echo ' checked="checked"'; ?> >
+							<label class="form-check-label" for="clublog"><?= __("Clublog"); ?></label>
 						</div>
 					</div>
 				</div>
@@ -185,6 +189,13 @@
 <?php
     $i = 1;
     if ($cq_array) {
+	echo __('Legend:');
+	echo '<pre>'.__("(Q)SL-Paper-Card").", ";
+	echo __("(L)oTW").", ";
+	echo __("(e)QSL").", ";
+	echo __('QR(Z)-"confirmation"').", ";
+	echo __("(C)lublog").", ";
+	echo __("(W)orked").'</pre>';
     echo "
     <table style='width:100%' class='table tablecq table-sm table-bordered table-hover table-striped table-condensed text-center'>
         <thead>
