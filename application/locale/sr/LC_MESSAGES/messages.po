@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 07:48+0000\n"
+"POT-Creation-Date: 2026-02-23 07:59+0000\n"
 "PO-Revision-Date: 2024-12-10 11:09+0000\n"
 "Last-Translator: Dragan Đorđević <4o4a.dragan@gmail.com>\n"
 "Language-Team: Serbian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -10671,17 +10671,17 @@ msgstr ""
 #: application/views/debug/index.php:514
 msgid ""
 "Cache is currently using the backup adapter because the primary is "
-"unavailable. Check your file permissions, php-extensions and/or if you are "
-"using redis/memcached your network connection to the services."
+"unavailable. Check your file permissions, PHP extensions, and/or your "
+"network connection to the services (if using redis/memcached)."
 msgstr ""
 
 #: application/views/debug/index.php:518
 #, php-format
 msgid ""
 "Cache does not work! Currently the system is using a %s adapter. Check your "
-"file permissions, php-extensions and/or if you are using redis/memcached "
-"your network connection to the services. You can continue using Wavelog, but "
-"no values will be cached (which is bad)."
+"file permissions, PHP extensions and/or your network connection to the "
+"services (if using redis/memcached). You can continue using Wavelog, but no "
+"values will be cached (which is bad)."
 msgstr ""
 
 #: application/views/debug/index.php:526
