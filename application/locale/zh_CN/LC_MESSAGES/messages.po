@@ -8841,6 +8841,7 @@ msgstr ""
 #: application/views/logbookadvanced/index.php:699
 #: application/views/logbookadvanced/index.php:707
 #: application/views/logbookadvanced/index.php:716
+#: application/views/user/edit.php:695
 msgid "Yes"
 msgstr "是"
 
@@ -8928,6 +8929,7 @@ msgstr "是"
 #: application/views/logbookadvanced/index.php:700
 #: application/views/logbookadvanced/index.php:708
 #: application/views/logbookadvanced/index.php:717
+#: application/views/user/edit.php:696
 msgid "No"
 msgstr "否"
 

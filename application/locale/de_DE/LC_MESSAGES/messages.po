@@ -8895,6 +8895,7 @@ msgstr ""
 #: application/views/user/edit.php:1010 application/views/user/edit.php:1018
 #: application/views/user/edit.php:1038 application/views/user/edit.php:1067
 #: application/views/user/edit.php:1099 application/views/user/edit.php:1124
+#: application/views/user/edit.php:695
 msgid "Yes"
 msgstr "Ja"
 
@@ -8965,7 +8966,7 @@ msgstr "Ja"
 #: application/views/user/edit.php:659 application/views/user/edit.php:993
 #: application/views/user/edit.php:1009 application/views/user/edit.php:1037
 #: application/views/user/edit.php:1068 application/views/user/edit.php:1098
-#: application/views/user/edit.php:1123
+#: application/views/user/edit.php:1123 application/views/user/edit.php:696
 msgid "No"
 msgstr "Nein"
 
