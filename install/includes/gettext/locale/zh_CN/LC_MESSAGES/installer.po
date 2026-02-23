@@ -10,20 +10,21 @@
 # 李宇翔 <lyx8851@qq.com>, 2025.
 # Lu Chang <chinaluchang@live.com>, 2025.
 # MiaoTony <41962043+miaotony@users.noreply.github.com>, 2025.
+# "Shen RuiQin(BH4FJN)" <jerry19980425@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-22 10:34+0000\n"
-"PO-Revision-Date: 2025-11-13 14:37+0000\n"
-"Last-Translator: Lu Chang <chinaluchang@live.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
-"org/projects/wavelog/installer/zh_Hans/>\n"
+"PO-Revision-Date: 2026-02-23 05:42+0000\n"
+"Last-Translator: \"Shen RuiQin(BH4FJN)\" <jerry19980425@gmail.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.wavelog.org/projects/wavelog/installer/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.16\n"
 
 #: install/includes/install_config/install_lib.php:123
 msgid "not detected"
@@ -408,11 +409,11 @@ msgstr "可选：将日志级别设置为 0 以上，可启用错误记录，仅
 
 #: install/index.php:431
 msgid "0 - No logs"
-msgstr "0 - 无任何日志"
+msgstr "0 - 无日志"
 
 #: install/index.php:432
 msgid "1 - Error messages"
-msgstr "1 - 仅错误信息"
+msgstr "1 - 错误信息"
 
 #: install/index.php:433
 msgid "2 - Debug messages"
@@ -420,7 +421,7 @@ msgstr "2 - 调试信息"
 
 #: install/index.php:434
 msgid "3 - Info messages"
-msgstr "3 - 通常信息"
+msgstr "3 - 一般信息"
 
 #: install/index.php:435
 msgid "4 - All messages"
@@ -458,7 +459,7 @@ msgstr "对该数据库有完整权限的用户名。"
 
 #: install/index.php:477
 msgid "Password of the Database User"
-msgstr "用户密码"
+msgstr "数据库用户密码"
 
 #: install/index.php:481
 msgid "Connection Test"
@@ -510,7 +511,7 @@ msgstr "请选择一项"
 #: install/index.php:869 install/index.php:874 install/index.php:900
 #: install/index.php:906 install/index.php:908 install/index.php:1714
 msgid "Deleted DXCC"
-msgstr "已选择的 DXCC"
+msgstr "已删除的 DXCC"
 
 #: install/index.php:915
 msgid "Last Name"
@@ -522,7 +523,7 @@ msgstr "呼号"
 
 #: install/index.php:929
 msgid "Gridsquare/Locator"
-msgstr "网格地址"
+msgstr "网格/地址"
 
 #: install/index.php:939
 msgid "City"
@@ -538,7 +539,7 @@ msgstr "时区"
 
 #: install/index.php:1052
 msgid "E-Mail Address"
-msgstr "Email 地址"
+msgstr "E-mail 地址"
 
 #: install/index.php:1074
 msgid "Checklist"
@@ -608,7 +609,7 @@ msgstr "你需要解决标红的错误才能继续，请重启服务器并刷新
 
 #: install/index.php:1353
 msgid "Password can't contain ' / \\ < >"
-msgstr "密码不能包含 '/?<>"
+msgstr "密码不能包含 ' / \\ < >"
 
 #: install/index.php:1357
 msgid ""
@@ -704,7 +705,7 @@ msgstr "Wavelog 需要这个模块来运行！"
 
 #: install/index.php:1966
 msgid "Please install the required modules and restart the webserver."
-msgstr "请安装缺失的模块，并重启服务器。"
+msgstr "请安装缺失的模块，并重启网页服务器。"
 
 #: install/run.php:10
 msgid "Installation"
@@ -769,7 +770,7 @@ msgstr "无法创建数据表"
 
 #: install/run.php:281
 msgid "Could not run database migrations"
-msgstr "无法运行数据库迁移"
+msgstr "无法运行数据库迁移（推荐检查命令安全限制）"
 
 #: install/run.php:309
 msgid "Could not update DXCC data"
