@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-20 13:16+0000\n"
-"PO-Revision-Date: 2026-02-21 10:16+0000\n"
+"PO-Revision-Date: 2026-02-23 10:47+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
@@ -19801,11 +19801,11 @@ msgstr "CQz geojson"
 
 #: application/views/user/edit.php:692
 msgid "Show map at QSO-Window"
-msgstr ""
+msgstr "QSOウィンドウで地図を表示"
 
 #: application/views/user/edit.php:696
 msgid "Don't show"
-msgstr ""
+msgstr "表示しない"
 
 #: application/views/debug/index.php:514
 msgid ""
@@ -19813,6 +19813,9 @@ msgid ""
 "unavailable. Check your file permissions, php-extensions and/or if you are "
 "using redis/memcached your network connection to the services."
 msgstr ""
+"キャッシュは現在、プライマリが利用できないためバックアップアダプターを使用し"
+"ています。ファイルのアクセス権限、PHP拡張機能、およびRedis/Memcachedを使用し"
+"ている場合はサービスへのネットワーク接続を確認してください。"
 
 #: application/views/debug/index.php:518
 #, php-format
@@ -19822,32 +19825,36 @@ msgid ""
 "your network connection to the services. You can continue using Wavelog, but "
 "no values will be cached (which is bad)."
 msgstr ""
+"キャッシュが機能していません！現在システムは%sアダプターを使用しています。"
+"ファイルの権限、PHP拡張機能、およびRedis/Memcachedを使用している場合は"
+"サービスへのネットワーク接続を確認してください。Wavelogは引き続き使用できます"
+"が、値はキャッシュされません（これは問題です）。"
 
 #: application/views/labels/index.php:4
 #: application/views/logbookadvanced/index.php:82
 msgid "Label Print Options"
-msgstr ""
+msgstr "ラベル印刷オプション"
 
 #: application/views/labels/startatform.php:21
 #: application/views/logbookadvanced/startatform.php:20
 msgid "Include my call?"
-msgstr ""
+msgstr "私の通話を含めますか?"
 
 #: application/views/labels/startatform.php:100
 #: application/views/logbookadvanced/startatform.php:111
 msgid "Enter the starting position for label printing"
-msgstr ""
+msgstr "ラベル印刷の開始位置を入力してください"
 
 #: application/views/logbookadvanced/index.php:517
 msgid ""
 "Duration in minutes. Search will look for durations greater than or equal to "
 "this value."
-msgstr ""
+msgstr "分単位の時間指定。この値以上の時間を検索します。"
 
 #: application/controllers/Calltester.php:240
 #: application/controllers/Calltester.php:300
 msgid "CSV Call Tester"
-msgstr ""
+msgstr "CSV コールテスター"
 
 #: application/views/debug/index.php:514
 msgid ""
@@ -19855,6 +19862,9 @@ msgid ""
 "unavailable. Check your file permissions, PHP extensions, and/or your "
 "network connection to the services (if using redis/memcached)."
 msgstr ""
+"キャッシュは現在、プライマリが利用できないためバックアップアダプターを使用し"
+"ています。ファイルのアクセス権限、PHP拡張機能、およびサービスへのネットワーク"
+"接続（redis/memcachedを使用している場合）を確認してください。"
 
 #: application/views/debug/index.php:518
 #, php-format
@@ -19864,6 +19874,10 @@ msgid ""
 "services (if using redis/memcached). You can continue using Wavelog, but no "
 "values will be cached (which is bad)."
 msgstr ""
+"キャッシュが機能していません！現在システムは%sアダプターを使用しています。"
+"ファイルの権限、PHP拡張機能、およびサービスへのネットワーク接続（redis/"
+"memcachedを使用している場合）を確認してください。Wavelogは引き続き使用できま"
+"すが、値はキャッシュされません（これは問題です）。"
 
 #~ msgid "Error obtaining a session key for HamQTH query"
 #~ msgstr "HamQTHクエリのセッションキーの取得エラー"
