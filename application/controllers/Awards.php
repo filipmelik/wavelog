@@ -1604,20 +1604,16 @@ class Awards extends CI_Controller {
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 
         $this->load->model('cq');
-		 $this->load->model('bands');
+		$this->load->model('bands');
 
         $data['worked_bands'] = $this->bands->get_worked_bands('cq');
 
-		if ($this->input->post('band') == 'All') {         // Did the user specify a band? If not, use all bands
+		if ($this->input->post('band') == 'All') {
 			$bands = $data['worked_bands'];
 		}
 		else {
 			$bands[] = $this->input->post('band');
 		}
-
-        // $data['bands'] = $bands; // Used for displaying selected band(s) in the table in the view
-
-        // $bands[] = $this->input->post('band');
 
         $postdata['qsl'] = $this->input->post('qsl') == 0 ? NULL: 1;
         $postdata['lotw'] = $this->input->post('lotw') == 0 ? NULL: 1;
