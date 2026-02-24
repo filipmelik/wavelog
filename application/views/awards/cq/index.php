@@ -227,20 +227,28 @@
         foreach($bands as $band) {
             echo '<td>' . $band . '</td>';
         }
-        echo "<td>" . __("Total") . "</td></tr>
-        </thead>
+		if ($posted_band != 'SAT') {
+			echo "<td>" . __("Total") . "</td></tr>";
+		}
+        echo "</thead>
         <tbody>
 
         <tr><td>" . __("Total worked") . "</td>";
 
-        foreach ($cq_summary['worked'] as $dxcc) {      // Fills the table with the data
-            echo '<td style="text-align: center">' . $dxcc . '</td>';
+        foreach ($cq_summary['worked'] as $cqz => $value) {      // Fills the table with the data
+			if ($posted_band == 'SAT' && $cqz == 'Total') {
+				continue;
+			}
+            echo '<td style="text-align: center">' . $value . '</td>';
         }
 
         echo "</tr><tr>
         <td>" . __("Total confirmed") . "</td>";
-        foreach ($cq_summary['confirmed'] as $dxcc) {      // Fills the table with the data
-            echo '<td style="text-align: center">' . $dxcc . '</td>';
+        foreach ($cq_summary['confirmed'] as $cqz => $value) {      // Fills the table with the data
+			if ($posted_band == 'SAT' && $cqz == 'Total') {
+				continue;
+			}
+            echo '<td style="text-align: center">' . $value . '</td>';
         }
 
         echo '</tr>

@@ -695,6 +695,8 @@ class Awards extends CI_Controller {
 			$postdata['dateto'] = null;
 		}
 
+		$data['posted_band'] = $postdata['band'];
+
         if ($logbooks_locations_array) {
 			$location_list = "'".implode("','",$logbooks_locations_array)."'";
             $cq_result = $this->cq->get_cq_array($bands, $postdata, $location_list);
