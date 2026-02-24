@@ -6,7 +6,7 @@ class CQ extends CI_Model{
 		$this->load->library('Genfunctions');
 	}
 
-	function get_cq_array($bands, $postdata, $location_list) {
+	function get_cq_array($bands, $postdata, $location_list, $map = false) {
 		$cqZ = array(); // Used for keeping track of which states that are not worked
 
 		for ($i = 1; $i <= 40; $i++) {
@@ -187,6 +187,21 @@ class CQ extends CI_Model{
 				unset($bandCq[$i]);
 				continue;
 			}
+		}
+
+		// If this is for the map, return simplified format
+		if ($map) {
+			$mapZones = [];
+			for ($i = 1; $i <= 40; $i++) {
+				if ($cqZ[$i]['count'] == 0) {
+					$mapZones[$i-1] = '-';  // Not worked
+				} elseif (isset($totalConfirmedZones[$i])) {
+					$mapZones[$i-1] = 'C';  // Confirmed
+				} else {
+					$mapZones[$i-1] = 'W';  // Worked but not confirmed
+				}
+			}
+			return $mapZones;
 		}
 
 		if (isset($bandCq)) {

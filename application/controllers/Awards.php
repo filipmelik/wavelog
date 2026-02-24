@@ -1604,8 +1604,20 @@ class Awards extends CI_Controller {
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 
         $this->load->model('cq');
+		 $this->load->model('bands');
 
-        $bands[] = $this->input->post('band');
+        $data['worked_bands'] = $this->bands->get_worked_bands('cq');
+
+		if ($this->input->post('band') == 'All') {         // Did the user specify a band? If not, use all bands
+			$bands = $data['worked_bands'];
+		}
+		else {
+			$bands[] = $this->input->post('band');
+		}
+
+        // $data['bands'] = $bands; // Used for displaying selected band(s) in the table in the view
+
+        // $bands[] = $this->input->post('band');
 
         $postdata['qsl'] = $this->input->post('qsl') == 0 ? NULL: 1;
         $postdata['lotw'] = $this->input->post('lotw') == 0 ? NULL: 1;
@@ -1617,37 +1629,15 @@ class Awards extends CI_Controller {
         $postdata['notworked'] = $this->input->post('notworked')  == 0 ? NULL: 1;
         $postdata['band'] = $this->security->xss_clean($this->input->post('band'));
 		$postdata['mode'] = $this->security->xss_clean($this->input->post('mode'));
-		$postdata['datefrom'] = $this->security->xss_clean($this->input->post('datefrom'));
-		$postdata['dateto'] = $this->security->xss_clean($this->input->post('dateto'));
+		$postdata['datefrom'] = $this->security->xss_clean($this->input->post('dateFrom'));
+		$postdata['dateto'] = $this->security->xss_clean($this->input->post('dateTo'));
 
         if ($logbooks_locations_array) {
 			$location_list = "'".implode("','",$logbooks_locations_array)."'";
-            $cq_result = $this->cq->get_cq_array($bands, $postdata, $location_list);
-            $cq_array = ($cq_result && isset($cq_result['bands'])) ? $cq_result['bands'] : null;
+            $zones = $this->cq->get_cq_array($bands, $postdata, $location_list, true);
 		} else {
             $location_list = null;
-            $cq_array = null;
-        }
-
-		$zones = array();
-
-        foreach ($cq_array as $cq => $value) {
-            foreach ($value  as $key) {
-                if($key != "") {
-                    if (strpos($key, '>W<') !== false) {
-                        $zones[] = 'W';
-                        break;
-                    }
-                    if (strpos($key, '>C<') !== false) {
-                        $zones[] = 'C';
-                        break;
-                    }
-                    if (strpos($key, '-') !== false) {
-                        $zones[] = '-';
-                        break;
-                    }
-                }
-            }
+            $zones = array();
         }
 
         header('Content-Type: application/json');
