@@ -26,7 +26,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 08:16+0000\n"
+"POT-Creation-Date: 2026-02-24 10:40+0000\n"
 "PO-Revision-Date: 2026-02-22 20:14+0000\n"
 "Last-Translator: Lu Chang <chinaluchang@live.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
@@ -10066,6 +10066,38 @@ msgstr "上次更新时间：%s。"
 #: application/views/dashboard/index.php:485
 msgid "Data provided by HAMqsl."
 msgstr "数据由 HAMqsl 提供。"
+
+#: application/views/dashboard/index.php:527
+msgid "K-index: Planetary geomagnetic activity (0-9)"
+msgstr ""
+
+#: application/views/dashboard/index.php:528
+msgid "A-index: Daily geomagnetic activity index"
+msgstr ""
+
+#: application/views/dashboard/index.php:529
+msgid "Solar Flux Index"
+msgstr ""
+
+#: application/views/dashboard/index.php:530
+msgid "Solar Wind speed (km/s)"
+msgstr ""
+
+#: application/views/dashboard/index.php:531
+msgid "Signal Noise ratio"
+msgstr ""
+
+#: application/views/dashboard/index.php:532
+msgid "X-Ray solar flux level"
+msgstr ""
+
+#: application/views/dashboard/index.php:533
+msgid "Sunspot Number"
+msgstr ""
+
+#: application/views/dashboard/index.php:534
+msgid "Aurora activity level (Kp borealis)"
+msgstr ""
 
 #: application/views/dayswithqso/index.php:3
 msgid "Number of QSOs for this day of the week"
