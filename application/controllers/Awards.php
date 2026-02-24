@@ -187,8 +187,10 @@ class Awards extends CI_Controller {
 		if ($dxcclist && $dxcclist[0]->adif == "0") {
 			unset($dxcclist[0]);
 		}
-		$data['dxcc_array'] = $this->dxcc->get_dxcc_array($dxcclist, $bands, $postdata);
-		$data['dxcc_summary'] = $this->dxcc->get_dxcc_summary($bands, $postdata);
+
+		$dxcc_result = $this->dxcc->get_dxcc_array($dxcclist, $bands, $postdata);
+		$data['dxcc_array'] = ($dxcc_result && isset($dxcc_result['matrix'])) ? $dxcc_result['matrix'] : null;
+		$data['dxcc_summary'] = ($dxcc_result && isset($dxcc_result['summary'])) ? $dxcc_result['summary'] : null;
 
 		// Render Page
 		$data['page_title'] = sprintf(__("Awards - %s"), __("DXCC"));
@@ -1745,7 +1747,7 @@ class Awards extends CI_Controller {
 		    unset($dxcclist[0]);
 	    }
 
-	    $dxcc_array = $this->dxcc->get_dxcc_array($dxcclist, $bands, $postdata);
+	    $dxcc_array = $this->dxcc->get_dxcc_array($dxcclist, $bands, $postdata, true);
 
 	    $i = 0;
 
