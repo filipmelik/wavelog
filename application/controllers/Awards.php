@@ -666,37 +666,43 @@ class Awards extends CI_Controller {
 
         $data['bands'] = $bands; // Used for displaying selected band(s) in the table in the view
 
-        if($this->input->method() === 'post') {
-            $postdata['qsl'] = $this->security->xss_clean($this->input->post('qsl'));
-            $postdata['lotw'] = $this->security->xss_clean($this->input->post('lotw'));
-            $postdata['eqsl'] = $this->security->xss_clean($this->input->post('eqsl'));
-            $postdata['qrz'] = $this->security->xss_clean($this->input->post('qrz'));
-            $postdata['worked'] = $this->security->xss_clean($this->input->post('worked'));
-            $postdata['confirmed'] = $this->security->xss_clean($this->input->post('confirmed'));
-            $postdata['notworked'] = $this->security->xss_clean($this->input->post('notworked'));
-            $postdata['band'] = $this->security->xss_clean($this->input->post('band'));
+		if($this->input->method() === 'post') {
+			$postdata['qsl'] = ($this->input->post('qsl',true) ?? 0) == 0 ? NULL: 1;
+			$postdata['lotw'] = ($this->input->post('lotw',true) ?? 0) == 0 ? NULL: 1;
+			$postdata['eqsl'] = ($this->input->post('eqsl',true) ?? 0) == 0 ? NULL: 1;
+			$postdata['qrz'] = ($this->input->post('qrz',true) ?? 0) == 0 ? NULL: 1;
+			$postdata['clublog'] = ($this->input->post('clublog',true) ?? 0) == 0 ? NULL: 1;
+			$postdata['worked'] = ($this->input->post('worked',true) ?? 0) == 0 ? NULL: 1;
+			$postdata['confirmed'] = ($this->input->post('confirmed',true) ?? 0)  == 0 ? NULL: 1;
+			$postdata['notworked'] = ($this->input->post('notworked',true) ?? 0)  == 0 ? NULL: 1;
+			$postdata['band'] = $this->security->xss_clean($this->input->post('band'));
 			$postdata['mode'] = $this->security->xss_clean($this->input->post('mode'));
 			$postdata['datefrom'] = $this->security->xss_clean($this->input->post('dateFrom'));
 			$postdata['dateto'] = $this->security->xss_clean($this->input->post('dateTo'));
-        }
-        else { // Setting default values at first load of page
-            $postdata['qsl'] = 1;
-            $postdata['lotw'] = 1;
-            $postdata['eqsl'] = 0;
-            $postdata['qrz'] = 0;
-            $postdata['worked'] = 1;
-            $postdata['confirmed'] = 1;
-            $postdata['notworked'] = 1;
-            $postdata['band'] = 'All';
+		}
+		else { // Setting default values at first load of page
+			$postdata['qsl'] = 1;
+			$postdata['lotw'] = 1;
+			$postdata['eqsl'] = NULL;
+			$postdata['qrz'] = NULL;
+			$postdata['clublog'] = NULL;
+			$postdata['worked'] = 1;
+			$postdata['confirmed'] = 1;
+			$postdata['notworked'] = 1;
+			$postdata['band'] = 'All';
 			$postdata['mode'] = 'All';
 			$postdata['datefrom'] = null;
 			$postdata['dateto'] = null;
-        }
+		}
+
+		$data['posted_band'] = $postdata['band'];
 
         if ($logbooks_locations_array) {
 			$location_list = "'".implode("','",$logbooks_locations_array)."'";
-            $data['cq_array'] = $this->cq->get_cq_array($bands, $postdata, $location_list);
-            $data['cq_summary'] = $this->cq->get_cq_summary($bands, $postdata, $location_list);
+            $cq_result = $this->cq->get_cq_array($bands, $postdata, $location_list);
+            // Extract bands data and summary from the result
+            $data['cq_array'] = ($cq_result && isset($cq_result['bands'])) ? $cq_result['bands'] : null;
+            $data['cq_summary'] = ($cq_result && isset($cq_result['summary'])) ? $cq_result['summary'] : null;
 		} else {
             $location_list = null;
             $data['cq_array'] = null;
@@ -1600,8 +1606,16 @@ class Awards extends CI_Controller {
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 
         $this->load->model('cq');
+		$this->load->model('bands');
 
-        $bands[] = $this->input->post('band');
+        $data['worked_bands'] = $this->bands->get_worked_bands('cq');
+
+		if ($this->input->post('band') == 'All') {
+			$bands = $data['worked_bands'];
+		}
+		else {
+			$bands[] = $this->input->post('band');
+		}
 
         $postdata['qsl'] = $this->input->post('qsl') == 0 ? NULL: 1;
         $postdata['lotw'] = $this->input->post('lotw') == 0 ? NULL: 1;
@@ -1613,36 +1627,15 @@ class Awards extends CI_Controller {
         $postdata['notworked'] = $this->input->post('notworked')  == 0 ? NULL: 1;
         $postdata['band'] = $this->security->xss_clean($this->input->post('band'));
 		$postdata['mode'] = $this->security->xss_clean($this->input->post('mode'));
-		$postdata['datefrom'] = $this->security->xss_clean($this->input->post('datefrom'));
-		$postdata['dateto'] = $this->security->xss_clean($this->input->post('dateto'));
+		$postdata['datefrom'] = $this->security->xss_clean($this->input->post('dateFrom'));
+		$postdata['dateto'] = $this->security->xss_clean($this->input->post('dateTo'));
 
         if ($logbooks_locations_array) {
 			$location_list = "'".implode("','",$logbooks_locations_array)."'";
-            $cq_array = $this->cq->get_cq_array($bands, $postdata, $location_list, $this->user_map_color_qso, $this->user_map_color_qsoconfirm);
+            $zones = $this->cq->get_cq_array($bands, $postdata, $location_list, true);
 		} else {
             $location_list = null;
-            $cq_array = null;
-        }
-
-		$zones = array();
-
-        foreach ($cq_array as $cq => $value) {
-            foreach ($value  as $key) {
-                if($key != "") {
-                    if (strpos($key, '>W<') !== false) {
-                        $zones[] = 'W';
-                        break;
-                    }
-                    if (strpos($key, '>C<') !== false) {
-                        $zones[] = 'C';
-                        break;
-                    }
-                    if (strpos($key, '-') !== false) {
-                        $zones[] = '-';
-                        break;
-                    }
-                }
-            }
+            $zones = array();
         }
 
         header('Content-Type: application/json');
