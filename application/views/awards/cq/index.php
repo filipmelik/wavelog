@@ -232,7 +232,9 @@
 					$addsat='<td>' . $band . '</td>';
 				}
 			}
-			echo '<td><b>' . __("Total (ex SAT)") . '</b></td>';
+			if ($posted_band != 'SAT') {
+				echo '<td><b>' . __("Total (ex SAT)") . '</b></td>';
+			}
 			if (count($bands) > 1) {
 				echo '<td class="spacingcell"></td>';
 			}
@@ -242,7 +244,7 @@
 
         <tr><td>" . __("Total worked") . "</td>";
 		$sat_value = '';
-        foreach ($cq_summary['worked'] as $cqz => $value) {      // Fills the table with the data
+        foreach ($cq_summary['worked'] as $cqz => $value) {
 			if ($posted_band == 'SAT' && $cqz == 'Total') {
 				continue;
 			}
@@ -260,7 +262,7 @@
         echo "</tr><tr>
         <td>" . __("Total confirmed") . "</td>";
 		$sat_value = '';
-        foreach ($cq_summary['confirmed'] as $cqz => $value) {      // Fills the table with the data
+        foreach ($cq_summary['confirmed'] as $cqz => $value) {
 			if ($posted_band == 'SAT' && $cqz == 'Total') {
 				continue;
 			}
