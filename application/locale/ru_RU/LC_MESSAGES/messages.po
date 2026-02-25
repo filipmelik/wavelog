@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 08:16+0000\n"
+"POT-Creation-Date: 2026-02-24 10:40+0000\n"
 "PO-Revision-Date: 2026-02-24 10:41+0000\n"
 "Last-Translator: Michael Skolsky <r1blh@yandex.ru>\n"
 "Language-Team: Russian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -3425,7 +3425,6 @@ msgid "Gridsquare Zone finder"
 msgstr "Поиск зоны по квадрату"
 
 #: application/libraries/Callbook.php:60
-#, fuzzy
 msgid "Lookup not configured. Please review configuration."
 msgstr "Поиск не настроен. Пожалуйста, проверьте конфигурацию."
 
@@ -10406,6 +10405,38 @@ msgstr "Последнее обновление в %s."
 msgid "Data provided by HAMqsl."
 msgstr "Данные предоставлены HAMqsl."
 
+#: application/views/dashboard/index.php:527
+msgid "K-index: Planetary geomagnetic activity (0-9)"
+msgstr ""
+
+#: application/views/dashboard/index.php:528
+msgid "A-index: Daily geomagnetic activity index"
+msgstr ""
+
+#: application/views/dashboard/index.php:529
+msgid "Solar Flux Index"
+msgstr ""
+
+#: application/views/dashboard/index.php:530
+msgid "Solar Wind speed (km/s)"
+msgstr ""
+
+#: application/views/dashboard/index.php:531
+msgid "Signal Noise ratio"
+msgstr ""
+
+#: application/views/dashboard/index.php:532
+msgid "X-Ray solar flux level"
+msgstr ""
+
+#: application/views/dashboard/index.php:533
+msgid "Sunspot Number"
+msgstr ""
+
+#: application/views/dashboard/index.php:534
+msgid "Aurora activity level (Kp borealis)"
+msgstr ""
+
 #: application/views/dayswithqso/index.php:3
 msgid "Number of QSOs for this day of the week"
 msgstr "Количество QSO за этот день недели"
@@ -17213,8 +17244,8 @@ msgid ""
 "give an initial sent exchange. To deactivate, use ',+0':"
 msgstr ""
 "Принятый контрольный номер должен быть с префиксом точка '.', отправленный "
-"контрольный номер -- с запятой ','. Последние две строки эквивалентны -- "
-"т.е. пробелы не имеют значения, как и порядок. Контрольный номер, который вы "
+"контрольный номер -- с запятой ','. Последние две строки эквивалентны -- т."
+"е. пробелы не имеют значения, как и порядок. Контрольный номер, который вы "
 "отправили, будет автоматически включен в следующее QSO, если он содержит "
 "принятый контрольный номер, или если вы используете одну запятую ','. Чтобы "
 "автоматически увеличить отправленный порядковый номер, используйте ',++' и "
@@ -18003,9 +18034,8 @@ msgid ""
 "Create a new folder in 'assets/css/' and upload a 'bootstrap.min.css' file "
 "which contains basic styling rules. We use the themes from %s"
 msgstr ""
-"Создайте новую папку в 'assets/css/' и загрузите в нее файл "
-"'bootstrap.min.css', который содержит основные правила стилизации. Мы "
-"используем темы из %s"
+"Создайте новую папку в 'assets/css/' и загрузите в нее файл 'bootstrap.min."
+"css', который содержит основные правила стилизации. Мы используем темы из %s"
 
 #: application/views/themes/index.php:50
 msgid "2. Step"
@@ -18313,8 +18343,8 @@ msgid ""
 "Show profile picture of QSO partner from qrz.com/hamqth.com profile in the "
 "log QSO section."
 msgstr ""
-"Показать изображение корреспондента по QSO из его профиля на qrz.com/"
-"hamqth.com в разделе QSO журнала."
+"Показать изображение корреспондента по QSO из его профиля на qrz.com/hamqth."
+"com в разделе QSO журнала."
 
 #: application/views/user/edit.php:392
 msgid ""
@@ -19568,38 +19598,6 @@ msgstr "CQ"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQ geojson"
-
-#: application/views/dashboard/index.php:527
-msgid "K-index: Planetary geomagnetic activity (0-9)"
-msgstr ""
-
-#: application/views/dashboard/index.php:528
-msgid "A-index: Daily geomagnetic activity index"
-msgstr ""
-
-#: application/views/dashboard/index.php:529
-msgid "Solar Flux Index"
-msgstr ""
-
-#: application/views/dashboard/index.php:530
-msgid "Solar Wind speed (km/s)"
-msgstr ""
-
-#: application/views/dashboard/index.php:531
-msgid "Signal Noise ratio"
-msgstr ""
-
-#: application/views/dashboard/index.php:532
-msgid "X-Ray solar flux level"
-msgstr ""
-
-#: application/views/dashboard/index.php:533
-msgid "Sunspot Number"
-msgstr ""
-
-#: application/views/dashboard/index.php:534
-msgid "Aurora activity level (Kp borealis)"
-msgstr ""
 
 #~ msgid ""
 #~ "Cache is currently using the backup adapter because the primary is "

@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 08:16+0000\n"
+"POT-Creation-Date: 2026-02-24 10:40+0000\n"
 "PO-Revision-Date: 2026-02-24 15:05+0000\n"
 "Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
@@ -7304,8 +7304,8 @@ msgid ""
 "State (ADIF: DXCC and STATE)"
 msgstr ""
 "Fält som använts för detta diplom: DXCC (måste vara ett av Kina/318, "
-"HongKong/321, Macao/152, Taiwan/386, Pratas Isl./505 eller Scarborough Reef/"
-"506) och giltig stat (ADIF: DXCC och STATE)"
+"HongKong/321, Macao/152, Taiwan/386, Pratas Isl./505 eller Scarborough "
+"Reef/506) och giltig stat (ADIF: DXCC och STATE)"
 
 #: application/views/awards/was/index.php:3
 msgctxt "USA State"
@@ -10318,6 +10318,38 @@ msgstr "Senaste uppdateringen kl. %s."
 msgid "Data provided by HAMqsl."
 msgstr "Data tillhandahålls av HAMqsl."
 
+#: application/views/dashboard/index.php:527
+msgid "K-index: Planetary geomagnetic activity (0-9)"
+msgstr "K-index: Planetär geomagnetisk aktivitet (0-9)"
+
+#: application/views/dashboard/index.php:528
+msgid "A-index: Daily geomagnetic activity index"
+msgstr "A-index: Dagligt geomagnetiskt aktivitetsindex"
+
+#: application/views/dashboard/index.php:529
+msgid "Solar Flux Index"
+msgstr "Solflödesindex"
+
+#: application/views/dashboard/index.php:530
+msgid "Solar Wind speed (km/s)"
+msgstr "Solvindens hastighet (km/s)"
+
+#: application/views/dashboard/index.php:531
+msgid "Signal Noise ratio"
+msgstr "Signal-brusförhållande"
+
+#: application/views/dashboard/index.php:532
+msgid "X-Ray solar flux level"
+msgstr "Solröntgenflödenivå"
+
+#: application/views/dashboard/index.php:533
+msgid "Sunspot Number"
+msgstr "Solfläcksnummer"
+
+#: application/views/dashboard/index.php:534
+msgid "Aurora activity level (Kp borealis)"
+msgstr "Aurora-aktivitetens nivå (Kp borealis)"
+
 #: application/views/dayswithqso/index.php:3
 msgid "Number of QSOs for this day of the week"
 msgstr "Antal QSOs för denna veckodag"
@@ -12878,8 +12910,8 @@ msgid ""
 "We’ll keep the original value and add a more precise locator (e.g., JO90AB "
 "or JO90AB12) when a match is confident."
 msgstr ""
-"Vi behåller det ursprungliga värdet och lägger till en mer exakt lokator "
-"(t.ex. JO90AB eller JO90AB12) när en matchning är säker."
+"Vi behåller det ursprungliga värdet och lägger till en mer exakt lokator (t."
+"ex. JO90AB eller JO90AB12) när en matchning är säker."
 
 #: application/views/logbookadvanced/checkresult.php:42
 msgid "Distance Check Results"
@@ -17905,8 +17937,8 @@ msgid ""
 "Only PNG files are allowed, and they should have a pixel ratio of 1:1 (e.g., "
 "1000px height and 1000px width)."
 msgstr ""
-"Endast PNG-filer är tillåtna, och de bör ha ett pixel-förhållande på 1:1 "
-"(t.ex. 1000px höjd och 1000px bredd)."
+"Endast PNG-filer är tillåtna, och de bör ha ett pixel-förhållande på 1:1 (t."
+"ex. 1000px höjd och 1000px bredd)."
 
 #: application/views/themes/index.php:64
 msgid "Place the two logo files in the folder 'assets/logo/'"
@@ -19425,38 +19457,6 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
-
-#: application/views/dashboard/index.php:527
-msgid "K-index: Planetary geomagnetic activity (0-9)"
-msgstr "K-index: Planetär geomagnetisk aktivitet (0-9)"
-
-#: application/views/dashboard/index.php:528
-msgid "A-index: Daily geomagnetic activity index"
-msgstr "A-index: Dagligt geomagnetiskt aktivitetsindex"
-
-#: application/views/dashboard/index.php:529
-msgid "Solar Flux Index"
-msgstr "Solflödesindex"
-
-#: application/views/dashboard/index.php:530
-msgid "Solar Wind speed (km/s)"
-msgstr "Solvindens hastighet (km/s)"
-
-#: application/views/dashboard/index.php:531
-msgid "Signal Noise ratio"
-msgstr "Signal-brusförhållande"
-
-#: application/views/dashboard/index.php:532
-msgid "X-Ray solar flux level"
-msgstr "Solröntgenflödenivå"
-
-#: application/views/dashboard/index.php:533
-msgid "Sunspot Number"
-msgstr "Solfläcksnummer"
-
-#: application/views/dashboard/index.php:534
-msgid "Aurora activity level (Kp borealis)"
-msgstr "Aurora-aktivitetens nivå (Kp borealis)"
 
 #~ msgid ""
 #~ "Cache is currently using the backup adapter because the primary is "
