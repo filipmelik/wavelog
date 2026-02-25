@@ -192,13 +192,25 @@ class CQ extends CI_Model{
 		// If this is for the map, return simplified format
 		if ($map) {
 			$mapZones = [];
-			for ($i = 1; $i <= 40; $i++) {
-				if ($cqZ[$i]['count'] == 0) {
-					$mapZones[$i-1] = '-';  // Not worked
-				} elseif (isset($totalConfirmedZones[$i])) {
-					$mapZones[$i-1] = 'C';  // Confirmed
-				} else {
-					$mapZones[$i-1] = 'W';  // Worked but not confirmed
+			if ($bands[0] == 'SAT') {
+				for ($i = 1; $i <= 40; $i++) {
+					if ($cqZ[$i]['count'] == 0) {
+						$mapZones[$i-1] = '-';  // Not worked
+					} elseif (isset($confirmedZones['SAT'][$i])) {
+						$mapZones[$i-1] = 'C';  // Confirmed
+					} else {
+						$mapZones[$i-1] = 'W';  // Worked but not confirmed
+					}
+				}
+			} else {
+				for ($i = 1; $i <= 40; $i++) {
+					if ($cqZ[$i]['count'] == 0) {
+						$mapZones[$i-1] = '-';  // Not worked
+					} elseif (isset($totalConfirmedZones[$i])) {
+						$mapZones[$i-1] = 'C';  // Confirmed
+					} else {
+						$mapZones[$i-1] = 'W';  // Worked but not confirmed
+					}
 				}
 			}
 			return $mapZones;
