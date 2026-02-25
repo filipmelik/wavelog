@@ -204,12 +204,12 @@ class CQ extends CI_Model{
 				}
 			} else {
 				for ($i = 1; $i <= 40; $i++) {
-					if ($cqZ[$i]['count'] == 0) {
-						$mapZones[$i-1] = '-';  // Not worked
-					} elseif (isset($totalConfirmedZones[$i])) {
+					if (isset($totalConfirmedZones[$i])) {
 						$mapZones[$i-1] = 'C';  // Confirmed
-					} else {
+					} else if (isset($totalWorkedZones[$i])) {
 						$mapZones[$i-1] = 'W';  // Worked but not confirmed
+					} else {
+						$mapZones[$i-1] = '-';  // Not worked
 					}
 				}
 			}
