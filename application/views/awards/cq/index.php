@@ -224,32 +224,56 @@
         <thead>
         <tr><td></td>";
 
-        foreach($bands as $band) {
-            echo '<td>' . $band . '</td>';
-        }
-		if ($posted_band != 'SAT') {
-			echo "<td>" . __("Total") . "</td></tr>";
-		}
+			$addsat='';
+			foreach($bands as $band) {
+				if ($band != 'SAT') {
+					echo '<td>' . $band . '</td>';
+				} else {
+					$addsat='<td>' . $band . '</td>';
+				}
+			}
+			echo '<td><b>' . __("Total (ex SAT)") . '</b></td>';
+			if (count($bands) > 1) {
+				echo '<td class="spacingcell"></td>';
+			}
+			echo $addsat;
         echo "</thead>
         <tbody>
 
         <tr><td>" . __("Total worked") . "</td>";
-
+		$sat_value = '';
         foreach ($cq_summary['worked'] as $cqz => $value) {      // Fills the table with the data
 			if ($posted_band == 'SAT' && $cqz == 'Total') {
 				continue;
 			}
-            echo '<td style="text-align: center">' . $value . '</td>';
+			if ($cqz == 'SAT') {
+				$sat_value = '<td style="text-align: center"' . ($cqz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
+			} else {
+				echo '<td style="text-align: center"' . ($cqz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
+			}
         }
+		if (count($bands) > 1) {
+			echo '<td class="spacingcell"></td>';
+		}
+		echo $sat_value;
 
         echo "</tr><tr>
         <td>" . __("Total confirmed") . "</td>";
+		$sat_value = '';
         foreach ($cq_summary['confirmed'] as $cqz => $value) {      // Fills the table with the data
 			if ($posted_band == 'SAT' && $cqz == 'Total') {
 				continue;
 			}
-            echo '<td style="text-align: center">' . $value . '</td>';
+			if ($cqz == 'SAT') {
+				$sat_value = '<td style="text-align: center"' . ($cqz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
+			} else {
+				echo '<td style="text-align: center"' . ($cqz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
+			}
         }
+		if (count($bands) > 1) {
+			echo '<td class="spacingcell"></td>';
+		}
+		echo $sat_value;
 
         echo '</tr>
         </table>
