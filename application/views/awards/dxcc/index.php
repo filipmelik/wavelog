@@ -172,7 +172,7 @@
 					<label class="col-md-2 control-label" for="band2"><?= __("Band"); ?></label>
 					<div class="col-md-3">
 						<select id="band2" name="band" class="form-select form-select-sm">
-							<option value="All" <?php if ($this->input->post('band') == "All" || $this->input->method() !== 'post') echo ' selected'; ?> ><?= __("Every band (w/o SAT)"); ?></option>
+							<option value="All" <?php if ($this->input->post('band') == "All" || $this->input->method() !== 'post') echo ' selected'; ?> ><?= __("Every band"); ?></option>
 							<?php foreach($worked_bands as $band) {
 								echo '<option value="' . $band . '"';
 								if ($this->input->post('band') == $band) echo ' selected';
@@ -309,7 +309,9 @@
 						    $addsat='<td>' . $band . '</td>';
 					    }
 				    }
-				    echo '<td><b>' . __("Total") . '</b></td>';
+					if ($posted_band != 'SAT') {
+						echo '<td><b>' . __("Total (ex SAT)") . '</b></td>';
+					}
 				    if (count($bands) > 1) {
 					    echo '<td class="spacingcell"></td>';
 				    }
@@ -322,6 +324,9 @@
 	<tr><td>' . __("Total worked") . '</td>';
 	$addsat='';
 	foreach ($dxcc_summary['worked'] as $band => $dxcc) {      // Fills the table with the data
+		if ($posted_band == 'SAT' && $band == 'Total') {
+			continue;
+		}
 		if ($band != 'SAT') {
 			echo '<td style="text-align: center">';
 			if ($band == 'Total') {
@@ -347,6 +352,9 @@
 	<td>' . __("Total confirmed") . '</td>';
 	$addsat='';
 	foreach ($dxcc_summary['confirmed'] as $band => $dxcc) {      // Fills the table with the data
+		if ($posted_band == 'SAT' && $band == 'Total') {
+			continue;
+		}
 		if ($band != 'SAT') {
 			echo '<td style="text-align: center">';
 			if ($band == 'Total') {
