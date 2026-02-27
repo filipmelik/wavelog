@@ -278,6 +278,7 @@ class DXCC extends CI_Model {
 			MAX(case when thcv.COL_QRZCOM_QSO_DOWNLOAD_STATUS= 'Y' then 1 else 0 end) as qrz,
 			MAX(case when thcv.COL_CLUBLOG_QSO_DOWNLOAD_STATUS = 'Y' then 1 else 0 end) as clublog
 		FROM " . $this->config->item('table_name') . " thcv
+		join dxcc_entities on thcv.col_dxcc = dxcc_entities.adif
 		WHERE station_id IN (" . $location_list . ") AND thcv.col_dxcc > 0";
 
 		// Mode filter
@@ -323,6 +324,7 @@ class DXCC extends CI_Model {
 			MAX(case when thcv.COL_QRZCOM_QSO_DOWNLOAD_STATUS= 'Y' then 1 else 0 end) as qrz,
 			MAX(case when thcv.COL_CLUBLOG_QSO_DOWNLOAD_STATUS = 'Y' then 1 else 0 end) as clublog
 		FROM " . $this->config->item('table_name') . " thcv
+		join dxcc_entities on thcv.col_dxcc = dxcc_entities.adif
 		LEFT JOIN satellite on thcv.COL_SAT_NAME = satellite.name
 		WHERE station_id IN (" . $location_list . ") AND thcv.col_dxcc > 0";
 
