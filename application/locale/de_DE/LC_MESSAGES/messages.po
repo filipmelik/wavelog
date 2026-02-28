@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-25 09:04+0000\n"
-"PO-Revision-Date: 2026-02-24 15:11+0000\n"
-"Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
+"PO-Revision-Date: 2026-02-28 06:15+0000\n"
+"Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
 "Language: de_DE\n"
@@ -5987,7 +5987,7 @@ msgstr "Zusammenfassung"
 #: application/views/awards/cq/index.php:236
 #: application/views/awards/itu/index.php:227
 msgid "Total (ex SAT)"
-msgstr ""
+msgstr "Total (ohne SAT)"
 
 #: application/views/awards/cq/index.php:245
 #: application/views/awards/dok/index.php:179
