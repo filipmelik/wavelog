@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-25 09:04+0000\n"
-"PO-Revision-Date: 2026-02-24 10:41+0000\n"
+"PO-Revision-Date: 2026-02-26 08:24+0000\n"
 "Last-Translator: Michael Skolsky <r1blh@yandex.ru>\n"
 "Language-Team: Russian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ru/>\n"
@@ -5960,7 +5960,7 @@ msgstr "Сводка"
 #: application/views/awards/cq/index.php:236
 #: application/views/awards/itu/index.php:227
 msgid "Total (ex SAT)"
-msgstr ""
+msgstr "Итого (без спутниковых)"
 
 #: application/views/awards/cq/index.php:245
 #: application/views/awards/dok/index.php:179
@@ -10438,35 +10438,35 @@ msgstr "Данные предоставлены HAMqsl."
 
 #: application/views/dashboard/index.php:527
 msgid "K-index: Planetary geomagnetic activity (0-9)"
-msgstr ""
+msgstr "К-индекс: Показатель геомагнитной активности (0-9)"
 
 #: application/views/dashboard/index.php:528
 msgid "A-index: Daily geomagnetic activity index"
-msgstr ""
+msgstr "A-индекс: Показатель среднесуточного уровня геомагнитной активности"
 
 #: application/views/dashboard/index.php:529
 msgid "Solar Flux Index"
-msgstr ""
+msgstr "Показатель солнечной активности"
 
 #: application/views/dashboard/index.php:530
 msgid "Solar Wind speed (km/s)"
-msgstr ""
+msgstr "Скорость солнечного ветра (км/с)"
 
 #: application/views/dashboard/index.php:531
 msgid "Signal Noise ratio"
-msgstr ""
+msgstr "Отношение сигнал/шум"
 
 #: application/views/dashboard/index.php:532
 msgid "X-Ray solar flux level"
-msgstr ""
+msgstr "Уровень солнечного излучения в рентгеновском диапазоне"
 
 #: application/views/dashboard/index.php:533
 msgid "Sunspot Number"
-msgstr ""
+msgstr "Число солнечных пятен"
 
 #: application/views/dashboard/index.php:534
 msgid "Aurora activity level (Kp borealis)"
-msgstr ""
+msgstr "Kp-индекс: Показатель активности Авроры"
 
 #: application/views/dayswithqso/index.php:3
 msgid "Number of QSOs for this day of the week"
