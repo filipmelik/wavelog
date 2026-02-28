@@ -86,14 +86,11 @@ class DXCC extends CI_Model {
 				continue;
 			}
 
-			// Ensure string key for consistency
-			$dxccKey = (string)$dxcc->dxcc;
-
 			// Track worked status for this DXCC
-			if (!isset($dxccWorkedStatus[$dxccKey])) {
-				$dxccWorkedStatus[$dxccKey] = 0;
+			if (!isset($dxccWorkedStatus[$dxcc->dxcc])) {
+				$dxccWorkedStatus[$dxcc->dxcc] = 0;
 			}
-			$dxccWorkedStatus[$dxccKey]++;
+			$dxccWorkedStatus[$dxcc->dxcc]++;
 
 			// Check if confirmed based on the confirmation types selected in postdata
 			$isConfirmed = false;
@@ -120,19 +117,19 @@ class DXCC extends CI_Model {
 			}
 
 			if ($isConfirmed) {
-				$dxccMatrix[$dxccKey][$dxcc->col_band] = '<div class="bg-success awardsBgSuccess" additional_successinfo=">C<"><a href=\'javascript:displayContacts("'.$dxcc->dxcc.'","'. $dxcc->col_band . '","'. $postdata['sat'] . '","'. $postdata['orbit'] . '","' . $postdata['mode'] . '","DXCC2","'.$qsl.'","'.$postdata['dateFrom'].'","'.$postdata['dateTo'].'")\'>'.$confirmationLetters.'</a></div>';
+				$dxccMatrix[$dxcc->dxcc][$dxcc->col_band] = '<div class="bg-success awardsBgSuccess" additional_successinfo=">C<"><a href=\'javascript:displayContacts("'.$dxcc->dxcc.'","'. $dxcc->col_band . '","'. $postdata['sat'] . '","'. $postdata['orbit'] . '","' . $postdata['mode'] . '","DXCC2","'.$qsl.'","'.$postdata['dateFrom'].'","'.$postdata['dateTo'].'")\'>'.$confirmationLetters.'</a></div>';
 				// Track confirmed DXCCs for summary
-				if (!isset($confirmedDxccs[$dxcc->col_band][$dxccKey])) {
-					$confirmedDxccs[$dxcc->col_band][$dxccKey] = true;
+				if (!isset($confirmedDxccs[$dxcc->col_band][$dxcc->dxcc])) {
+					$confirmedDxccs[$dxcc->col_band][$dxcc->dxcc] = true;
 					$summary['confirmed'][$dxcc->col_band]++;
 				}
 			} else {
-				$dxccMatrix[$dxccKey][$dxcc->col_band] = '<div class="bg-danger awardsBgWarning" ><a href=\'javascript:displayContacts("'.$dxcc->dxcc.'","'. $dxcc->col_band . '","'. $postdata['sat'] . '","' . $postdata['orbit'] . '","'. $postdata['mode'] . '","DXCC2", "", "'.$postdata['dateFrom'].'", "'.$postdata['dateTo'].'")\'>W</a></div>';
+				$dxccMatrix[$dxcc->dxcc][$dxcc->col_band] = '<div class="bg-danger awardsBgWarning" ><a href=\'javascript:displayContacts("'.$dxcc->dxcc.'","'. $dxcc->col_band . '","'. $postdata['sat'] . '","' . $postdata['orbit'] . '","'. $postdata['mode'] . '","DXCC2", "", "'.$postdata['dateFrom'].'", "'.$postdata['dateTo'].'")\'>W</a></div>';
 			}
 
 			// Track worked DXCCs for summary
-			if (!isset($workedDxccs[$dxcc->col_band][$dxccKey])) {
-				$workedDxccs[$dxcc->col_band][$dxccKey] = true;
+			if (!isset($workedDxccs[$dxcc->col_band][$dxcc->dxcc])) {
+				$workedDxccs[$dxcc->col_band][$dxcc->dxcc] = true;
 				$summary['worked'][$dxcc->col_band]++;
 			}
 		}
@@ -182,8 +179,8 @@ class DXCC extends CI_Model {
 				if (!isset($confirmedDxccs[$dxcc->col_band][$dxccKey])) {
 					$confirmedDxccs[$dxcc->col_band][$dxccKey] = true;
 					$summary['confirmed'][$dxcc->col_band]++;
-					}
-					} else {
+				}
+			} else {
 				$dxccMatrix[$dxccKey][$dxcc->col_band] = '<div class="bg-danger awardsBgWarning" ><a href=\'javascript:displayContacts("'.$dxcc->dxcc.'","'. $dxcc->col_band . '","'. $postdata['sat'] . '","' . $postdata['orbit'] . '","'. $postdata['mode'] . '","DXCC2", "", "'.$postdata['dateFrom'].'", "'.$postdata['dateTo'].'")\'>W</a></div>';
 			}
 
@@ -246,13 +243,25 @@ class DXCC extends CI_Model {
 		// If this is for the map, return simplified format
 		if ($map) {
 			$mapDxccs = [];
-			foreach ($dxccMatrix as $dxcc => $data) {
-				if (!isset($totalWorkedDxccs[$dxcc])) {
-					$mapDxccs[$dxcc] = '-';  // Not worked
-				} elseif (isset($totalConfirmedDxccs[$dxcc])) {
-					$mapDxccs[$dxcc] = 'C';  // Confirmed
-				} else {
-					$mapDxccs[$dxcc] = 'W';  // Worked but not confirmed
+			if ($bands[0] == 'SAT') {
+				foreach ($dxccMatrix as $dxcc => $data) {
+					if (isset($confirmedDxccs['SAT'][$dxcc])) {
+						$mapDxccs[$dxcc] = 'C';  // Confirmed
+					} elseif (isset($workedDxccs['SAT'][$dxcc])) {
+						$mapDxccs[$dxcc] = 'W';  // Worked but not confirmed
+					} else {
+						$mapDxccs[$dxcc] = '-';  // Not worked
+					}
+				}
+			} else {
+				foreach ($dxccMatrix as $dxcc => $data) {
+					if (isset($totalConfirmedDxccs[$dxcc])) {
+						$mapDxccs[$dxcc] = 'C';  // Confirmed
+					} elseif (isset($totalWorkedDxccs[$dxcc])) {
+						$mapDxccs[$dxcc] = 'W';  // Worked but not confirmed
+					} else {
+						$mapDxccs[$dxcc] = '-';  // Not worked
+					}
 				}
 			}
 			return $mapDxccs;

@@ -1719,6 +1719,15 @@ class Awards extends CI_Controller {
 		$this->load->model('dxcc');
 		$this->load->model('bands');
 
+		$data['worked_bands'] = $this->bands->get_worked_bands('dxcc');
+
+		if ($this->input->post('band') == 'All') {
+			$bands = $data['worked_bands'];
+		}
+		else {
+			$bands[] = $this->input->post('band');
+		}
+
 		$bands[] = $this->security->xss_clean($this->input->post('band'));
 
 		$postdata['qsl'] = ($this->input->post('qsl',true) ?? 0) == 0 ? NULL: 1;

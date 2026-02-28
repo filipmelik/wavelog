@@ -157,7 +157,8 @@ function load_dxcc_map2(data, worked, confirmed, notworked) {
 
     legend.onAdd = function(map) {
         var div = L.DomUtil.create("div", "legend");
-        div.innerHTML += "<h4>Colors</h4>";
+        var band = $('#band2').val();
+        div.innerHTML += "<h4>Band: " + band + "</h4>";
         div.innerHTML += '<i style="background: ' + confirmedColor + '"></i><span>' + lang_general_word_confirmed + ' ('+confirmedcount+')</span><br>';
         div.innerHTML += '<i style="background: ' + workedColor + '"></i><span>' + lang_general_word_worked_not_confirmed + ' ('+workednotconfirmedcount+')</span><br>';
         div.innerHTML += '<i style="background: ' + unworkedColor + '"></i><span>' + lang_general_word_not_worked + ' ('+notworkedcount+')</span><br>';
