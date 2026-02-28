@@ -14,12 +14,13 @@
 # Stephane Tauziede <contact@f4izc.com>, 2025.
 # F5MQU <f5mqu.p@gmail.com>, 2025.
 # JONCOUX Philippe <joncoux@free.fr>, 2025, 2026.
+# Telectroboy <telectroboy@hotmail.com>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-25 09:04+0000\n"
-"PO-Revision-Date: 2026-02-26 08:24+0000\n"
-"Last-Translator: JONCOUX Philippe <joncoux@free.fr>\n"
+"PO-Revision-Date: 2026-02-28 10:41+0000\n"
+"Last-Translator: Telectroboy <telectroboy@hotmail.com>\n"
 "Language-Team: French <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/fr/>\n"
 "Language: fr_FR\n"
@@ -15808,7 +15809,7 @@ msgstr "Ajouter des QSO"
 
 #: application/views/qslcard/searchresult.php:193
 msgid "Add to QSL"
-msgstr "Ajouter des QSL"
+msgstr "Ajouter aux QSL"
 
 #: application/views/qslprint/index.php:16
 msgid "Export Requested QSLs for Printing"
