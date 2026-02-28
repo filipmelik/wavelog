@@ -201,7 +201,7 @@ class Awards extends CI_Controller {
 	public function wapc ()	{
 		$footerData = [];
 		$footerData['scripts'] = [
-			'assets/js/sections/wapcmap.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/wapcmap.js")),
+			'assets/js/sections/wapcmap.js',
 			'assets/js/leaflet/L.Maidenhead.js',
 		];
 
@@ -1726,8 +1726,8 @@ class Awards extends CI_Controller {
         $postdata['clublog'] = $this->input->post('clublog') == 0 ? NULL: 1;
         $postdata['confirmed'] = $this->input->post('confirmed')  == 0 ? NULL: 1;
         $postdata['notworked'] = $this->input->post('notworked')  == 0 ? NULL: 1;
-        $postdata['band'] = $this->security->xss_clean($this->input->post('band'));
-        $postdata['mode'] = $this->security->xss_clean($this->input->post('mode'));
+        $postdata['band'] = $this->input->post('band', TRUE);
+        $postdata['mode'] = $this->input->post('mode', TRUE);
 
         $wapc_array = $this->wapc->get_wapc_array($bands, $postdata);
 
