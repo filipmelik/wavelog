@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-25 09:04+0000\n"
 "PO-Revision-Date: 2026-03-01 08:22+0000\n"
-"Last-Translator: Telectroboy <telectroboy@hotmail.com>\n"
+"Last-Translator: JONCOUX Philippe <joncoux@free.fr>\n"
 "Language-Team: French <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/fr/>\n"
 "Language: fr_FR\n"
@@ -19909,11 +19909,11 @@ msgstr "CQz geojson"
 #: application/views/awards/wapc/index.php:3
 msgctxt "China Province"
 msgid "Province"
-msgstr ""
+msgstr "Province"
 
 #: application/views/awards/wapc/index.php:122
 msgid "Show WAPC Map"
-msgstr ""
+msgstr "Afficher la carte WAPC"
 
 #~ msgid ""
 #~ "Cache is currently using the backup adapter because the primary is "
