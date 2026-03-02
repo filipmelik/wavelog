@@ -195,25 +195,25 @@ class DXCC extends CI_Model {
 		$totalWorkedDxccs = [];
 		$totalConfirmedDxccs = [];
 		foreach ($workedDxccs as $band => $dxccs) {
-			// Skip SAT for totals
-			if ($band === 'SAT') {
-				continue;
-			}
 			foreach ($dxccs as $dxcc => $true) {
 				if (!isset($totalWorkedDxccs[$dxcc])) {
 					$totalWorkedDxccs[$dxcc] = true;
+					if ($band === 'SAT') {
+						continue;
+					}
+					$totalWorkedDxccsExSat[$dxcc] = true;
 					$summary['worked']['Total']++;
 				}
 			}
 		}
 		foreach ($confirmedDxccs as $band => $dxccs) {
-			// Skip SAT for totals
-			if ($band === 'SAT') {
-				continue;
-			}
 			foreach ($dxccs as $dxcc => $true) {
 				if (!isset($totalConfirmedDxccs[$dxcc])) {
 					$totalConfirmedDxccs[$dxcc] = true;
+					if ($band === 'SAT') {
+						continue;
+					}
+					$totalConfirmedDxccsExSat[$dxcc] = true; // For calculating total worked excluding SAT
 					$summary['confirmed']['Total']++;
 				}
 			}
@@ -255,9 +255,9 @@ class DXCC extends CI_Model {
 				}
 			} else {
 				foreach ($dxccMatrix as $dxcc => $data) {
-					if (isset($totalConfirmedDxccs[$dxcc])) {
+					if (isset($totalConfirmedDxccsExSat[$dxcc])) {
 						$mapDxccs[$dxcc] = 'C';  // Confirmed
-					} elseif (isset($totalWorkedDxccs[$dxcc])) {
+					} elseif (isset($totalWorkedDxccsExSat[$dxcc])) {
 						$mapDxccs[$dxcc] = 'W';  // Worked but not confirmed
 					} else {
 						$mapDxccs[$dxcc] = '-';  // Not worked
