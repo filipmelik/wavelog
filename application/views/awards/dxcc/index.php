@@ -29,6 +29,7 @@
 		var lang_award_info_ln3 = "<?= sprintf(__("You can find all information about the DXCC Award on the %s."), "<a href='https://www.arrl.org/dxcc-rules' target='_blank'>" . __("ARRL website") . "</a>"); ?>";
 		var lang_award_info_ln4 = "<?= __("Important Note: Over time, the criteria for the DXCC List have changed. The List remains unchanged until an entity no longer satisfies the criteria under which it was added, at which time it is moved to the Deleted List. You will find Deleted DXCC entities also in the lists on Wavelog. Be aware that these DXCC entities are outdated and no longer valid."); ?>";
 		var lang_award_info_ln5 = "<?= __("Fields taken for this Award: DXCC (Needs to be a valid one out of the DXCC-ADIF-Spec-List"); ?>";
+		var lang_award_info_all_bands = "<?= __("Every band (w/o SAT)"); ?>";
 		</script>
 		<h2><?php echo $page_title; ?></h2>
 		<button type="button" class="btn btn-sm btn-primary me-1" id="displayAwardInfo"><?= __("Award Info"); ?></button>
