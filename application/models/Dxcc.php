@@ -53,12 +53,18 @@ class DXCC extends CI_Model {
 
 			// Initialize all bands to dash
 			foreach ($bands as $band) {
+				if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
+					continue;
+				}
 				$dxccMatrix[$adif][$band] = '-';
 			}
 		}
 
 		// Initialize summary counters only for the bands passed in
 		foreach ($bands as $band) {
+			if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
+				continue;
+			}
 			$summary['worked'][$band] = 0;
 			$summary['confirmed'][$band] = 0;
 		}
@@ -137,6 +143,9 @@ class DXCC extends CI_Model {
 		}
 
 		foreach ($dxccDataSat as $dxcc) {
+			if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
+				continue;
+			}
 			// Skip if this band is not in our requested bands list
 			if (!isset($validBands[$dxcc->col_band])) {
 				continue;
