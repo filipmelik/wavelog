@@ -575,7 +575,7 @@ class Awards extends CI_Controller {
 		// Render Page
 		$data['page_title'] = __("Log View")." - " . $type;
 		$data['filter'] = (($type != $band) ? $type : '')." ".$searchphrase." ".__("and")." ";
-		$data['filter'] .= ($band == 'All' ? __("Every band (w/o SAT)") : __("band")." ".$band);
+		$data['filter'] .= ($band == 'All' ? lcfirst(__("Every band (w/o SAT)")) : __("band")." ".$band);
 		if ($band == 'SAT') {
 			if ($sat != 'All' && $sat != null) {
 				$data['filter'] .= __(" and satellite ").$sat;
