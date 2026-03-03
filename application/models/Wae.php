@@ -79,6 +79,9 @@ class WAE extends CI_Model {
 
 			// Initialize all bands to dash
 			foreach ($bands as $band) {
+				if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
+					continue;
+				}
 				$dxccMatrix[$adif][$band] = '-';
 			}
 		}
@@ -88,6 +91,9 @@ class WAE extends CI_Model {
 			$dxccMatrix[$region]['name'] = $info['name'];
 			$dxccMatrix[$region]['Dxccprefix'] = $info['prefix'];
 			foreach ($bands as $band) {
+				if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
+					continue;
+				}
 				$dxccMatrix[$region][$band] = '-';
 			}
 		}
@@ -171,60 +177,63 @@ class WAE extends CI_Model {
 			}
 		}
 
-		foreach ($waeDataSat as $wae) {
-			// Skip if this band is not in our requested bands list
-			if (!isset($validBands['SAT'])) {
-				continue;
-			}
+		if ($postdata['band'] == 'SAT') {
 
-			// Use region only if it's a valid WAE region, otherwise use DXCC
-			$entityKey = (!empty($wae->col_region) && in_array($wae->col_region, $this->validWaeRegions)) ? $wae->col_region : (string)$wae->dxcc;
-
-			// Track worked status for this entity
-			if (!isset($entityWorkedStatus[$entityKey])) {
-				$entityWorkedStatus[$entityKey] = 0;
-			}
-			$entityWorkedStatus[$entityKey]++;
-
-			// Check if confirmed based on the confirmation types selected in postdata
-			$isConfirmed = false;
-			$confirmationLetters = '';
-			if (isset($postdata['qsl']) && $postdata['qsl'] == 1 && $wae->qsl > 0) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'Q';
-			}
-			if (isset($postdata['lotw']) && $postdata['lotw'] == 1 && $wae->lotw > 0) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'L';
-			}
-			if (isset($postdata['eqsl']) && $postdata['eqsl'] == 1 && $wae->eqsl > 0) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'E';
-			}
-			if (isset($postdata['qrz']) && $postdata['qrz'] == 1 && $wae->qrz > 0) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'Z';
-			}
-			if (isset($postdata['clublog']) && $postdata['clublog'] == 1 && $wae->clublog > 0) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'C';
-			}
-
-			if ($isConfirmed) {
-				$dxccMatrix[$entityKey]['SAT'] = '<div class="bg-success awardsBgSuccess" additional_successinfo=">C<"><a href=\'javascript:displayContacts("'.$entityKey.'","SAT","'. $postdata['sat'] . '","'. $postdata['orbit'] . '","'. $postdata['mode'] . '","WAE","'.$qsl.'","'.$postdata['dateFrom'].'","'.$postdata['dateTo'].'")\'>'.$confirmationLetters.'</a></div>';
-				// Track confirmed entities for summary
-				if (!isset($confirmedEntities['SAT'][$entityKey])) {
-					$confirmedEntities['SAT'][$entityKey] = true;
-					$summary['confirmed']['SAT']++;
+			foreach ($waeDataSat as $wae) {
+				// Skip if this band is not in our requested bands list
+				if (!isset($validBands['SAT'])) {
+					continue;
 				}
-			} else {
-				$dxccMatrix[$entityKey]['SAT'] = '<div class="bg-danger awardsBgWarning" ><a href=\'javascript:displayContacts("'.$entityKey.'","SAT","'. $postdata['sat'] . '","'. $postdata['orbit'] . '","'. $postdata['mode'] . '","WAE", "", "'.$postdata['dateFrom'].'", "'.$postdata['dateTo'].'")\'>W</a></div>';
-			}
 
-			// Track worked entities for summary
-			if (!isset($workedEntities['SAT'][$entityKey])) {
-				$workedEntities['SAT'][$entityKey] = true;
-				$summary['worked']['SAT']++;
+				// Use region only if it's a valid WAE region, otherwise use DXCC
+				$entityKey = (!empty($wae->col_region) && in_array($wae->col_region, $this->validWaeRegions)) ? $wae->col_region : (string)$wae->dxcc;
+
+				// Track worked status for this entity
+				if (!isset($entityWorkedStatus[$entityKey])) {
+					$entityWorkedStatus[$entityKey] = 0;
+				}
+				$entityWorkedStatus[$entityKey]++;
+
+				// Check if confirmed based on the confirmation types selected in postdata
+				$isConfirmed = false;
+				$confirmationLetters = '';
+				if (isset($postdata['qsl']) && $postdata['qsl'] == 1 && $wae->qsl > 0) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'Q';
+				}
+				if (isset($postdata['lotw']) && $postdata['lotw'] == 1 && $wae->lotw > 0) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'L';
+				}
+				if (isset($postdata['eqsl']) && $postdata['eqsl'] == 1 && $wae->eqsl > 0) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'E';
+				}
+				if (isset($postdata['qrz']) && $postdata['qrz'] == 1 && $wae->qrz > 0) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'Z';
+				}
+				if (isset($postdata['clublog']) && $postdata['clublog'] == 1 && $wae->clublog > 0) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'C';
+				}
+
+				if ($isConfirmed) {
+					$dxccMatrix[$entityKey]['SAT'] = '<div class="bg-success awardsBgSuccess" additional_successinfo=">C<"><a href=\'javascript:displayContacts("'.$entityKey.'","SAT","'. $postdata['sat'] . '","'. $postdata['orbit'] . '","'. $postdata['mode'] . '","WAE","'.$qsl.'","'.$postdata['dateFrom'].'","'.$postdata['dateTo'].'")\'>'.$confirmationLetters.'</a></div>';
+					// Track confirmed entities for summary
+					if (!isset($confirmedEntities['SAT'][$entityKey])) {
+						$confirmedEntities['SAT'][$entityKey] = true;
+						$summary['confirmed']['SAT']++;
+					}
+				} else {
+					$dxccMatrix[$entityKey]['SAT'] = '<div class="bg-danger awardsBgWarning" ><a href=\'javascript:displayContacts("'.$entityKey.'","SAT","'. $postdata['sat'] . '","'. $postdata['orbit'] . '","'. $postdata['mode'] . '","WAE", "", "'.$postdata['dateFrom'].'", "'.$postdata['dateTo'].'")\'>W</a></div>';
+				}
+
+				// Track worked entities for summary
+				if (!isset($workedEntities['SAT'][$entityKey])) {
+					$workedEntities['SAT'][$entityKey] = true;
+					$summary['worked']['SAT']++;
+				}
 			}
 		}
 

@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				<label class="col-md-2 control-label" for="mode"><?= __("Mode"); ?></label>
 				<div class="col-md-3">
 					<select id="mode" name="mode" class="form-select form-select-sm">
-						<option value="All" <?php if ($this->input->post('mode') == "All" || $this->input->method() !== 'mode') echo ' selected'; ?>><?= __("All"); ?></option>
+						<option value="All" <?php if ($this->input->post('mode') == "All" || $this->input->method() !== 'mode') echo ' selected'; ?>><?= __("Every band (w/o SAT)"); ?></option>
 						<?php
 						foreach($modes->result() as $mode){
 							if ($mode->submode == null) {
@@ -201,6 +201,9 @@ document.addEventListener("DOMContentLoaded", function() {
 					<td>' . __("WAE Name") . '</td>
 					<td>' . __("Prefix") . '</td>';
         foreach($bands as $band) {
+			if (($posted_band != 'SAT') && ($band == 'SAT')) {
+				continue;
+			}
             echo '<td>' . $band . '</td>';
         }
         echo '</tr>
@@ -227,21 +230,15 @@ document.addEventListener("DOMContentLoaded", function() {
         <thead>
         <tr><td></td>';
 
-		$addsat='';
         foreach($bands as $band) {
-            if ($band != 'SAT') {
-				echo '<td>' . $band . '</td>';
-			} else {
-				$addsat='<td>' . $band . '</td>';
+			if (($posted_band != 'SAT') && ($band == 'SAT')) {
+				continue;
 			}
-        }
-        if ($posted_band != 'SAT') {
+			echo '<td>' . $band . '</td>';
+		}
+		if ($posted_band != 'SAT') {
 			echo '<td><b>' . __("Total (ex SAT)") . '</b></td>';
 		}
-		if (count($bands) > 1) {
-			echo '<td class="spacingcell"></td>';
-		}
-		echo $addsat;
 		echo '
         </tr>
         </thead>
@@ -251,58 +248,44 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		$addsat='';
         foreach ($wae_summary['worked'] as $band => $dxcc) {      // Fills the table with the data
-			if ($posted_band == 'SAT' && $band == 'Total') {
+			if (($posted_band != 'SAT') && ($band == 'SAT')) {
 				continue;
 			}
-			if ($band != 'SAT') {
-				echo '<td style="text-align: center">';
-				if ($band == 'Total') {
-					echo '<b>'.$dxcc.'</b>';
-				} else {
-					echo $dxcc;
-				}
-				echo '</td>';
-			} else {
-				$addsat='<td style="text-align: center">' . $dxcc . '</td>';
+
+			if (($posted_band == 'SAT') && ($band == 'Total')) {
+				continue;
 			}
+
+			echo '<td style="text-align: center">';
+			if ($band == 'Total' && $posted_band != 'SAT') {
+				echo '<b>'.$dxcc.'</b>';
+			} else {
+				echo $dxcc;
+			}
+		echo '</td>';
         }
-
-		if (count($bands) > 1) {
-			echo '<td class="spacingcell"></td>';
-		}
-
-		if ($addsat != '' && count($wae_summary['worked']) > 1) {
-			echo $addsat;
-		}
 
         echo '</tr><tr>
         <td>' . __("Total confirmed") . '</td>';
 
 		$addsat='';
         foreach ($wae_summary['confirmed'] as $band => $dxcc) {      // Fills the table with the data
-            if ($posted_band == 'SAT' && $band == 'Total') {
+            if (($posted_band != 'SAT') && ($band == 'SAT')) {
 				continue;
 			}
-			if ($band != 'SAT') {
-				echo '<td style="text-align: center">';
-				if ($band == 'Total') {
-					echo '<b>'.$dxcc.'</b>';
-				} else {
-					echo $dxcc;
-				}
-				echo '</td>';
-			} else {
-				$addsat='<td style="text-align: center">' . $dxcc . '</td>';
+
+			if (($posted_band == 'SAT') && ($band == 'Total')) {
+				continue;
 			}
+
+			echo '<td style="text-align: center">';
+			if (($posted_band != 'SAT') && ($band == 'Total')) {
+				echo '<b>'.$dxcc.'</b>';
+			} else {
+				echo $dxcc;
+			}
+			echo '</td>';
         }
-
-		if (count($bands) > 1) {
-			echo '<td class="spacingcell"></td>';
-		}
-
-		if ($addsat != '' && count($wae_summary['confirmed']) > 1) {
-			echo $addsat;
-		}
 
         echo '</tr>
         </table>
