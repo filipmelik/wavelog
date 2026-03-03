@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-03 13:55+0000\n"
-"PO-Revision-Date: 2026-03-01 08:22+0000\n"
+"PO-Revision-Date: 2026-03-03 16:07+0000\n"
 "Last-Translator: JONCOUX Philippe <joncoux@free.fr>\n"
 "Language-Team: French <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/fr/>\n"
@@ -424,7 +424,7 @@ msgstr "Vue du journal"
 
 #: application/controllers/Awards.php:577
 msgid "and"
-msgstr ""
+msgstr "et"
 
 #: application/controllers/Awards.php:578
 #: application/views/awards/dxcc/index.php:32
@@ -436,7 +436,7 @@ msgstr "Toutes les bandes (sans SAT)"
 
 #: application/controllers/Awards.php:578
 msgid "band"
-msgstr ""
+msgstr "bande"
 
 #: application/controllers/Awards.php:581
 msgid " and satellite "
