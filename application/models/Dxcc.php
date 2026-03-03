@@ -142,65 +142,67 @@ class DXCC extends CI_Model {
 			}
 		}
 
-		foreach ($dxccDataSat as $dxcc) {
-			if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
-				continue;
-			}
-			// Skip if this band is not in our requested bands list
-			if (!isset($validBands[$dxcc->col_band])) {
-				continue;
-			}
-
-			// Ensure string key for consistency
-			$dxccKey = (string)$dxcc->dxcc;
-
-			// Track worked status for this DXCC
-			if (!isset($dxccWorkedStatus[$dxccKey])) {
-				$dxccWorkedStatus[$dxccKey] = 0;
-			}
-			$dxccWorkedStatus[$dxccKey]++;
-
-			// Check if confirmed based on the confirmation types selected in postdata
-			$isConfirmed = false;
-			$confirmationLetters = '';
-			if (isset($postdata['qsl']) && $postdata['qsl'] == 1 && $dxcc->qsl > 0) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'Q';
-			}
-			if (isset($postdata['lotw']) && $postdata['lotw'] == 1 && $dxcc->lotw > 0) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'L';
-			}
-			if (isset($postdata['eqsl']) && $postdata['eqsl'] == 1 && $dxcc->eqsl > 0) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'E';
-			}
-			if (isset($postdata['qrz']) && $postdata['qrz'] == 1 && $dxcc->qrz > 0) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'Z';
-			}
-			if (isset($postdata['clublog']) && $postdata['clublog'] == 1 && $dxcc->clublog > 0) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'C';
-			}
-
-			if ($isConfirmed) {
-				$dxccMatrix[$dxccKey][$dxcc->col_band] = '<div class="bg-success awardsBgSuccess" additional_successinfo=">C<"><a href=\'javascript:displayContacts("'.$dxcc->dxcc.'","'. $dxcc->col_band . '","'. $postdata['sat'] . '","'. $postdata['orbit'] . '","' . $postdata['mode'] . '","DXCC2","'.$qsl.'","'.$postdata['dateFrom'].'","'.$postdata['dateTo'].'")\'>'.$confirmationLetters.'</a></div>';
-				// Track confirmed DXCCs for summary
-				if (!isset($confirmedDxccs[$dxcc->col_band][$dxccKey])) {
-					$confirmedDxccs[$dxcc->col_band][$dxccKey] = true;
-					$summary['confirmed'][$dxcc->col_band]++;
+		if ($postdata['band'] == 'SAT') {
+			foreach ($dxccDataSat as $dxcc) {
+				if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
+					continue;
 				}
-			} else {
-				if ($postdata['worked'] != NULL) {
-					$dxccMatrix[$dxccKey][$dxcc->col_band] = '<div class="bg-danger awardsBgWarning" ><a href=\'javascript:displayContacts("'.$dxcc->dxcc.'","'. $dxcc->col_band . '","'. $postdata['sat'] . '","' . $postdata['orbit'] . '","'. $postdata['mode'] . '","DXCC2", "", "'.$postdata['dateFrom'].'", "'.$postdata['dateTo'].'")\'>W</a></div>';
+				// Skip if this band is not in our requested bands list
+				if (!isset($validBands[$dxcc->col_band])) {
+					continue;
 				}
-			}
 
-			// Track worked DXCCs for summary
-			if (!isset($workedDxccs[$dxcc->col_band][$dxccKey])) {
-				$workedDxccs[$dxcc->col_band][$dxccKey] = true;
-				$summary['worked'][$dxcc->col_band]++;
+				// Ensure string key for consistency
+				$dxccKey = (string)$dxcc->dxcc;
+
+				// Track worked status for this DXCC
+				if (!isset($dxccWorkedStatus[$dxccKey])) {
+					$dxccWorkedStatus[$dxccKey] = 0;
+				}
+				$dxccWorkedStatus[$dxccKey]++;
+
+				// Check if confirmed based on the confirmation types selected in postdata
+				$isConfirmed = false;
+				$confirmationLetters = '';
+				if (isset($postdata['qsl']) && $postdata['qsl'] == 1 && $dxcc->qsl > 0) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'Q';
+				}
+				if (isset($postdata['lotw']) && $postdata['lotw'] == 1 && $dxcc->lotw > 0) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'L';
+				}
+				if (isset($postdata['eqsl']) && $postdata['eqsl'] == 1 && $dxcc->eqsl > 0) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'E';
+				}
+				if (isset($postdata['qrz']) && $postdata['qrz'] == 1 && $dxcc->qrz > 0) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'Z';
+				}
+				if (isset($postdata['clublog']) && $postdata['clublog'] == 1 && $dxcc->clublog > 0) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'C';
+				}
+
+				if ($isConfirmed) {
+					$dxccMatrix[$dxccKey][$dxcc->col_band] = '<div class="bg-success awardsBgSuccess" additional_successinfo=">C<"><a href=\'javascript:displayContacts("'.$dxcc->dxcc.'","'. $dxcc->col_band . '","'. $postdata['sat'] . '","'. $postdata['orbit'] . '","' . $postdata['mode'] . '","DXCC2","'.$qsl.'","'.$postdata['dateFrom'].'","'.$postdata['dateTo'].'")\'>'.$confirmationLetters.'</a></div>';
+					// Track confirmed DXCCs for summary
+					if (!isset($confirmedDxccs[$dxcc->col_band][$dxccKey])) {
+						$confirmedDxccs[$dxcc->col_band][$dxccKey] = true;
+						$summary['confirmed'][$dxcc->col_band]++;
+					}
+				} else {
+					if ($postdata['worked'] != NULL) {
+						$dxccMatrix[$dxccKey][$dxcc->col_band] = '<div class="bg-danger awardsBgWarning" ><a href=\'javascript:displayContacts("'.$dxcc->dxcc.'","'. $dxcc->col_band . '","'. $postdata['sat'] . '","' . $postdata['orbit'] . '","'. $postdata['mode'] . '","DXCC2", "", "'.$postdata['dateFrom'].'", "'.$postdata['dateTo'].'")\'>W</a></div>';
+					}
+				}
+
+				// Track worked DXCCs for summary
+				if (!isset($workedDxccs[$dxcc->col_band][$dxccKey])) {
+					$workedDxccs[$dxcc->col_band][$dxccKey] = true;
+					$summary['worked'][$dxcc->col_band]++;
+				}
 			}
 		}
 
