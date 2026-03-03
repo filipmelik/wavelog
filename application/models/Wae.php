@@ -167,7 +167,9 @@ class WAE extends CI_Model {
 					$summary['confirmed'][$wae->col_band]++;
 				}
 			} else {
-				$dxccMatrix[$entityKey][$wae->col_band] = '<div class="bg-danger awardsBgWarning" ><a href=\'javascript:displayContacts("'.$entityKey.'","'. $wae->col_band . '","'. $postdata['sat'] . '","'. $postdata['orbit'] . '","'. $postdata['mode'] . '","WAE", "", "'.$postdata['dateFrom'].'", "'.$postdata['dateTo'].'")\'>W</a></div>';
+				if ($postdata['worked'] != NULL) {
+					$dxccMatrix[$entityKey][$wae->col_band] = '<div class="bg-danger awardsBgWarning" ><a href=\'javascript:displayContacts("'.$entityKey.'","'. $wae->col_band . '","'. $postdata['sat'] . '","'. $postdata['orbit'] . '","'. $postdata['mode'] . '","WAE", "", "'.$postdata['dateFrom'].'", "'.$postdata['dateTo'].'")\'>W</a></div>';
+				}
 			}
 
 			// Track worked entities for summary
