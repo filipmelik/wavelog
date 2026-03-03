@@ -185,7 +185,6 @@ class Awards extends CI_Controller {
 			$postdata['dateTo'] = null;
 		}
 
-
 		if ($logbooks_locations_array) {
 			$location_list = "'".implode("','",$logbooks_locations_array)."'";
 			$dxcclist = $this->dxcc->fetchdxcc($postdata, $location_list);
@@ -212,6 +211,10 @@ class Awards extends CI_Controller {
 
 	public function wapc ()	{
 		$footerData = [];
+		$footerData['scripts'] = [
+			'assets/js/sections/wapcmap.js',
+			'assets/js/leaflet/L.Maidenhead.js',
+		];
 
 		$this->load->model('wapc');
 		$this->load->model('modes');
@@ -570,7 +573,8 @@ class Awards extends CI_Controller {
 
 		// Render Page
 		$data['page_title'] = __("Log View")." - " . $type;
-		$data['filter'] = (($type != $band) ? $type : '')." ".$searchphrase.__(" and band ").$band;
+		$data['filter'] = (($type != $band) ? $type : '')." ".$searchphrase." ".__("and")." ";
+		$data['filter'] .= ($band == 'All' ? lcfirst(__("Every band (w/o SAT)")) : __("band")." ".$band);
 		if ($band == 'SAT') {
 			if ($sat != 'All' && $sat != null) {
 				$data['filter'] .= __(" and satellite ").$sat;
@@ -1711,6 +1715,58 @@ class Awards extends CI_Controller {
     }
 
     /*
+        function wapc_map
+    */
+    public function wapc_map() {
+        $this->load->model('wapc');
+        $this->load->model('bands');
+
+        $bands[] = $this->security->xss_clean($this->input->post('band'));
+
+        $postdata['qsl'] = $this->input->post('qsl') == 0 ? NULL: 1;
+        $postdata['lotw'] = $this->input->post('lotw') == 0 ? NULL: 1;
+        $postdata['eqsl'] = $this->input->post('eqsl') == 0 ? NULL: 1;
+        $postdata['qrz'] = $this->input->post('qrz') == 0 ? NULL: 1;
+        $postdata['worked'] = $this->input->post('worked') == 0 ? NULL: 1;
+        $postdata['clublog'] = $this->input->post('clublog') == 0 ? NULL: 1;
+        $postdata['confirmed'] = $this->input->post('confirmed')  == 0 ? NULL: 1;
+        $postdata['notworked'] = $this->input->post('notworked')  == 0 ? NULL: 1;
+        $postdata['band'] = $this->input->post('band', TRUE);
+        $postdata['mode'] = $this->input->post('mode', TRUE);
+
+        $wapc_array = $this->wapc->get_wapc_array($bands, $postdata);
+
+        $provinces = array();
+
+        $wapcArray = array_keys($this->wapc->cnProvinces);
+        foreach ($wapcArray as $state) {
+            $provinces[$state] = '-';
+        }
+
+        foreach ($wapc_array as $wapc => $value) {
+            foreach ($value  as $key) {
+                if($key != "") {
+                    if (strpos($key, '>W<') !== false) {
+                        $provinces[$wapc] = 'W';
+                        break;
+                    }
+                    if (strpos($key, '>C<') !== false) {
+                        $provinces[$wapc] = 'C';
+                        break;
+                    }
+                    if (strpos($key, '-') !== false) {
+                        $provinces[$wapc] = '-';
+                        break;
+                    }
+                }
+            }
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($provinces);
+    }
+
+    /*
         function dxcc_map
         This displays the DXCC map
     */
@@ -1757,14 +1813,12 @@ class Awards extends CI_Controller {
 		$this->load->model('logbooks_model');
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 
-		$dxcclist = $this->dxcc->fetchdxcc($postdata, $logbooks_locations_array);
-
-		if ($dxcclist[0]->adif == "0") {
-			unset($dxcclist[0]);
-		}
-
 		if ($logbooks_locations_array) {
 			$location_list = "'".implode("','",$logbooks_locations_array)."'";
+			$dxcclist = $this->dxcc->fetchdxcc($postdata, $location_list);
+			if ($dxcclist[0]->adif == "0") {
+				unset($dxcclist[0]);
+			}
 			$dxcc_array = $this->dxcc->get_dxcc_array($dxcclist, $bands, $postdata, $location_list, true);
 		} else {
 			$location_list = null;

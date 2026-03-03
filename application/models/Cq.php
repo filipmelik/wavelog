@@ -80,7 +80,9 @@ class CQ extends CI_Model{
 					$summary['confirmed'][$cq->col_band]++;
 				}
 			} else {
-				$bandCq[$cq->col_cqz][$cq->col_band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $cq->col_cqz) . '","' . $cq->col_band . '","All", "All","'. $postdata['mode'] . '","CQZone","")\'>W</a></div>';
+				if ($postdata['worked'] != NULL) {
+					$bandCq[$cq->col_cqz][$cq->col_band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $cq->col_cqz) . '","' . $cq->col_band . '","All", "All","'. $postdata['mode'] . '","CQZone","")\'>W</a></div>';
+				}
 			}
 
 			// Track worked zones for summary
@@ -130,7 +132,9 @@ class CQ extends CI_Model{
 					$summary['confirmed'][$cq->col_band]++;
 				}
 			} else {
-				$bandCq[$cq->col_cqz][$cq->col_band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $cq->col_cqz) . '","' . $cq->col_band . '","All", "All","'. $postdata['mode'] . '","CQZone","")\'>W</a></div>';
+				if ($postdata['worked'] != NULL) {
+					$bandCq[$cq->col_cqz][$cq->col_band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $cq->col_cqz) . '","' . $cq->col_band . '","All", "All","'. $postdata['mode'] . '","CQZone","")\'>W</a></div>';
+				}
 			}
 
 			// Track worked zones for summary
@@ -144,46 +148,57 @@ class CQ extends CI_Model{
 		$totalWorkedZones = [];
 		$totalConfirmedZones = [];
 		foreach ($workedZones as $band => $zones) {
-			// Skip SAT for totals
-			if ($band === 'SAT') {
-				continue;
-			}
 			foreach ($zones as $zone => $true) {
 				if (!isset($totalWorkedZones[$zone])) {
 					$totalWorkedZones[$zone] = true;
+					if ($band === 'SAT') {
+						continue;
+					}
+					$totalWorkedZonesExSat[$zone] = true; // For calculating total worked excluding SAT
 					$summary['worked']['Total']++;
 				}
 			}
 		}
 		foreach ($confirmedZones as $band => $zones) {
-			// Skip SAT for totals
-			if ($band === 'SAT') {
-				continue;
-			}
 			foreach ($zones as $zone => $true) {
 				if (!isset($totalConfirmedZones[$zone])) {
 					$totalConfirmedZones[$zone] = true;
+					if ($band === 'SAT') {
+						continue;
+					}
+					$totalConfirmedZonesExSat[$zone] = true; // For calculating total worked excluding SAT
 					$summary['confirmed']['Total']++;
 				}
 			}
 		}
 
 		// Remove zones based on postdata filters
+		// Determine which band's zones to use for filtering
+		$filterBand = (count($bands) == 1) ? $bands[0] : null;
+
 		for ($i = 1; $i <= 40; $i++) {
+			// For single band view, check band-specific status; for all bands, check totals
+			$isWorked = $filterBand
+				? isset($workedZones[$filterBand][$i])
+				: isset($totalWorkedZones[$i]);
+			$isConfirmed = $filterBand
+				? isset($confirmedZones[$filterBand][$i])
+				: isset($totalConfirmedZones[$i]);
+
 			// Remove not-worked zones if filter is disabled
-			if ($postdata['notworked'] == NULL && $cqZ[$i]['count'] == 0) {
+			if ($postdata['notworked'] == NULL && !$isWorked) {
 				unset($bandCq[$i]);
 				continue;
 			}
 
 			// Remove worked-only zones if filter is disabled
-			if ($postdata['worked'] == NULL && $cqZ[$i]['count'] > 0 && !isset($totalConfirmedZones[$i])) {
+			if ($postdata['worked'] == NULL && $isWorked && !$isConfirmed) {
 				unset($bandCq[$i]);
 				continue;
 			}
 
 			// Remove confirmed zones if filter is disabled
-			if ($postdata['confirmed'] == NULL && isset($totalConfirmedZones[$i])) {
+			if ($postdata['confirmed'] == NULL && $isConfirmed) {
 				unset($bandCq[$i]);
 				continue;
 			}
@@ -204,9 +219,9 @@ class CQ extends CI_Model{
 				}
 			} else {
 				for ($i = 1; $i <= 40; $i++) {
-					if (isset($totalConfirmedZones[$i])) {
+					if (isset($totalConfirmedZonesExSat[$i])) {
 						$mapZones[$i-1] = 'C';  // Confirmed
-					} else if (isset($totalWorkedZones[$i])) {
+					} else if (isset($totalWorkedZonesExSat[$i])) {
 						$mapZones[$i-1] = 'W';  // Worked but not confirmed
 					} else {
 						$mapZones[$i-1] = '-';  // Not worked
