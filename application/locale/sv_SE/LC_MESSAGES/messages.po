@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-03 13:55+0000\n"
-"PO-Revision-Date: 2026-03-01 08:22+0000\n"
+"PO-Revision-Date: 2026-03-04 01:27+0000\n"
 "Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/sv/>\n"
@@ -415,7 +415,7 @@ msgstr "Loggvy"
 
 #: application/controllers/Awards.php:577
 msgid "and"
-msgstr ""
+msgstr "och"
 
 #: application/controllers/Awards.php:578
 #: application/views/awards/dxcc/index.php:32
@@ -427,7 +427,7 @@ msgstr "Varje band (utan SAT)"
 
 #: application/controllers/Awards.php:578
 msgid "band"
-msgstr ""
+msgstr "band"
 
 #: application/controllers/Awards.php:581
 msgid " and satellite "
