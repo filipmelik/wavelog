@@ -236,14 +236,10 @@
 			if ($posted_band != 'SAT') {
 				echo '<td><b>' . __("Total (ex SAT)") . '</b></td>';
 			}
-			if (count($bands) > 1) {
-				echo '<td class="spacingcell"></td>';
-			}
         echo "</thead>
         <tbody>
 
         <tr><td>" . __("Total worked") . "</td>";
-		$sat_value = '';
         foreach ($cq_summary['worked'] as $cqz => $value) {
 			if ($posted_band == 'SAT' && $cqz == 'Total') {
 				continue;
@@ -254,14 +250,9 @@
 				echo '<td style="text-align: center"' . ($cqz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
 			}
         }
-		if (count($bands) > 1) {
-			echo '<td class="spacingcell"></td>';
-		}
-		echo $sat_value;
 
         echo "</tr><tr>
         <td>" . __("Total confirmed") . "</td>";
-		$sat_value = '';
         foreach ($cq_summary['confirmed'] as $cqz => $value) {
 			if ($posted_band == 'SAT' && $cqz == 'Total') {
 				continue;
@@ -272,11 +263,6 @@
 				echo '<td style="text-align: center"' . ($cqz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
 			}
         }
-		if (count($bands) > 1) {
-			echo '<td class="spacingcell"></td>';
-		}
-		echo $sat_value;
-
         echo '</tr>
         </table>
         </div>';
