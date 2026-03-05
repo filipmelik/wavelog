@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-01 08:21+0000\n"
-"PO-Revision-Date: 2026-03-03 13:55+0000\n"
+"PO-Revision-Date: 2026-03-05 15:20+0000\n"
 "Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/it/>\n"
@@ -311,7 +311,7 @@ msgstr "La chiave %s è stata cancellata"
 #: application/views/logbookadvanced/edit.php:22
 #: application/views/qso/edit_ajax.php:36
 msgid "Awards"
-msgstr "Premi"
+msgstr "Diplomi"
 
 #: application/controllers/Awards.php:102
 #: application/controllers/Awards.php:194
@@ -382,7 +382,7 @@ msgstr "Premi"
 #: application/controllers/Awards.php:2553
 #, php-format
 msgid "Awards - %s"
-msgstr "Premi - %s"
+msgstr "Diplomi - %s"
 
 #: application/controllers/Awards.php:102
 #: application/views/awards/dok/index.php:150
@@ -441,7 +441,7 @@ msgstr "Trofei - WAPC"
 #: application/controllers/Awards.php:367
 #: application/controllers/Awards.php:366
 msgid "Awards - WAJA"
-msgstr "Premi - WAJA"
+msgstr "Diplomi - WAJA"
 
 #: application/controllers/Awards.php:432 application/views/bands/index.php:53
 #: application/views/interface_assets/header.php:256
@@ -649,7 +649,7 @@ msgstr "Visualizza log - Contee"
 #: application/controllers/Awards.php:1050
 #: application/controllers/Awards.php:1049
 msgid "Awards - "
-msgstr "Premi - "
+msgstr "Diplomi - "
 
 #: application/controllers/Awards.php:1056
 #: application/controllers/Awards.php:1092
@@ -709,7 +709,7 @@ msgstr "SIG"
 #: application/controllers/Awards.php:1314
 #: application/controllers/Awards.php:1313
 msgid "Awards - SIG - "
-msgstr "Premi - SIG - "
+msgstr "Diplomi - SIG - "
 
 #: application/controllers/Awards.php:1433 application/views/bands/index.php:60
 #: application/controllers/Awards.php:1446
@@ -759,7 +759,7 @@ msgstr "WPX"
 #: application/controllers/Awards.php:2559
 #: application/controllers/Awards.php:2553
 msgid "\"Polska\" Award"
-msgstr "Premio \"Polska\""
+msgstr "Diploma \"Polska\""
 
 #: application/controllers/Backup.php:15 application/views/backup/main.php:14
 #: application/views/interface_assets/header.php:336
@@ -830,11 +830,11 @@ msgstr "Call Tester"
 #: application/controllers/Calltester.php:240
 #: application/controllers/Calltester.php:300
 msgid "CSV Call Tester"
-msgstr ""
+msgstr "Tester di chiamata CSV"
 
 #: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
-msgstr ""
+msgstr "Tester del nominativo"
 
 #: application/controllers/Club.php:23
 msgid "Club Officer"
@@ -2703,7 +2703,7 @@ msgstr "Elimina"
 
 #: application/controllers/Radio.php:136 application/controllers/Radio.php:138
 msgid "WebSocket is currently default (click to release)"
-msgstr ""
+msgstr "WebSocket è attualmente il predefinito (premi per sbloccare)"
 
 #: application/controllers/Radio.php:138 application/controllers/Radio.php:140
 msgid "Set WebSocket as default radio"
@@ -5761,7 +5761,7 @@ msgstr ""
 
 #: application/views/awards/counties/index.php:10
 msgid "Special USA-CA awards are also available to SWLs on a heard basis."
-msgstr "I premi speciali USA-CA sono disponibili anche per gli ascolti SWL."
+msgstr "I diplomi speciali USA-CA sono disponibili anche per gli ascolti SWL."
 
 #: application/views/awards/counties/index.php:11
 msgid ""
@@ -5853,9 +5853,9 @@ msgid ""
 "practical aspects of amateur radio."
 msgstr ""
 "La rivista CQ si trovava negli Stati Uniti ed era una delle riviste "
-"radioamatoriali più popolari al mondo. Hanno interrotto il servizio entro la "
+"radioamatoriali più popolari al mondo. Hanno interrotto il servizio alla "
 "fine del 2023. La rivista è apparsa per la prima volta nel gennaio 1945 e si "
-"concentra sui premi e sugli aspetti pratici della radio amatoriale."
+"concentra sui diplomi e sugli aspetti pratici della radio amatoriale."
 
 #: application/views/awards/cq/index.php:34
 msgid ""
@@ -5881,7 +5881,7 @@ msgstr "Campi presi in considerazione per questo premio: CQ-Zone (ADIF: CQZ)"
 
 #: application/views/awards/cq/index.php:38
 msgid "Awards - CQ WAZ"
-msgstr "Premi - CQ WAZ"
+msgstr "Diplomi - CQ WAZ"
 
 #: application/views/awards/cq/index.php:45
 #: application/views/awards/dxcc/index.php:41
@@ -6383,8 +6383,8 @@ msgid ""
 "This information is provided by the %s. Information about the DOK Awards and "
 "its rules can be found %s."
 msgstr ""
-"Queste informazioni sono fornite da %s. Informazioni sui premi DOK e le sue "
-"regole sono disponibili %s."
+"Queste informazioni sono fornite da %s. Informazioni sui diplomi DOK e le "
+"sue regole sono disponibili %s."
 
 #: application/views/awards/dok/index.php:11
 msgid "Fields taken for this Award: DOK (ADIF: DARC_DOK)"
@@ -6723,10 +6723,10 @@ msgstr ""
 "bidirezionale tramite satellite amatoriale con ciascun locatore. Non è "
 "richiesto alcun rapporto minimo sul segnale. I contatti devono essere "
 "effettuati dalla stessa posizione o da posizioni che non distano più di 200 "
-"chilometri l'una dall'altra. L'attestazione del richiedente nella domanda di "
-"premio funge da conferma del rispetto della regola della distanza. Gli "
-"individui possono richiedere e ottenere più premi GridMaster se ottenuti da "
-"un'altra posizione, che si trova in un raggio oltre i 200 chilometri."
+"chilometri l'una dall'altra. L'attestazione del richiedente nella richiesta "
+"del diploma funge da conferma del rispetto della regola della distanza. Gli "
+"individui possono richiedere e ottenere più diplomi GridMaster se ottenuti "
+"da un'altra posizione, che si trova in un raggio oltre i 200 chilometri."
 
 #: application/views/awards/gridmaster/index.php:14
 msgid "website"
@@ -6813,10 +6813,10 @@ msgid ""
 "activities on the bands by encouraging contacts across as many Swiss cantons "
 "as possible on multiple bands."
 msgstr ""
-"L'USKA (Union of Swiss Shortwave Amateurs) sponsorizza due premi: il Premio "
-"HELVETIA 26 (H26) e il Premio SVIZZERA. Questi sono volti a promuovere le "
-"attività radio incoraggiando i collegamenti nel maggior numero possibile di "
-"cantoni svizzeri su più bande."
+"L'USKA (Union of Swiss Shortwave Amateurs) sponsorizza due diplomi: il "
+"Diploma HELVETIA 26 (H26) e il Diploma SVIZZERA. Questi sono volti a "
+"promuovere le attività radio incoraggiando i collegamenti nel maggior numero "
+"possibile di cantoni svizzeri su più bande."
 
 #: application/views/awards/helvetia/index.php:25
 msgid ""
@@ -6824,9 +6824,9 @@ msgid ""
 "(including SHF and UHF) bands. Valid connections for these awards date back "
 "to January 1, 1980"
 msgstr ""
-"Questi premi sono disponibili in due versioni: una per le bande HF e l'altra "
-"per le bande VHF (comprese SHF e UHF). I contatti validi per questi premi "
-"partono dal 1° gennaio 1980"
+"Questi diplomi sono disponibili in due versioni: una per le bande HF e "
+"l'altra per le bande VHF (comprese SHF e UHF). I contatti validi per questi "
+"diplomi partono dal 1° gennaio 1980"
 
 #: application/views/awards/helvetia/index.php:27
 msgid ""
@@ -6851,7 +6851,7 @@ msgstr "CQ"
 
 #: application/views/awards/iota/index.php:18
 msgid "IOTA Awards"
-msgstr "Premi IOTA"
+msgstr "Diplomi IOTA"
 
 #: application/views/awards/iota/index.php:19
 msgid ""
@@ -6884,15 +6884,15 @@ msgid ""
 msgstr ""
 "È gestito da Islands On The Air (IOTA) Ltd (denominata IOTA Management) in "
 "collaborazione con la Radio Society of Great Britain (RSGB). Gli "
-"organizzatori IOTA hanno raggruppato le isole del mondo in circa 1200 "
-"“gruppi IOTA”, ciascuno con un numero variabile di “contatori”, che sono "
+"organizzatori IOTA hanno raggruppato le isole del mondo in circa 1200 “"
+"gruppi IOTA”, ciascuno con un numero variabile di “contatori”, che sono "
 "isole qualificate. Questi elenchi sono pubblicati nella Directory IOTA e sul "
 "sito web IOTA. L'obiettivo dell'IOTA Island Chaser è quello di stabilire un "
 "contatto radio con almeno un contatore nel maggior numero possibile di "
 "questi gruppi. Il programma ha una serie di regole ben definite e incoraggia "
 "la competizione amichevole tra i cacciatori pubblicando i risultati dei "
 "partecipanti in un Albo d'Onore e in elenchi annuali, oltre a riconoscerli "
-"con certificati e premi prestigiosi."
+"con certificati e diplomi prestigiosi."
 
 #: application/views/awards/iota/index.php:21
 #, php-format
@@ -6992,7 +6992,7 @@ msgstr "Campi presi in considerazione per questo premio: Zona ITU (ADIF: ITUZ)"
 #: application/views/awards/itu/index.php:29
 #: application/views/awards/itu/index.php:40
 msgid "Awards - ITU Zones"
-msgstr "Premi - Zone ITU"
+msgstr "Diplomi - Zone ITU"
 
 #: application/views/awards/itu/index.php:39
 #: application/views/awards/itu/index.php:50
@@ -7019,8 +7019,8 @@ msgid ""
 "however names of city may be omitted. An additional sticker will be issued "
 "at every 50 contacts like 150, 250, 350, 450, 550, 650, 750 cities."
 msgstr ""
-"JCC-200, 300, 400, 500, 600, 700 e 800 saranno emessi come premi separati. "
-"Un elenco di schede QSL deve essere disposto in ordine di numero di "
+"JCC-200, 300, 400, 500, 600, 700 e 800 saranno emessi come diplomi separati. "
+"Un elenco di cartoline QSL deve essere disposto in ordine di numero di "
 "riferimento JCC, tuttavia i nomi delle città possono essere omessi. Un "
 "adesivo aggiuntivo verrà emesso ogni 50 contatti come 150, 250, 350, 450, "
 "550, 650, 750 città."
@@ -7286,7 +7286,7 @@ msgstr "auto-compilare gli stati dai localizzatori Maidenhead."
 
 #: application/views/awards/pota/index.php:7
 msgid "POTA Awards"
-msgstr "Premi POTA"
+msgstr "Diplomi POTA"
 
 #: application/views/awards/pota/index.php:8
 msgid ""
@@ -7306,7 +7306,7 @@ msgid ""
 "and more."
 msgstr ""
 "POTA funziona in modo simile a SOTA, con Attivatori e Cacciatori. Per i "
-"premi, ci sono diverse categorie in base al numero di parchi, aree "
+"diplomi, ci sono diverse categorie in base al numero di parchi, aree "
 "geografiche e altro ancora."
 
 #: application/views/awards/pota/index.php:10
@@ -7316,7 +7316,7 @@ msgid ""
 "For more information about the available awards and categories, please visit "
 "the %s."
 msgstr ""
-"Per ulteriori informazioni sui premi e le categorie disponibili, visita %s."
+"Per ulteriori informazioni sui diplomi e le categorie disponibili, visita %s."
 
 #: application/views/awards/pota/index.php:11
 msgid "Fields taken for this Award: POTA_REF (must contain Park-Reference)"
@@ -7359,8 +7359,8 @@ msgid ""
 "implemented in Wavelog."
 msgstr ""
 "La categoria SIG o Special Interest Group offre la possibilità di utilizzare "
-"qualsiasi tipo di \"Special Interest Group Award\" per i premi che non sono "
-"implementati in Wavelog."
+"qualsiasi tipo di \"Special Interest Group Award\" per i diplomi che non "
+"sono implementati in Wavelog."
 
 #: application/views/awards/sig/index.php:9
 msgid ""
@@ -7369,8 +7369,9 @@ msgid ""
 "evaluate all other types of markers for special interest groups."
 msgstr ""
 "La ragione di ciò è che il formato ADIF comune fornisce solo pochi campi "
-"dedicati per determinati premi. Selezionando SIG, si consente di utilizzare "
-"tutti gli altri tipi di marcatori per gruppi di interesse speciale."
+"dedicati per determinati diplomi. Selezionando SIG, si consente di "
+"utilizzare tutti gli altri tipi di marcatori per gruppi di interesse "
+"speciale."
 
 #: application/views/awards/sig/index.php:10
 msgid ""
@@ -7434,7 +7435,7 @@ msgstr "Esporta QSO in ADIF"
 
 #: application/views/awards/sota/index.php:7
 msgid "SOTA Awards"
-msgstr "Premi SOTA"
+msgstr "Diplomi SOTA"
 
 #: application/views/awards/sota/index.php:8
 msgid ""
@@ -7561,7 +7562,7 @@ msgstr ""
 
 #: application/views/awards/wac/index.php:14
 msgid "Awards - Worked All Continents (WAC)"
-msgstr "Premi - Collegati tutti i continenti (WAC)"
+msgstr "Diplomi - Collegati tutti i continenti (WAC)"
 
 #: application/views/awards/wac/index.php:152
 #: application/views/bandmap/list.php:101
@@ -7715,7 +7716,7 @@ msgstr ""
 msgctxt "uses 'here'"
 msgid "Information about the WAP Awards and its rules can be found %s."
 msgstr ""
-"Le informazioni sui premi WAP e le sue regole sono disponibili presso: %s."
+"Le informazioni sui diplomi WAP e le sue regole sono disponibili presso: %s."
 
 #: application/views/awards/wap/index.php:25
 msgid ""
@@ -7802,10 +7803,10 @@ msgid ""
 "101st year, they have redesigned the certificates and the program in hopes "
 "of streamlining and improving the award program."
 msgstr ""
-"Il premio più popolare dell'ARRL è il Worked All States Award. Migliaia e "
+"Il diploma più popolare dell'ARRL è il Worked All States Award. Migliaia e "
 "migliaia di premi sono stati assegnati ai radioamatori di tutto il mondo. "
 "Nel 101° anno di ARRL, hanno ridisegnato i certificati e il programma nella "
-"speranza di semplificare e migliorare il programma dei premi."
+"speranza di semplificare e migliorare il programma dei diplomi."
 
 #: application/views/awards/was/index.php:27
 msgid ""
@@ -7883,7 +7884,7 @@ msgid ""
 msgstr ""
 "Più di 26.000 aree protette di flora e fauna (PFF) in tutto il mondo sono "
 "già registrate nella directory WWFF. Cacciatori e Attivatori possono "
-"richiedere premi, sia a livello globale che nazionale."
+"richiedere diplomi, sia a livello globale che nazionale."
 
 #: application/views/awards/wwff/index.php:11
 msgid "Fields taken for this Award: WWFF (ADIF: WWFF_REF)"
@@ -14442,6 +14443,8 @@ msgid ""
 "Duration in minutes. Search will look for durations greater than or equal to "
 "this value."
 msgstr ""
+"Durata in minuti. La ricerca cercherà durate maggiori o uguali a questo "
+"valore."
 
 #: application/views/logbookadvanced/index.php:523
 msgid "Sort column"
@@ -15005,7 +15008,7 @@ msgstr "Informazioni geografiche"
 
 #: application/views/logbookadvanced/useroptions.php:213
 msgid "Awards Programs"
-msgstr "Programmi di premi"
+msgstr "Programmi di diplomi"
 
 #: application/views/logbookadvanced/useroptions.php:264
 msgid "Additional Information"
@@ -20092,7 +20095,7 @@ msgstr "Zone potenzialmente errate"
 
 #: application/views/zonechecker/result.php:19
 msgid "Cache Hits"
-msgstr ""
+msgstr "Risultati della cache"
 
 #: application/views/zonechecker/result.php:20
 msgid "Cache Misses"
@@ -20121,12 +20124,12 @@ msgstr "CQz geojson"
 #: application/controllers/Awards.php:577
 #: application/controllers/Awards.php:576
 msgid "and"
-msgstr ""
+msgstr "e"
 
 #: application/controllers/Awards.php:578
 #: application/controllers/Awards.php:577
 msgid "band"
-msgstr ""
+msgstr "banda"
 
 #~ msgid ""
 #~ "Cache is currently using the backup adapter because the primary is "
