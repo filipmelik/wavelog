@@ -3829,6 +3829,7 @@ msgid "Bearing"
 msgstr "Smerovanie"
 
 #: application/models/Logbookadvanced_model.php:1732
+#: application/models/Logbookadvanced_model.php:1730
 msgid "VuccGrids table is empty. Please import the VUCC grids data first."
 msgstr ""
 "Tabuľka VuccGrids je prázdna. Najprv importujte údaje o VUCC lokátoroch."

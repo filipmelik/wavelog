@@ -3874,6 +3874,7 @@ msgid "Bearing"
 msgstr "Azimut"
 
 #: application/models/Logbookadvanced_model.php:1732
+#: application/models/Logbookadvanced_model.php:1730
 msgid "VuccGrids table is empty. Please import the VUCC grids data first."
 msgstr ""
 "La table VuccGrids est vide. Veuillez d'abord importer les données des "

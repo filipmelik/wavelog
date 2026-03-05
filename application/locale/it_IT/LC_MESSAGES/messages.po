@@ -3930,6 +3930,7 @@ msgid "Bearing"
 msgstr "Direzione"
 
 #: application/models/Logbookadvanced_model.php:1732
+#: application/models/Logbookadvanced_model.php:1730
 msgid "VuccGrids table is empty. Please import the VUCC grids data first."
 msgstr ""
 "La tabella VuccGrids è vuota. Per favore, importa prima i dati dei locatori "
@@ -6884,8 +6885,8 @@ msgid ""
 msgstr ""
 "È gestito da Islands On The Air (IOTA) Ltd (denominata IOTA Management) in "
 "collaborazione con la Radio Society of Great Britain (RSGB). Gli "
-"organizzatori IOTA hanno raggruppato le isole del mondo in circa 1200 “"
-"gruppi IOTA”, ciascuno con un numero variabile di “contatori”, che sono "
+"organizzatori IOTA hanno raggruppato le isole del mondo in circa 1200 "
+"“gruppi IOTA”, ciascuno con un numero variabile di “contatori”, che sono "
 "isole qualificate. Questi elenchi sono pubblicati nella Directory IOTA e sul "
 "sito web IOTA. L'obiettivo dell'IOTA Island Chaser è quello di stabilire un "
 "contatto radio con almeno un contatore nel maggior numero possibile di "
