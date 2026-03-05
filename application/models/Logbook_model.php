@@ -556,6 +556,16 @@ class Logbook_model extends CI_Model {
 				break;
 			case 'ITU':
 				$this->db->where('COL_ITUZ', $searchphrase);
+				if ($band == 'SAT' && $type == 'ITU') {
+					if ($sat != 'All' && $sat != null) {
+						$this->db->where("COL_SAT_NAME", $sat);
+					}
+					if ($orbit != 'All' && $orbit != null) {
+						$this->db->where("satellite.orbit", $orbit);
+					}
+				} else {
+					$this->db->where("COL_PROP_MODE !=", "SAT");
+				}
 				break;
 			case 'WAS':
 				$this->db->where('COL_STATE', $searchphrase);
