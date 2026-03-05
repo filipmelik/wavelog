@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-03 13:55+0000\n"
-"PO-Revision-Date: 2026-03-05 08:20+0000\n"
+"PO-Revision-Date: 2026-03-05 08:21+0000\n"
 "Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
@@ -2858,7 +2858,7 @@ msgstr "Zeige die öffentl. Seite für das Logbuch: "
 
 #: application/controllers/Stationsetup.php:307
 msgid "Are you sure you want to delete the public slug?"
-msgstr "Bist du dir sicher die Kurz-URL zu löschen?"
+msgstr "Bist du dir sicher, die Kurz-URL zu löschen?"
 
 #: application/controllers/Stationsetup.php:392
 #: application/views/stationsetup/stationsetup.php:163
