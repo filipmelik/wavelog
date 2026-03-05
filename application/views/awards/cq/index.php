@@ -245,7 +245,7 @@
 				continue;
 			}
 			if ($cqz == 'SAT') {
-				$sat_value = '<td style="text-align: center"' . ($cqz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
+				echo '<td style="text-align: center"' . ($cqz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
 			} else {
 				echo '<td style="text-align: center"' . ($cqz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
 			}
@@ -258,7 +258,7 @@
 				continue;
 			}
 			if ($cqz == 'SAT') {
-				$sat_value = '<td style="text-align: center"' . ($cqz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
+				echo '<td style="text-align: center"' . ($cqz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
 			} else {
 				echo '<td style="text-align: center"' . ($cqz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
 			}
