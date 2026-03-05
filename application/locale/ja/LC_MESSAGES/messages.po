@@ -421,6 +421,8 @@ msgstr "そして"
 #: application/views/awards/dxcc/index.php:176
 #: application/views/awards/iota/index.php:123
 #: application/views/awards/wpx/index.php:81
+#: application/views/awards/cq/index.php:135
+#: application/views/awards/itu/index.php:137
 msgid "Every band (w/o SAT)"
 msgstr "すべてのバンド（SATを除く）"
 
@@ -606,6 +608,7 @@ msgstr "WAP"
 
 #: application/controllers/Awards.php:2131
 #: application/views/awards/itu/index.php:23
+#: application/views/awards/itu/index.php:34
 msgid "ITU Zones"
 msgstr "ITUゾーン"
 
@@ -817,6 +820,7 @@ msgstr "Clublog を設定しているユーザーはいません。"
 #: application/views/view_log/partial/log_ajax.php:222
 #: application/views/view_log/qso.php:583
 #: application/views/view_log/qso.php:588
+#: application/views/awards/itu/index.php:128
 msgid "Clublog"
 msgstr "Clublog"
 
@@ -1432,6 +1436,7 @@ msgstr "QSL"
 #: application/views/timeline/index.php:60 application/views/user/edit.php:626
 #: application/views/user/edit.php:840 application/views/view_log/qso.php:549
 #: application/views/view_log/qso.php:554
+#: application/views/awards/itu/index.php:116
 msgid "LoTW"
 msgstr "LoTW"
 
@@ -1469,6 +1474,7 @@ msgstr "LoTW"
 #: application/views/station_profile/edit.php:300
 #: application/views/timeline/index.php:64 application/views/user/edit.php:627
 #: application/views/user/edit.php:848 application/views/user/edit.php:922
+#: application/views/awards/itu/index.php:120
 msgid "eQSL"
 msgstr "eQSL"
 
@@ -1573,6 +1579,7 @@ msgstr "すべてのコールブック検索が失敗したか、結果が提供
 #: application/views/view_log/partial/log_ajax.php:4
 #: application/views/view_log/qso.php:114 application/views/visitor/index.php:6
 #: application/views/widgets/qsos.php:18
+#: application/views/awards/itu/index.php:147
 msgid "Mode"
 msgstr "モード"
 
@@ -1889,6 +1896,7 @@ msgstr "距離"
 #: application/views/view_log/partial/log_ajax.php:15
 #: application/views/view_log/qso.php:94 application/views/visitor/index.php:33
 #: application/views/widgets/qsos.php:21
+#: application/views/awards/itu/index.php:134
 msgid "Band"
 msgstr "バンド"
 
@@ -3590,19 +3598,24 @@ msgid "Station not accessible"
 msgstr "ステーションは利用できません"
 
 #: application/models/Logbook_model.php:1321
+#: application/models/Logbook_model.php:1341
 msgid "Station ID not allowed"
 msgstr "ステーションIDは許可されていません"
 
 #: application/models/Logbook_model.php:1326
+#: application/models/Logbook_model.php:1346
 msgid "No Call given"
 msgstr "コールなし"
 
 #: application/models/Logbook_model.php:1396
 #: application/models/Logbook_model.php:1600
+#: application/models/Logbook_model.php:1416
+#: application/models/Logbook_model.php:1620
 msgid "DXCC has to be Numeric"
 msgstr "DXCCは数値でなければなりません"
 
 #: application/models/Logbook_model.php:4727
+#: application/models/Logbook_model.php:4747
 #, php-format
 msgid "Wrong station callsign %s while importing QSO with %s for %s: SKIPPED"
 msgstr ""
@@ -3610,6 +3623,7 @@ msgstr ""
 "されました: スキップされました"
 
 #: application/models/Logbook_model.php:4741
+#: application/models/Logbook_model.php:4761
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -3618,10 +3632,12 @@ msgstr ""
 "んでした。無効です"
 
 #: application/models/Logbook_model.php:4750
+#: application/models/Logbook_model.php:4770
 msgid "QSO on"
 msgstr "QSOオン"
 
 #: application/models/Logbook_model.php:4750
+#: application/models/Logbook_model.php:4770
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -3630,6 +3646,7 @@ msgstr ""
 "されませんでした。無効です"
 
 #: application/models/Logbook_model.php:4799
+#: application/models/Logbook_model.php:4819
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -3639,44 +3656,55 @@ msgstr ""
 "はインポートされませんでした。無効です"
 
 #: application/models/Logbook_model.php:5072
+#: application/models/Logbook_model.php:5092
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "qslrdate が無効です (YYYYMMDD)"
 
 #: application/models/Logbook_model.php:5083
+#: application/models/Logbook_model.php:5103
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "qslsdate が無効です (YYYYMMDD)"
 
 #: application/models/Logbook_model.php:5144
+#: application/models/Logbook_model.php:5164
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "clublog_qso_upload_date が無効です (YYYYMMDD)"
 
 #: application/models/Logbook_model.php:5517
 #: application/views/simplefle/index.php:41
+#: application/models/Logbook_model.php:5537
 msgid "Duplicate for"
 msgstr "複製用"
 
 #: application/models/Logbook_model.php:5582
 #: application/models/Logbook_model.php:5677
+#: application/models/Logbook_model.php:5602
+#: application/models/Logbook_model.php:5697
 msgid "QSO could not be matched"
 msgstr "QSOが一致しませんでした"
 
 #: application/models/Logbook_model.php:5590
+#: application/models/Logbook_model.php:5610
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "LoTW/Clublog/eQSL/コンテストで確認済み"
 
 #: application/models/Logbook_model.php:5596
+#: application/models/Logbook_model.php:5616
 msgid "confirmed by award manager"
 msgstr "賞の管理者によって確認された"
 
 #: application/models/Logbook_model.php:5600
+#: application/models/Logbook_model.php:5620
 msgid "confirmed by cross-check of DCL data"
 msgstr "DCLデータのクロスチェックによって確認された"
 
 #: application/models/Logbook_model.php:5604
+#: application/models/Logbook_model.php:5624
 msgid "confirmation pending"
 msgstr "確認中"
 
 #: application/models/Logbook_model.php:5607
+#: application/models/Logbook_model.php:5627
 msgid "unconfirmed"
 msgstr "未確認"
 
@@ -3684,14 +3712,17 @@ msgstr "未確認"
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 #: application/views/view_log/qso.php:305
+#: application/models/Logbook_model.php:5630
 msgid "unknown"
 msgstr "不明"
 
 #: application/models/Logbook_model.php:5680
+#: application/models/Logbook_model.php:5700
 msgid "POTA reference already in log"
 msgstr "POTA 参照。既にログに存在します"
 
 #: application/models/Logbook_model.php:5683
+#: application/models/Logbook_model.php:5703
 msgid "QSO updated"
 msgstr "QSOが更新されました"
 
@@ -3706,6 +3737,7 @@ msgstr "QSOが更新されました"
 #: application/views/user/edit.php:280 application/views/user/edit.php:303
 #: application/views/user/edit.php:326 application/views/user/edit.php:351
 #: application/views/view_log/partial/log_ajax.php:20
+#: application/models/Logbook_model.php:6100
 msgid "Bearing"
 msgstr "方位"
 
@@ -3959,6 +3991,7 @@ msgstr "違い"
 #: application/views/timeplotter/index.php:47
 #: application/views/user/edit.php:814
 #: application/views/visitor/layout/footer.php:173
+#: application/views/awards/itu/index.php:150
 msgid "All"
 msgstr "全て"
 
@@ -4313,6 +4346,7 @@ msgstr "対流圏ダクト"
 #: application/views/timeline/index.php:370
 #: application/views/timeline/index.php:406
 #: application/views/timeplotter/index.php:59
+#: application/views/awards/itu/index.php:48
 msgid "Show"
 msgstr "表示"
 
@@ -4394,6 +4428,7 @@ msgstr "確認"
 #: application/views/awards/was/index.php:73
 #: application/views/awards/wpx/index.php:40
 #: application/views/gridmap/index.php:202 application/views/user/edit.php:856
+#: application/views/awards/itu/index.php:124
 msgid "QRZ.com"
 msgstr "QRZ.com"
 
@@ -4465,6 +4500,8 @@ msgstr "最小数"
 #: application/views/distancerecords/index.php:52
 #: application/views/public_search/empty.php:3
 #: application/views/qrz/export.php:65 application/views/timeline/index.php:158
+#: application/views/awards/cq/index.php:272
+#: application/views/awards/itu/index.php:274
 msgid "Nothing found!"
 msgstr "何も見つかりません!"
 
@@ -5415,6 +5452,8 @@ msgstr "読み取り専用キーを作成する"
 #: application/views/awards/was/index.php:32
 #: application/views/awards/wwff/index.php:6
 #: application/views/awards/wwff/index.php:14
+#: application/views/awards/itu/index.php:33
+#: application/views/awards/itu/index.php:41
 msgid "Award Info"
 msgstr "アワードの情報"
 
@@ -5625,6 +5664,7 @@ msgstr "アワード歴 - CQ WAZ"
 #: application/views/gridmap/index.php:19
 #: application/views/logbookadvanced/index.php:294
 #: application/views/mode/index.php:80 application/views/usermode/index.php:68
+#: application/views/awards/itu/index.php:47
 msgid "Filters"
 msgstr "フィルター"
 
@@ -5638,6 +5678,7 @@ msgstr "CQゾーンマップを表示"
 #: application/views/gridmap/index.php:28
 #: application/views/logbookadvanced/index.php:300
 #: application/views/statistics/index.php:54
+#: application/views/awards/itu/index.php:57
 msgid "Date Presets"
 msgstr "日付プリセット"
 
@@ -5652,6 +5693,7 @@ msgstr "日付プリセット"
 #: application/views/gridmap/index.php:31
 #: application/views/logbookadvanced/index.php:302
 #: application/views/statistics/index.php:56
+#: application/views/awards/itu/index.php:59
 msgid "Today"
 msgstr "本日"
 
@@ -5661,6 +5703,7 @@ msgstr "本日"
 #: application/views/gridmap/index.php:32
 #: application/views/logbookadvanced/index.php:303
 #: application/views/statistics/index.php:57
+#: application/views/awards/itu/index.php:60
 msgid "Yesterday"
 msgstr "昨日"
 
@@ -5670,6 +5713,7 @@ msgstr "昨日"
 #: application/views/gridmap/index.php:33
 #: application/views/logbookadvanced/index.php:304
 #: application/views/statistics/index.php:58
+#: application/views/awards/itu/index.php:61
 msgid "Last 7 Days"
 msgstr "過去7日間"
 
@@ -5679,6 +5723,7 @@ msgstr "過去7日間"
 #: application/views/gridmap/index.php:34
 #: application/views/logbookadvanced/index.php:305
 #: application/views/statistics/index.php:59
+#: application/views/awards/itu/index.php:62
 msgid "Last 30 Days"
 msgstr "過去30日間"
 
@@ -5688,6 +5733,7 @@ msgstr "過去30日間"
 #: application/views/gridmap/index.php:35
 #: application/views/logbookadvanced/index.php:306
 #: application/views/statistics/index.php:60
+#: application/views/awards/itu/index.php:63
 msgid "This Month"
 msgstr "今月"
 
@@ -5697,6 +5743,7 @@ msgstr "今月"
 #: application/views/gridmap/index.php:36
 #: application/views/logbookadvanced/index.php:307
 #: application/views/statistics/index.php:61
+#: application/views/awards/itu/index.php:64
 msgid "Last Month"
 msgstr "先月"
 
@@ -5706,6 +5753,7 @@ msgstr "先月"
 #: application/views/gridmap/index.php:37
 #: application/views/logbookadvanced/index.php:308
 #: application/views/statistics/index.php:62
+#: application/views/awards/itu/index.php:65
 msgid "This Year"
 msgstr "今年"
 
@@ -5714,6 +5762,7 @@ msgstr "今年"
 #: application/views/awards/itu/index.php:55
 #: application/views/logbookadvanced/index.php:309
 #: application/views/statistics/index.php:63
+#: application/views/awards/itu/index.php:66
 msgid "Last Year"
 msgstr "去年"
 
@@ -5724,6 +5773,7 @@ msgstr "去年"
 #: application/views/interface_assets/footer.php:52
 #: application/views/logbookadvanced/index.php:310
 #: application/views/qso/index.php:767
+#: application/views/awards/itu/index.php:67
 msgid "Clear"
 msgstr "クリア"
 
@@ -5733,6 +5783,7 @@ msgstr "クリア"
 #: application/views/dxcalendar/index.php:9
 #: application/views/gridmap/index.php:44
 #: application/views/statistics/index.php:68
+#: application/views/awards/itu/index.php:72
 msgid "Date from"
 msgstr "日付から"
 
@@ -5742,6 +5793,7 @@ msgstr "日付から"
 #: application/views/dxcalendar/index.php:10
 #: application/views/gridmap/index.php:48
 #: application/views/statistics/index.php:72
+#: application/views/awards/itu/index.php:80
 msgid "Date to"
 msgstr "日付"
 
@@ -5756,6 +5808,7 @@ msgstr "日付"
 #: application/views/interface_assets/footer.php:45
 #: application/views/search/result.php:32
 #: application/views/visitor/index.php:270
+#: application/views/awards/itu/index.php:90
 msgid "Confirmed"
 msgstr "確認済み"
 
@@ -5767,6 +5820,7 @@ msgstr "確認済み"
 #: application/views/dashboard/index.php:454
 #: application/views/search/result.php:35
 #: application/views/visitor/index.php:266
+#: application/views/awards/itu/index.php:90
 msgid "Worked"
 msgstr "作業した"
 
@@ -5784,6 +5838,7 @@ msgstr "作業した"
 #: application/views/awards/wap/index.php:39
 #: application/views/awards/wapc/index.php:41
 #: application/views/awards/was/index.php:43
+#: application/views/awards/itu/index.php:94
 msgid "Show worked"
 msgstr "作業内容"
 
@@ -5801,6 +5856,7 @@ msgstr "作業内容"
 #: application/views/awards/wap/index.php:43
 #: application/views/awards/wapc/index.php:45
 #: application/views/awards/was/index.php:47
+#: application/views/awards/itu/index.php:98
 msgid "Show confirmed"
 msgstr "確認済み"
 
@@ -5817,6 +5873,7 @@ msgstr "確認済み"
 #: application/views/awards/wap/index.php:47
 #: application/views/awards/wapc/index.php:49
 #: application/views/awards/was/index.php:51
+#: application/views/awards/itu/index.php:102
 msgid "Show not worked"
 msgstr "表示が機能していません"
 
@@ -5835,6 +5892,7 @@ msgstr "表示が機能していません"
 #: application/views/awards/wapc/index.php:55
 #: application/views/awards/was/index.php:57
 #: application/views/awards/wpx/index.php:24
+#: application/views/awards/itu/index.php:108
 msgid "Show QSO with QSL Type"
 msgstr "QSLタイプでQSOを表示"
 
@@ -5846,6 +5904,7 @@ msgstr "QSLタイプでQSOを表示"
 #: application/views/logbookadvanced/index.php:54
 #: application/views/qso/edit_ajax.php:420
 #: application/views/view_log/qso.php:25
+#: application/views/awards/itu/index.php:112
 msgid "QSL Card"
 msgstr "QSLカード"
 
@@ -5859,6 +5918,7 @@ msgstr "QSLカード"
 #: application/views/awards/wap/index.php:126
 #: application/views/awards/wapc/index.php:132
 #: application/views/awards/was/index.php:130
+#: application/views/awards/itu/index.php:173
 msgid "Table"
 msgstr "テーブル"
 
@@ -5879,48 +5939,56 @@ msgstr "テーブル"
 #: application/views/logbookadvanced/checkresult.php:168
 #: application/views/logbookadvanced/index.php:869
 #: application/views/logbookadvanced/useroptions.php:7
+#: application/views/awards/itu/index.php:176
 msgid "Map"
 msgstr "地図"
 
 #: application/views/awards/cq/index.php:192
 #: application/views/awards/dxcc/index.php:264
 #: application/views/awards/itu/index.php:183
+#: application/views/awards/itu/index.php:194
 msgid "Legend:"
 msgstr "凡例："
 
 #: application/views/awards/cq/index.php:193
 #: application/views/awards/dxcc/index.php:265
 #: application/views/awards/itu/index.php:184
+#: application/views/awards/itu/index.php:195
 msgid "(Q)SL-Paper-Card"
 msgstr "(Q)SL-紙カード"
 
 #: application/views/awards/cq/index.php:194
 #: application/views/awards/dxcc/index.php:266
 #: application/views/awards/itu/index.php:185
+#: application/views/awards/itu/index.php:196
 msgid "(L)oTW"
 msgstr "(L)oTW"
 
 #: application/views/awards/cq/index.php:195
 #: application/views/awards/dxcc/index.php:267
 #: application/views/awards/itu/index.php:186
+#: application/views/awards/itu/index.php:197
 msgid "(e)QSL"
 msgstr "(e)QSL"
 
 #: application/views/awards/cq/index.php:196
 #: application/views/awards/dxcc/index.php:268
 #: application/views/awards/itu/index.php:187
+#: application/views/awards/itu/index.php:198
 msgid "QR(Z)-\"confirmation\""
 msgstr "QR(Z)-「確認」"
 
 #: application/views/awards/cq/index.php:197
 #: application/views/awards/dxcc/index.php:269
 #: application/views/awards/itu/index.php:188
+#: application/views/awards/itu/index.php:199
 msgid "(C)lublog"
 msgstr "(C)lublog"
 
 #: application/views/awards/cq/index.php:198
 #: application/views/awards/dxcc/index.php:270
 #: application/views/awards/itu/index.php:189
+#: application/views/awards/itu/index.php:200
 msgid "(W)orked"
 msgstr "(W)作業した"
 
@@ -5939,12 +6007,16 @@ msgstr "(W)作業した"
 #: application/views/awards/wapc/index.php:174
 #: application/views/awards/was/index.php:177
 #: application/views/awards/wpx/index.php:158
+#: application/views/awards/cq/index.php:224
+#: application/views/awards/itu/index.php:226
 msgid "Summary"
 msgstr "まとめ"
 
 #: application/views/awards/cq/index.php:236
 #: application/views/awards/dxcc/index.php:315
 #: application/views/awards/itu/index.php:227
+#: application/views/awards/cq/index.php:237
+#: application/views/awards/itu/index.php:239
 msgid "Total (ex SAT)"
 msgstr "合計（SATを除く）"
 
@@ -5963,6 +6035,8 @@ msgstr "合計（SATを除く）"
 #: application/views/awards/wapc/index.php:188
 #: application/views/awards/was/index.php:190
 #: application/views/awards/wpx/index.php:183
+#: application/views/awards/cq/index.php:242
+#: application/views/awards/itu/index.php:244
 msgid "Total worked"
 msgstr "合計作業時間"
 
@@ -5981,6 +6055,8 @@ msgstr "合計作業時間"
 #: application/views/awards/wapc/index.php:195
 #: application/views/awards/was/index.php:197
 #: application/views/awards/wpx/index.php:204
+#: application/views/awards/cq/index.php:255
+#: application/views/awards/itu/index.php:257
 msgid "Total confirmed"
 msgstr "確認された合計"
 
@@ -6562,10 +6638,12 @@ msgstr "削除済み"
 #: application/views/station_profile/edit.php:168
 #: application/views/user/modals/first_login_wizard.php:84
 #: application/views/zonechecker/index.php:18
+#: application/views/awards/itu/index.php:206
 msgid "ITU Zone"
 msgstr "ITU ゾーン"
 
 #: application/views/awards/itu/index.php:24
+#: application/views/awards/itu/index.php:35
 msgid ""
 "The Classic Worked ITU Zones award may be claimed by producing evidence of "
 "having contacted land based amateur radio stations in at least 70 of the 75 "
@@ -6577,20 +6655,24 @@ msgstr ""
 "を提示することで申請できます。"
 
 #: application/views/awards/itu/index.php:25
+#: application/views/awards/itu/index.php:36
 #, php-format
 msgctxt "uses 'RSGB'"
 msgid "You can find more information on the website of %s."
 msgstr "%sのウェブサイトで、さらに詳しい情報をご確認いただけます。"
 
 #: application/views/awards/itu/index.php:27
+#: application/views/awards/itu/index.php:38
 msgid "Fields taken for this Award: ITU-Zone (ADIF: ITUZ)"
 msgstr "このアワードの対象となる分野: ITUゾーン (ADIF: ITUZ)"
 
 #: application/views/awards/itu/index.php:29
+#: application/views/awards/itu/index.php:40
 msgid "Awards - ITU Zones"
 msgstr "アワード歴 - ITUゾーン"
 
 #: application/views/awards/itu/index.php:39
+#: application/views/awards/itu/index.php:50
 msgid "Show ITU Zone Map"
 msgstr "ITUゾーンマップを表示"
 
@@ -19608,9 +19690,9 @@ msgstr "CQz geojson"
 #~ "processed. %s Please make sure you export the LoTW certificate from tqsl "
 #~ "application without password! %s"
 #~ msgstr ""
-#~ "ファイル %s 内の証明書にはパスワードが含まれており、処理できませ"
-#~ "ん。%stqsl アプリケーションから LoTW 証明書をエクスポートする際は、パス"
-#~ "ワードなしで実行してください！%s"
+#~ "ファイル %s 内の証明書にはパスワードが含まれており、処理できません。"
+#~ "%stqsl アプリケーションから LoTW 証明書をエクスポートする際は、パスワード"
+#~ "なしで実行してください！%s"
 
 #~ msgid "Column"
 #~ msgstr "カラム"
@@ -19944,8 +20026,8 @@ msgstr "CQz geojson"
 #~ "Your active Station Location isn't linked to your Logbook. Click %shere%s "
 #~ "to do it."
 #~ msgstr ""
-#~ "現在のステーション位置がログブックとリンクされていません。リンクするに"
-#~ "は、%shere%s をクリックしてください。"
+#~ "現在のステーション位置がログブックとリンクされていません。リンクするには、"
+#~ "%shere%s をクリックしてください。"
 
 #, php-format
 #~ msgctxt "Dashboard Warning"
