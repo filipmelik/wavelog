@@ -128,7 +128,8 @@ msgstr ""
 #: application/controllers/Webadif.php:11
 #: application/controllers/Webadif.php:101
 #: application/controllers/Zonechecker.php:17
-#: application/models/Club_model.php:52
+#: application/models/Club_model.php:52 application/controllers/Radio.php:322
+#: application/controllers/Radio.php:348 application/controllers/Radio.php:364
 msgid "You're not allowed to do that!"
 msgstr "To nesmieš robiť!"
 
@@ -1507,6 +1508,8 @@ msgstr "QSL"
 #: application/views/view_log/qso.php:554
 #: application/views/awards/itu/index.php:116
 #: application/views/awards/wae/index.php:98
+#: application/views/qslprint/qsolist.php:187
+#: application/views/qslprint/qsolist.php:202
 msgid "LoTW"
 msgstr "LoTW"
 
@@ -1546,6 +1549,8 @@ msgstr "LoTW"
 #: application/views/user/edit.php:848 application/views/user/edit.php:922
 #: application/views/awards/itu/index.php:120
 #: application/views/awards/wae/index.php:102
+#: application/views/qslprint/qsolist.php:158
+#: application/views/qslprint/qsolist.php:171
 msgid "eQSL"
 msgstr "eQSL"
 
@@ -2560,10 +2565,12 @@ msgid "WebSocket"
 msgstr "WebSocket"
 
 #: application/controllers/Radio.php:65 application/controllers/Radio.php:124
+#: application/controllers/Radio.php:126
 msgid "Default (click to release)"
 msgstr "Predvolené (kliknutím zrušíte)"
 
 #: application/controllers/Radio.php:67 application/controllers/Radio.php:126
+#: application/controllers/Radio.php:128
 msgid "Set as default radio"
 msgstr "Nastaviť ako predvolenú rádiostanicu"
 
@@ -2573,7 +2580,7 @@ msgstr "NEZNÁME"
 
 #: application/controllers/Radio.php:118 application/views/bandmap/list.php:243
 #: application/views/contesting/index.php:162
-#: application/views/qso/index.php:416
+#: application/views/qso/index.php:416 application/controllers/Radio.php:120
 msgid "last updated"
 msgstr "naposledy aktualizované"
 
@@ -2595,6 +2602,7 @@ msgstr "naposledy aktualizované"
 #: application/views/user/index.php:203
 #: application/views/interface_assets/footer.php:686
 #: application/views/interface_assets/footer.php:695
+#: application/controllers/Radio.php:130
 msgid "Edit"
 msgstr "Upraviť"
 
@@ -2628,6 +2636,7 @@ msgstr "Upraviť"
 #: application/views/interface_assets/footer.php:2661
 #: application/views/interface_assets/footer.php:2682
 #: application/views/interface_assets/footer.php:2700
+#: application/controllers/Radio.php:131
 msgid "Delete"
 msgstr "Vymazať"
 
@@ -2639,7 +2648,7 @@ msgstr "WebSocket je momentálne predvolený (kliknutím uvoľniť)"
 msgid "Set WebSocket as default radio"
 msgstr "Nastav WebSocket ako predvolené rádio"
 
-#: application/controllers/Radio.php:142
+#: application/controllers/Radio.php:142 application/controllers/Radio.php:144
 msgid "No CAT interfaced radios found."
 msgstr "Nenašlo sa žiadne rádio s CAT rozhraním."
 
@@ -2648,6 +2657,7 @@ msgid "You can still set the WebSocket option as your default radio."
 msgstr "WebSocket môžete stále nastaviť ako svoje predvolené rádio."
 
 #: application/controllers/Radio.php:160 application/views/radio/index.php:2
+#: application/controllers/Radio.php:162
 msgid "Edit CAT Settings"
 msgstr "Upraviť nastavenia CAT"
 
@@ -6873,6 +6883,10 @@ msgstr "Mesto"
 #: application/views/qslprint/qslprint.php:58
 #: application/views/qslprint/qsolist.php:44
 #: application/views/qslprint/qsolist.php:45
+#: application/views/qslprint/qsolist.php:48
+#: application/views/qslprint/qsolist.php:50
+#: application/views/qslprint/qsolist.php:57
+#: application/views/qslprint/qsolist.php:59
 msgid "SAT"
 msgstr "SAT"
 
@@ -10485,7 +10499,9 @@ msgstr "Chýbajúce"
 #: application/views/widgets/qsos.php:19 src/QSLManager/QSO.php:420
 #: src/QSLManager/QSO.php:521 src/QSLManager/QSO.php:575
 #: src/QSLManager/QSO.php:664 src/QSLManager/QSO.php:721
-#: src/QSLManager/QSO.php:810
+#: src/QSLManager/QSO.php:810 application/views/qslprint/qsolist.php:78
+#: application/views/qslprint/qsolist.php:158
+#: application/views/qslprint/qsolist.php:187
 msgid "Sent"
 msgstr "Odoslané"
 
@@ -10521,7 +10537,9 @@ msgstr "Odoslané"
 #: application/views/visitor/index.php:337 src/QSLManager/QSO.php:465
 #: src/QSLManager/QSO.php:548 src/QSLManager/QSO.php:625
 #: src/QSLManager/QSO.php:691 src/QSLManager/QSO.php:771
-#: src/QSLManager/QSO.php:838
+#: src/QSLManager/QSO.php:838 application/views/qslprint/qsolist.php:120
+#: application/views/qslprint/qsolist.php:171
+#: application/views/qslprint/qsolist.php:202
 msgid "Received"
 msgstr "Došlé"
 
@@ -10566,7 +10584,8 @@ msgstr "Došlé"
 #: src/QSLManager/QSO.php:471 src/QSLManager/QSO.php:533
 #: src/QSLManager/QSO.php:556 src/QSLManager/QSO.php:670
 #: src/QSLManager/QSO.php:697 src/QSLManager/QSO.php:822
-#: src/QSLManager/QSO.php:847
+#: src/QSLManager/QSO.php:847 application/views/qslprint/qsolist.php:84
+#: application/views/qslprint/qsolist.php:126
 msgid "Requested"
 msgstr "Požadované"
 
@@ -13723,6 +13742,9 @@ msgstr "Overené"
 #: application/views/view_log/partial/log_ajax.php:307
 #: application/views/view_log/partial/log_ajax.php:345
 #: src/QSLManager/QSO.php:449 src/QSLManager/QSO.php:492
+#: application/views/qslprint/qsolist.php:100
+#: application/views/qslprint/qsolist.php:142
+#: application/views/qslprint/qsolist.php:231
 msgid "Direct"
 msgstr "Direkt"
 
@@ -13744,6 +13766,9 @@ msgstr "Direkt"
 #: application/views/view_log/partial/log_ajax.php:304
 #: application/views/view_log/partial/log_ajax.php:342
 #: src/QSLManager/QSO.php:446 src/QSLManager/QSO.php:489
+#: application/views/qslprint/qsolist.php:97
+#: application/views/qslprint/qsolist.php:139
+#: application/views/qslprint/qsolist.php:230
 msgid "Bureau"
 msgstr "Bureau"
 
@@ -13763,6 +13788,9 @@ msgstr "Bureau"
 #: application/views/view_log/partial/log_ajax.php:313
 #: application/views/view_log/partial/log_ajax.php:351
 #: src/QSLManager/QSO.php:455 src/QSLManager/QSO.php:498
+#: application/views/qslprint/qsolist.php:106
+#: application/views/qslprint/qsolist.php:148
+#: application/views/qslprint/qsolist.php:232
 msgid "Electronic"
 msgstr "Elektronicky"
 
@@ -13775,6 +13803,7 @@ msgstr "Elektronicky"
 #: application/views/qso/edit_ajax.php:494 application/views/qso/index.php:738
 #: application/views/search/search_result_ajax.php:250
 #: application/views/view_log/partial/log_ajax.php:348
+#: application/views/qslprint/qsolist.php:145
 msgid "Manager"
 msgstr "Manažér"
 
@@ -14237,6 +14266,8 @@ msgstr "QSL odoslané"
 #: src/QSLManager/QSO.php:529 src/QSLManager/QSO.php:592
 #: src/QSLManager/QSO.php:667 src/QSLManager/QSO.php:694
 #: src/QSLManager/QSO.php:738 src/QSLManager/QSO.php:818
+#: application/views/qslprint/qsolist.php:81
+#: application/views/qslprint/qsolist.php:123
 msgid "Queued"
 msgstr "V poradí"
 
@@ -14293,6 +14324,10 @@ msgstr "V poradí"
 #: src/QSLManager/QSO.php:673 src/QSLManager/QSO.php:700
 #: src/QSLManager/QSO.php:730 src/QSLManager/QSO.php:779
 #: src/QSLManager/QSO.php:814 src/QSLManager/QSO.php:843
+#: application/views/qslprint/qsolist.php:87
+#: application/views/qslprint/qsolist.php:129
+#: application/views/qslprint/qsolist.php:194
+#: application/views/qslprint/qsolist.php:209
 msgid "Invalid (Ignore)"
 msgstr "Neplatné (Ignorovať)"
 
@@ -15562,7 +15597,7 @@ msgstr "Odoslať žiadosť not in log"
 #: application/views/qso/index.php:744
 #: application/views/search/search_result_ajax.php:208
 #: application/views/view_log/partial/log_ajax.php:310
-#: src/QSLManager/QSO.php:452
+#: src/QSLManager/QSO.php:452 application/views/qslprint/qsolist.php:103
 msgid "Via"
 msgstr "Prostredníctvom."
 
@@ -15574,6 +15609,7 @@ msgstr ""
 #: application/views/oqrs/qsolist.php:203
 #: application/views/oqrs/showrequests.php:72
 #: application/views/qslprint/qsolist.php:200
+#: application/views/qslprint/qsolist.php:216
 msgid "Add to print queue"
 msgstr "Pridať do fronty tlače"
 
@@ -15985,6 +16021,7 @@ msgid "No QSLs to print were found!"
 msgstr "Neboli nájdené žiadne QSL na tlač!"
 
 #: application/views/qslprint/qsolist.php:209
+#: application/views/qslprint/qsolist.php:225
 msgid ""
 "No additional QSOs were found. That means they are probably already in the "
 "queue."
