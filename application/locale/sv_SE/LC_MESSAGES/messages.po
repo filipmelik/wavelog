@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-03 13:55+0000\n"
-"PO-Revision-Date: 2026-03-04 01:27+0000\n"
+"PO-Revision-Date: 2026-03-05 15:20+0000\n"
 "Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/sv/>\n"
@@ -10412,7 +10412,7 @@ msgstr "Inga QSOs idag - dags att slå på radion!"
 
 #: application/views/dashboard/index.php:193
 msgid "Attention: you need to set an active station location."
-msgstr "OBS! Du behöver ange en aktiv station location."
+msgstr "OBS! Du behöver ange en aktiv stationsplats."
 
 #: application/views/dashboard/index.php:200
 msgid ""
