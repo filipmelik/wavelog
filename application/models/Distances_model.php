@@ -152,19 +152,19 @@ class Distances_model extends CI_Model
 		switch ($measurement_base) {
 		case 'M':
 			$unit = "mi";
-			$dist = '13000';
+			$dist = '26000';
 			break;
 		case 'K':
 			$unit = "km";
-			$dist = '20000';
+			$dist = '40050';
 			break;
 		case 'N':
 			$unit = "nmi";
-			$dist = '11000';
+			$dist = '22000';
 			break;
 		default:
 			$unit = "km";
-			$dist = '20000';
+			$dist = '40050';
 		}
 
 		if (!$this->valid_locator($stationgrid)) {
@@ -177,10 +177,7 @@ class Distances_model extends CI_Model
 			//   $dataarray[0]   => "0km - 50km"
 			//   $dataarray[1]   => "50km - 100km"
 			//   ...
-			//   $dataarray[399] => "19950km - 20000km"  (last valid index, since 20000/50 - 1 = 399)
-			// A QSO at 31,450 km would map to bucket index 629 (31450/50 = 629),
-			// which is never initialized here, causing "Undefined array key 629" warnings.
-			// The isset() guard further below skips any QSO whose distance exceeds this range.
+			//   till 40050 (longpath)
 			$j = 0;
 			for ($i = 0; $j < $dist; $i++) {
 				$dataarray[$i]['dist'] =  $j . $unit . ' - ' . ($j + 50) . $unit;
