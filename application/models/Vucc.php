@@ -197,6 +197,7 @@ class VUCC extends CI_Model
 
     /*
      * Makes a list of all gridsquares on chosen band with info about lotw and qsl
+     * Optimized to fetch all callsigns in a single query instead of one per grid
      */
     function vucc_details($band, $type) {
         // Get combined data for the specific band
@@ -262,12 +263,16 @@ class VUCC extends CI_Model
             }
         }
 
-        // Add callsign details for each grid
+        // Get all callsigns for all grids in a SINGLE query
+        $gridCallsigns = $this->get_grid_callsigns_batch(array_keys($vuccBand), $band);
+
+        // Add callsign details for each grid from the batched result
         foreach ($vuccBand as $grid => $data) {
-            $result = $this->grid_detail($grid, $band);
             $callsignlist = '';
-            foreach($result->result() as $call) {
-                $callsignlist .= $call->COL_CALL . '<br/>';
+            if (isset($gridCallsigns[$grid])) {
+                foreach ($gridCallsigns[$grid] as $call) {
+                    $callsignlist .= $call . '<br/>';
+                }
             }
             $vuccBand[$grid]['call'] = $callsignlist;
         }
@@ -278,6 +283,79 @@ class VUCC extends CI_Model
             ksort($vuccBand);
             return $vuccBand;
         }
+    }
+
+    /*
+     * Fetches callsigns for multiple grids in a single query
+     * Returns array indexed by 4-character grid with list of callsigns
+     */
+    private function get_grid_callsigns_batch($grids, $band) {
+        if (empty($grids) || !$this->logbooks_locations_array) {
+            return [];
+        }
+
+        $inPlaceholders = str_repeat('?,', count($this->logbooks_locations_array) - 1) . '?';
+        $bindings = array_merge($this->logbooks_locations_array);
+
+        // Build band condition
+        if ($band == 'SAT') {
+            $bandCondition = " and col_prop_mode = ?";
+            $bindings[] = $band;
+        } else {
+            $bandCondition = " and col_prop_mode != ? and col_band = ?";
+            $bindings[] = 'SAT';
+            $bindings[] = $band;
+        }
+
+        // Fetch all QSOs for this band - we'll filter by grids in PHP
+        // This is much more efficient than one query per grid
+        $sql = "SELECT COL_CALL, col_gridsquare, col_vucc_grids
+            FROM " . $this->config->item('table_name') . "
+            WHERE station_id IN (" . $inPlaceholders . ")
+                AND (col_gridsquare <> '' OR col_vucc_grids <> '')"
+            . $bandCondition;
+
+        $query = $this->db->query($sql, $bindings);
+        $result = $query->result_array();
+
+        // Group callsigns by grid in PHP
+        $gridCallsigns = [];
+        $gridsLookup = array_flip($grids); // For O(1) lookups
+
+        foreach ($result as $row) {
+            // Process col_gridsquare
+            if (!empty($row['col_gridsquare'])) {
+                $grid_four = strtoupper(substr($row['col_gridsquare'], 0, 4));
+                if (isset($gridsLookup[$grid_four])) {
+                    if (!isset($gridCallsigns[$grid_four])) {
+                        $gridCallsigns[$grid_four] = [];
+                    }
+                    // Avoid duplicate callsigns for the same grid
+                    if (!in_array($row['COL_CALL'], $gridCallsigns[$grid_four])) {
+                        $gridCallsigns[$grid_four][] = $row['COL_CALL'];
+                    }
+                }
+            }
+
+            // Process col_vucc_grids (comma-separated list)
+            if (!empty($row['col_vucc_grids'])) {
+                $vuccGrids = explode(",", $row['col_vucc_grids']);
+                foreach ($vuccGrids as $vuccGrid) {
+                    $grid_four = strtoupper(substr(trim($vuccGrid), 0, 4));
+                    if (isset($gridsLookup[$grid_four])) {
+                        if (!isset($gridCallsigns[$grid_four])) {
+                            $gridCallsigns[$grid_four] = [];
+                        }
+                        // Avoid duplicate callsigns for the same grid
+                        if (!in_array($row['COL_CALL'], $gridCallsigns[$grid_four])) {
+                            $gridCallsigns[$grid_four][] = $row['COL_CALL'];
+                        }
+                    }
+                }
+            }
+        }
+
+        return $gridCallsigns;
     }
 
     /*
@@ -310,7 +388,6 @@ class VUCC extends CI_Model
             MAX(CASE WHEN col_lotw_qsl_rcvd='Y' THEN 1 ELSE 0 END) as lotw_confirmed,
             MAX(CASE WHEN (col_qsl_rcvd='Y' OR col_lotw_qsl_rcvd='Y') THEN 1 ELSE 0 END) as confirmed
             FROM " . $this->config->item('table_name') . " log
-            INNER JOIN bands b ON (b.band = log.col_band)
             WHERE log.station_id IN (" . $inPlaceholders . ")
                 AND log.col_gridsquare <> ''"
             . $bandCondition1 . "
@@ -468,7 +545,6 @@ class VUCC extends CI_Model
             DISTINCT UPPER(SUBSTRING(col_gridsquare, 1, 4)) as gridsquare,
             MAX(CASE WHEN (col_qsl_rcvd='Y' OR col_lotw_qsl_rcvd='Y') THEN 1 ELSE 0 END) as confirmed
             FROM " . $this->config->item('table_name') . " log
-            INNER JOIN bands b ON (b.band = log.col_band)
             WHERE log.station_id IN (" . $inPlaceholders . ")
                 AND log.col_gridsquare <> ''"
             . $bandCondition1 . "
