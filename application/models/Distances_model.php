@@ -172,7 +172,15 @@ class Distances_model extends CI_Model
 			echo json_encode(array('Error' => 'Error. There is a problem with the gridsquare ('.$stationgrid.') set in your profile!'));
 			exit;
 		} else {
-			// Making the array we will use for plotting, we save occurrences of the length of each qso in the array
+			// Build the chart buckets in 50-unit steps up to the max chart distance ($dist).
+			// Each bucket covers a 50-unit range, e.g. in km mode:
+			//   $dataarray[0]   => "0km - 50km"
+			//   $dataarray[1]   => "50km - 100km"
+			//   ...
+			//   $dataarray[399] => "19950km - 20000km"  (last valid index, since 20000/50 - 1 = 399)
+			// A QSO at 31,450 km would map to bucket index 629 (31450/50 = 629),
+			// which is never initialized here, causing "Undefined array key 629" warnings.
+			// The isset() guard further below skips any QSO whose distance exceeds this range.
 			$j = 0;
 			for ($i = 0; $j < $dist; $i++) {
 				$dataarray[$i]['dist'] =  $j . $unit . ' - ' . ($j + 50) . $unit;
@@ -204,6 +212,9 @@ class Distances_model extends CI_Model
 					$qrb['Distance'] = $bearingdistance;
 					$qrb['Callsign'] = $qso['callsign'];
 					$qrb['Grid'] = $qso['grid'];
+				}
+				if (!isset($dataarray[$arrayplacement])) {                              // QSO distance exceeds chart range, skip plotting
+					continue;
 				}
 				$dataarray[$arrayplacement]['count']++;                                               // Used for counting total qsos plotted
 				if ($dataarray[$arrayplacement]['callcount'] < 5) {                     // Used for tooltip in graph, set limit to 5 calls shown
