@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-01 08:21+0000\n"
-"PO-Revision-Date: 2026-03-05 15:20+0000\n"
+"PO-Revision-Date: 2026-03-07 12:48+0000\n"
 "Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/it/>\n"
@@ -1745,7 +1745,7 @@ msgstr "Modo"
 #: application/views/view_log/partial/log_ajax.php:5
 #: application/views/view_log/qso.php:119 application/views/visitor/index.php:9
 msgid "RST (S)"
-msgstr "RST (I)"
+msgstr "RST (S)"
 
 #: application/controllers/Logbook.php:1460
 #: application/views/awards/73on73/index.php:37
