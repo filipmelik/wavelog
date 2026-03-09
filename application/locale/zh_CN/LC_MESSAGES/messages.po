@@ -12,7 +12,7 @@
 # YuanRetro <lijiaxuan1811@163.com>, 2025, 2026.
 # 李宇翔 <lyx8851@qq.com>, 2025.
 # Tao Xu <angelxutao@gmail.com>, 2025.
-# BH3HNI <mmf@live.com>, 2025.
+# BH3HNI <mmf@live.com>, 2025, 2026.
 # Lu Chang <chinaluchang@live.com>, 2025, 2026.
 # BG8LNG <qrz@bg8lng.com>, 2025.
 # FengziLeo <fengzileo@vip.qq.com>, 2025.
@@ -29,8 +29,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-05 15:20+0000\n"
-"PO-Revision-Date: 2026-03-07 12:48+0000\n"
-"Last-Translator: \"Xu, Zefan (BI1GHZ)\" <ceba_robot@outlook.com>\n"
+"PO-Revision-Date: 2026-03-09 02:41+0000\n"
+"Last-Translator: BH3HNI <mmf@live.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translate.wavelog.org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -458,22 +458,22 @@ msgstr " 和卫星 "
 #: application/controllers/Awards.php:583
 #: application/controllers/Callstats.php:107
 msgid " and orbit type "
-msgstr " 并且轨道类型 "
+msgstr " 和轨道类型 "
 
 #: application/controllers/Awards.php:587
 #: application/controllers/Callstats.php:111
 msgid " and propagation "
-msgstr " 并且传播方式 "
+msgstr " 和传播方式 "
 
 #: application/controllers/Awards.php:590
 #: application/controllers/Callstats.php:114
 msgid " and mode "
-msgstr " 并且模式 "
+msgstr " 和模式 "
 
 #: application/controllers/Awards.php:593
 #: application/controllers/Callstats.php:117
 msgid " and "
-msgstr " 并且 "
+msgstr " 和 "
 
 #: application/controllers/Awards.php:611
 #: application/controllers/Logbook.php:1463
