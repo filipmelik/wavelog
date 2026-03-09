@@ -521,5 +521,127 @@ class VUCC extends CI_Model
 
         return $results;
     }
+
+	/*
+    * Builds the array to display worked/confirmed vucc on dashboard page
+    */
+    function fetchVuccSummary($band = 'All') {
+        // Use associative arrays for O(1) lookups instead of O(n) in_array()
+        $totalGridWorked = [];
+        $totalGridConfirmed = [];
+
+        // Get combined data (2 queries instead of 4)
+        $data = $this->get_vucc_combined_data($band);
+
+        // Process col_gridsquare data
+        if (!empty($data['gridsquare'])) {
+            foreach ($data['gridsquare'] as $row) {
+                $grid = $row['gridsquare'];
+                // Always add to worked
+                $totalGridWorked[$grid] = true;
+                // Add to confirmed if flagged
+                if ($row['confirmed']) {
+                    $totalGridConfirmed[$grid] = true;
+                }
+            }
+        }
+
+        // Process col_vucc_grids data
+        if (!empty($data['vucc_grids'])) {
+            foreach ($data['vucc_grids'] as $row) {
+                $grids = explode(",", $row['col_vucc_grids']);
+                foreach ($grids as $key) {
+                    $grid_four = strtoupper(substr(trim($key), 0, 4));
+                    // Always add to worked
+                    $totalGridWorked[$grid_four] = true;
+                    // Add to confirmed if flagged
+                    if ($row['confirmed']) {
+                        $totalGridConfirmed[$grid_four] = true;
+                    }
+                }
+            }
+        }
+
+        $vuccArray[$band]['worked'] = count($totalGridWorked);
+        $vuccArray[$band]['confirmed'] = count($totalGridConfirmed);
+
+        return $vuccArray;
+    }
+
+	 private function get_vucc_combined_data($band = 'All') {
+        if (!$this->logbooks_locations_array) {
+            return ['gridsquare' => [], 'vucc_grids' => []];
+        }
+
+        $results = ['gridsquare' => [], 'vucc_grids' => []];
+
+        $location_list = "'" . implode("','", $this->logbooks_locations_array) . "'";
+
+        // Query 1: Get col_gridsquare data with worked/confirmed status
+        $bandCondition1 = '';
+
+        if ($band != 'All') {
+            if ($band == 'SAT') {
+                $bandCondition1 = " and log.col_prop_mode = ?";
+                $bindings1[] = $band;
+            } else {
+                $bandCondition1 = " and log.col_prop_mode != ? and log.col_band = ?";
+                $bindings1[] = 'SAT';
+                $bindings1[] = $band;
+            }
+        } else {
+            $bandCondition1 = " and log.col_prop_mode != ?";
+            $bindings1[] = 'SAT';
+        }
+
+        $sql1 = "SELECT
+            DISTINCT UPPER(SUBSTRING(col_gridsquare, 1, 4)) as gridsquare,
+            MAX(CASE WHEN (col_qsl_rcvd='Y' OR col_lotw_qsl_rcvd='Y') THEN 1 ELSE 0 END) as confirmed
+            FROM " . $this->config->item('table_name') . " log
+            INNER JOIN bands b ON (b.band = log.col_band)
+            WHERE log.station_id IN (" . $location_list . ")
+                AND log.col_gridsquare <> ''
+                AND b.bandgroup IN ('vhf','uhf','shf','sat')"
+            . $bandCondition1 . "
+            GROUP BY UPPER(SUBSTRING(col_gridsquare, 1, 4))";
+
+        $query1 = $this->db->query($sql1, $bindings1);
+        if ($query1->num_rows() > 0) {
+            $results['gridsquare'] = $query1->result_array();
+        }
+
+        // Query 2: Get col_vucc_grids data with worked/confirmed status
+        // Note: col_vucc_grids has NO band filter when band='All' (includes SAT)
+        $bandCondition2 = '';
+
+        if ($band != 'All') {
+            if ($band == 'SAT') {
+                $bandCondition2 = " and col_prop_mode = ?";
+                $bindings2[] = $band;
+            } else {
+                $bandCondition2 = " and col_prop_mode != ? and col_band = ?";
+                $bindings2[] = 'SAT';
+                $bindings2[] = $band;
+            }
+        }
+        // When band='All', NO band filter is added (includes all prop_mode including SAT)
+
+        $sql2 = "SELECT
+            DISTINCT col_vucc_grids,
+            MAX(CASE WHEN (col_qsl_rcvd='Y' OR col_lotw_qsl_rcvd='Y') THEN 1 ELSE 0 END) as confirmed
+            FROM " . $this->config->item('table_name') . "
+            WHERE station_id IN (" . $location_list . ")
+                AND col_vucc_grids <> ''"
+            . $bandCondition2 . "
+            GROUP BY col_vucc_grids";
+
+        $query2 = $this->db->query($sql2, $bindings2);
+        if ($query2->num_rows() > 0) {
+            $results['vucc_grids'] = $query2->result_array();
+        }
+
+        return $results;
+    }
+
 }
 ?>
