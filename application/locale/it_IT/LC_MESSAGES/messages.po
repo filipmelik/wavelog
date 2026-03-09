@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-01 08:21+0000\n"
-"PO-Revision-Date: 2026-03-07 12:48+0000\n"
+"PO-Revision-Date: 2026-03-09 09:12+0000\n"
 "Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/it/>\n"
@@ -3602,6 +3602,8 @@ msgstr "Ricerca dei nominativi non configurata. Ricontrolla la configurazione."
 #, php-format
 msgid "Error obtaining a session key for callbook. Error: %s"
 msgstr ""
+"Errore durante l'ottenimento di una chiave di sessione per il callbook. "
+"Errore: %s"
 
 #: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
@@ -8584,7 +8586,7 @@ msgstr "Fonia"
 #: application/views/bandmap/list.php:307
 #: application/views/components/dxwaterfall.php:35
 msgid "Digi"
-msgstr "DIGI"
+msgstr "Digi"
 
 #: application/views/bandmap/list.php:312
 msgid "Required Flags"
@@ -9429,7 +9431,7 @@ msgstr "Problemi riscontrati:"
 
 #: application/views/calltester/comparison_result.php:30
 msgid "Logbook Model Results"
-msgstr ""
+msgstr "Risultati del modello del logbook"
 
 #: application/views/calltester/comparison_result.php:44
 msgid "Comparison Summary"
@@ -9441,7 +9443,7 @@ msgstr "Presente solo nella Classe DXCC:"
 
 #: application/views/calltester/comparison_result.php:46
 msgid "Only found in Logbook Model:"
-msgstr ""
+msgstr "Trovato unicamente nel modello di Logbook:"
 
 #: application/views/calltester/comparison_result.php:47
 msgid "Found in both methods:"
@@ -13772,7 +13774,7 @@ msgstr "Controlla i grid squares che non corrispondono al DXCC"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:66
 msgid "Fix Continent"
-msgstr "Sistema continente"
+msgstr "Correggi continente"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:67
 msgid "Update missing or incorrect continent information"
@@ -14720,7 +14722,7 @@ msgstr "Coda Direct"
 
 #: application/views/logbookadvanced/index.php:816
 msgid "Queue Electronic"
-msgstr "Coda QSL Elettronica"
+msgstr "In coda (elettronica)"
 
 #: application/views/logbookadvanced/index.php:817
 msgid "Sent (Bureau)"
@@ -14732,7 +14734,7 @@ msgstr "Inviato (Direct)"
 
 #: application/views/logbookadvanced/index.php:819
 msgid "Sent (Electronic)"
-msgstr "Inviato (QSL elettronica)"
+msgstr "Inviata (elettronica)"
 
 #: application/views/logbookadvanced/index.php:820
 msgid "Not Sent"
@@ -14756,7 +14758,7 @@ msgstr "Ricevuto (Direct)"
 
 #: application/views/logbookadvanced/index.php:825
 msgid "Received (Electronic)"
-msgstr "Ricevuto (QSL elettronica)"
+msgstr "Ricevuta (elettronica)"
 
 #: application/views/logbookadvanced/index.php:826
 msgid "Create ADIF"
@@ -14823,7 +14825,7 @@ msgstr "Le mie referenze"
 
 #: application/views/logbookadvanced/index.php:1027
 msgid "Ant az"
-msgstr "AZ ant"
+msgstr "Az ant"
 
 #: application/views/logbookadvanced/index.php:1027
 #: application/views/logbookadvanced/useroptions.php:317
@@ -14832,7 +14834,7 @@ msgstr "Azimut dell'antenna"
 
 #: application/views/logbookadvanced/index.php:1030
 msgid "Ant el"
-msgstr "EL antenna"
+msgstr "El ant"
 
 #: application/views/logbookadvanced/index.php:1030
 #: application/views/logbookadvanced/useroptions.php:323
