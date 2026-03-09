@@ -1257,53 +1257,31 @@ class Logbook_model extends CI_Model {
 		$sat_name = '';
 		if ($data['COL_SAT_NAME'] == 'AO-7') {
 			if ($data['COL_BAND'] == '2m' && $data['COL_BAND_RX'] == '10m') {
-				$sat_name = 'AO-7[A]';
+				$sat_name = 'AO-7 [V/a]';
 			}
 			if ($data['COL_BAND'] == '70cm' && $data['COL_BAND_RX'] == '2m') {
-				$sat_name = 'AO-7[B]';
+				$sat_name = 'AO-7_[U/v]';
 			}
 		} else if ($data['COL_SAT_NAME'] == 'QO-100') {
-			$sat_name = 'QO-100_NB';
+			$sat_name = 'QO-100_[NB]';
 		} else if ($data['COL_SAT_NAME'] == 'AO-92') {
-			if ($data['COL_BAND'] == '70cm' && $data['COL_BAND_RX'] == '2m') {
-				$sat_name = 'AO-92_U/v';
-			}
-			if ($data['COL_BAND'] == '23cm' && $data['COL_BAND_RX'] == '2m') {
-				$sat_name = 'AO-92_L/v';
-			}
+			return;
 		} else if ($data['COL_SAT_NAME'] == 'AO-95') {
-			if ($data['COL_BAND'] == '70cm' && $data['COL_BAND_RX'] == '2m') {
-				$sat_name = 'AO-95_U/v';
-			}
-			if ($data['COL_BAND'] == '23cm' && $data['COL_BAND_RX'] == '2m') {
-				$sat_name = 'AO-95_L/v';
-			}
+			return;
 		} else if ($data['COL_SAT_NAME'] == 'PO-101') {
-			if ($data['COL_MODE'] == 'PKT') {
-				$sat_name = 'PO-101[APRS]';
-			} else {
-				$sat_name = 'PO-101[FM]';
-			}
+			$sat_name = 'PO-101_[FM]';
 		} else if ($data['COL_SAT_NAME'] == 'FO-118') {
-			if ($data['COL_BAND'] == '2m') {
-				if ($data['COL_MODE'] == 'FM') {
-					$sat_name = 'FO-118[V/u FM]';
-				} else if ($data['COL_MODE'] == 'SSB') {
-					$sat_name = 'FO-118[V/u]';
-				}
-			} else if ($data['COL_BAND'] == '15m') {
-				$sat_name = 'FO-118[H/u]';
-			}
+			return;
 		} else if ($data['COL_SAT_NAME'] == 'ARISS' || $data['COL_SAT_NAME'] == 'ISS') {
 			if ($data['COL_MODE'] == 'FM') {
-				$sat_name = 'ISS-FM';
+				$sat_name = 'ISS_[FM]';
 			} else if ($data['COL_MODE'] == 'PKT') {
-				$sat_name = 'ISS-DATA';
+				$sat_name = 'ISS_[APRS]';
 			}
 		} else if ($data['COL_SAT_NAME'] == 'CAS-3H') {
-			$sat_name = 'LilacSat-2';
+			$sat_name = 'CAS-3H_[FM]';
 		} else if (preg_match('/TEV2-[1-9]/', ($data['COL_SAT_NAME'] ?? ''))) {
-			$sat_name = str_replace('TEV2-', 'TEVEL2-', ($data['COL_SAT_NAME'] ?? ''));
+			return;
 		} else {
 			$sat_name = ($data['COL_SAT_NAME'] ?? '');
 		}
