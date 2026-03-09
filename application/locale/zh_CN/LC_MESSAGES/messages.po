@@ -29,7 +29,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-05 15:20+0000\n"
-"PO-Revision-Date: 2026-03-09 02:41+0000\n"
+"PO-Revision-Date: 2026-03-09 02:52+0000\n"
 "Last-Translator: BH3HNI <mmf@live.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translate.wavelog.org/projects/wavelog/main-translation/zh_Hans/>\n"
@@ -550,7 +550,7 @@ msgstr "POTA"
 
 #: application/controllers/Awards.php:729
 msgid "CQ WAZ (Worked All Zones)"
-msgstr "CQ WAZ(通联所有分区)"
+msgstr "CQ WAZ(通联全部分区)"
 
 #: application/controllers/Awards.php:791
 #: application/views/accumulate/index.php:54
