@@ -30,8 +30,8 @@ class VUCC extends CI_Model
         // Use associative arrays for O(1) lookups instead of O(n) in_array()
         $totalGridWorked = [];
         $totalGridConfirmed = [];
-        $workedZones = [];     // [band][grid] = true
-        $confirmedZones = [];  // [band][grid] = true
+        $workedGrids = [];
+        $confirmedGrids = [];
 
         // Create a lookup array for valid bands
         $validBands = array_flip($data['worked_bands']);
@@ -52,15 +52,15 @@ class VUCC extends CI_Model
 
                 // Always add to worked
                 $totalGridWorked[$grid] = true;
-                if (!isset($workedZones[$band][$grid])) {
-                    $workedZones[$band][$grid] = true;
+                if (!isset($workedGrids[$band][$grid])) {
+                    $workedGrids[$band][$grid] = true;
                 }
 
                 // Add to confirmed if flagged
                 if ($row['confirmed']) {
                     $totalGridConfirmed[$grid] = true;
-                    if (!isset($confirmedZones[$band][$grid])) {
-                        $confirmedZones[$band][$grid] = true;
+                    if (!isset($confirmedGrids[$band][$grid])) {
+                        $confirmedGrids[$band][$grid] = true;
                     }
                 }
             }
@@ -82,15 +82,15 @@ class VUCC extends CI_Model
 
                     // Always add to worked
                     $totalGridWorked[$grid_four] = true;
-                    if (!isset($workedZones[$band][$grid_four])) {
-                        $workedZones[$band][$grid_four] = true;
+                    if (!isset($workedGrids[$band][$grid_four])) {
+                        $workedGrids[$band][$grid_four] = true;
                     }
 
                     // Add to confirmed if flagged
                     if ($row['confirmed']) {
                         $totalGridConfirmed[$grid_four] = true;
-                        if (!isset($confirmedZones[$band][$grid_four])) {
-                            $confirmedZones[$band][$grid_four] = true;
+                        if (!isset($confirmedGrids[$band][$grid_four])) {
+                            $confirmedGrids[$band][$grid_four] = true;
                         }
                     }
                 }
@@ -100,8 +100,8 @@ class VUCC extends CI_Model
         // Build the result array with counts per band
         $vuccArray = [];
         foreach ($data['worked_bands'] as $band) {
-            $vuccArray[$band]['worked'] = isset($workedZones[$band]) ? count($workedZones[$band]) : 0;
-            $vuccArray[$band]['confirmed'] = isset($confirmedZones[$band]) ? count($confirmedZones[$band]) : 0;
+            $vuccArray[$band]['worked'] = isset($workedGrids[$band]) ? count($workedGrids[$band]) : 0;
+            $vuccArray[$band]['confirmed'] = isset($confirmedGrids[$band]) ? count($confirmedGrids[$band]) : 0;
         }
 
         $vuccArray['All']['worked'] = count($totalGridWorked);
@@ -446,72 +446,6 @@ class VUCC extends CI_Model
         }
 
         return $this->db->query($sql);
-    }
-
-    function markConfirmedGrids($band, $workedGridArray) {
-        foreach ($workedGridArray as $grid) {
-            $vuccBand[$grid]['qsl'] = '';
-            $vuccBand[$grid]['lotw'] = '';
-        }
-
-        $vuccDataQsl = $this->get_vucc_summary($band, 'qsl');
-
-        foreach ($vuccDataQsl as $grid) {
-            $vuccBand[$grid['gridsquare']]['qsl'] = 'Y';
-        }
-
-        $vuccDataLotw = $this->get_vucc_summary($band, 'lotw');
-
-        foreach ($vuccDataLotw as $grid) {
-            $vuccBand[$grid['gridsquare']]['lotw'] = 'Y';
-        }
-
-        $col_vucc_grids_confirmed_qsl = $this->get_vucc_summary_col_vucc($band, 'lotw');
-
-        foreach ($col_vucc_grids_confirmed_qsl as $gridSplit) {
-            $grids = explode(",", $gridSplit['col_vucc_grids']);
-            foreach($grids as $key) {
-                $grid_four = strtoupper(substr(trim($key),0,4));
-                $vuccBand[$grid_four]['lotw'] = 'Y';
-            }
-        }
-
-        $col_vucc_grids_confirmed_lotw = $this->get_vucc_summary_col_vucc($band, 'qsl');
-
-        foreach ($col_vucc_grids_confirmed_lotw as $gridSplit) {
-            $grids = explode(",", $gridSplit['col_vucc_grids']);
-            foreach($grids as $key) {
-                $grid_four = strtoupper(substr(trim($key),0,4));
-                $vuccBand[$grid_four]['qsl'] = 'Y';
-            }
-        }
-
-        return $vuccBand;
-    }
-
-    function getWorkedGridsList($band, $confirmationMethod) {
-
-        $col_gridsquare_worked = $this->get_vucc_summary($band, $confirmationMethod);
-
-        $workedGridArray = array();
-        foreach ($col_gridsquare_worked as $workedgrid) {
-            array_push($workedGridArray, $workedgrid['gridsquare']);
-        }
-
-        $col_vucc_grids_worked = $this->get_vucc_summary_col_vucc($band, $confirmationMethod);
-
-        foreach ($col_vucc_grids_worked as $gridSplit) {
-            $grids = explode(",", $gridSplit['col_vucc_grids']);
-            foreach($grids as $key) {
-                $grid_four = strtoupper(substr(trim($key),0,4));
-
-                if(!in_array($grid_four, $workedGridArray)){
-                    array_push($workedGridArray, $grid_four);
-                }
-            }
-        }
-
-        return $workedGridArray;
     }
 
     private function get_vucc_combined_data($band = 'All') {
