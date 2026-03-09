@@ -114,88 +114,7 @@ class VUCC extends CI_Model
         return $vuccArray;
     }
 
-    /*
-     *  Gets the grid from col_vucc_grids
-     * $band = the band chosen
-     * $confirmationMethod - qsl, lotw or both, use anything else to skip confirmed
-     */
-    function get_vucc_summary_col_vucc($band, $confirmationMethod) {
-
-        if (!$this->logbooks_locations_array) {
-            return null;
-        }
-
-		$location_list = "'".implode("','",$this->logbooks_locations_array)."'";
-
-        $sql = "select distinct col_vucc_grids
-            from " . $this->config->item('table_name') .
-            " where station_id in (" . $location_list . ")" .
-            " and col_vucc_grids <> '' ";
-
-        if ($confirmationMethod == 'both') {
-            $sql .= " and (col_qsl_rcvd='Y' or col_lotw_qsl_rcvd='Y')";
-        }
-        else if ($confirmationMethod == 'qsl') {
-            $sql .= " and col_qsl_rcvd='Y'";
-        }
-        else if ($confirmationMethod == 'lotw') {
-            $sql .= " and col_lotw_qsl_rcvd='Y'";
-        }
-
-        if ($band != 'All') {
-            if ($band == 'SAT') {
-                $sql .= " and col_prop_mode ='" . $band . "'";
-            } else {
-                $sql .= " and col_prop_mode !='SAT'";
-                $sql .= " and col_band ='" . $band . "'";
-            }
-        }
-
-        $query = $this->db->query($sql);
-        return $query->result_array();
-    }
-
-    /*
-     * Gets the grid from col_gridsquare
-     * $band = the band chosen
-     * $confirmationMethod - qsl, lotw or both, use anything else to skip confirmed
-     */
-    function get_vucc_summary($band, $confirmationMethod) {
-	    if (!$this->logbooks_locations_array) {
-		    return null;
-	    }
-
-	    $location_list = "'".implode("','",$this->logbooks_locations_array)."'";
-
-	    $sql = "select distinct upper(substring(log.col_gridsquare, 1, 4)) gridsquare
-		    from " . $this->config->item('table_name') . " log".
-		    " where log.station_id in (" . $location_list . ")" .
-		    " and log.col_gridsquare <> ''";
-
-	    if ($confirmationMethod == 'both') {
-		    $sql .= " and (log.col_qsl_rcvd='Y' or log.col_lotw_qsl_rcvd='Y')";
-	    } else if ($confirmationMethod == 'qsl') {
-		    $sql .= " and log.col_qsl_rcvd='Y'";
-	    } else if ($confirmationMethod == 'lotw') {
-		    $sql .= " and log.col_lotw_qsl_rcvd='Y'";
-	    }
-
-	    if ($band != 'All') {
-		    if ($band == 'SAT') {
-			    $sql .= " and log.col_prop_mode ='" . $band . "'";
-		    } else {
-			    $sql .= " and log.col_prop_mode !='SAT'";
-			    $sql .= " and log.col_band ='" . $band . "'";
-		    }
-	    } else {
-		    $sql .= " and log.col_prop_mode !='SAT'";
-	    }
-	    $query = $this->db->query($sql);
-
-	    return $query->result_array();
-    }
-
-    /*
+	/*
      * Makes a list of all gridsquares on chosen band with info about lotw and qsl
      * Optimized to fetch all callsigns in a single query instead of one per grid
      */
@@ -574,52 +493,6 @@ class VUCC extends CI_Model
         }
 
         return $results;
-    }
-
-    /*
-    * Builds the array to display worked/confirmed vucc on dashboard page
-    */
-    function fetchVuccSummary($band = 'All') {
-        // Use associative arrays for O(1) lookups instead of O(n) in_array()
-        $totalGridWorked = [];
-        $totalGridConfirmed = [];
-
-        // Get combined data (2 queries instead of 4)
-        $data = $this->get_vucc_combined_data($band);
-
-        // Process col_gridsquare data
-        if (!empty($data['gridsquare'])) {
-            foreach ($data['gridsquare'] as $row) {
-                $grid = $row['gridsquare'];
-                // Always add to worked
-                $totalGridWorked[$grid] = true;
-                // Add to confirmed if flagged
-                if ($row['confirmed']) {
-                    $totalGridConfirmed[$grid] = true;
-                }
-            }
-        }
-
-        // Process col_vucc_grids data
-        if (!empty($data['vucc_grids'])) {
-            foreach ($data['vucc_grids'] as $row) {
-                $grids = explode(",", $row['col_vucc_grids']);
-                foreach ($grids as $key) {
-                    $grid_four = strtoupper(substr(trim($key), 0, 4));
-                    // Always add to worked
-                    $totalGridWorked[$grid_four] = true;
-                    // Add to confirmed if flagged
-                    if ($row['confirmed']) {
-                        $totalGridConfirmed[$grid_four] = true;
-                    }
-                }
-            }
-        }
-
-        $vuccArray[$band]['worked'] = count($totalGridWorked);
-        $vuccArray[$band]['confirmed'] = count($totalGridConfirmed);
-
-        return $vuccArray;
     }
 }
 ?>
