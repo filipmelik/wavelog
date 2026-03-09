@@ -568,7 +568,7 @@ class VUCC extends CI_Model
         return $vuccArray;
     }
 
-	 private function get_vucc_combined_data($band = 'All') {
+	private function get_vucc_combined_data($band = 'All') {
         if (!$this->logbooks_locations_array) {
             return ['gridsquare' => [], 'vucc_grids' => []];
         }
@@ -579,19 +579,17 @@ class VUCC extends CI_Model
 
         // Query 1: Get col_gridsquare data with worked/confirmed status
         $bandCondition1 = '';
+		$bindings1 = array();
 
         if ($band != 'All') {
             if ($band == 'SAT') {
-                $bandCondition1 = " and log.col_prop_mode = ?";
-                $bindings1[] = $band;
+                $bandCondition1 = " and log.col_prop_mode = 'SAT'";
             } else {
-                $bandCondition1 = " and log.col_prop_mode != ? and log.col_band = ?";
-                $bindings1[] = 'SAT';
+                $bandCondition1 = " and log.col_prop_mode != 'SAT' and log.col_band = ?";
                 $bindings1[] = $band;
             }
         } else {
-            $bandCondition1 = " and log.col_prop_mode != ?";
-            $bindings1[] = 'SAT';
+            $bandCondition1 = " and log.col_prop_mode != 'SAT'";
         }
 
         $sql1 = "SELECT
@@ -614,13 +612,13 @@ class VUCC extends CI_Model
         // Note: col_vucc_grids has NO band filter when band='All' (includes SAT)
         $bandCondition2 = '';
 
+		$bindings2 = array();
+
         if ($band != 'All') {
             if ($band == 'SAT') {
-                $bandCondition2 = " and col_prop_mode = ?";
-                $bindings2[] = $band;
+                $bandCondition2 = " and col_prop_mode = 'SAT'";
             } else {
-                $bandCondition2 = " and col_prop_mode != ? and col_band = ?";
-                $bindings2[] = 'SAT';
+                $bandCondition2 = " and col_prop_mode != 'SAT' and col_band = ?";
                 $bindings2[] = $band;
             }
         }
