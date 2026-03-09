@@ -213,13 +213,11 @@ class VUCC extends CI_Model
             return [];
         }
 
-        $inPlaceholders = str_repeat('?,', count($this->logbooks_locations_array) - 1) . '?';
-        $bindings = array_merge($this->logbooks_locations_array);
+		$location_list = "'" . implode("','", $this->logbooks_locations_array) . "'";
 
         // Build band condition
         if ($band == 'SAT') {
             $bandCondition = " and col_prop_mode = ?";
-            $bindings[] = $band;
         } else {
             $bandCondition = " and col_prop_mode != ? and col_band = ?";
             $bindings[] = 'SAT';
@@ -230,7 +228,7 @@ class VUCC extends CI_Model
         // This is much more efficient than one query per grid
         $sql = "SELECT COL_CALL, col_gridsquare, col_vucc_grids
             FROM " . $this->config->item('table_name') . "
-            WHERE station_id IN (" . $inPlaceholders . ")
+            WHERE station_id IN (" . $location_list . ")
                 AND (col_gridsquare <> '' OR col_vucc_grids <> '')"
             . $bandCondition;
 
@@ -287,14 +285,11 @@ class VUCC extends CI_Model
         }
 
         $results = ['gridsquare' => [], 'vucc_grids' => []];
-        $inPlaceholders = str_repeat('?,', count($this->logbooks_locations_array) - 1) . '?';
 
-        // Query 1: Get col_gridsquare data for the band
-        $bindings1 = array_merge($this->logbooks_locations_array);
+		$location_list = "'" . implode("','", $this->logbooks_locations_array) . "'";
 
         if ($band == 'SAT') {
             $bandCondition1 = " and log.col_prop_mode = ?";
-            $bindings1[] = $band;
         } else {
             $bandCondition1 = " and log.col_prop_mode != ? and log.col_band = ?";
             $bindings1[] = 'SAT';
@@ -307,7 +302,7 @@ class VUCC extends CI_Model
             MAX(CASE WHEN col_lotw_qsl_rcvd='Y' THEN 1 ELSE 0 END) as lotw_confirmed,
             MAX(CASE WHEN (col_qsl_rcvd='Y' OR col_lotw_qsl_rcvd='Y') THEN 1 ELSE 0 END) as confirmed
             FROM " . $this->config->item('table_name') . " log
-            WHERE log.station_id IN (" . $inPlaceholders . ")
+            WHERE log.station_id IN (" . $location_list . ")
                 AND log.col_gridsquare <> ''"
             . $bandCondition1 . "
             GROUP BY UPPER(SUBSTRING(col_gridsquare, 1, 4))";
@@ -316,9 +311,6 @@ class VUCC extends CI_Model
         if ($query1->num_rows() > 0) {
             $results['gridsquare'] = $query1->result_array();
         }
-
-        // Query 2: Get col_vucc_grids data for the band
-        $bindings2 = array_merge($this->logbooks_locations_array);
 
         if ($band == 'SAT') {
             $bandCondition2 = " and col_prop_mode = ?";
@@ -335,7 +327,7 @@ class VUCC extends CI_Model
             MAX(CASE WHEN col_lotw_qsl_rcvd='Y' THEN 1 ELSE 0 END) as lotw_confirmed,
             MAX(CASE WHEN (col_qsl_rcvd='Y' OR col_lotw_qsl_rcvd='Y') THEN 1 ELSE 0 END) as confirmed
             FROM " . $this->config->item('table_name') . "
-            WHERE station_id IN (" . $inPlaceholders . ")
+            WHERE station_id IN (" . $location_list . ")
                 AND col_vucc_grids <> ''"
             . $bandCondition2 . "
             GROUP BY col_vucc_grids";
