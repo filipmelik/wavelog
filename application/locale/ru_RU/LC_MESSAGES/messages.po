@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-05 15:20+0000\n"
-"PO-Revision-Date: 2026-02-26 08:24+0000\n"
+"PO-Revision-Date: 2026-03-11 11:45+0000\n"
 "Last-Translator: Michael Skolsky <r1blh@yandex.ru>\n"
 "Language-Team: Russian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ru/>\n"
@@ -419,7 +419,7 @@ msgstr "Просмотр журнала"
 
 #: application/controllers/Awards.php:576
 msgid "and"
-msgstr ""
+msgstr "и"
 
 #: application/controllers/Awards.php:577
 #: application/views/awards/cq/index.php:135
@@ -434,7 +434,7 @@ msgstr "Каждый диапазон (без SAT)"
 
 #: application/controllers/Awards.php:577
 msgid "band"
-msgstr ""
+msgstr "диапазон"
 
 #: application/controllers/Awards.php:580
 msgid " and satellite "
@@ -716,7 +716,7 @@ msgstr "Проверка позывного"
 #: application/controllers/Calltester.php:240
 #: application/controllers/Calltester.php:300
 msgid "CSV Call Tester"
-msgstr ""
+msgstr "Проверка позывных CSV"
 
 #: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
@@ -7381,7 +7381,7 @@ msgstr "Провинция"
 #: application/views/awards/wapc/index.php:3
 msgctxt "China Province"
 msgid "Province"
-msgstr ""
+msgstr "Провинция"
 
 #: application/views/awards/wapc/index.php:22
 msgid "WAPC - Worked All Provinces of China"
@@ -7419,7 +7419,7 @@ msgstr ""
 
 #: application/views/awards/wapc/index.php:122
 msgid "Show WAPC Map"
-msgstr ""
+msgstr "Показать карту WAPC"
 
 #: application/views/awards/was/index.php:3
 msgctxt "USA State"
