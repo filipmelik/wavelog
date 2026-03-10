@@ -1323,7 +1323,6 @@ class Logbook_model extends CI_Model {
 			case 'AO-95':
 			case 'FO-118':
 				return;
-				break;
 			default:
 				$sat_name = ($data['COL_SAT_NAME'] ?? '');
 				break;
