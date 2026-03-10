@@ -1255,35 +1255,41 @@ class Logbook_model extends CI_Model {
 
 	function upload_amsat_status($data) {
 		$sat_name = '';
-		if ($data['COL_SAT_NAME'] == 'AO-7') {
-			if ($data['COL_BAND'] == '2m' && $data['COL_BAND_RX'] == '10m') {
-				$sat_name = 'AO-7 [V/a]';
-			}
-			if ($data['COL_BAND'] == '70cm' && $data['COL_BAND_RX'] == '2m') {
-				$sat_name = 'AO-7_[U/v]';
-			}
-		} else if ($data['COL_SAT_NAME'] == 'QO-100') {
-			$sat_name = 'QO-100_[NB]';
-		} else if ($data['COL_SAT_NAME'] == 'AO-92') {
-			return;
-		} else if ($data['COL_SAT_NAME'] == 'AO-95') {
-			return;
-		} else if ($data['COL_SAT_NAME'] == 'PO-101') {
-			$sat_name = 'PO-101_[FM]';
-		} else if ($data['COL_SAT_NAME'] == 'FO-118') {
-			return;
-		} else if ($data['COL_SAT_NAME'] == 'ARISS' || $data['COL_SAT_NAME'] == 'ISS') {
-			if ($data['COL_MODE'] == 'FM') {
-				$sat_name = 'ISS_[FM]';
-			} else if ($data['COL_MODE'] == 'PKT') {
-				$sat_name = 'ISS_[APRS]';
-			}
-		} else if ($data['COL_SAT_NAME'] == 'CAS-3H') {
-			$sat_name = 'CAS-3H_[FM]';
-		} else if (preg_match('/TEV2-[1-9]/', ($data['COL_SAT_NAME'] ?? ''))) {
-			return;
-		} else {
-			$sat_name = ($data['COL_SAT_NAME'] ?? '');
+		switch ($data['COL_SAT_NAME']) {
+			case 'AO-7':
+				if ($data['COL_BAND'] == '2m' && $data['COL_BAND_RX'] == '10m') {
+					$sat_name = 'AO-7 [V/a]';
+				}
+				if ($data['COL_BAND'] == '70cm' && $data['COL_BAND_RX'] == '2m') {
+					$sat_name = 'AO-7_[U/v]';
+				}
+				break;
+			case 'QO-100':
+				$sat_name = 'QO-100_[NB]';
+				break;
+			case 'PO-101':
+				$sat_name = 'PO-101_[FM]';
+				break;
+			case 'ARISS':
+			case 'ISS':
+				if ($data['COL_MODE'] == 'FM') {
+					$sat_name = 'ISS_[FM]';
+				} else if ($data['COL_MODE'] == 'PKT') {
+					$sat_name = 'ISS_[APRS]';
+				}
+				break;
+			case 'CAS-3H':
+				$sat_name = 'CAS-3H_[FM]';
+				break;
+			case (preg_match('/TEV2-[1-9]/', ($data['COL_SAT_NAME'] ?? '')) ? true : false):
+			case 'AO-92':
+			case 'AO-95':
+			case 'FO-118':
+				return;
+				break;
+			default:
+				$sat_name = ($data['COL_SAT_NAME'] ?? '');
+				break;
 		}
 		$amsat_source_grid = '';
 		if (array_key_exists('COL_MY_GRIDSQUARE', $data)) {
