@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-05 15:20+0000\n"
-"PO-Revision-Date: 2026-03-11 11:45+0000\n"
+"PO-Revision-Date: 2026-03-12 17:48+0000\n"
 "Last-Translator: Michael Skolsky <r1blh@yandex.ru>\n"
 "Language-Team: Russian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ru/>\n"
@@ -7102,7 +7102,7 @@ msgid ""
 "implemented in Wavelog."
 msgstr ""
 "Категория SIG или \"Группа по интересам\" предоставляет возможность "
-"использовать любой вариант 'Диплома группы по интеерсам' для дипломов, "
+"использовать любой вариант 'Диплома группы по интересам' для дипломов, "
 "которые не реализованы в Wavelog."
 
 #: application/views/awards/sig/index.php:9
@@ -19760,7 +19760,7 @@ msgstr "CQ geojson"
 
 #: application/views/awards/wac/index.php:227
 msgid "No QSOS found matching the criteria for this award!"
-msgstr ""
+msgstr "Не найдено ни одного QSO, соответствующего условиям данного диплома!"
 
 #~ msgid ""
 #~ "Cache is currently using the backup adapter because the primary is "
