@@ -1128,6 +1128,7 @@ class Logbookadvanced_model extends CI_Model {
 			$potaRef = $station_profile->station_pota ?? '';
 			$sig     = $station_profile->station_sig ?? '';
 			$sigInfo = $station_profile->station_sig_info ?? '';
+			$gridsquare = $station_profile->station_gridsquare ?? '';
 
 			$sql = "UPDATE ".$this->config->item('table_name')." JOIN station_profile ON ". $this->config->item('table_name').".station_id = station_profile.station_id" .
 			" SET " . $this->config->item('table_name').".STATION_ID = ?" .
@@ -1138,9 +1139,10 @@ class Logbookadvanced_model extends CI_Model {
 			", " . $this->config->item('table_name').".COL_MY_SIG = ?" .
 			", " . $this->config->item('table_name').".COL_MY_SIG_INFO = ?" .
 			", " . $this->config->item('table_name').".COL_STATION_CALLSIGN = ?" .
+			", " . $this->config->item('table_name').".COL_GRIDSQUARE = ?" .
 			" WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
 
-			$query = $this->db->query($sql, array($stationid, $iotaRef, $sotaRef, $wwffRef, $potaRef, $sig, $sigInfo, $stationCallsign, json_decode($ids, true), $this->session->userdata('user_id')));
+			$query = $this->db->query($sql, array($stationid, $iotaRef, $sotaRef, $wwffRef, $potaRef, $sig, $sigInfo, $stationCallsign, $gridsquare, json_decode($ids, true), $this->session->userdata('user_id')));
 		} else if ($column == 'COL_BAND') {
 
 			if ($value == '') return;
