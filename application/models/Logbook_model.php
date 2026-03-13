@@ -1258,7 +1258,7 @@ class Logbook_model extends CI_Model {
 		switch ($data['COL_SAT_NAME']) {
 			case 'AO-7':
 				if ($data['COL_BAND'] == '2m' && $data['COL_BAND_RX'] == '10m') {
-					$sat_name = 'AO-7 [V/a]';
+					$sat_name = 'AO-7_[V/a]';
 				}
 				if ($data['COL_BAND'] == '70cm' && $data['COL_BAND_RX'] == '2m') {
 					$sat_name = 'AO-7_[U/v]';
