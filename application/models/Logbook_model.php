@@ -1268,7 +1268,11 @@ class Logbook_model extends CI_Model {
 				$sat_name = 'QO-100_[NB]';
 				break;
 			case 'PO-101':
-				$sat_name = 'PO-101_[FM]';
+				if ($data['COL_MODE'] == 'FM') {
+					$sat_name = 'PO-101_[FM]';
+				} else if ($data['COL_MODE'] == 'PKT') {
+					$sat_name = 'PO-101_[APRS]';
+				}
 				break;
 			case 'ARISS':
 			case 'ISS':
