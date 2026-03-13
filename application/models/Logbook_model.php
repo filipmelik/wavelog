@@ -1322,14 +1322,8 @@ class Logbook_model extends CI_Model {
 					$sat_name = 'SONATE-2_[SSTV]';
 				}
 				break;
-			case (preg_match('/TEV2-[1-9]/', ($data['COL_SAT_NAME'] ?? '')) ? true : false):
-			case 'AO-92':
-			case 'AO-95':
-			case 'FO-118':
-				return;
 			default:
-				$sat_name = ($data['COL_SAT_NAME'] ?? '');
-				break;
+				return;
 		}
 		$amsat_source_grid = '';
 		if (array_key_exists('COL_MY_GRIDSQUARE', $data)) {
