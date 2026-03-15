@@ -5566,6 +5566,9 @@ msgstr "Counties bevestigd"
 #: application/views/statistics/qsltable.php:81
 #: application/views/statistics/qsltable.php:141
 #: application/views/statistics/qsltable.php:196
+#: application/views/statistics/qsltable.php:87
+#: application/views/statistics/qsltable.php:149
+#: application/views/statistics/qsltable.php:206
 msgid "Total"
 msgstr "Totaal"
 
@@ -19651,7 +19654,16 @@ msgid "CQz geojson"
 msgstr "CQz geojson"
 
 #: application/views/statistics/qsltable.php:45
+#: application/views/statistics/qsltable.php:49
 msgid "Overall Stats by Mode"
+msgstr ""
+
+#: application/views/statistics/qsltable.php:7
+msgid "Absolute"
+msgstr ""
+
+#: application/views/statistics/qsltable.php:8
+msgid "Percent"
 msgstr ""
 
 #~ msgid ""
