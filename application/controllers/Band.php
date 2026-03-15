@@ -118,8 +118,9 @@ class Band extends CI_Controller {
 
 	public function delete() {
 	    $id = $this->input->post('id', true);
+		$userid = $this->session->userdata('user_id');
 		$this->load->model('bands');
-		$this->bands->delete($id);
+		$this->bands->delete($id, $userid);
 	}
 
 	public function activate() {
