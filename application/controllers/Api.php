@@ -777,14 +777,12 @@ class API extends CI_Controller {
 					http_response_code(404);
 					echo json_encode(['status' => 'failed', 'reason' => "logbook with ID ".$logbook_id." has no associated station locations"]);
 					die();
+				} else {
+					$arr = $this->api_model->get_grids_worked_in_logbook($logbooks_locations_array, $band, $cnfm);
+					http_response_code(201);
+					echo json_encode($arr);
 				}
 			}
-			$this->load->model('logbook_model');
-
-			$arr = $this->api_model->get_grids_worked_in_logbook($logbooks_locations_array, $band, $cnfm);
-			http_response_code(201);
-			echo json_encode($arr);
-
 		}
 
 	}
