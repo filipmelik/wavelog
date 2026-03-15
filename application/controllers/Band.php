@@ -90,7 +90,7 @@ class Band extends CI_Controller {
 	{
 		$this->load->model('bands');
 
-		$item_id_clean = $this->security->xss_clean($this->input->post('id'));
+		$item_id_clean = $this->input->post('id');
 
 		$band_query = $this->bands->getband($item_id_clean);
 
@@ -104,12 +104,12 @@ class Band extends CI_Controller {
 	public function saveupdatedband() {
 		$this->load->model('bands');
 
-		$id = $this->security->xss_clean($this->input->post('id', true));
-		$band['band'] 		= $this->security->xss_clean($this->input->post('band', true));
-		$band['bandgroup'] 	= $this->security->xss_clean($this->input->post('bandgroup', true));
-		$band['ssbqrg'] 	= $this->security->xss_clean($this->input->post('ssbqrg', true));
-		$band['dataqrg'] 	= $this->security->xss_clean($this->input->post('dataqrg', true));
-		$band['cwqrg'] 		= $this->security->xss_clean($this->input->post('cwqrg', true));
+		$id = $this->input->post('id', true);
+		$band['band'] 		= $this->input->post('band', true);
+		$band['bandgroup'] 	= $this->input->post('bandgroup', true);
+		$band['ssbqrg'] 	= $this->input->post('ssbqrg', true);
+		$band['dataqrg'] 	= $this->input->post('dataqrg', true);
+		$band['cwqrg'] 		= $this->input->post('cwqrg', true);
 
         $this->bands->saveupdatedband($id, $band);
 		echo json_encode(array('message' => 'OK'));
@@ -117,13 +117,13 @@ class Band extends CI_Controller {
 	}
 
 	public function delete() {
-	    $id = $this->input->post('id');
+	    $id = $this->input->post('id', true);
 		$this->load->model('bands');
 		$this->bands->delete($id);
 	}
 
 	public function activate() {
-        $id = $this->input->post('id');
+        $id = $this->input->post('id', true);
         $this->load->model('bands');
         $this->bands->activate($id);
         header('Content-Type: application/json');
@@ -132,7 +132,7 @@ class Band extends CI_Controller {
     }
 
     public function deactivate() {
-	    $id = $this->input->post('id');
+	    $id = $this->input->post('id', true);
         $this->load->model('bands');
         $this->bands->deactivate($id);
         header('Content-Type: application/json');
@@ -157,25 +157,25 @@ class Band extends CI_Controller {
     }
 
     public function saveBand() {
-	    $id 				= $this->security->xss_clean($this->input->post('id'));
-	    $band['status'] 	= $this->security->xss_clean($this->input->post('status'));
-	    $band['cq'] 		= $this->security->xss_clean($this->input->post('cq'));
-	    $band['dok'] 		= $this->security->xss_clean($this->input->post('dok'));
-	    $band['dxcc'] 		= $this->security->xss_clean($this->input->post('dxcc'));
-	    $band['helvetia'] 	= $this->security->xss_clean($this->input->post('helvetia'));
-	    $band['iota'] 		= $this->security->xss_clean($this->input->post('iota'));
-	    $band['jcc'] 		= $this->security->xss_clean($this->input->post('jcc'));
-	    $band['pota'] 		= $this->security->xss_clean($this->input->post('pota'));
-	    $band['rac'] 		= $this->security->xss_clean($this->input->post('rac'));
-	    $band['sig'] 		= $this->security->xss_clean($this->input->post('sig'));
-	    $band['sota']		= $this->security->xss_clean($this->input->post('sota'));
-	    $band['uscounties'] = $this->security->xss_clean($this->input->post('uscounties'));
-	    $band['wap'] 		= $this->security->xss_clean($this->input->post('wap'));
-	    $band['wapc'] 		= $this->security->xss_clean($this->input->post('wapc'));
-	    $band['was'] 		= $this->security->xss_clean($this->input->post('was'));
-	    $band['wwff'] 		= $this->security->xss_clean($this->input->post('wwff'));
-	    $band['vucc'] 		= $this->security->xss_clean($this->input->post('vucc'));
-	    $band['waja'] 		= $this->security->xss_clean($this->input->post('waja'));
+	    $id 				= $this->input->post('id', true);
+	    $band['status'] 	= $this->input->post('status', true);
+	    $band['cq'] 		= $this->input->post('cq', true);
+	    $band['dok'] 		= $this->input->post('dok', true);
+	    $band['dxcc'] 		= $this->input->post('dxcc', true);
+	    $band['helvetia'] 	= $this->input->post('helvetia', true);
+	    $band['iota'] 		= $this->input->post('iota', true);
+	    $band['jcc'] 		= $this->input->post('jcc', true);
+	    $band['pota'] 		= $this->input->post('pota', true);
+	    $band['rac'] 		= $this->input->post('rac', true);
+	    $band['sig'] 		= $this->input->post('sig', true);
+	    $band['sota']		= $this->input->post('sota', true);
+	    $band['uscounties'] = $this->input->post('uscounties', true);
+	    $band['wap'] 		= $this->input->post('wap', true);
+	    $band['wapc'] 		= $this->input->post('wapc', true);
+	    $band['was'] 		= $this->input->post('was', true);
+	    $band['wwff'] 		= $this->input->post('wwff', true);
+	    $band['vucc'] 		= $this->input->post('vucc', true);
+	    $band['waja'] 		= $this->input->post('waja', true);
 
 	    $this->load->model('bands');
 	    $this->bands->saveBand($id, $band);
@@ -186,8 +186,8 @@ class Band extends CI_Controller {
     }
 
 	public function saveBandAward() {
-		$award  = $this->security->xss_clean($this->input->post('award'));
-		$status	= $this->security->xss_clean($this->input->post('status'));
+		$award  = $this->input->post('award', true);
+		$status	= $this->input->post('status', true);
 
 		$this->load->model('bands');
         $this->bands->saveBandAward($award, $status);
@@ -198,8 +198,8 @@ class Band extends CI_Controller {
     }
 
 	public function saveBandUnit() {
-		$unit = $this->security->xss_clean($this->input->post('unit'));
-		$band_id = $this->security->xss_clean($this->input->post('band_id'));
+		$unit = $this->input->post('unit', true);
+		$band_id = $this->input->post('band_id', true);
 
 		$this->load->model('bands');
 		$band = $this->bands->getband($band_id)->row()->band;
@@ -209,7 +209,7 @@ class Band extends CI_Controller {
 	}
 
 	public function deletebandedge() {
-		$id = $this->input->post('id');
+		$id = $this->input->post('id', true);
 		$this->load->model('bands');
 		$this->bands->deletebandedge($id);
 		header('Content-Type: application/json');
@@ -220,10 +220,10 @@ class Band extends CI_Controller {
 	public function saveBandEdge() {
 		$this->load->model('bands');
 
-		$id = $this->security->xss_clean($this->input->post('id', true));
-		$frequencyfrom = $this->security->xss_clean($this->input->post('frequencyfrom', true));
-		$frequencyto = $this->security->xss_clean($this->input->post('frequencyto', true));
-		$mode = $this->security->xss_clean($this->input->post('mode', true));
+		$id = $this->input->post('id', true);
+		$frequencyfrom = $this->input->post('frequencyfrom', true);
+		$frequencyto = $this->input->post('frequencyto', true);
+		$mode = $this->input->post('mode', true);
 		if ((is_numeric($frequencyfrom)) && (is_numeric($frequencyfrom))) {
 			$overlap=$this->bands->check4overlapEdges($id, $frequencyfrom, $frequencyto, $mode);
 			if (!($overlap)) {
