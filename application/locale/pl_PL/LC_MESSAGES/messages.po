@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-15 19:19+0000\n"
-"PO-Revision-Date: 2026-02-14 18:19+0000\n"
-"Last-Translator: Szymon <sp9spm@cqops.com>\n"
+"PO-Revision-Date: 2026-03-15 21:48+0000\n"
+"Last-Translator: Dariusz Koryto <dariusz@koryto.eu>\n"
 "Language-Team: Polish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/pl/>\n"
 "Language: pl_PL\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: application/controllers/Accumulated.php:12
 #: application/controllers/Activators.php:13
@@ -423,7 +423,7 @@ msgstr "Przegląd dziennika"
 
 #: application/controllers/Awards.php:575
 msgid "and"
-msgstr ""
+msgstr "i"
 
 #: application/controllers/Awards.php:576
 #: application/views/awards/cq/index.php:135
@@ -439,7 +439,7 @@ msgstr "Wszystkie pasma (bez satelitów)"
 
 #: application/controllers/Awards.php:576
 msgid "band"
-msgstr ""
+msgstr "pasmo"
 
 #: application/controllers/Awards.php:579
 msgid " and satellite "
@@ -2492,7 +2492,7 @@ msgstr "Ustawienia"
 
 #: application/controllers/Radio.php:59
 msgid "WebSocket"
-msgstr ""
+msgstr "WebSocket"
 
 #: application/controllers/Radio.php:65 application/controllers/Radio.php:126
 msgid "Default (click to release)"
