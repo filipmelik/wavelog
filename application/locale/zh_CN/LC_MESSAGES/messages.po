@@ -5459,6 +5459,9 @@ msgstr "已确认的县"
 #: application/views/statistics/uniquetable.php:10
 #: application/views/statistics/uniquetable.php:23
 #: application/views/visitor/index.php:245
+#: application/views/statistics/qsltable.php:81
+#: application/views/statistics/qsltable.php:141
+#: application/views/statistics/qsltable.php:196
 msgid "Total"
 msgstr "总计"
 
@@ -6499,7 +6502,8 @@ msgstr "JCC - 日本百市奖"
 msgid ""
 "May be claimed for having contacted (heard) and received a QSL card from an "
 "amateur station located in each of at least 100 different cities of Japan."
-msgstr "申请条件：通联（或收听）日本 100 个不同城市的电台，并收到他们的 QSL 卡片。"
+msgstr ""
+"申请条件：通联（或收听）日本 100 个不同城市的电台，并收到他们的 QSL 卡片。"
 
 #: application/views/awards/jcc/index.php:19
 msgid ""
@@ -6833,8 +6837,8 @@ msgid ""
 "any kind of 'Special Interest Group Award' for awards that are not "
 "implemented in Wavelog."
 msgstr ""
-"SIG 或特别兴趣小组类别（Special Interest Group Category）允许用户使用任意"
-"的“特别兴趣小组奖”来奖励未在当前 Wavelog 实现的奖。"
+"SIG 或特别兴趣小组类别（Special Interest Group Category）允许用户使用任意的"
+"“特别兴趣小组奖”来奖励未在当前 Wavelog 实现的奖。"
 
 #: application/views/awards/sig/index.php:9
 msgid ""
@@ -7185,8 +7189,8 @@ msgid ""
 "municipalities, autonomous regions, and special administrative regions of "
 "China, fostering a deeper understanding of China."
 msgstr ""
-"WAPC 奖由木兰 DX 俱乐部颁发，旨在鼓励国内外业余无线电爱好者与中国各省、直辖市"
-"、自治区、特别行政区爱好者通联，了解中国。"
+"WAPC 奖由木兰 DX 俱乐部颁发，旨在鼓励国内外业余无线电爱好者与中国各省、直辖"
+"市、自治区、特别行政区爱好者通联，了解中国。"
 
 #: application/views/awards/wapc/index.php:24
 msgid ""
@@ -17526,8 +17530,8 @@ msgid ""
 "Click here on 'Add a Theme' and type in the necessary data. Type in the "
 "filenames for the logos %swithout%s the file extension '.png'"
 msgstr ""
-"在这里添加主题，Logo 文件请输入 png 文件的文件名部分（ %s不带有%s 后缀 '."
-"png'）"
+"在这里添加主题，Logo 文件请输入 png 文件的文件名部分（ %s不带有%s 后缀 "
+"'.png'）"
 
 #: application/views/themes/index.php:83
 msgid "Foldername"
@@ -18962,6 +18966,10 @@ msgstr "CQz"
 msgid "CQz geojson"
 msgstr "CQz geojson"
 
+#: application/views/statistics/qsltable.php:45
+msgid "Overall Stats by Mode"
+msgstr ""
+
 #~ msgid ""
 #~ "Cache is currently using the backup adapter because the primary is "
 #~ "unavailable."
@@ -19861,8 +19869,8 @@ msgstr "CQz geojson"
 #~ "Click here on 'Add a Theme' and type in the necessary data. Type in the "
 #~ "filenames for the logos <b>without</b> the file extension '.png'"
 #~ msgstr ""
-#~ "在这里点击 '添加主题'，输入必要的信息，填写 Logo 的文件名（<b>不要带有 ."
-#~ "png 后缀名</b>）"
+#~ "在这里点击 '添加主题'，输入必要的信息，填写 Logo 的文件名（<b>不要带"
+#~ "有 .png 后缀名</b>）"
 
 #, php-format
 #~ msgid ""
