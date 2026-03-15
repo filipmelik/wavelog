@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-03-15 17:34+0000\n"
+"POT-Creation-Date: 2026-03-15 18:19+0000\n"
 "PO-Revision-Date: 2026-03-12 17:48+0000\n"
 "Last-Translator: Michael Skolsky <r1blh@yandex.ru>\n"
 "Language-Team: Russian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -5564,9 +5564,9 @@ msgstr "Подтверждённые графства"
 #: application/views/awards/wpx/index.php:172
 #: application/views/dashboard/index.php:315
 #: application/views/simplefle/index.php:27
-#: application/views/statistics/qsltable.php:81
-#: application/views/statistics/qsltable.php:141
-#: application/views/statistics/qsltable.php:196
+#: application/views/statistics/qsltable.php:87
+#: application/views/statistics/qsltable.php:149
+#: application/views/statistics/qsltable.php:206
 #: application/views/statistics/qsotable.php:10
 #: application/views/statistics/qsotable.php:23
 #: application/views/statistics/satqsotable.php:10
@@ -17995,7 +17995,15 @@ msgstr "Уникальные квадраты"
 msgid "No EME QSOs were found."
 msgstr "EME QSO не найдено."
 
-#: application/views/statistics/qsltable.php:45
+#: application/views/statistics/qsltable.php:7
+msgid "Absolute"
+msgstr ""
+
+#: application/views/statistics/qsltable.php:8
+msgid "Percent"
+msgstr ""
+
+#: application/views/statistics/qsltable.php:49
 msgid "Overall Stats by Mode"
 msgstr ""
 
