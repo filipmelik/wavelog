@@ -15,11 +15,11 @@ class Band extends CI_Controller {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
 		}
+
+		$this->load->model('bands');
 	}
 
 	public function index() {
-		$this->load->model('bands');
-
 		$data['bands'] = $this->bands->get_all_bands_for_user();
 
 		// Render Page
@@ -30,8 +30,6 @@ class Band extends CI_Controller {
 	}
 
 	public function edges() {
-		$this->load->model('bands');
-
 		$data['bands'] = $this->bands->get_all_bandedges_for_user();
 
 		$footerData = [];
@@ -48,8 +46,6 @@ class Band extends CI_Controller {
 
 	// API endpoint to get band edges for the logged-in user
 	public function get_user_bandedges() {
-		$this->load->model('bands');
-
 		// Get region parameter from query string, default to 1 (IARU Region 1)
 		// Note: Region selection is not yet fully implemented in the code
 		$region = $this->input->get('region');
@@ -63,7 +59,6 @@ class Band extends CI_Controller {
 	}
 
 	public function create() {
-		$this->load->model('bands');
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('band', 'Band', 'required');
@@ -85,8 +80,6 @@ class Band extends CI_Controller {
 	}
 
 	public function edit() {
-		$this->load->model('bands');
-
 		$item_id_clean = $this->input->post('id');
 
 		$band_query = $this->bands->getband($item_id_clean);
@@ -99,8 +92,6 @@ class Band extends CI_Controller {
 	}
 
 	public function saveupdatedband() {
-		$this->load->model('bands');
-
 		$id = $this->input->post('id', true);
 		$band['band'] 		= $this->input->post('band', true);
 		$band['bandgroup'] 	= $this->input->post('bandgroup', true);
@@ -116,13 +107,11 @@ class Band extends CI_Controller {
 	public function delete() {
 		$id = $this->input->post('id', true);
 		$userid = $this->session->userdata('user_id');
-		$this->load->model('bands');
 		$this->bands->delete($id, $userid);
 	}
 
 	public function activate() {
 		$id = $this->input->post('id', true);
-		$this->load->model('bands');
 		$this->bands->activate($id);
 		header('Content-Type: application/json');
 		echo json_encode(array('message' => 'OK'));
@@ -131,7 +120,6 @@ class Band extends CI_Controller {
 
 	public function deactivate() {
 		$id = $this->input->post('id', true);
-		$this->load->model('bands');
 		$this->bands->deactivate($id);
 		header('Content-Type: application/json');
 		echo json_encode(array('message' => 'OK'));
@@ -139,7 +127,6 @@ class Band extends CI_Controller {
 	}
 
 	public function activateall() {
-		$this->load->model('bands');
 		$this->bands->activateall();
 		header('Content-Type: application/json');
 		echo json_encode(array('message' => 'OK'));
@@ -147,7 +134,6 @@ class Band extends CI_Controller {
 	}
 
 	public function deactivateall() {
-		$this->load->model('bands');
 		$this->bands->deactivateall();
 		header('Content-Type: application/json');
 		echo json_encode(array('message' => 'OK'));
@@ -175,7 +161,6 @@ class Band extends CI_Controller {
 		$band['vucc'] 		= $this->input->post('vucc', true);
 		$band['waja'] 		= $this->input->post('waja', true);
 
-		$this->load->model('bands');
 		$this->bands->saveBand($id, $band);
 
 		header('Content-Type: application/json');
@@ -187,7 +172,6 @@ class Band extends CI_Controller {
 		$award  = $this->input->post('award', true);
 		$status	= $this->input->post('status', true);
 
-		$this->load->model('bands');
 		$this->bands->saveBandAward($award, $status);
 
 		header('Content-Type: application/json');
@@ -199,7 +183,6 @@ class Band extends CI_Controller {
 		$unit = $this->input->post('unit', true);
 		$band_id = $this->input->post('band_id', true);
 
-		$this->load->model('bands');
 		$band = $this->bands->getband($band_id)->row()->band;
 
 		$this->user_options_model->set_option('frequency', 'unit', array($band => $unit));
@@ -208,7 +191,6 @@ class Band extends CI_Controller {
 
 	public function deletebandedge() {
 		$id = $this->input->post('id', true);
-		$this->load->model('bands');
 		$this->bands->deletebandedge($id);
 		header('Content-Type: application/json');
 		echo json_encode(array('message' => 'OK'));
@@ -216,8 +198,6 @@ class Band extends CI_Controller {
 	}
 
 	public function saveBandEdge() {
-		$this->load->model('bands');
-
 		$id = $this->input->post('id', true);
 		$frequencyfrom = $this->input->post('frequencyfrom', true);
 		$frequencyto = $this->input->post('frequencyto', true);
