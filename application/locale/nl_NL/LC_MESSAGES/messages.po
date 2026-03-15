@@ -13519,6 +13519,7 @@ msgstr "Band RX"
 #: application/views/logbookadvanced/edit.php:204
 #: application/views/logbookadvanced/index.php:503
 #: application/views/logbookadvanced/index.php:860
+#: application/views/logbookadvanced/edit.php:179
 msgid "Invalid"
 msgstr "Ongeldig"
 
@@ -14060,6 +14061,7 @@ msgstr "QSL verzonden"
 #: src/QSLManager/QSO.php:529 src/QSLManager/QSO.php:592
 #: src/QSLManager/QSO.php:667 src/QSLManager/QSO.php:694
 #: src/QSLManager/QSO.php:738 src/QSLManager/QSO.php:818
+#: application/views/logbookadvanced/edit.php:178
 msgid "Queued"
 msgstr "In de wachtrij geplaatst"
 
