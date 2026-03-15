@@ -776,7 +776,7 @@ class API extends CI_Controller {
 				if($logbook_id != false)
 				{
 					$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($logbook_id);
-					if (!$logbooks_locations_array) {
+					if ($logbooks_locations_array[0] == -1) {
 						http_response_code(404);
 						echo json_encode(['status' => 'failed', 'reason' => "Empty Logbook"]);
 						die();
