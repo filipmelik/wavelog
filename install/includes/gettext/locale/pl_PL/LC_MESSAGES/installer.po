@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-22 10:34+0000\n"
-"PO-Revision-Date: 2026-03-15 22:56+0000\n"
+"PO-Revision-Date: 2026-03-16 15:25+0000\n"
 "Last-Translator: Dariusz Koryto <dariusz@koryto.eu>\n"
 "Language-Team: Polish <https://translate.wavelog.org/projects/wavelog/"
 "installer/pl/>\n"
@@ -57,7 +57,7 @@ msgstr "Czeski"
 
 #: install/includes/interface_assets/footer.php:63
 msgid "Dutch"
-msgstr "Duński"
+msgstr "Niderlandzki"
 
 #: install/includes/interface_assets/footer.php:64
 msgid "English"
@@ -153,7 +153,7 @@ msgstr "1. Witamy"
 
 #: install/index.php:38
 msgid "2. Pre Checks"
-msgstr "2. Wstępna sprawdzenia"
+msgstr "2. Wstępne sprawdzenia"
 
 #: install/index.php:41
 msgid "3. Configuration"
