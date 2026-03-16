@@ -1,244 +1,244 @@
 {
-    "processing": "Przetwarzanie...",
-    "search": "Szukaj:",
-    "lengthMenu": "Pokaż _MENU_ pozycji",
-    "info": "Pozycje od _START_ do _END_ z _TOTAL_ łącznie",
-    "infoEmpty": "Pozycji 0 z 0 dostępnych",
-    "infoFiltered": "(filtrowanie spośród _MAX_ dostępnych pozycji)",
-    "loadingRecords": "Wczytywanie...",
-    "zeroRecords": "Nie znaleziono pasujących pozycji",
+    "processing": "Zpracovávání...",
+    "search": "Vyhledávání:",
+    "lengthMenu": "Zobrazit _MENU_ výsledků",
+    "info": "Zobrazuji _START_ až _END_ z celkem _TOTAL_ záznamů",
+    "infoEmpty": "Zobrazuji 0 až 0 z 0 záznamů",
+    "infoFiltered": "(filtrováno z celkem _MAX_ záznamů)",
+    "loadingRecords": "Načítám...",
+    "zeroRecords": "Žádné záznamy nebyly nalezeny",
     "paginate": {
-        "first": "Pierwsza",
-        "previous": "Poprzednia",
-        "next": "Następna",
-        "last": "Ostatnia"
+        "first": "První",
+        "previous": "Předchozí",
+        "next": "Další",
+        "last": "Poslední"
     },
     "aria": {
-        "sortAscending": ": aktywuj, by posortować kolumnę rosnąco",
-        "sortDescending": ": aktywuj, by posortować kolumnę malejąco"
+        "sortAscending": "Aktivujte pro seřazení vzestupně",
+        "sortDescending": "Aktivujte pro seřazení sestupně"
     },
     "autoFill": {
-        "cancel": "Anuluj",
-        "fill": "Wypełnij wszystkie komórki <i>%d</i>",
-        "fillHorizontal": "Wypełnij komórki w poziomie",
-        "fillVertical": "Wypełnij komórki w pionie",
-        "info": "Przykład informacji AutoFill"
+        "cancel": "Zrušit",
+        "fill": "Vyplň všechny buňky textem <i>%d<i>",
+        "fillHorizontal": "Vyplň všechny buňky horizontálně",
+        "fillVertical": "Vyplň všechny buňky vertikálně",
+        "info": "Příklad automatického vyplňování"
     },
     "buttons": {
-        "collection": "Zbiór <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"></span>",
-        "colvis": "Widoczność kolumny",
-        "colvisRestore": "Przywróć widoczność",
-        "copy": "Kopiuj",
-        "copyKeys": "Naciśnij Ctrl lub u2318 + C, aby skopiować dane tabeli do schowka systemowego. <br /> <br /> Aby anulować, kliknij tę wiadomość lub naciśnij Esc.",
+        "collection": "Kolekce <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"></span>",
+        "colvis": "Viditelnost sloupců",
+        "colvisRestore": "Resetovat sloupce",
+        "copy": "Kopírovat",
+        "copyKeys": "Zmáčkněte ctrl u2318 + C pro zkopírování dat. Pro zrušení klikněte na tuto zprávu nebo zmáčkněte esc..",
         "copySuccess": {
-            "1": "Skopiowano 1 wiersz do schowka",
-            "_": "Skopiowano %d wierszy do schowka"
+            "1": "Zkopírován 1 řádek do schránky",
+            "_": "Zkopírováno %d řádků do schránky"
         },
-        "copyTitle": "Skopiuj do schowka",
+        "copyTitle": "Kopírovat do schránky",
         "csv": "CSV",
         "excel": "Excel",
         "pageLength": {
-            "-1": "Pokaż wszystkie wiersze",
-            "_": "Pokaż %d wierszy",
-            "1": "Pokazuj 1 wiersz"
+            "-1": "Zobrazit všechny řádky",
+            "_": "Zobrazit %d řádků",
+            "1": "Zobraz 1 řádek"
         },
         "pdf": "PDF",
-        "print": "Drukuj",
-        "createState": "Utwórz stan",
-        "removeAllStates": "Usuń wszystkie stany",
-        "removeState": "Usuń",
-        "renameState": "Zmień nazwę",
-        "savedStates": "Zapisane stany",
-        "stateRestore": "Stan %d",
-        "updateState": "Aktualizuj"
+        "print": "Tisknout",
+        "createState": "Vytvořit Stav",
+        "removeAllStates": "Vymazat všechny Stavy",
+        "removeState": "Odstranit",
+        "renameState": "Přejmenovat",
+        "savedStates": "Uložit Stavy",
+        "stateRestore": "Stav %d",
+        "updateState": "Aktualizovat"
     },
-    "emptyTable": "Brak danych w tabeli",
+    "emptyTable": "Tabulka neobsahuje žádná data",
     "searchBuilder": {
-        "add": "Dodaj warunek",
-        "clearAll": "Wyczyść wszystko",
-        "condition": "Warunek",
-        "data": "Dane",
+        "add": "Přidat podmínku",
+        "clearAll": "Smazat vše",
+        "condition": "Podmínka",
+        "data": "Údaje",
         "button": {
-            "_": "Aktywne zapytania",
-            "0": "Budowanie zapytania"
+            "_": "Rozšířený filtr (%d)",
+            "0": "Rozšířený filtr"
         },
         "conditions": {
             "array": {
-                "contains": "Zawiera",
-                "empty": "Pusta",
-                "equals": "Równa się",
-                "not": "Nie",
-                "notEmpty": "Nie pusta",
-                "without": "Bez"
+                "contains": "obsahuje",
+                "empty": "prázdné",
+                "equals": "rovno",
+                "not": "není",
+                "notEmpty": "není prázdné",
+                "without": "neobsahuje"
             },
             "date": {
-                "after": "Po",
-                "before": "Przed",
-                "between": "Pomiędzy",
-                "empty": "Pusto",
-                "equals": "Równa",
-                "not": "Nie",
-                "notBetween": "Nie pomiędzy",
-                "notEmpty": "Nie pusta"
+                "after": "po",
+                "before": "před",
+                "between": "mezi",
+                "empty": "prázdné",
+                "equals": "Rovno",
+                "not": "není",
+                "notBetween": "není mezi",
+                "notEmpty": "Není prázdné"
             },
             "number": {
-                "between": "Pomiędzy",
-                "empty": "Pusty",
-                "equals": "Równy",
-                "gt": "Większy niż",
-                "gte": "Równy lub większy niż",
-                "lt": "Mniejszy niż",
-                "lte": "Równy lub mniejszy niż",
-                "not": "Nie",
-                "notBetween": "Nie pomiędzy",
-                "notEmpty": "Nie pusty"
+                "between": "mezi",
+                "empty": "prázdné",
+                "equals": "rovno",
+                "gt": "větší než",
+                "gte": "rovno a větší",
+                "lt": "menší než",
+                "lte": "rovno a menší",
+                "not": "není",
+                "notBetween": "není mezi",
+                "notEmpty": "není prázdné"
             },
             "string": {
-                "contains": "Zawiera",
-                "empty": "Pusty",
-                "endsWith": "Kończy się na",
-                "equals": "Równa się",
-                "not": "Nie",
-                "notEmpty": "Nie pusty",
-                "startsWith": "Zaczyna się od",
-                "notContains": "Nie zawiera",
-                "notStartsWith": "Nie zaczyna się od",
-                "notEndsWith": "Nie kończy się na"
+                "contains": "obsahuje",
+                "empty": "Prázdné",
+                "endsWith": "Končí na",
+                "equals": "rovno",
+                "not": "není",
+                "notEmpty": "není prázdné",
+                "startsWith": "začíná na",
+                "notContains": "Podmínka",
+                "notStartsWith": "Nezačíná",
+                "notEndsWith": "Nekončí"
             }
         },
-        "deleteTitle": "Czyszczenie",
-        "leftTitle": "Lewy",
-        "logicAnd": "I",
-        "logicOr": "Lub",
-        "rightTitle": "Prawy",
+        "deleteTitle": "Smazat filtrovací pravidlo",
+        "leftTitle": "Zrušení odsazení podmínky",
+        "logicAnd": "A",
+        "logicOr": "NEBO",
+        "rightTitle": "Odsazení podmínky",
         "title": {
-            "_": "Aktywne zapytania",
-            "0": "Budowanie zapytania"
+            "_": "Rozšířený filtr (%d)",
+            "0": "Rozšířený filtr"
         },
-        "value": "Wartość"
+        "value": "Hodnota"
     },
     "datetime": {
         "amPm": [
-            "am",
-            "pm"
+            "Dopoledne",
+            "Odpoledne"
         ],
-        "hours": "Godzina",
-        "minutes": "Minuta",
-        "next": "Następne",
-        "previous": "Poprzednie",
-        "seconds": "Sekunda",
-        "unknown": "nieznana",
+        "hours": "Hodiny",
+        "minutes": "Minuty",
+        "next": "Další",
+        "previous": "Předchozí",
+        "seconds": "Vteřiny",
+        "unknown": "-",
         "months": {
-            "0": "Styczeń",
-            "1": "Luty",
+            "0": "Leden",
+            "1": "Únor",
             "10": "Listopad",
-            "11": "Grudzień",
-            "2": "Marzec",
-            "3": "Kwiecień",
-            "4": "Maj",
-            "5": "Czerwiec",
-            "6": "Lipiec",
-            "7": "Sierpień",
-            "8": "Wrzesień",
-            "9": "Październik"
+            "11": "Prosinec",
+            "2": "Březen",
+            "3": "Duben",
+            "4": "Květen",
+            "5": "Červen",
+            "6": "Červenec",
+            "7": "Srpen",
+            "8": "Září",
+            "9": "Říjen"
         },
         "weekdays": [
-            "Nd",
-            "Pn",
-            "Wt",
-            "Śr",
-            "Czw",
-            "Pt",
+            "Ne",
+            "Po",
+            "Út",
+            "St",
+            "Čt",
+            "Pá",
             "So"
         ]
     },
     "editor": {
-        "close": "Zamknij",
+        "close": "Zavřít",
         "create": {
-            "button": "Dodaj",
-            "submit": "Dodaj",
-            "title": "Dodawanie nowego wpisu"
+            "button": "Nový",
+            "submit": "Vytvořit",
+            "title": "Nový záznam"
         },
         "edit": {
-            "button": "Edytuj",
-            "submit": "Aktualizuj",
-            "title": "Aktualizacja wpisu"
+            "button": "Změnit",
+            "submit": "Aktualizovat",
+            "title": "Změnit záznam"
         },
         "error": {
-            "system": "Nastąpił błąd systemu (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Więcej informacji&lt;\\/a&gt;).</a>"
+            "system": "Došlo k systémové chybě (&lt;a target=\"\\\" rel=\"nofollow\" href=\"\\\"&gt;Více informací&lt;/a&gt;)."
         },
         "multi": {
-            "info": "Wybrane pole zawiera wiele elementów z różnymi wartościami. Aby zmienić ich wartość kliknij w nie, inaczej zachowane zostaną ich wartości domyślne.",
-            "noMulti": "Ta wartość może być edytowana oddzielnie - niezależnie od grupy.",
-            "restore": "Cofnij zmiany",
-            "title": "Pole z wieloma wartościami"
+            "info": "Vybrané položky obsahují různé hodnoty pro tento vstup. Chcete-li upravit a nastavit všechny položky tohoto vstupu na stejnou hodnotu, klikněte nebo klepněte sem, jinak si zachovají své individuální hodnoty.",
+            "noMulti": "Toto pole může být editováno individuálně, ale ne jako soušást skupiny.",
+            "restore": "Vrátit změny",
+            "title": "Mnohočetný výběr"
         },
         "remove": {
-            "button": "Usuń",
+            "button": "Vymazat",
             "confirm": {
-                "_": "Czy na pewno chcesz usunąć %d rzędów?",
-                "1": "Czy na pewno chcesz usunąć 1 rząd?"
+                "_": "Opravdu chcete smazat tyto %d řádky?",
+                "1": "Opravdu chcete smazat tento 1 řádek?"
             },
-            "submit": "Usuń",
-            "title": "Usuwanie"
+            "submit": "Vymazat",
+            "title": "Smazání"
         }
     },
     "searchPanes": {
-        "clearMessage": "Wyczyść wszystkie",
+        "clearMessage": "Smazat vše",
         "collapse": {
-            "_": "Aktywne grupowania (%d)",
-            "0": "Grupowanie"
+            "_": "Vyhledávací Panely (%d)",
+            "0": "Vyhledávací Panely"
         },
         "count": "{total}",
         "countFiltered": "{shown} ({total})",
-        "emptyPanes": "Brak paneli wyszukań",
-        "loadMessage": "Ładowanie paneli wyszukania...",
-        "title": "Aktywne filtry - %d",
-        "showMessage": "Pokaż wszystko",
-        "collapseMessage": "Rozwiń wszystko"
+        "emptyPanes": "Žádné Vyhledávací Panely",
+        "loadMessage": "Načítám Vyhledávací Panely",
+        "title": "Aktivních filtrů - %d",
+        "showMessage": "Zobrazit Vše",
+        "collapseMessage": "Sbalit Vše"
     },
     "select": {
         "cells": {
-            "_": "zaznaczono %d komórek",
-            "1": "zaznaczono %d komórkę"
+            "_": "Vybráno %d záznamů",
+            "1": "Vybrán 1 záznam"
         },
         "columns": {
-            "_": "zaznaczono %d kolumn",
-            "1": "zaznaczono %d kolumnę"
+            "_": "Vybráno %d sloupců",
+            "1": "Vybrán 1 sloupec"
         },
         "rows": {
-            "1": "Zaznaczono 1 wiersz",
-            "_": "Zaznaczono %d wierszy"
+            "1": "Vybrán 1 řádek",
+            "_": "Vybráno %d řádků"
         }
     },
     "stateRestore": {
         "creationModal": {
-            "button": "Utwórz",
+            "button": "Vytvořit",
             "columns": {
-                "search": "Wyszukiwanie kolumny",
-                "visible": "Widoczność kolumny"
+                "search": "Vyhledávání v buňce",
+                "visible": "Viditelnost buňky"
             },
-            "name": "Nazwa:",
-            "order": "Sortowanie",
-            "paging": "Stronicowanie",
-            "scroller": "Przewijanie",
-            "search": "Szukanie",
-            "searchBuilder": "Tworzenie zapytań",
-            "select": "Wybieranie",
-            "title": "Utwórz nowy stan",
-            "toggleLabel": "Zawiera:"
+            "name": "Název:",
+            "order": "Řazení",
+            "paging": "Stránkování",
+            "scroller": "Pozice skrolování",
+            "search": "Filtrování",
+            "searchBuilder": "Rozšířené filtrování",
+            "select": "Výběr",
+            "title": "Vytvořit nový Stav",
+            "toggleLabel": "Zahrnout"
         },
-        "duplicateError": "Stan o tej nazwie już istnieje.",
-        "emptyError": "Nazwa nie może być pusta.",
-        "emptyStates": "Brak zapisanych stanów",
-        "removeConfirm": "Czy na pewno chcesz usunąć %s?",
-        "removeError": "Nie udało się usunąć stanu.",
-        "removeJoiner": "oraz",
-        "removeSubmit": "Usuń",
-        "removeTitle": "Usuń stan",
-        "renameButton": "Zmień nazwę",
-        "renameLabel": "Nowa nazwa dla %s:",
-        "renameTitle": "Zmień nazwę stanu"
+        "duplicateError": "Stav s tímto názvem ji existuje.",
+        "emptyError": "Název nemůže být prázný.",
+        "emptyStates": "Žádné uložené stavy",
+        "removeConfirm": "Opravdu chcete odstranbit %s?",
+        "removeError": "Chyba při odstraňování stavu.",
+        "removeJoiner": "a",
+        "removeSubmit": "Odstranit",
+        "removeTitle": "Odstranit Stav",
+        "renameButton": "Vymazat",
+        "renameLabel": "Nové jméno pro %s:",
+        "renameTitle": "Přejmenování Stavu"
     },
     "decimal": ",",
     "infoThousands": " ",
