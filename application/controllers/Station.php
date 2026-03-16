@@ -66,12 +66,12 @@ class Station extends CI_Controller
 			$data['oqrs'] = $this->input->post('oqrs');
 			$data['oqrsemail'] = $this->input->post('oqrsemail');
 			$data['oqrstext'] = $this->input->post('oqrstext');
-			$data['csrf_token'] = $this->paths->csrf_generate('csrf_station_create');
+			$data['csrf_token'] = $this->paths->csrf_generate($this->router->class.'_'.$this->router->method);
 			$this->load->view('interface_assets/header', $data);
-			$this->load->view('station_profile/create', $data);
+			$this->load->view('station_profile/create');
 			$this->load->view('interface_assets/footer');
 		} else {
-			if (!$this->paths->csrf_verify('csrf_station_create')) {
+			if (!$this->paths->csrf_verify($this->router->class.'_'.$this->router->method)) {
 				$this->session->set_flashdata('error', __("Invalid security token"));
 				redirect('station/create');
 				return;
@@ -91,12 +91,12 @@ class Station extends CI_Controller
 			$this->form_validation->set_rules('dxcc', 'DXCC', 'required');
 			$this->form_validation->set_rules('gridsquare', 'Locator', 'callback_check_locator');
 			if ($this->form_validation->run() == FALSE) {
-				$data['csrf_token'] = $this->paths->csrf_generate('csrf_station_edit');
+				$data['csrf_token'] = $this->paths->csrf_generate($this->router->class.'_'.$this->router->method);
 				$this->load->view('interface_assets/header', $data);
 				$this->load->view('station_profile/edit', $data);
 				$this->load->view('interface_assets/footer');
 			} else {
-				if (!$this->paths->csrf_verify('csrf_station_edit')) {
+				if (!$this->paths->csrf_verify($this->router->class.'_'.$this->router->method)) {
 					$this->session->set_flashdata('error', __("Invalid security token"));
 					redirect('station/edit/' . $id);
 					return;

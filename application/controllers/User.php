@@ -1086,24 +1086,20 @@ class User extends CI_Controller {
 		$data = $query->row();
 		$data->page_title = __("Delete User");
 
-		if ($this->form_validation->run() == FALSE)
-		{
-			$data->csrf_token = $this->paths->csrf_generate('csrf_user_delete');
+		if ($this->form_validation->run() == FALSE) {
+			$data->csrf_token = $this->paths->csrf_generate($this->router->class.'_'.$this->router->method);
 
 			$this->load->view('interface_assets/header', $data);
 			$this->load->view('user/delete');
 			$this->load->view('interface_assets/footer');
-		}
-		else
-		{
-			if (!$this->paths->csrf_verify('csrf_user_delete')) {
+		} else {
+			if (!$this->paths->csrf_verify($this->router->class.'_'.$this->router->method)) {
 				$this->session->set_flashdata('error', __("Invalid security token"));
 				redirect('user');
 				return;
 			}
 
-			if($this->user_model->delete($data->user_id))
-			{
+			if($this->user_model->delete($data->user_id)) {
 				$this->session->set_flashdata('notice', __("User deleted"));
 				redirect('user');
 			} else {
