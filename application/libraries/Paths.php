@@ -33,6 +33,32 @@ class Paths
         return $datadir . "/" . $path;
 	}
 
+    /**
+     * Generate a CSRF token, store it in the session under $key, and return it
+     * for injection into view data.
+     */
+    function csrf_generate($key) {
+        $CI = &get_instance();
+        $token = bin2hex(random_bytes(32));
+        $CI->session->set_userdata($key, $token);
+        return $token;
+    }
+
+    /**
+     * Verify the submitted csrf_token POST field against the session value for
+     * $key. Rotates the token on success. Returns true on success, false on failure.
+     */
+    function csrf_verify($key) {
+        $CI = &get_instance();
+        $submitted = $CI->input->post('csrf_token', TRUE);
+        $stored    = $CI->session->userdata($key);
+        if (empty($submitted) || empty($stored) || !hash_equals($stored, $submitted)) {
+            return false;
+        }
+        $CI->session->set_userdata($key, bin2hex(random_bytes(32)));
+        return true;
+    }
+
     function cache_buster($filepath) {
         // make sure $filepath starts with a slash
         if (substr($filepath, 0, 1) !== '/') $filepath = '/' . $filepath;
