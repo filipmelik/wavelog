@@ -6,12 +6,13 @@
 # Michal Šiman <michal.siman@gmail.com>, 2024.
 # Filip Melik <filip@melik.cz>, 2024.
 # Petr OK1PTR <ok1ptr@pm.me>, 2024.
+# Jan Zeman <ok1ibw@ptszsoft.cz>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-16 10:42+0000\n"
-"PO-Revision-Date: 2024-09-23 14:46+0000\n"
-"Last-Translator: Filip Melik <filip@melik.cz>\n"
+"PO-Revision-Date: 2026-03-16 11:20+0000\n"
+"Last-Translator: Jan Zeman <ok1ibw@ptszsoft.cz>\n"
 "Language-Team: Czech <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/cs/>\n"
 "Language: cs_CZ\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 5.7.1\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: application/controllers/Accumulated.php:12
 #: application/controllers/Activators.php:13
@@ -17044,7 +17045,7 @@ msgstr ""
 
 #: application/views/statistics/qsltable.php:8
 msgid "Percent"
-msgstr ""
+msgstr "Procent"
 
 #: application/views/statistics/qsltable.php:49
 msgid "Overall Stats by Mode"
