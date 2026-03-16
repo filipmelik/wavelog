@@ -37,11 +37,6 @@ class Paths
         // make sure $filepath starts with a slash
         if (substr($filepath, 0, 1) !== '/') $filepath = '/' . $filepath;
 
-        // These files are not existent on purpose and should not trigger error logs
-        $err_exceptions = [
-            '/assets/json/datatables_languages/en-US.json',
-        ];
-
         $CI = & get_instance();
 		$fullpath = empty($CI->config->item('directory')) ? $_SERVER['DOCUMENT_ROOT'] . $filepath : $_SERVER['DOCUMENT_ROOT'] . '/' . $CI->config->item('directory') . $filepath;
 
@@ -52,9 +47,7 @@ class Paths
         if (file_exists($fullpath)) {
             return base_url($filepath) . '?v=' . filemtime($fullpath);
         } else {
-            if (!in_array($filepath, $err_exceptions)) {
-                log_message('error', 'CACHE BUSTER: File does not exist: ' . $fullpath);
-            }
+            log_message('error', 'CACHE BUSTER: File does not exist: ' . $fullpath);
         }
         return base_url($filepath);
     }
