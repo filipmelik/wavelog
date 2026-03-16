@@ -137,7 +137,7 @@ msgstr ""
 #: application/controllers/Webadif.php:11
 #: application/controllers/Webadif.php:101
 #: application/controllers/Zonechecker.php:17
-#: application/models/Club_model.php:52
+#: application/models/Club_model.php:52 application/controllers/Qso.php:765
 msgid "You're not allowed to do that!"
 msgstr "Nie wolno tego robić!"
 
@@ -662,14 +662,17 @@ msgstr "Notatki - kopia zapasowa"
 #: application/views/interface_assets/header.php:443
 #: application/views/statistics/index.php:17
 #: application/views/statistics/index.php:105
+#: application/controllers/Band.php:26 application/controllers/Band.php:41
 msgid "Bands"
 msgstr "Pasma"
 
 #: application/controllers/Band.php:74 application/controllers/Mode.php:41
+#: application/controllers/Band.php:67
 msgid "Create Mode"
 msgstr "Utwórz emisję"
 
 #: application/controllers/Band.php:99 application/views/bands/index.php:158
+#: application/controllers/Band.php:89
 msgid "Edit Band"
 msgstr "Edytuj pasmo"
 
@@ -2449,15 +2452,15 @@ msgstr "Wydruk żądanych QSL"
 msgid "Add QSO"
 msgstr "Dodaj QSO"
 
-#: application/controllers/Qso.php:831
+#: application/controllers/Qso.php:831 application/controllers/Qso.php:826
 msgid "You have to be logged in to access this URL."
 msgstr "Należy być zalogowanym, aby uzyskać dostęp do tej strony."
 
-#: application/controllers/Qso.php:837
+#: application/controllers/Qso.php:837 application/controllers/Qso.php:832
 msgid "Call Transfer"
 msgstr "Przekazywanie znaków wywoławczych"
 
-#: application/controllers/Qso.php:844
+#: application/controllers/Qso.php:844 application/controllers/Qso.php:839
 msgid "No callsign provided."
 msgstr "Nie podano znaku wywoławczego."
 
@@ -7427,8 +7430,8 @@ msgid ""
 "State (ADIF: DXCC and STATE)"
 msgstr ""
 "Pola brane pod uwagę przy tej nagrodzie: DXCC (musi być jednym z: Chiny/318, "
-"Hongkong/321, Makau/152, Tajwan/386, Wyspa Pratas/505 lub Rafa "
-"Scarborough/506) oraz ważny stan (ADIF: DXCC i STATE)"
+"Hongkong/321, Makau/152, Tajwan/386, Wyspa Pratas/505 lub Rafa Scarborough/"
+"506) oraz ważny stan (ADIF: DXCC i STATE)"
 
 #: application/views/awards/wapc/index.php:122
 msgid "Show WAPC Map"
@@ -10943,8 +10946,8 @@ msgid ""
 "Go to your application/config Folder and compare config.sample.php with your "
 "config.php"
 msgstr ""
-"Należy przejść do folderu application/config i porównać plik config.sample."
-"php z plikiem config.php"
+"Należy przejść do folderu application/config i porównać plik "
+"config.sample.php z plikiem config.php"
 
 #: application/views/debug/index.php:206
 #, php-format

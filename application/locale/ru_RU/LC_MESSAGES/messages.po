@@ -133,7 +133,7 @@ msgstr ""
 #: application/controllers/Webadif.php:11
 #: application/controllers/Webadif.php:101
 #: application/controllers/Zonechecker.php:17
-#: application/models/Club_model.php:52
+#: application/models/Club_model.php:52 application/controllers/Qso.php:765
 msgid "You're not allowed to do that!"
 msgstr "Вам нельзя это делать!"
 
@@ -658,14 +658,17 @@ msgstr "Резервное копирование заметок"
 #: application/views/interface_assets/header.php:443
 #: application/views/statistics/index.php:17
 #: application/views/statistics/index.php:105
+#: application/controllers/Band.php:26 application/controllers/Band.php:41
 msgid "Bands"
 msgstr "Диапазоны"
 
 #: application/controllers/Band.php:74 application/controllers/Mode.php:41
+#: application/controllers/Band.php:67
 msgid "Create Mode"
 msgstr "Новый вид модуляции"
 
 #: application/controllers/Band.php:99 application/views/bands/index.php:158
+#: application/controllers/Band.php:89
 msgid "Edit Band"
 msgstr "Редактировать диапазон"
 
@@ -2445,15 +2448,15 @@ msgstr "Распечатать запрошенные QSL"
 msgid "Add QSO"
 msgstr "Добавить QSO"
 
-#: application/controllers/Qso.php:831
+#: application/controllers/Qso.php:831 application/controllers/Qso.php:826
 msgid "You have to be logged in to access this URL."
 msgstr "Для доступа к этому URL необходимо войти в систему."
 
-#: application/controllers/Qso.php:837
+#: application/controllers/Qso.php:837 application/controllers/Qso.php:832
 msgid "Call Transfer"
 msgstr "Перевод вызова"
 
-#: application/controllers/Qso.php:844
+#: application/controllers/Qso.php:844 application/controllers/Qso.php:839
 msgid "No callsign provided."
 msgstr "Позывной не указан."
 
@@ -17323,8 +17326,8 @@ msgid ""
 "give an initial sent exchange. To deactivate, use ',+0':"
 msgstr ""
 "Принятый контрольный номер должен быть с префиксом точка '.', отправленный "
-"контрольный номер -- с запятой ','. Последние две строки эквивалентны -- т."
-"е. пробелы не имеют значения, как и порядок. Контрольный номер, который вы "
+"контрольный номер -- с запятой ','. Последние две строки эквивалентны -- "
+"т.е. пробелы не имеют значения, как и порядок. Контрольный номер, который вы "
 "отправили, будет автоматически включен в следующее QSO, если он содержит "
 "принятый контрольный номер, или если вы используете одну запятую ','. Чтобы "
 "автоматически увеличить отправленный порядковый номер, используйте ',++' и "
@@ -18125,8 +18128,9 @@ msgid ""
 "Create a new folder in 'assets/css/' and upload a 'bootstrap.min.css' file "
 "which contains basic styling rules. We use the themes from %s"
 msgstr ""
-"Создайте новую папку в 'assets/css/' и загрузите в нее файл 'bootstrap.min."
-"css', который содержит основные правила стилизации. Мы используем темы из %s"
+"Создайте новую папку в 'assets/css/' и загрузите в нее файл "
+"'bootstrap.min.css', который содержит основные правила стилизации. Мы "
+"используем темы из %s"
 
 #: application/views/themes/index.php:50
 msgid "2. Step"
@@ -18434,8 +18438,8 @@ msgid ""
 "Show profile picture of QSO partner from qrz.com/hamqth.com profile in the "
 "log QSO section."
 msgstr ""
-"Показать изображение корреспондента по QSO из его профиля на qrz.com/hamqth."
-"com в разделе QSO журнала."
+"Показать изображение корреспондента по QSO из его профиля на qrz.com/"
+"hamqth.com в разделе QSO журнала."
 
 #: application/views/user/edit.php:392
 msgid ""
