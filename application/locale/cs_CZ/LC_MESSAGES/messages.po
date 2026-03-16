@@ -7,12 +7,13 @@
 # Filip Melik <filip@melik.cz>, 2024.
 # Petr OK1PTR <ok1ptr@pm.me>, 2024.
 # Jan Zeman <ok1ibw@ptszsoft.cz>, 2026.
+# Dariusz Koryto <dariusz@koryto.eu>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-16 10:42+0000\n"
-"PO-Revision-Date: 2026-03-16 11:20+0000\n"
-"Last-Translator: Jan Zeman <ok1ibw@ptszsoft.cz>\n"
+"PO-Revision-Date: 2026-03-16 13:30+0000\n"
+"Last-Translator: Dariusz Koryto <dariusz@koryto.eu>\n"
 "Language-Team: Czech <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/cs/>\n"
 "Language: cs_CZ\n"
@@ -3623,11 +3624,11 @@ msgstr ""
 
 #: application/models/Logbook_model.php:311
 msgid "Station not accessible"
-msgstr ""
+msgstr "Stanice je nedostupná"
 
 #: application/models/Logbook_model.php:1359
 msgid "Station ID not allowed"
-msgstr ""
+msgstr "Identifikace stanice je nedostupná"
 
 #: application/models/Logbook_model.php:1364
 msgid "No Call given"
