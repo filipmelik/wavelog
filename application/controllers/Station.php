@@ -66,21 +66,16 @@ class Station extends CI_Controller
 			$data['oqrs'] = $this->input->post('oqrs');
 			$data['oqrsemail'] = $this->input->post('oqrsemail');
 			$data['oqrstext'] = $this->input->post('oqrstext');
-			$csrf_token = bin2hex(random_bytes(32));
-			$this->session->set_userdata('csrf_station_create', $csrf_token);
-			$data['csrf_token'] = $csrf_token;
+			$data['csrf_token'] = $this->paths->csrf_generate('csrf_station_create');
 			$this->load->view('interface_assets/header', $data);
 			$this->load->view('station_profile/create', $data);
 			$this->load->view('interface_assets/footer');
 		} else {
-			$submitted = $this->input->post('csrf_token', TRUE);
-			$stored    = $this->session->userdata('csrf_station_create');
-			if (empty($submitted) || empty($stored) || !hash_equals($stored, $submitted)) {
+			if (!$this->paths->csrf_verify('csrf_station_create')) {
 				$this->session->set_flashdata('error', __("Invalid security token"));
 				redirect('station/create');
 				return;
 			}
-			$this->session->set_userdata('csrf_station_create', bin2hex(random_bytes(32)));
 			$this->stations->add();
 			redirect('stationsetup');
 		}
@@ -96,21 +91,16 @@ class Station extends CI_Controller
 			$this->form_validation->set_rules('dxcc', 'DXCC', 'required');
 			$this->form_validation->set_rules('gridsquare', 'Locator', 'callback_check_locator');
 			if ($this->form_validation->run() == FALSE) {
-				$csrf_token = bin2hex(random_bytes(32));
-				$this->session->set_userdata('csrf_station_edit', $csrf_token);
-				$data['csrf_token'] = $csrf_token;
+				$data['csrf_token'] = $this->paths->csrf_generate('csrf_station_edit');
 				$this->load->view('interface_assets/header', $data);
 				$this->load->view('station_profile/edit', $data);
 				$this->load->view('interface_assets/footer');
 			} else {
-				$submitted = $this->input->post('csrf_token', TRUE);
-				$stored    = $this->session->userdata('csrf_station_edit');
-				if (empty($submitted) || empty($stored) || !hash_equals($stored, $submitted)) {
+				if (!$this->paths->csrf_verify('csrf_station_edit')) {
 					$this->session->set_flashdata('error', __("Invalid security token"));
 					redirect('station/edit/' . $id);
 					return;
 				}
-				$this->session->set_userdata('csrf_station_edit', bin2hex(random_bytes(32)));
 
 				if ($this->stations->edit()) {
 					$data['notice'] = __("Station Location") . $this->security->xss_clean($this->input->post('station_profile_name', true)) . " Updated";
