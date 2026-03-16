@@ -968,6 +968,7 @@ msgstr "SOTA CSV-export"
 
 #: application/controllers/Dashboard.php:157
 #: application/controllers/Visitor.php:134
+#: application/controllers/Dashboard.php:156
 msgid "Dashboard"
 msgstr "Dashboard"
 

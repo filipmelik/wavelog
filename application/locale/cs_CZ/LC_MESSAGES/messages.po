@@ -1498,7 +1498,8 @@ msgstr ""
 
 #: application/controllers/Logbook.php:993
 msgid "All callbook lookups failed or provided no results."
-msgstr "Všechna vyhledávání v callbooku selhala nebo neposkytla žádné výsledky."
+msgstr ""
+"Všechna vyhledávání v callbooku selhala nebo neposkytla žádné výsledky."
 
 #: application/controllers/Logbook.php:1458
 #: application/controllers/Radio.php:49
@@ -6790,7 +6791,8 @@ msgstr ""
 
 #: application/views/awards/pota/index.php:11
 msgid "Fields taken for this Award: POTA_REF (must contain Park-Reference)"
-msgstr "Pole použitá pro toto ocenění: POTA_REF (musí obsahovat Park-Reference)"
+msgstr ""
+"Pole použitá pro toto ocenění: POTA_REF (musí obsahovat Park-Reference)"
 
 #: application/views/awards/pota/index.php:32
 #: application/views/qso/index.php:333 application/views/qso/index.php:630
