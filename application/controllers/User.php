@@ -1088,6 +1088,9 @@ class User extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
+			$csrf_token = bin2hex(random_bytes(32));
+			$this->session->set_userdata('csrf_user_delete', $csrf_token);
+			$data->csrf_token = $csrf_token;
 
 			$this->load->view('interface_assets/header', $data);
 			$this->load->view('user/delete');
@@ -1095,6 +1098,15 @@ class User extends CI_Controller {
 		}
 		else
 		{
+			$submitted = $this->input->post('csrf_token', TRUE);
+			$stored    = $this->session->userdata('csrf_user_delete');
+			if (empty($submitted) || empty($stored) || !hash_equals($stored, $submitted)) {
+				$this->session->set_flashdata('error', __("Invalid security token"));
+				redirect('user');
+				return;
+			}
+			$this->session->set_userdata('csrf_user_delete', bin2hex(random_bytes(32)));
+
 			if($this->user_model->delete($data->user_id))
 			{
 				$this->session->set_flashdata('notice', __("User deleted"));
