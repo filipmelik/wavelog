@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-15 19:19+0000\n"
-"PO-Revision-Date: 2026-03-16 13:30+0000\n"
+"PO-Revision-Date: 2026-03-16 15:25+0000\n"
 "Last-Translator: Dariusz Koryto <dariusz@koryto.eu>\n"
 "Language-Team: Polish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/pl/>\n"
@@ -3105,7 +3105,7 @@ msgstr "SCP Ładowanie zakończone sukcesem. Rezultaty: "
 
 #: application/controllers/Update.php:364
 msgid "SCP Update failed. Result: "
-msgstr "SCP Ładowanie zakończone błędem. Rezulat: "
+msgstr "SCP Ładowanie zakończone błędem. Rezultat: "
 
 #: application/controllers/Update.php:401
 msgid "LoTW Users Update complete. Result: "
@@ -3113,7 +3113,7 @@ msgstr "Użytkownicy LoTW aktualizacja zakończona sukcesem. Rezultaty: "
 
 #: application/controllers/Update.php:403
 msgid "LoTW Users Update failed. Result: "
-msgstr "Użytkownicy LoTW aktualizacja zakończona błedem. Rezulataty: "
+msgstr "Użytkownicy LoTW aktualizacja zakończona błędem. Rezultaty: "
 
 #: application/controllers/Update.php:438
 msgid "DOK Update complete. Result: "
@@ -3125,7 +3125,7 @@ msgstr "DOK aktualizacja zakończona niepowodzeniem. Rezultat: "
 
 #: application/controllers/Update.php:473
 msgid "SOTA Update complete. Result: "
-msgstr "SOTA aktualizacja zakończona sukcesemm. Rezultat: "
+msgstr "SOTA aktualizacja zakończona sukcesem. Rezultat: "
 
 #: application/controllers/Update.php:475
 msgid "SOTA Update failed. Result: "
@@ -3198,7 +3198,7 @@ msgstr "Nie udało się odblokować użytkownika!"
 
 #: application/controllers/User.php:114
 msgid "User not found!"
-msgstr "Użytkownik nie znaleziony !"
+msgstr "Użytkownik nie znaleziony!"
 
 #: application/controllers/User.php:127
 msgid "Invalid Parameter!"
@@ -10046,8 +10046,7 @@ msgstr "Ustaw jako aktywne, aby pojawiło się na liście zawodów"
 
 #: application/views/contesting/index.php:2
 msgid "You need to start a new session before you can change the contest name!"
-msgstr ""
-"Zanim będzie można zmienić nazwę zawodów, należy rozpocząć nową sesję, !"
+msgstr "Zanim będzie można zmienić nazwę zawodów, należy rozpocząć nową sesję!"
 
 #: application/views/contesting/index.php:3
 msgid "Are you really sure you want to start a new contest session?"
