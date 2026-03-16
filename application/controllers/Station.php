@@ -93,7 +93,7 @@ class Station extends CI_Controller
 			if ($this->form_validation->run() == FALSE) {
 				$data['csrf_token'] = $this->paths->csrf_generate($this->router->class.'_'.$this->router->method);
 				$this->load->view('interface_assets/header', $data);
-				$this->load->view('station_profile/edit', $data);
+				$this->load->view('station_profile/edit');
 				$this->load->view('interface_assets/footer');
 			} else {
 				if (!$this->paths->csrf_verify($this->router->class.'_'.$this->router->method)) {
