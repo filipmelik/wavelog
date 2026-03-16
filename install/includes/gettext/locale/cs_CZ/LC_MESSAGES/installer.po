@@ -144,35 +144,35 @@ msgstr "Turečtina"
 msgid "Install | Wavelog"
 msgstr "Instalace | Wavelog"
 
-#: install/index.php:35
+#: install/index.php:35 install/index.php:47
 msgid "1. Welcome"
 msgstr "1. Vítejte"
 
-#: install/index.php:38
+#: install/index.php:38 install/index.php:50
 msgid "2. Pre Checks"
 msgstr "2. Předinstalační kontrola"
 
-#: install/index.php:41
+#: install/index.php:41 install/index.php:53
 msgid "3. Configuration"
 msgstr "3. Konfigurace"
 
-#: install/index.php:44
+#: install/index.php:44 install/index.php:56
 msgid "4. Database"
 msgstr "4. Databáze"
 
-#: install/index.php:47
+#: install/index.php:47 install/index.php:59
 msgid "5. First User"
 msgstr "5. První uživatel"
 
-#: install/index.php:50
+#: install/index.php:50 install/index.php:62
 msgid "6. Finish"
 msgstr "6. Dokončení"
 
-#: install/index.php:67
+#: install/index.php:67 install/index.php:79
 msgid "Welcome to the Wavelog Installer"
 msgstr "Vítá Vás Wavelog instalátor"
 
-#: install/index.php:68
+#: install/index.php:68 install/index.php:80
 msgid ""
 "This installer will guide you through the necessary steps for the "
 "installation of Wavelog. <br>Wavelog is a powerful web-based amateur radio "
@@ -184,11 +184,11 @@ msgstr ""
 "podle kroků v každé záložce, abyste nakonfigurovali a nainstalovali Wavelog "
 "na svém serveru."
 
-#: install/index.php:69
+#: install/index.php:69 install/index.php:81
 msgid "Discussions"
 msgstr "Diskuze"
 
-#: install/index.php:69
+#: install/index.php:69 install/index.php:81
 #, php-format
 msgid ""
 "If you encounter any issues or have questions, refer to the documentation "
@@ -197,65 +197,67 @@ msgstr ""
 "V případě problémů nebo dotazů se podívejte na dokumentaci (%s) nebo se "
 "obraťte na komunitní fórum (%s) na Githubu."
 
-#: install/index.php:69
+#: install/index.php:69 install/index.php:81
 msgid "Wiki"
 msgstr "Wiki"
 
-#: install/index.php:70
+#: install/index.php:70 install/index.php:82
 msgid "Thank you for installing Wavelog!"
 msgstr "Děkujeme že jste si vybrali Wavelog!"
 
 #: install/index.php:71 install/index.php:74 install/index.php:1056
+#: install/index.php:83 install/index.php:86 install/index.php:1068
 msgid "Language"
 msgstr "Jazyk"
 
-#: install/index.php:84
+#: install/index.php:84 install/index.php:96
 msgid "Select a language"
 msgstr "Vyběr jazyka"
 
-#: install/index.php:96 install/index.php:441
+#: install/index.php:96 install/index.php:441 install/index.php:108
+#: install/index.php:453
 msgid "Close"
 msgstr "Zavřít"
 
-#: install/index.php:106
+#: install/index.php:106 install/index.php:118
 msgid "PHP Modules"
 msgstr "PHP moduly"
 
-#: install/index.php:113
+#: install/index.php:113 install/index.php:125
 msgid "Version"
 msgstr "Verze"
 
-#: install/index.php:114
+#: install/index.php:114 install/index.php:126
 #, php-format
 msgctxt "PHP Version"
 msgid "min. %s (recommended %s+)"
 msgstr "min. %s (doporučeno %s+)"
 
-#: install/index.php:141
+#: install/index.php:141 install/index.php:153
 msgid "Installed"
 msgstr "Nainstalováno"
 
-#: install/index.php:141
+#: install/index.php:141 install/index.php:153
 msgid "Not Installed"
 msgstr "Nenainstalováno"
 
-#: install/index.php:149
+#: install/index.php:149 install/index.php:161
 msgid "PHP Settings"
 msgstr "PHP nastavení"
 
-#: install/index.php:241
+#: install/index.php:241 install/index.php:253
 msgid "Web Server"
 msgstr "Webový server"
 
-#: install/index.php:244
+#: install/index.php:244 install/index.php:256
 msgid "Version:"
 msgstr "Verze:"
 
-#: install/index.php:251
+#: install/index.php:251 install/index.php:263
 msgid "Important note for nginx users!"
 msgstr "Důležité informace pro uživatele nginx!"
 
-#: install/index.php:252
+#: install/index.php:252 install/index.php:264
 msgid ""
 "Since you are using nginx as web server please make sure that you have made "
 "the changes described in the Wiki before continuing."
@@ -263,38 +265,42 @@ msgstr ""
 "Protože jako webový server používáte nginx, ujistěte se, že jste provedli "
 "změny popsané ve Wiki, než budete pokračovat."
 
-#: install/index.php:257
+#: install/index.php:257 install/index.php:269
 msgid "Folder Write Permissions"
 msgstr "Oprávnění k zápisu do složky"
 
 #: install/index.php:263 install/index.php:274 install/index.php:285
 #: install/index.php:296 install/index.php:307 install/index.php:318
-#: install/index.php:329
+#: install/index.php:329 install/index.php:275 install/index.php:286
+#: install/index.php:297 install/index.php:308 install/index.php:319
+#: install/index.php:330 install/index.php:341
 msgid "Success"
 msgstr "Úspěch"
 
 #: install/index.php:266 install/index.php:277 install/index.php:288
 #: install/index.php:299 install/index.php:310 install/index.php:321
-#: install/index.php:332
+#: install/index.php:332 install/index.php:278 install/index.php:289
+#: install/index.php:300 install/index.php:311 install/index.php:322
+#: install/index.php:333 install/index.php:344
 msgid "Failed"
 msgstr "Selhání"
 
-#: install/index.php:342
+#: install/index.php:342 install/index.php:354
 msgid "Some Checks have failed!"
 msgstr "Některé kontroly selhaly!"
 
-#: install/index.php:343
+#: install/index.php:343 install/index.php:355
 msgid "Check your PHP settings and install missing modules if necessary."
 msgstr ""
 "Zkontrolujte nastavení vašeho PHP a v případě potřeby doinstalujte chybějící "
 "moduly."
 
-#: install/index.php:344
+#: install/index.php:344 install/index.php:356
 msgid ""
 "After that, you have to restart your webserver and start the installer again."
 msgstr "Poté musíte restartovat svůj webový server a znovu spustit instalátor."
 
-#: install/index.php:345
+#: install/index.php:345 install/index.php:357
 #, php-format
 msgid ""
 "In case of failed 'Folder Write Permissions' check out our Wiki <a href='%s' "
@@ -307,7 +313,7 @@ msgstr ""
 msgid "You have some warnings!"
 msgstr "Máte nějaká varování!"
 
-#: install/index.php:352
+#: install/index.php:352 install/index.php:364
 msgid ""
 "Some of the settings are not optimal. You can proceed with the installer but "
 "be aware that you could run into problems while using Wavelog."
@@ -315,11 +321,11 @@ msgstr ""
 "Některá nastavení nejsou optimální. Můžete pokračovat v instalaci, ale "
 "počítejte s tím, že při používání Wavelogu můžete narazit na problémy."
 
-#: install/index.php:359
+#: install/index.php:359 install/index.php:371
 msgid "All Checks are OK. You can continue."
 msgstr "Všechny kontroly jsou OK. Můžete pokračovat."
 
-#: install/index.php:373
+#: install/index.php:373 install/index.php:385
 msgid ""
 "Configure some basic parameters for your wavelog instance. You can change "
 "them later in 'application/config/config.php'"
@@ -331,8 +337,8 @@ msgstr ""
 msgid ""
 "This is the URL where you can access this Wavelog instance after the "
 "installer has run. If this does not display what you expect, you may need to "
-"check your web server configuration. This is the base_url in your config."
-"php, which can be edited after the installation."
+"check your web server configuration. This is the base_url in your "
+"config.php, which can be edited after the installation."
 msgstr ""
 "Toto je URL adresa, kde budete mít přístup k této instanci Wavelog po "
 "dokončení instalace. Pokud se nezobrazuje to, co očekáváte, možná budete "
@@ -377,7 +383,7 @@ msgstr "Uživatelské jméno callbooku"
 msgid "Callbook Password"
 msgstr "Heslo callbooku"
 
-#: install/index.php:405
+#: install/index.php:405 install/index.php:417
 #, php-format
 msgid "Password can't contain %s or be empty"
 msgstr "Heslo nesmí obsahovat %s nebo být prázdné"
@@ -451,8 +457,8 @@ msgid ""
 "Usually 'localhost'.<br>Optional with '[host]:[port]'. Default port: 3306."
 "<br>In a docker compose install type 'wavelog-db'."
 msgstr ""
-"Obvykle 'localhost'.<br>Volitelně s '[host]:[port]'. Výchozí port: 3306.<br>"
-"V instalaci docker compose zadejte 'wavelog-db'."
+"Obvykle 'localhost'.<br>Volitelně s '[host]:[port]'. Výchozí port: 3306."
+"<br>V instalaci docker compose zadejte 'wavelog-db'."
 
 #: install/index.php:467
 msgid "Database Name"
@@ -578,7 +584,7 @@ msgstr "Téměř hotovo!"
 msgid "You prepared all neccessary steps."
 msgstr "Připravili jste všechny nezbytné kroky."
 
-#: install/index.php:1119
+#: install/index.php:1119 install/index.php:1131
 msgid "We now can install Wavelog. This process can take a few minutes."
 msgstr "Nyní můžeme nainstalovat Wavelog. Proces může trvat několik minut."
 
@@ -594,19 +600,19 @@ msgstr "Reset instalátoru"
 msgid "Do you really want to reset all data and start from scratch?"
 msgstr "Opravdu chcete resetovat všechna data a začít od začátku?"
 
-#: install/index.php:1136
+#: install/index.php:1136 install/index.php:1148
 msgid "Yes"
 msgstr "Ano"
 
-#: install/index.php:1137
+#: install/index.php:1137 install/index.php:1149
 msgid "No"
 msgstr "Ne"
 
-#: install/index.php:1147
+#: install/index.php:1147 install/index.php:1159
 msgid "Back"
 msgstr "Zpět"
 
-#: install/index.php:1148
+#: install/index.php:1148 install/index.php:1160
 msgid "Continue"
 msgstr "Pokračovat"
 
@@ -618,7 +624,7 @@ msgstr ""
 "Nemůžete pokračovat. Vyřešte problémy označené červeně, restartujte webový "
 "server a znovu načtěte tuto stránku."
 
-#: install/index.php:1353
+#: install/index.php:1353 install/index.php:1365
 msgid "Password can't contain ' / \\ < >"
 msgstr "Heslo nesmí obsahovat '/\\<>"
 
@@ -660,16 +666,16 @@ msgstr ""
 "Připojení bylo úspěšné, ale vaše databáze se zdá být pro Wavelog příliš "
 "stará. Můžete zkusit pokračovat, ale můžete narazit na problémy."
 
-#: install/index.php:1540
+#: install/index.php:1540 install/index.php:1552
 #, php-format
 msgid "The min. version for MySQL is %s, for MariaDB it's %s."
 msgstr "Minimální verze MySQL je%s, u MariaDB je to %s."
 
-#: install/index.php:1660
+#: install/index.php:1660 install/index.php:1672
 msgid "Search"
 msgstr "Hledat"
 
-#: install/index.php:1697
+#: install/index.php:1697 install/index.php:1709
 msgid "At least one field is empty."
 msgstr "Minimálně jedno pole je prázdné."
 
@@ -698,15 +704,15 @@ msgid ""
 msgstr ""
 "E-mailová adresa nevypadá správně. Ujistěte se, že je platná e-mailová adresa"
 
-#: install/index.php:1781
+#: install/index.php:1781 install/index.php:1793
 msgid "Password should be at least 8 characters long"
 msgstr "Heslo musí obsahovat minimálně 8 znaků"
 
-#: install/index.php:1790
+#: install/index.php:1790 install/index.php:1802
 msgid "Passwords do not match"
 msgstr "Hesla se neshodují"
 
-#: install/index.php:1846
+#: install/index.php:1846 install/index.php:1858
 msgid "Install Now"
 msgstr "Instalovat nyní"
 
@@ -714,19 +720,19 @@ msgstr "Instalovat nyní"
 msgid "Install not possible. Checklist incomplete."
 msgstr "Instalace není možná. Kontrolní seznam není kompletní."
 
-#: install/index.php:1962
+#: install/index.php:1962 install/index.php:1974
 msgid "PHP Module missing"
 msgstr "PHP modul chybí"
 
-#: install/index.php:1964
+#: install/index.php:1964 install/index.php:1976
 msgid "The following PHP modules are missing:"
 msgstr "Následující PHP moduly chybí:"
 
-#: install/index.php:1965
+#: install/index.php:1965 install/index.php:1977
 msgid "Without this module the Wavelog Installer does not work!"
 msgstr "Wavelog instalátor bez toho modulu nefunguje!"
 
-#: install/index.php:1966
+#: install/index.php:1966 install/index.php:1978
 msgid "Please install the required modules and restart the webserver."
 msgstr "Prosím doinstalujte požadované moduly a restartujte webový server."
 
