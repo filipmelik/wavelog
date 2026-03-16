@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-15 19:19+0000\n"
-"PO-Revision-Date: 2026-03-15 22:56+0000\n"
+"PO-Revision-Date: 2026-03-16 13:30+0000\n"
 "Last-Translator: Dariusz Koryto <dariusz@koryto.eu>\n"
 "Language-Team: Polish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/pl/>\n"
@@ -20076,17 +20076,17 @@ msgstr "CQz geojson"
 #: application/controllers/Api.php:89 application/controllers/Api.php:124
 #: application/controllers/Qso.php:577
 msgid "Invalid request method"
-msgstr ""
+msgstr "Nieprawidłowa metoda żądania"
 
 #: application/controllers/Api.php:134
 msgid "Invalid API Key"
-msgstr ""
+msgstr "Nieprawidłowy klucz API"
 
 #: application/controllers/Station.php:75
 #: application/controllers/Station.php:100 application/controllers/User.php:257
 #: application/controllers/User.php:950 application/controllers/User.php:1113
 msgid "Invalid security token"
-msgstr ""
+msgstr "Nieprawidłowy token bezpieczeństwa"
 
 #~ msgid ""
 #~ "Cache is currently using the backup adapter because the primary is "
