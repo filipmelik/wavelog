@@ -3,19 +3,22 @@
 # This file is distributed under the MIT licence.
 #
 # Fabian Berg <fabian.berg@hb9hil.org>, 2026.
+# Dariusz Koryto <dariusz@koryto.eu>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-17 19:56+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-03-17 23:37+0000\n"
+"Last-Translator: Dariusz Koryto <dariusz@koryto.eu>\n"
+"Language-Team: Ukrainian <https://translate.wavelog.org/projects/wavelog/"
+"main-translation/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: application/controllers/Accumulated.php:12
 #: application/controllers/Activators.php:13
@@ -380,7 +383,7 @@ msgstr ""
 #: application/views/stationsetup/linkedlocations.php:33
 #: application/views/timeplotter/index.php:24
 msgid "DXCC"
-msgstr ""
+msgstr "DXCC"
 
 #: application/controllers/Awards.php:286
 msgid "Awards - WAPC"
@@ -1962,7 +1965,7 @@ msgstr ""
 #: application/views/view_log/qso.php:353
 #: application/views/view_log/qso.php:706
 msgid "Deleted DXCC"
-msgstr ""
+msgstr "Видалений DXCC"
 
 #: application/controllers/Logbookadvanced.php:34
 msgid "Advanced logbook"
@@ -2636,7 +2639,7 @@ msgstr ""
 #: application/views/visitor/layout/header.php:97
 #: application/views/visitor/layout/header.php:98
 msgid "Search"
-msgstr ""
+msgstr "Пошук"
 
 #: application/controllers/Search.php:24
 msgid "Search & Filter Logbook"
@@ -2861,7 +2864,7 @@ msgstr ""
 #: application/views/stationsetup/stationsetup.php:158
 #: application/views/user/modals/first_login_wizard.php:46
 msgid "Please select one"
-msgstr ""
+msgstr "Будь ласка, виберіть один"
 
 #: application/controllers/Stationsetup.php:505
 msgid "Edit Export Map options"
@@ -4455,7 +4458,7 @@ msgstr ""
 #: application/views/view_log/qso.php:83 application/views/view_log/qso.php:684
 #: application/views/zonechecker/result.php:50
 msgid "Callsign"
-msgstr ""
+msgstr "Позивний"
 
 #: application/views/activators/index.php:99
 msgid "Count"
@@ -5944,7 +5947,7 @@ msgstr ""
 #: application/views/qrbcalc/index.php:19
 #: application/views/search/filter.php:37 application/views/user/edit.php:733
 msgid "Reset"
-msgstr ""
+msgstr "Скинути"
 
 #: application/views/awards/dxcc/index.php:27
 msgid "DXCC Award"
@@ -6431,7 +6434,7 @@ msgstr ""
 #: application/views/search/result.php:21
 #: application/views/view_log/qso.php:698
 msgid "City"
-msgstr ""
+msgstr "Місто"
 
 #: application/views/awards/jcc/index.php:189
 #: application/views/dashboard/index.php:450
@@ -8226,7 +8229,7 @@ msgstr ""
 #: application/views/user/modals/more_actions_modal.php:166
 #: application/views/version_dialog/index.php:79
 msgid "Close"
-msgstr ""
+msgstr "Закрити"
 
 #: application/views/bands/index.php:161
 msgid "Warning! Are you sure you want to delete the following band: "
@@ -8500,7 +8503,7 @@ msgstr ""
 #: application/views/user/edit.php:1068 application/views/user/edit.php:1100
 #: application/views/user/edit.php:1125
 msgid "Yes"
-msgstr ""
+msgstr "Так"
 
 #: application/views/cabrillo/index.php:197
 #: application/views/cabrillo/index.php:203
@@ -8571,7 +8574,7 @@ msgstr ""
 #: application/views/user/edit.php:1038 application/views/user/edit.php:1069
 #: application/views/user/edit.php:1099 application/views/user/edit.php:1124
 msgid "No"
-msgstr ""
+msgstr "Ні"
 
 #: application/views/cabrillo/index.php:201
 msgid "If the gridsquare was part of the exchange, you should select YES."
@@ -8916,7 +8919,7 @@ msgstr ""
 #: application/views/user/login.php:58 application/views/user/login.php:69
 #: application/views/user/login.php:70 application/views/user/profile.php:14
 msgid "Username"
-msgstr ""
+msgstr "Ім'я користувача"
 
 #: application/views/club/permissions.php:248
 msgid "E-Mail"
@@ -10275,7 +10278,7 @@ msgstr ""
 
 #: application/views/debug/index.php:36
 msgid "Version"
-msgstr ""
+msgstr "Версія"
 
 #: application/views/debug/index.php:39
 msgid "Latest Version"
@@ -10287,7 +10290,7 @@ msgstr ""
 
 #: application/views/debug/index.php:50
 msgid "Language"
-msgstr ""
+msgstr "Мова"
 
 #: application/views/debug/index.php:54
 msgid "Base URL"
@@ -10390,14 +10393,14 @@ msgstr ""
 #: application/views/debug/index.php:184
 #: application/views/interface_assets/footer.php:38
 msgid "Success"
-msgstr ""
+msgstr "Успіх"
 
 #: application/views/debug/index.php:141 application/views/debug/index.php:152
 #: application/views/debug/index.php:163 application/views/debug/index.php:174
 #: application/views/debug/index.php:186 application/views/debug/index.php:465
 #: application/views/debug/index.php:476
 msgid "Failed"
-msgstr ""
+msgstr "Помилка"
 
 #: application/views/debug/index.php:196
 msgid "Config Maintenance"
@@ -10470,7 +10473,7 @@ msgstr ""
 #: application/views/debug/index.php:324 application/views/debug/index.php:337
 #: application/views/debug/index.php:350
 msgid "Installed"
-msgstr ""
+msgstr "Встановлено"
 
 #: application/views/debug/index.php:259 application/views/debug/index.php:270
 #: application/views/debug/index.php:281 application/views/debug/index.php:292
@@ -10478,7 +10481,7 @@ msgstr ""
 #: application/views/debug/index.php:326 application/views/debug/index.php:339
 #: application/views/debug/index.php:352
 msgid "Not Installed"
-msgstr ""
+msgstr "Не встановлено"
 
 #: application/views/debug/index.php:452
 msgid "Cache Information"
@@ -10690,123 +10693,123 @@ msgstr ""
 
 #: application/views/debug/index.php:838
 msgid "Albanian"
-msgstr ""
+msgstr "Албанська"
 
 #: application/views/debug/index.php:839
 msgid "Armenian"
-msgstr ""
+msgstr "Вірменська"
 
 #: application/views/debug/index.php:840
 msgid "Bosnian"
-msgstr ""
+msgstr "Боснійська"
 
 #: application/views/debug/index.php:841
 msgid "Bulgarian"
-msgstr ""
+msgstr "Болгарська"
 
 #: application/views/debug/index.php:842
 msgid "Chinese (Simplified)"
-msgstr ""
+msgstr "Китайська (спрощена)"
 
 #: application/views/debug/index.php:843
 msgid "Croatian"
-msgstr ""
+msgstr "Хорватська"
 
 #: application/views/debug/index.php:844
 msgid "Czech"
-msgstr ""
+msgstr "Чеська"
 
 #: application/views/debug/index.php:845
 msgid "Dutch"
-msgstr ""
+msgstr "Нідерландська"
 
 #: application/views/debug/index.php:846
 msgid "English"
-msgstr ""
+msgstr "Англійська"
 
 #: application/views/debug/index.php:847
 msgid "Estonian"
-msgstr ""
+msgstr "Естонська"
 
 #: application/views/debug/index.php:848
 msgid "Finnish"
-msgstr ""
+msgstr "Фінська"
 
 #: application/views/debug/index.php:849
 msgid "French"
-msgstr ""
+msgstr "Французька"
 
 #: application/views/debug/index.php:850
 msgid "German"
-msgstr ""
+msgstr "Німецька"
 
 #: application/views/debug/index.php:851
 msgid "Greek"
-msgstr ""
+msgstr "Грецька"
 
 #: application/views/debug/index.php:852
 msgid "Hungarian"
-msgstr ""
+msgstr "Угорська"
 
 #: application/views/debug/index.php:853
 msgid "Italian"
-msgstr ""
+msgstr "Італійська"
 
 #: application/views/debug/index.php:854
 msgid "Japanese"
-msgstr ""
+msgstr "Японська"
 
 #: application/views/debug/index.php:855
 msgid "Latvian"
-msgstr ""
+msgstr "Латвійська"
 
 #: application/views/debug/index.php:856
 msgid "Lithuanian"
-msgstr ""
+msgstr "Литовська"
 
 #: application/views/debug/index.php:857
 msgid "Montenegrin"
-msgstr ""
+msgstr "Чорногорська"
 
 #: application/views/debug/index.php:858
 msgid "Polish"
-msgstr ""
+msgstr "Польська"
 
 #: application/views/debug/index.php:859
 msgid "Portuguese"
-msgstr ""
+msgstr "Португальська"
 
 #: application/views/debug/index.php:860
 msgid "Russian"
-msgstr ""
+msgstr "Російська"
 
 #: application/views/debug/index.php:861
 msgid "Serbian"
-msgstr ""
+msgstr "Сербська"
 
 #: application/views/debug/index.php:862
 msgid "Slovak"
-msgstr ""
+msgstr "Словацька"
 
 #: application/views/debug/index.php:863
 msgid "Slovenian"
-msgstr ""
+msgstr "Словенська"
 
 #: application/views/debug/index.php:864
 msgid "Spanish"
-msgstr ""
+msgstr "Іспанська"
 
 #: application/views/debug/index.php:865
 msgid "Swedish"
-msgstr ""
+msgstr "Шведська"
 
 #: application/views/debug/index.php:866
 msgid "Turkish"
-msgstr ""
+msgstr "Турецька"
 
 #: application/views/debug/index.php:867
 msgid "Ukrainian"
-msgstr ""
+msgstr "Українська"
 
 #: application/views/distancerecords/index.php:4
 msgid "This page lists distance records per satellite based on gridsquares."
@@ -11736,6 +11739,9 @@ msgid ""
 "Check which DXCC for this particular location is the correct one. If you are "
 "sure, ignore this warning."
 msgstr ""
+"Зупиніться тут на мить. Ваш вибраний DXCC застарів і більше не дійсний. "
+"Перевірте, який DXCC для цього конкретного місця є правильним. Якщо ви "
+"впевнені, ігноруйте це попередження."
 
 #: application/views/interface_assets/footer.php:878
 msgid "Count: "
@@ -14411,7 +14417,7 @@ msgstr ""
 
 #: application/views/options/hon.php:39
 msgid "Wiki"
-msgstr ""
+msgstr "Вікі"
 
 #: application/views/options/hon.php:41
 #, php-format
@@ -15592,7 +15598,7 @@ msgstr ""
 
 #: application/views/radio/index.php:35
 msgid "Please wait..."
-msgstr ""
+msgstr "Будь ласка, зачекайте..."
 
 #: application/views/reg1test/index.php:6
 msgid "Select Band"
@@ -17300,7 +17306,7 @@ msgstr ""
 #: application/views/user/reset_password.php:23
 #: application/views/user/reset_password.php:30
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: application/views/user/edit.php:75
 msgid "Don't share this password with operators!"
@@ -17320,11 +17326,11 @@ msgstr ""
 
 #: application/views/user/edit.php:117
 msgid "First Name"
-msgstr ""
+msgstr "Ім'я"
 
 #: application/views/user/edit.php:124
 msgid "Last Name"
-msgstr ""
+msgstr "Прізвище"
 
 #: application/views/user/edit.php:135
 msgid "Ham Radio"
@@ -17352,7 +17358,7 @@ msgstr ""
 
 #: application/views/user/edit.php:194
 msgid "Timezone"
-msgstr ""
+msgstr "Часовий пояс"
 
 #: application/views/user/edit.php:202
 msgid "Date Format"
@@ -18238,7 +18244,7 @@ msgstr ""
 
 #: application/views/user/reset_password.php:28
 msgid "Confirm Password"
-msgstr ""
+msgstr "Підтвердіть пароль"
 
 #: application/views/version_dialog/index.php:20
 msgid "No Version Dialog text set. Go to the Admin Menu and set one."
