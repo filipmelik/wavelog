@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-03-16 17:08+0000\n"
-"PO-Revision-Date: 2026-03-09 09:12+0000\n"
+"POT-Creation-Date: 2026-03-16 11:35+0000\n"
+"PO-Revision-Date: 2026-03-16 13:30+0000\n"
 "Last-Translator: \"Juuso W.\" <oh1jw@tuta.io>\n"
 "Language-Team: Finnish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/fi/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: application/controllers/Accumulated.php:12
 #: application/controllers/Activators.php:13
@@ -44,6 +44,7 @@ msgstr ""
 #: application/controllers/Contesting.php:14
 #: application/controllers/Cron.php:26 application/controllers/Cron.php:171
 #: application/controllers/Csv.php:8 application/controllers/Csv.php:31
+#: application/controllers/Dashboard.php:10
 #: application/controllers/Dayswithqso.php:11
 #: application/controllers/Dcl.php:10 application/controllers/Dcl.php:19
 #: application/controllers/Dcl.php:24 application/controllers/Dcl.php:50
@@ -284,7 +285,7 @@ msgstr "API-avaimen %s kuvaus on päivitetty."
 #: application/controllers/Api.php:89 application/controllers/Api.php:124
 #: application/controllers/Qso.php:577
 msgid "Invalid request method"
-msgstr ""
+msgstr "Virheellinen pyyntömenetelmä"
 
 #: application/controllers/Api.php:100
 msgid "Invalid API rights"
@@ -300,7 +301,7 @@ msgstr "API-avainta ei voitu luoda"
 
 #: application/controllers/Api.php:134
 msgid "Invalid API Key"
-msgstr ""
+msgstr "Virheellinen API-avain"
 
 #: application/controllers/Api.php:143
 #, php-format
@@ -942,8 +943,9 @@ msgstr "Ei käynnissä"
 msgid "SOTA CSV Export"
 msgstr "SOTA CSV vienti"
 
-#: application/controllers/Dashboard.php:156
+#: application/controllers/Dashboard.php:157
 #: application/controllers/Visitor.php:134
+#: application/controllers/Dashboard.php:156
 msgid "Dashboard"
 msgstr "Hallintapaneeli"
 
@@ -2715,7 +2717,7 @@ msgstr "Luo aseman sijainti"
 #: application/controllers/Station.php:100 application/controllers/User.php:257
 #: application/controllers/User.php:950 application/controllers/User.php:1113
 msgid "Invalid security token"
-msgstr ""
+msgstr "Virheellinen turvatunniste"
 
 #: application/controllers/Station.php:89
 msgid "Edit Station Location: "
@@ -7105,8 +7107,8 @@ msgstr ""
 "on oma yhdistyksensä, joka määrittelee kyseisen yhdistyksen SOTA-huiput. "
 "Jokaisesta huipusta saa aktivaattoreille ja hunttereille pisteitä, jotka "
 "liittyvät huipun korkeuteen. Erilaisista pistemääristä saa todistuksia, "
-"jotka johtavat arvostettuihin 'Mountain Goat' ja 'Shack Sloth' -"
-"palkintoihin. Aktivaattoreiden ja hunttereiden kunniataulukkoa ylläpidetään "
+"jotka johtavat arvostettuihin 'Mountain Goat' ja 'Shack Sloth' "
+"-palkintoihin. Aktivaattoreiden ja hunttereiden kunniataulukkoa ylläpidetään "
 "SOTAn online-tietokannassa."
 
 #: application/views/awards/vucc/index.php:7
@@ -7224,7 +7226,7 @@ msgstr "Manner"
 
 #: application/views/awards/wac/index.php:227
 msgid "No QSOS found matching the criteria for this award!"
-msgstr ""
+msgstr "Tämän awardin kriitereihin sopivia QSOja ei löytynyt!"
 
 #: application/views/awards/wae/index.php:18
 msgid "WAE Award"
@@ -12143,8 +12145,8 @@ msgstr "Lokaattorin muotoilu"
 msgid ""
 "Enter multiple (4-digit) grids separated with commas. For example: IO77,IO78"
 msgstr ""
-"Syötä useita (4-numeroisia) ruutuja pilkulla erotettuna. Esimerkiksi: IO77,"
-"IO78"
+"Syötä useita (4-numeroisia) ruutuja pilkulla erotettuna. Esimerkiksi: "
+"IO77,IO78"
 
 #: application/views/interface_assets/footer.php:115
 msgid "live"
@@ -13239,8 +13241,8 @@ msgid ""
 "Results depends on the correct DXCC, and it will only be checked against "
 "current DXCC. False positive results may occur."
 msgstr ""
-"Tulokset riippuvat oikeasta DXCC:stä, ja ne tarkistetaan vain nykyistä DXCC:"
-"tä vastaan. Virheellisiä positiivisia tuloksia voi esiintyä."
+"Tulokset riippuvat oikeasta DXCC:stä, ja ne tarkistetaan vain nykyistä "
+"DXCC:tä vastaan. Virheellisiä positiivisia tuloksia voi esiintyä."
 
 #: application/views/logbookadvanced/checkresult.php:393
 msgid "QSO DXCC"
@@ -17899,15 +17901,15 @@ msgstr "Yhtäjään EME-qsoa ei löytynyt."
 
 #: application/views/statistics/qsltable.php:7
 msgid "Absolute"
-msgstr ""
+msgstr "Absoluuttinen"
 
 #: application/views/statistics/qsltable.php:8
 msgid "Percent"
-msgstr ""
+msgstr "Prosenttia"
 
 #: application/views/statistics/qsltable.php:49
 msgid "Overall Stats by Mode"
-msgstr ""
+msgstr "Kokonaisstatistiikka moden mukaan"
 
 #: application/views/themes/add.php:4 application/views/themes/edit.php:4
 msgid "Theme Name"
@@ -18924,8 +18926,8 @@ msgid ""
 "events to handle multiple operators. A clubstation is basically a normal "
 "user account with some special features and some restrictions."
 msgstr ""
-"Kerhoasemat Wavelogissa ovat ainutlaatuinen tapa kerhoille ja erikoiskutsu -"
-"tapahtumille hallita useita operaattoreita. Kerhoasema on periaatteessa "
+"Kerhoasemat Wavelogissa ovat ainutlaatuinen tapa kerhoille ja erikoiskutsu "
+"-tapahtumille hallita useita operaattoreita. Kerhoasema on periaatteessa "
 "tavallinen käyttäjätili, jossa on joitakin erityistoimintoja ja rajoituksia."
 
 #: application/views/user/index.php:143
