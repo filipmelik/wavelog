@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-03-16 17:08+0000\n"
+"POT-Creation-Date: 2026-03-17 19:56+0000\n"
 "PO-Revision-Date: 2026-03-15 21:47+0000\n"
 "Last-Translator: Alexander <alexander@pa8s.nl>\n"
 "Language-Team: Dutch <https://translate.wavelog.org/projects/wavelog/main-"
@@ -11332,6 +11332,10 @@ msgstr "Zweeds"
 #: application/views/debug/index.php:866
 msgid "Turkish"
 msgstr "Turks"
+
+#: application/views/debug/index.php:867
+msgid "Ukrainian"
+msgstr ""
 
 #: application/views/distancerecords/index.php:4
 msgid "This page lists distance records per satellite based on gridsquares."
