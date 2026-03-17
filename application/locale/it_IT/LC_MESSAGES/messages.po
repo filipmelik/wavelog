@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-03-16 11:35+0000\n"
+"POT-Creation-Date: 2026-03-16 17:08+0000\n"
 "PO-Revision-Date: 2026-03-16 17:08+0000\n"
 "Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -46,7 +46,6 @@ msgstr ""
 #: application/controllers/Contesting.php:14
 #: application/controllers/Cron.php:26 application/controllers/Cron.php:171
 #: application/controllers/Csv.php:8 application/controllers/Csv.php:31
-#: application/controllers/Dashboard.php:10
 #: application/controllers/Dayswithqso.php:11
 #: application/controllers/Dcl.php:10 application/controllers/Dcl.php:19
 #: application/controllers/Dcl.php:24 application/controllers/Dcl.php:50
@@ -946,9 +945,8 @@ msgstr "Non attivo"
 msgid "SOTA CSV Export"
 msgstr "Esporta CSV SOTA"
 
-#: application/controllers/Dashboard.php:157
-#: application/controllers/Visitor.php:134
 #: application/controllers/Dashboard.php:156
+#: application/controllers/Visitor.php:134
 msgid "Dashboard"
 msgstr "Bacheca"
 
@@ -7511,8 +7509,8 @@ msgid ""
 "Fields taken for this Award: DXCC (Must be one of U.S.A., Alaska or Hawaii) "
 "and STATE (Must contain a valid U.S. state abbreviation!)"
 msgstr ""
-"Campi presi in considerazione per questo premio: DXCC (Deve essere uno tra "
-"U.S.A., Alaska o Hawaii) e STATE (Deve contenere una valida abbreviazione di "
+"Campi presi in considerazione per questo premio: DXCC (Deve essere uno tra U."
+"S.A., Alaska o Hawaii) e STATE (Deve contenere una valida abbreviazione di "
 "uno stato U.S.A.!)"
 
 #: application/views/awards/was/index.php:120
@@ -18161,9 +18159,8 @@ msgid ""
 "Create a new folder in 'assets/css/' and upload a 'bootstrap.min.css' file "
 "which contains basic styling rules. We use the themes from %s"
 msgstr ""
-"Crea una nuova cartella in 'assets/css/' e carica un file "
-"'bootstrap.min.css' che contiene regole di stile di base. Utilizziamo i temi "
-"di %s"
+"Crea una nuova cartella in 'assets/css/' e carica un file 'bootstrap.min."
+"css' che contiene regole di stile di base. Utilizziamo i temi di %s"
 
 #: application/views/themes/index.php:50
 msgid "2. Step"
