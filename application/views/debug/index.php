@@ -122,7 +122,7 @@
 
                         <tr>
                             <td><?= __("OpenSSL Version"); ?></td>
-                            <td><?php echo OPENSSL_VERSION_TEXT; ?></td>
+                            <td><?php echo OPENSSL_VERSION_TEXT ?? __("not found"); ?></td>
                         </tr>
                         <tr>
                             <td><?= __("Codeigniter Version"); ?></td>
