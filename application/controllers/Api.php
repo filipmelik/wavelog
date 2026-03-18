@@ -728,7 +728,7 @@ class API extends CI_Controller {
 
 	}
 
-	// API function to check if a grid is in the logbook already
+	// API function to get all worked grids for a band and confirmation method
 	function logbook_get_worked_grids() {
 		$arr = array();
 		header('Content-type: application/json');
