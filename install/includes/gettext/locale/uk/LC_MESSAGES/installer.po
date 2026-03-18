@@ -2,142 +2,140 @@
 # Copyright (c) 2026 Wavelog by DF2ET, DJ7NT, HB9HIL and LA8AJA.
 # This file is distributed under the MIT licence.
 #
-# Fabian Berg <fabian.berg@hb9hil.org>, 2024.
-# Juuso_W <oh1jw@tuta.io>, 2026.
+# Fabian Berg <fabian.berg@hb9hil.org>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-17 19:56+0000\n"
-"PO-Revision-Date: 2026-01-09 05:49+0000\n"
-"Last-Translator: Juuso_W <oh1jw@tuta.io>\n"
-"Language-Team: Finnish <https://translate.wavelog.org/projects/wavelog/"
-"installer/fi/>\n"
-"Language: fi_FI\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: install/includes/install_config/install_lib.php:123
 msgid "not detected"
-msgstr "ei tunnistettu"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:56
 msgid "Albanian"
-msgstr "albanialainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:57
 msgid "Armenian"
-msgstr "armenialainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:58
 msgid "Bosnian"
-msgstr "bosnialainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:59
 msgid "Bulgarian"
-msgstr "bulgarialainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:60
 msgid "Chinese (Simplified)"
-msgstr "Kiina (yksinkertaistettu)"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:61
 msgid "Croatian"
-msgstr "kroatialainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:62
 msgid "Czech"
-msgstr "tšekkiläinen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:63
 msgid "Dutch"
-msgstr "hollantilainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:64
 msgid "English"
-msgstr "englanti"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:65
 msgid "Estonian"
-msgstr "virolainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:66
 msgid "Finnish"
-msgstr "suomi"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:67
 msgid "French"
-msgstr "ranskalainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:68
 msgid "German"
-msgstr "saksalainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:69
 msgid "Greek"
-msgstr "kreikka"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:70
 msgid "Hungarian"
-msgstr "unkarilainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:71
 msgid "Italian"
-msgstr "italialainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:72
 msgid "Japanese"
-msgstr "japanilainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:73
 msgid "Latvian"
-msgstr "latvialainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:74
 msgid "Lithuanian"
-msgstr "liettualainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:75
 msgid "Montenegrin"
-msgstr "montenegrolainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:76
 msgid "Polish"
-msgstr "puolalainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:77
 msgid "Portuguese"
-msgstr "portugalilainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:78
 msgid "Russian"
-msgstr "venäläinen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:79
 msgid "Serbian"
-msgstr "serbialainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:80
 msgid "Slovak"
-msgstr "slovakialainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:81
 msgid "Slovenian"
-msgstr "slovenialainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:82
 msgid "Spanish"
-msgstr "espanjalainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:83
 msgid "Swedish"
-msgstr "ruotsalainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:84
 msgid "Turkish"
-msgstr "turkkilainen"
+msgstr ""
 
 #: install/includes/interface_assets/footer.php:85
 msgid "Ukrainian"
@@ -145,35 +143,35 @@ msgstr ""
 
 #: install/includes/interface_assets/header.php:94
 msgid "Install | Wavelog"
-msgstr "Asenna | Wavelog"
+msgstr ""
 
 #: install/index.php:47
 msgid "1. Welcome"
-msgstr "1. Tervetuloa"
+msgstr ""
 
 #: install/index.php:50
 msgid "2. Pre Checks"
-msgstr "2. Esitarkitukset"
+msgstr ""
 
 #: install/index.php:53
 msgid "3. Configuration"
-msgstr "3. Konfiguraatio"
+msgstr ""
 
 #: install/index.php:56
 msgid "4. Database"
-msgstr "4. Tietokanta"
+msgstr ""
 
 #: install/index.php:59
 msgid "5. First User"
-msgstr "5. Ensimmäinen käyttäjä"
+msgstr ""
 
 #: install/index.php:62
 msgid "6. Finish"
-msgstr "6. Loppu"
+msgstr ""
 
 #: install/index.php:79
 msgid "Welcome to the Wavelog Installer"
-msgstr "Tervetuloa Wavelogin asennukseen"
+msgstr ""
 
 #: install/index.php:80
 msgid ""
@@ -182,14 +180,10 @@ msgid ""
 "logging software. Follow the steps in each tab to configure and install "
 "Wavelog on your server."
 msgstr ""
-"Tämä asennusohjelma opastaa sinut Wavelogin asentamiseen tarvittavien "
-"vaiheiden läpi.<br>Wavelog on tehokas selainpohjainen radioamatöörien "
-"lokiohjelmisto. Seuraa kunkin välilehden ohjeita määrittääksesi ja "
-"asentaaksesi Wavelogin palvelimellesi."
 
 #: install/index.php:81
 msgid "Discussions"
-msgstr "Keskustelut"
+msgstr ""
 
 #: install/index.php:81
 #, php-format
@@ -197,105 +191,99 @@ msgid ""
 "If you encounter any issues or have questions, refer to the documentation "
 "(%s) or community forum (%s) on Github for assistance."
 msgstr ""
-"Jos kohtaat ongelmia tai sinulla on kysyttävää, katso ohjeista (%s) tai "
-"GitHubin foorumilta (%s) apua."
 
 #: install/index.php:81
 msgid "Wiki"
-msgstr "Wiki"
+msgstr ""
 
 #: install/index.php:82
 msgid "Thank you for installing Wavelog!"
-msgstr "Kiitos Wavelogin asentamisesta!"
+msgstr ""
 
 #: install/index.php:83 install/index.php:86 install/index.php:1068
 msgid "Language"
-msgstr "Kieli"
+msgstr ""
 
 #: install/index.php:96
 msgid "Select a language"
-msgstr "Valitse kieli"
+msgstr ""
 
 #: install/index.php:108 install/index.php:453
 msgid "Close"
-msgstr "Sulje"
+msgstr ""
 
 #: install/index.php:118
 msgid "PHP Modules"
-msgstr "PHP moduulit"
+msgstr ""
 
 #: install/index.php:125
 msgid "Version"
-msgstr "Versio"
+msgstr ""
 
 #: install/index.php:126
 #, php-format
 msgctxt "PHP Version"
 msgid "min. %s (recommended %s+)"
-msgstr "min. %s (suositeltu %s+)"
+msgstr ""
 
 #: install/index.php:153
 msgid "Installed"
-msgstr "Asennettu"
+msgstr ""
 
 #: install/index.php:153
 msgid "Not Installed"
-msgstr "Ei asennettu"
+msgstr ""
 
 #: install/index.php:161
 msgid "PHP Settings"
-msgstr "PHP asetukset"
+msgstr ""
 
 #: install/index.php:253
 msgid "Web Server"
-msgstr "Web palvelin"
+msgstr ""
 
 #: install/index.php:256
 msgid "Version:"
-msgstr "Versio:"
+msgstr ""
 
 #: install/index.php:263
 msgid "Important note for nginx users!"
-msgstr "Tärketä tiedote nginx-käyttäjille!"
+msgstr ""
 
 #: install/index.php:264
 msgid ""
 "Since you are using nginx as web server please make sure that you have made "
 "the changes described in the Wiki before continuing."
 msgstr ""
-"Koska käytät nginxiä verkkopalvelimena, varmista ennen jatkamista, että olet "
-"tehnyt Wikissä kuvatut muutokset."
 
 #: install/index.php:269
 msgid "Folder Write Permissions"
-msgstr "Kansion kirjoitusoikeudet"
+msgstr ""
 
 #: install/index.php:275 install/index.php:286 install/index.php:297
 #: install/index.php:308 install/index.php:319 install/index.php:330
 #: install/index.php:341
 msgid "Success"
-msgstr "Onnistui"
+msgstr ""
 
 #: install/index.php:278 install/index.php:289 install/index.php:300
 #: install/index.php:311 install/index.php:322 install/index.php:333
 #: install/index.php:344
 msgid "Failed"
-msgstr "Epäonnistui"
+msgstr ""
 
 #: install/index.php:354
 msgid "Some Checks have failed!"
-msgstr "Osa tarkistuksista epäonnistui!"
+msgstr ""
 
 #: install/index.php:355
 msgid "Check your PHP settings and install missing modules if necessary."
-msgstr "Tarkista PHP-asetuksesi ja asenna tarvittaessa puuttuvat moduulit."
+msgstr ""
 
 #: install/index.php:356
 msgid ""
 "After that, you have to restart your webserver and start the installer again."
 msgstr ""
-"Tämän jälkeen sinun täytyy käynnistää verkkopalvelimesi uudelleen ja "
-"käynnistää asennusohjelma uudestaan."
 
 #: install/index.php:357
 #, php-format
@@ -303,32 +291,26 @@ msgid ""
 "In case of failed 'Folder Write Permissions' check out our Wiki <a href='%s' "
 "target='_blank'>here</a>."
 msgstr ""
-"Jos 'Kansion kirjoitusoikeudet' -tarkistus epäonnistuu, katso ohjeet "
-"Wikistämme <a href='%s' target='_blank'>täältä</a>."
 
 #: install/index.php:363
 msgid "You have some warnings!"
-msgstr "Sinulle on varoituksia!"
+msgstr ""
 
 #: install/index.php:364
 msgid ""
 "Some of the settings are not optimal. You can proceed with the installer but "
 "be aware that you could run into problems while using Wavelog."
 msgstr ""
-"Jotkin asetuksista eivät ole optimaalisia. Voit jatkaa asennusohjelmaa, "
-"mutta huomioi, että Wavelogin käytön aikana voi ilmetä ongelmia."
 
 #: install/index.php:371
 msgid "All Checks are OK. You can continue."
-msgstr "Kaikki tarkistukset ovat kunnossa. Voit jatkaa."
+msgstr ""
 
 #: install/index.php:385
 msgid ""
 "Configure some basic parameters for your wavelog instance. You can change "
 "them later in 'application/config/config.php'"
 msgstr ""
-"Määritä Wavelog-instanssisi perusasetukset. Voit muuttaa niitä myöhemmin "
-"tiedostossa 'application/config/config.php'"
 
 #: install/index.php:387
 msgid ""
@@ -337,18 +319,14 @@ msgid ""
 "check your web server configuration. This is the base_url in your config."
 "php, which can be edited after the installation."
 msgstr ""
-"Tämä on URL-osoite, josta pääset tähän Wavelog-instanssiin asennusohjelman "
-"suorituksen jälkeen. Jos näkymä ei ole odotettu, sinun kannattaa tarkistaa "
-"verkkopalvelimesi asetukset. Tämä osoite vastaa config.php-tiedoston "
-"base_url-asetusta, jota voi muokata asennuksen jälkeen."
 
 #: install/index.php:387
 msgid "Your final Wavelog URL"
-msgstr "Wavelogin lopullinen URL-osoite"
+msgstr ""
 
 #: install/index.php:393
 msgid "Optional: Global Callbook Lookup"
-msgstr "Valinnainen: globaali Callbook-haku"
+msgstr ""
 
 #: install/index.php:393
 msgid ""
@@ -358,150 +336,133 @@ msgid ""
 "credentials for QRZ.com. To also get the Call Locator in QRZ.com you'll need "
 "an XML subscription. HamQTH does not always provide the locator information."
 msgstr ""
-"Tämä määritys on valinnainen. Kutsumerkkihaku on käytettävissä kaikille "
-"tämän asennuksen käyttäjille. Voit valita palveluksi QRZ.com tai HamQTH. "
-"HamQTH toimii myös ilman käyttäjätunnusta ja salasanaa, mutta QRZ.comin "
-"käyttö edellyttää kirjautumistietoja. Jotta saat QRZ.comista myös "
-"kutsumerkin lokaattoritiedon, tarvitset XML-tilauksen. HamQTH ei aina tarjoa "
-"lokaattoritietoa."
 
 #: install/index.php:404 install/index.php:485 install/index.php:937
 msgid "Username"
-msgstr "Käyttäjänimi"
+msgstr ""
 
 #: install/index.php:407 install/index.php:489 install/index.php:947
 msgid "Password"
-msgstr "Salasana"
+msgstr ""
 
 #: install/index.php:412
 msgid "Callbook Username"
-msgstr "Callbook:n käyttäjänimi"
+msgstr ""
 
 #: install/index.php:415
 msgid "Callbook Password"
-msgstr "Callbook:n salasana"
+msgstr ""
 
 #: install/index.php:417
 #, php-format
 msgid "Password can't contain %s or be empty"
-msgstr "Salasana ei saa sisältää merkkiä %s eikä se saa olla tyhjä"
+msgstr ""
 
 #: install/index.php:422
 msgid "Good to know:"
-msgstr "Hyvä tietää:"
+msgstr ""
 
 #: install/index.php:423
 msgid ""
 "Use your callsign as your username for QRZ.com. The XML API does not support "
 "email addresses."
 msgstr ""
-"Käytä kutsumerkkiasi käyttäjätunnuksena QRZ.comissa. XML-rajapinta ei tue "
-"sähköpostiosoitteita."
 
 #: install/index.php:426 install/index.php:431
 msgid "Advanced Settings"
-msgstr "Lisäasetukset"
+msgstr ""
 
 #: install/index.php:434
 msgid "These settings should only be set if you know what you're doing."
-msgstr "Näitä asetuksia tulisi muuttaa vain, jos tiedät mitä olet tekemässä."
+msgstr ""
 
 #: install/index.php:437
 msgid "Error Logs"
-msgstr "Virhelogit"
+msgstr ""
 
 #: install/index.php:438
 msgid ""
 "Optional: Enable Error Logging by setting the log threshold bigger then 0. "
 "Only enable this if you really need it."
 msgstr ""
-"Valinnainen: ota virhelokin kirjaus käyttöön asettamalla lokikynnysarvo "
-"suuremmaksi kuin 0. Ota tämä käyttöön vain, jos todella tarvitset sitä."
 
 #: install/index.php:443
 msgid "0 - No logs"
-msgstr "0 - ei lokia"
+msgstr ""
 
 #: install/index.php:444
 msgid "1 - Error messages"
-msgstr "1 – Virheilmoitukset"
+msgstr ""
 
 #: install/index.php:445
 msgid "2 - Debug messages"
-msgstr "2 – Virheenkorjausviestit"
+msgstr ""
 
 #: install/index.php:446
 msgid "3 - Info messages"
-msgstr "3 – Infoviestit"
+msgstr ""
 
 #: install/index.php:447
 msgid "4 - All messages"
-msgstr "4 – Kaikki viestit"
+msgstr ""
 
 #: install/index.php:469
 msgid ""
 "To properly install Wavelog you already should have setup a mariadb/mysql "
 "database. Provide the parameters here."
 msgstr ""
-"Jotta Wavelog voidaan asentaa oikein, sinun tulee olla jo luonut MariaDB- "
-"tai MySQL-tietokanta. Anna sen tiedot tähän."
 
 #: install/index.php:473
 msgid "Hostname or IP"
-msgstr "Palvelimen nimi tai IP-osoite"
+msgstr ""
 
 #: install/index.php:473
 msgid ""
 "Usually 'localhost'.<br>Optional with '[host]:[port]'. Default port: 3306."
 "<br>In a docker compose install type 'wavelog-db'."
 msgstr ""
-"Yleensä ”localhost”.<br>Valinnaisesti muodossa [isäntä]:[portti]. "
-"Oletusportti: 3306.<br>Docker Compose -asennuksessa kirjoita ”wavelog-db”."
 
 #: install/index.php:479
 msgid "Database Name"
-msgstr "Tietokannan nimi"
+msgstr ""
 
 #: install/index.php:479
 msgid "Name of the Database"
-msgstr "Tietokannan nimi"
+msgstr ""
 
 #: install/index.php:485
 msgid "Username of the Database User which has full access to the database."
 msgstr ""
-"Tietokantakäyttäjän käyttäjätunnus, jolla on täydet oikeudet tietokantaan."
 
 #: install/index.php:489
 msgid "Password of the Database User"
-msgstr "Tietokantakäyttäjän salasana"
+msgstr ""
 
 #: install/index.php:493
 msgid "Connection Test"
-msgstr "Yhteystesti"
+msgstr ""
 
 #: install/index.php:504
 msgid ""
 "Now you can create your first user in Wavelog. Fill out all fields and click "
 "continue. Make sure you use a safe password."
 msgstr ""
-"Nyt voit luoda ensimmäisen käyttäjän Wavelogiin. Täytä kaikki kentät ja "
-"napsauta Jatka. Varmista, että käytät turvallista salasanaa."
 
 #: install/index.php:505
 msgid "All fields are required!"
-msgstr "Kaikki kentät ovat pakollisia!"
+msgstr ""
 
 #: install/index.php:513
 msgid "First Name"
-msgstr "Etunimi"
+msgstr ""
 
 #: install/index.php:517
 msgid "DXCC"
-msgstr "DXCC"
+msgstr ""
 
 #: install/index.php:519
 msgid "Please select one"
-msgstr "Valitse yksi"
+msgstr ""
 
 #: install/index.php:520 install/index.php:526 install/index.php:550
 #: install/index.php:562 install/index.php:565 install/index.php:570
@@ -525,159 +486,148 @@ msgstr "Valitse yksi"
 #: install/index.php:881 install/index.php:886 install/index.php:912
 #: install/index.php:918 install/index.php:920 install/index.php:1726
 msgid "Deleted DXCC"
-msgstr "Poistettu DXCC"
+msgstr ""
 
 #: install/index.php:927
 msgid "Last Name"
-msgstr "Sukunimi"
+msgstr ""
 
 #: install/index.php:931
 msgid "Callsign"
-msgstr "Radioamatöörikutsu"
+msgstr ""
 
 #: install/index.php:941
 msgid "Gridsquare/Locator"
-msgstr "Ruutu/lokaattori"
+msgstr ""
 
 #: install/index.php:951
 msgid "City"
-msgstr "Kaupunki"
+msgstr ""
 
 #: install/index.php:957
 msgid "Confirm Password"
-msgstr "Vahvista salasana"
+msgstr ""
 
 #: install/index.php:961
 msgid "Timezone"
-msgstr "Aikavyöhyke"
+msgstr ""
 
 #: install/index.php:1064
 msgid "E-Mail Address"
-msgstr "Sähköpostiosoite"
+msgstr ""
 
 #: install/index.php:1086
 msgid "Checklist"
-msgstr "Tarkistuslista"
+msgstr ""
 
 #: install/index.php:1091
 msgid "Pre-Checks"
-msgstr "Esitarkistukset"
+msgstr ""
 
 #: install/index.php:1100
 msgid "Configuration"
-msgstr "Konfiguraatio"
+msgstr ""
 
 #: install/index.php:1109
 msgid "Database"
-msgstr "Tietokanta"
+msgstr ""
 
 #: install/index.php:1118
 msgid "First User"
-msgstr "Ensimmäinen käyttäjä"
+msgstr ""
 
 #: install/index.php:1128
 msgid "Nearly done!"
-msgstr "Melkein valmista!"
+msgstr ""
 
 #: install/index.php:1130
 msgid "You prepared all neccessary steps."
-msgstr "Olet suorittanut kaikki tarvittavat vaiheet."
+msgstr ""
 
 #: install/index.php:1131
 msgid "We now can install Wavelog. This process can take a few minutes."
 msgstr ""
-"Wavelog voidaan nyt asentaa. Tämä prosessi voi kestää muutaman minuutin."
 
 #: install/index.php:1137
 msgid "Reset"
-msgstr "Palauta"
+msgstr ""
 
 #: install/index.php:1142
 msgid "Installer Reset"
-msgstr "Asennusohjelman palautus"
+msgstr ""
 
 #: install/index.php:1145
 msgid "Do you really want to reset all data and start from scratch?"
-msgstr "Haluatko varmasti nollata kaikki tiedot ja aloittaa alusta?"
+msgstr ""
 
 #: install/index.php:1148
 msgid "Yes"
-msgstr "Kyllä"
+msgstr ""
 
 #: install/index.php:1149
 msgid "No"
-msgstr "Ei"
+msgstr ""
 
 #: install/index.php:1159
 msgid "Back"
-msgstr "Takaisin"
+msgstr ""
 
 #: install/index.php:1160
 msgid "Continue"
-msgstr "Jatka"
+msgstr ""
 
 #: install/index.php:1238
 msgid ""
 "You can't continue. Solve the red marked issues, restart the webserver and "
 "reload this page."
 msgstr ""
-"Et voi jatkaa. Korjaa punaisella merkityt ongelmat, käynnistä verkkopalvelin "
-"uudelleen ja lataa tämä sivu uudelleen."
 
 #: install/index.php:1365
 msgid "Password can't contain ' / \\ < >"
-msgstr "Salasana ei saa sisältää merkkejä ' / \\ < >"
+msgstr ""
 
 #: install/index.php:1369
 msgid ""
 "The callsign should not contain any pre- or suffixes as it is used as "
 "personal operator callsign."
 msgstr ""
-"Kutsumerkki ei saa sisältää etu- eikä jälkiliitteitä, koska sitä käytetään "
-"henkilökohtaisena operaattorin kutsumerkkinä."
 
 #: install/index.php:1381
 msgid ""
 "The callsign can not contain any special characters. It's your personal "
 "callsign without any pre- or suffixes."
 msgstr ""
-"Kutsumerkki ei saa sisältää erikoismerkkejä. Sen tulee olla henkilökohtainen "
-"kutsumerkkisi ilman etu- tai jälkiliitteitä."
 
 #: install/index.php:1514
 msgid "Error: At least Hostname/IP, Database Name and Username are required."
 msgstr ""
-"Virhe: Vähintään palvelimen nimi/IP-osoite, tietokannan nimi ja "
-"käyttäjätunnus ovat pakollisia."
 
 #: install/index.php:1524
 msgid "Connecting..."
-msgstr "Yhdistää..."
+msgstr ""
 
 #: install/index.php:1548
 msgid "Connection was successful and your database should be compatible."
-msgstr "Yhteys onnistui ja tietokantasi vaikuttaa olevan yhteensopiva."
+msgstr ""
 
 #: install/index.php:1552
 msgid ""
 "Connection was successful but your database seems too old for Wavelog. You "
 "can try to continue but you could run into issues."
 msgstr ""
-"Yhteys onnistui, mutta tietokantasi vaikuttaa olevan liian vanha Wavelogia "
-"varten. Voit yrittää jatkaa, mutta saatat kohdata ongelmia."
 
 #: install/index.php:1552
 #, php-format
 msgid "The min. version for MySQL is %s, for MariaDB it's %s."
-msgstr "MySQL:n vähimmäisversio on %s ja MariaDB:n %s."
+msgstr ""
 
 #: install/index.php:1672
 msgid "Search"
-msgstr "Etsi"
+msgstr ""
 
 #: install/index.php:1709
 msgid "At least one field is empty."
-msgstr "Ainakin yksi kenttä on tyhjä."
+msgstr ""
 
 #: install/index.php:1728
 msgid ""
@@ -685,129 +635,120 @@ msgid ""
 "Check which DXCC for this particular location is the correct one. If you are "
 "sure, ignore this warning."
 msgstr ""
-"Pysähdy tähän hetkeksi. Valitsemasi DXCC on vanhentunut eikä ole enää "
-"voimassa. Tarkista, mikä DXCC on oikea tälle sijainnille. Jos olet varma "
-"valinnastasi, voit sivuuttaa tämän varoituksen."
 
 #: install/index.php:1752
 msgid ""
 "The locator seems to be not in the correct format. Should look like AA11AA "
 "(6-char grid locator)."
 msgstr ""
-"Lokaattori ei näytä olevan oikeassa muodossa. Sen pitäisi olla muotoa AA11AA "
-"(6-merkkinen grid-lokaattori)."
 
 #: install/index.php:1766
 msgid ""
 "The e-mail adress does not look correct. Make sure it's a valid e-mail "
 "address"
 msgstr ""
-"Sähköpostiosoite ei näytä oikealta. Varmista, että se on kelvollinen "
-"sähköpostiosoite"
 
 #: install/index.php:1793
 msgid "Password should be at least 8 characters long"
-msgstr "Salasanan tulee olla vähintään 8 merkkiä pitkä"
+msgstr ""
 
 #: install/index.php:1802
 msgid "Passwords do not match"
-msgstr "Salasanat eivät täsmää"
+msgstr ""
 
 #: install/index.php:1858
 msgid "Install Now"
-msgstr "Asenna nyt"
+msgstr ""
 
 #: install/index.php:1862
 msgid "Install not possible. Checklist incomplete."
-msgstr "Asennus ei ole mahdollinen. Tarkistuslista on keskeneräinen."
+msgstr ""
 
 #: install/index.php:1974
 msgid "PHP Module missing"
-msgstr "PHP-moduuli puuttuu"
+msgstr ""
 
 #: install/index.php:1976
 msgid "The following PHP modules are missing:"
-msgstr "Seuraavat PHP-moduulit puuttuvat:"
+msgstr ""
 
 #: install/index.php:1977
 msgid "Without this module the Wavelog Installer does not work!"
-msgstr "Ilman tätä moduulia Wavelogin asennusohjelma ei toimi!"
+msgstr ""
 
 #: install/index.php:1978
 msgid "Please install the required modules and restart the webserver."
-msgstr "Asenna vaaditut moduulit ja käynnistä verkkopalvelin uudelleen."
+msgstr ""
 
 #: install/run.php:10
 msgid "Installation"
-msgstr "Asennus"
+msgstr ""
 
 #: install/run.php:12
 msgid "Please wait..."
-msgstr "Ole hyvä ja odota..."
+msgstr ""
 
 #: install/run.php:15
 msgid "Copy config.php to application/config/"
-msgstr "Kopioi config.php hakemistoon application/config/"
+msgstr ""
 
 #: install/run.php:18
 msgid "Copy database.php to application/config/"
-msgstr "Kopioi database.php hakemistoon application/config/"
+msgstr ""
 
 #: install/run.php:21
 msgid "Creating database tables"
-msgstr "Tietokantataulujen luominen"
+msgstr ""
 
 #: install/run.php:24
 msgid "Running database migrations"
-msgstr "Tietokantamigraatioiden suorittaminen"
+msgstr ""
 
 #: install/run.php:27
 msgid "Updating DXCC data"
-msgstr "DXCC-tietojen päivittäminen"
+msgstr ""
 
 #: install/run.php:35
 msgid "Lock the installer"
-msgstr "Lukitse asennusohjelma"
+msgstr ""
 
 #: install/run.php:39
 #, php-format
 msgid "All install steps went through. Redirect to user login in %s seconds..."
 msgstr ""
-"Kaikki asennusvaiheet suoritettiin onnistuneesti. Uudelleenohjataan "
-"käyttäjien kirjautumissivulle %s sekunnin kuluttua…"
 
 #: install/run.php:42
 msgid "Done. Go to the user login ->"
-msgstr "Valmis. Siirry käyttäjien kirjautumissivulle →"
+msgstr ""
 
 #: install/run.php:46 install/run.php:125
 msgid "Show detailled debug log"
-msgstr "Näytä yksityiskohtainen virheenkorjausloki"
+msgstr ""
 
 #: install/run.php:127
 msgid "Hide detailled debug log"
-msgstr "Piilota yksityiskohtainen virheenkorjausloki"
+msgstr ""
 
 #: install/run.php:182
 msgid "Could not create application/config/config.php"
-msgstr "Tiedostoa application/config/config.php ei voitu luoda"
+msgstr ""
 
 #: install/run.php:217
 msgid "Could not create application/config/database.php"
-msgstr "Tiedostoa application/config/database.php ei voitu luoda"
+msgstr ""
 
 #: install/run.php:251
 msgid "Could not create database tables"
-msgstr "Tietokantatauluja ei voitu luoda"
+msgstr ""
 
 #: install/run.php:281
 msgid "Could not run database migrations"
-msgstr "Tietokantamigraatioita ei voitu suorittaa"
+msgstr ""
 
 #: install/run.php:309
 msgid "Could not update DXCC data"
-msgstr "DXCC-tietoja ei voitu päivittää"
+msgstr ""
 
 #: install/run.php:342
 msgid "Could not create install/.lock file"
-msgstr "Tiedostoa install/.lock ei voitu luoda"
+msgstr ""
