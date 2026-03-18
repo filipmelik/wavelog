@@ -44,7 +44,7 @@ class Eqsl_images extends CI_Model {
 	function count_eqsl_qso_list() {
 		$this->load->model('logbooks_model');
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
-		if ($logbooks_locations_array[0] == -1) {
+		if ($logbooks_locations_array[0] === -1) {
 			return;
 		}
 		$this->db->join($this->config->item('table_name'), 'qso_id = COL_PRIMARY_KEY', 'left outer');
@@ -56,7 +56,7 @@ class Eqsl_images extends CI_Model {
 	function eqsl_qso_list($limit = null, $offset = null) {
 		$this->load->model('logbooks_model');
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
-		if ($logbooks_locations_array[0] == -1) {
+		if ($logbooks_locations_array[0] === -1) {
 			return;
 		}
 		$this->db->select('COL_PRIMARY_KEY, qso_id, COL_CALL, COL_MODE, COL_SUBMODE, COL_TIME_ON, COL_BAND, COL_PROP_MODE, COL_SAT_NAME, COL_QSLMSG_RCVD, COL_EQSL_QSLRDATE, image_file');
